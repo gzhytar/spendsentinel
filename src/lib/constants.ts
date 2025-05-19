@@ -1,27 +1,13 @@
 import type { LucideIcon } from 'lucide-react';
 import { LayoutDashboard, BrainCircuit, MapPinned, PenLine, Sparkles } from 'lucide-react';
-
-export interface NavItem {
-  href: string;
-  label: string;
-  icon: LucideIcon;
-  tooltip?: string;
-}
+import { NavItem } from '../types/nav';
 
 export const NAV_ITEMS: NavItem[] = [
-  { href: '/', label: 'Overview', icon: LayoutDashboard, tooltip: 'Overview' },
-  { href: '/ifs-dialogue', label: 'IFS Dialogue', icon: BrainCircuit, tooltip: 'IFS Dialogue' },
-  { href: '/financial-gps', label: 'Financial GPS', icon: MapPinned, tooltip: 'Financial GPS' },
-  { href: '/expense-highlighter', label: 'Expense Highlighter', icon: PenLine, tooltip: 'Expense Highlighter' },
-  { href: '/self-compassion', label: 'Self-Compassion', icon: LayoutDashboard, tooltip: 'Self-Compassion' },
- ];
-
-export const APP_NAME = "InnerBalance";
-
-export const SELF_COMPASSION_PROMPTS: string[] = [
-  "Today, I will treat myself with the same kindness I would offer a good friend.",
-  "Mistakes are a part of learning. I forgive myself for any financial missteps.",
-  "I am doing my best with what I have, and that is enough.",
-  "I acknowledge my financial fears without judgment and offer myself comfort.",
-  "I choose to focus on progress, not perfection, in my financial journey."
+  { href: '/', label: 'navigation.overview', icon: LayoutDashboard, tooltip: 'navigation.overview' },
+  { href: '/ifs-dialogue', label: 'navigation.ifsDialogue', icon: BrainCircuit, tooltip: 'navigation.ifsDialogue' },
+  { href: '/financial-gps', label: 'navigation.financialGPS', icon: MapPinned, tooltip: 'navigation.financialGPS' },
+  { href: '/expense-highlighter', label: 'navigation.expenseHighlighter', icon: PenLine, tooltip: 'navigation.expenseHighlighter' },
+  { href: '/self-compassion', label: 'navigation.selfCompassion', icon: LayoutDashboard, tooltip: 'navigation.selfCompassion' },
 ];
+
+export const APP_NAME = "common.appName";

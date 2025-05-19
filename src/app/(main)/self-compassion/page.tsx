@@ -5,7 +5,6 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Progress } from "@/components/ui/progress";
-import { SELF_COMPASSION_PROMPTS } from "@/lib/constants";
 import { Lightbulb, TrendingUp, Heart } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LabelList } from 'recharts';
 import { useI18n } from '@/contexts/i18n-context';
@@ -23,10 +22,10 @@ export default function DashboardPage() {
   const [showPrompt, setShowPrompt] = useState(true);
 
   useEffect(() => {
-    // Load a random prompt on initial mount and when showPrompt becomes true
     if (showPrompt) {
-      const randomIndex = Math.floor(Math.random() * SELF_COMPASSION_PROMPTS.length);
-      setCurrentPrompt(SELF_COMPASSION_PROMPTS[randomIndex]);
+      const prompts = t("selfCompassion.prompts") as unknown as string[];
+      const randomIndex = Math.floor(Math.random() * prompts.length);
+      setCurrentPrompt(prompts[randomIndex]);
     }
   }, [showPrompt]);
 
@@ -47,8 +46,8 @@ export default function DashboardPage() {
   };
 
   const handleNewPrompt = () => {
-    setShowPrompt(true); // This will trigger the useEffect to pick a new prompt
-  };
+    setShowPrompt(true)
+    };
   
   const chartData = calmHistory.map((entry, index) => ({ name: `Day ${index + 1}`, score: entry.score }));
 
@@ -139,15 +138,6 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
       )}
-       <Card className="shadow-lg">
-          <CardHeader>
-            <CardTitle className="text-2xl">{t('selfCompassion.criticalThoughts.title')}</CardTitle>
-            <CardDescription>{t('selfCompassion.criticalThoughts.subtitle')}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p className="text-muted-foreground">{t('selfCompassion.criticalThoughts.comingSoon')}</p>
-          </CardContent>
-        </Card>
     </div>
   );
 } 

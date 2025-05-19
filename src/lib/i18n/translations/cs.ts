@@ -1,5 +1,6 @@
 export const cs = {
   common: {
+    appName: 'InnerBalance',
     loading: 'Načítání...',
     error: 'Došlo k chybě',
     save: 'Uložit',
@@ -9,7 +10,8 @@ export const cs = {
   },
   navigation: {
     home: 'Domů',
-    expenseHighlighter: 'Zvýraznění výdajů',
+    overview: 'Přehled',
+    expenseHighlighter: 'Zvýrazňovač výdajů',
     financialGPS: 'Finanční GPS',
     ifsDialogue: 'IFS Dialog',
     selfCompassion: 'Sebesoucit',
@@ -87,7 +89,14 @@ export const cs = {
       title: 'Poměr Sebekritických Výroků',
       subtitle: 'Sledujte svůj vnitřní dialog. (Placeholder pro sledování)',
       comingSoon: 'Funkce brzy k dispozici. Tato sekce vám pomůže sledovat a porozumět vzorcům sebekritických myšlenek, podporujíc laskavější vnitřní hlas.'
-    }
+    },
+    prompts: [
+      'Dnes se budu k sobě chovat se stejnou laskavostí, jakou bych nabídl dobrému příteli.',
+      'Chyby jsou součástí učení. Odpouštím si jakékoli finanční omyly.',
+      'Dělám to nejlepší s tím, co mám, a to stačí.',
+      'Uznávám své finanční obavy bez souzení a nabízím si útěchu.',
+      'Zaměřuji se na pokrok, ne na dokonalost, ve své finanční cestě.'
+    ]
   },
   expenseHighlighter: {
     title: 'Zvýraznění Výdajů',

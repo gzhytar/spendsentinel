@@ -1,5 +1,6 @@
 export const en = {
   common: {
+    appName: 'InnerBalance',
     loading: 'Loading...',
     error: 'An error occurred',
     save: 'Save',
@@ -9,10 +10,11 @@ export const en = {
   },
   navigation: {
     home: 'Home',
+    overview: 'Overview',
     expenseHighlighter: 'Expense Highlighter',
     financialGPS: 'Financial GPS',
     ifsDialogue: 'IFS Dialogue',
-    selfCompassion: 'Self Compassion',
+    selfCompassion: 'Self-Compassion',
   },
   landing: {
     hero: {
@@ -87,7 +89,14 @@ export const en = {
       title: 'Ratio of Self-Critical Statements',
       subtitle: 'Monitor your inner dialogue. (Placeholder for tracking)',
       comingSoon: 'Feature coming soon. This section will help you track and understand patterns in self-critical thoughts, promoting a more compassionate inner voice.'
-    }
+    },
+    prompts: [
+      'Today, I will treat myself with the same kindness I would offer a good friend.',
+      'Mistakes are a part of learning. I forgive myself for any financial missteps.',
+      'I am doing my best with what I have, and that is enough.',
+      'I acknowledge my financial fears without judgment and offer myself comfort.',
+      'I choose to focus on progress, not perfection, in my financial journey.'
+    ]
   },
   expenseHighlighter: {
     title: 'Expense Highlighter',

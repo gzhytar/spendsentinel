@@ -23,11 +23,11 @@ export default function DashboardPage() {
 
   useEffect(() => {
     if (showPrompt) {
-      const prompts = t("selfCompassion.prompts") as unknown as string[];
+      const prompts = t<string[]>('selfCompassion.prompts');
       const randomIndex = Math.floor(Math.random() * prompts.length);
       setCurrentPrompt(prompts[randomIndex]);
     }
-  }, [showPrompt]);
+  }, [showPrompt, t]);
 
   useEffect(() => {
     // Load calm history from localStorage

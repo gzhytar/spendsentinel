@@ -18,7 +18,7 @@ const translations = {
 interface I18nContextType {
   locale: Locale;
   setLocale: (locale: Locale) => void;
-  t: (key: string, params?: Record<string, string | number>) => string;
+  t: <T = string>(key: string, params?: Record<string, string | number>) => T;
 }
 
 const I18nContext = createContext<I18nContextType | undefined>(undefined);
@@ -42,28 +42,29 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
     router.push(newPath);
   };
 
-  const t = (key: string, params?: Record<string, string | number>): string => {
+  const t = <T = string>(key: string, params?: Record<string, string | number>): T => {
     const keys = key.split('.');
     let value: any = translations[locale];
 
     for (const k of keys) {
       if (value?.[k] === undefined) {
         console.warn(`Translation key not found: ${key} for language: ${locale}`);
-        return key;
+        return key as unknown as T;
       }
       value = value[k];
     }
 
-    if (typeof value !== 'string') {
-      console.warn(`Translation value is not a string: ${key} for language: ${locale}`);
-      return key;
+    // Handle arrays and other non-string values
+    if (Array.isArray(value) || typeof value !== 'string') {
+      return value as T;
     }
 
+    // Handle string interpolation with params
     if (params) {
-      return value.replace(/\{(\w+)\}/g, (_, key) => String(params[key] || `{${key}}`));
+      return value.replace(/\{(\w+)\}/g, (_, key) => String(params[key] || `{${key}}`)) as unknown as T;
     }
 
-    return value;
+    return value as unknown as T;
   };
 
   return (

@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { PanicModeProvider } from '@/contexts/panic-mode-context';
+import { I18nProvider } from '@/contexts/i18n-context';
+import { LanguageSwitcher } from '@/components/ui/language-switcher';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -27,10 +29,15 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}>
-        <PanicModeProvider>
-          {children}
-          <Toaster />
-        </PanicModeProvider>
+        <I18nProvider>
+          <div className="fixed top-4 right-4 z-50">
+            <LanguageSwitcher />
+          </div>
+          <PanicModeProvider>
+            {children}
+            <Toaster />
+          </PanicModeProvider>
+        </I18nProvider>
       </body>
     </html>
   );

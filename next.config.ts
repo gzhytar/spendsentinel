@@ -18,6 +18,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  // Optimize middleware handling for our locale-based routing
+  skipTrailingSlashRedirect: true,
+  skipMiddlewareUrlNormalize: true,
 };
 
 export default nextConfig;

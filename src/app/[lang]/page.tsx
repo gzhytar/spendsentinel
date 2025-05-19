@@ -23,7 +23,7 @@ export default function LandingPage() {
         <div className="flex justify-center gap-4 pt-4">
           <Button size="lg" asChild>
             <Link href={`${localePrefix}/ifs-dialogue`}>
-              {t('landing.hero.cta')} <ArrowRight className="ml-2 h-4 w-4" />
+              <span>{t('landing.hero.cta')} <ArrowRight className="ml-2 h-4 w-4 inline" /></span>
             </Link>
           </Button>
         </div>
@@ -104,7 +104,9 @@ export default function LandingPage() {
               <Shield className="w-8 h-8 text-primary" />
               <CardTitle className="text-2xl">{t('landing.features.title')}</CardTitle>
             </div>
-            <CardDescription>{t('landing.features.subtitle')}</CardDescription>
+            <CardDescription>
+              {t('landing.features.subtitle')}
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid md:grid-cols-2 gap-8">
@@ -116,6 +118,13 @@ export default function LandingPage() {
                     <p className="text-muted-foreground">
                       {t('landing.features.expenseHighlighter.description')}
                     </p>
+                    <div className="mt-4">
+                      <Button asChild>
+                          <Link href={`${localePrefix}/expense-highlighter`}>
+                            <span>{t('landing.features.expenseHighlighter.button')} <ArrowRight className="ml-2 h-4 w-4 inline" /></span>
+                          </Link>
+                      </Button>
+                    </div>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
@@ -125,6 +134,13 @@ export default function LandingPage() {
                     <p className="text-muted-foreground">
                       {t('landing.features.financialGPS.description')}
                     </p>
+                    <div className="mt-4">
+                      <Button asChild>
+                          <Link href={`${localePrefix}/financial-gps`}>
+                            <span>{t('landing.features.financialGPS.button')} <ArrowRight className="ml-2 h-4 w-4 inline" /></span>
+                          </Link>
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -136,6 +152,13 @@ export default function LandingPage() {
                     <p className="text-muted-foreground">
                       {t('landing.features.ifsDialogue.description')}
                     </p>
+                    <div className="mt-4">
+                      <Button asChild>
+                          <Link href={`${localePrefix}/ifs-dialogue`}>
+                            <span>{t('landing.features.ifsDialogue.button')} <ArrowRight className="ml-2 h-4 w-4 inline" /></span>
+                          </Link>
+                      </Button>
+                    </div>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
@@ -145,6 +168,13 @@ export default function LandingPage() {
                     <p className="text-muted-foreground">
                       {t('landing.features.selfCompassion.description')}
                     </p>
+                    <div className="mt-4">
+                      <Button asChild>
+                          <Link href={`${localePrefix}/self-compassion`}>
+                            <span>{t('landing.features.selfCompassion.button')} <ArrowRight className="ml-2 h-4 w-4 inline" /></span>
+                          </Link>
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>

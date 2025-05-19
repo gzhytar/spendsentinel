@@ -56,20 +56,12 @@ export const cs = {
       subtitle: 'Nástroje navržené k transformaci vašeho finančního vztahu',
       expenseHighlighter: {
         title: 'Zvýrazňovač výdajů',
-        description: 'Kategorizujte výdaje jako \'Životní\' vs. \'Životní styl\' pro podporu vědomého rozhodování o výdajích.'
+        description: 'Kategorizujte výdaje jako \'Životní\' vs. \'Životní styl\' pro podporu vědomého rozhodování o výdajích.',
+        button: 'Sledovat Vaše Výdaje'
       },
-      financialGPS: {
-        title: 'Finanční GPS',
-        description: 'Sledujte svou finanční cestu s jasným pohledem na minulá rozhodnutí a budoucí cíle.'
-      },
-      ifsDialogue: {
-        title: 'IFS Dialog',
-        description: 'Zapojte se do vedených konverzací se svými finančními částmi, abyste pochopili jejich potřeby.'
-      },
-      selfCompassion: {
-        title: 'Praxe sebelásky',
-        description: 'Rozvíjejte laskavější vztah k sobě a své finanční cestě.'
-      }
+            financialGPS: {        title: 'Finanční GPS',        description: 'Sledujte svou finanční cestu s jasným pohledem na minulá rozhodnutí a budoucí cíle.',        button: 'Prozkoumat Vaši Cestu'      },
+            ifsDialogue: {        title: 'IFS Dialog',        description: 'Zapojte se do vedených konverzací se svými finančními částmi, abyste pochopili jejich potřeby.',        button: 'Začít Dialog'      },
+            selfCompassion: {        title: 'Praxe sebelásky',        description: 'Rozvíjejte laskavější vztah k sobě a své finanční cestě.',        button: 'Praktikovat Sebelásku'      }
     }
   },
   selfCompassion: {

@@ -57,19 +57,11 @@ export const en = {
       expenseHighlighter: {
         title: 'Expense Highlighter',
         description: 'Categorize expenses as \'Living\' vs. \'Lifestyle\' to promote mindful spending decisions.',
+        button: 'Track Your Expenses'
       },
-      financialGPS: {
-        title: 'Financial GPS',
-        description: 'Track your financial journey with a clear view of past decisions and future goals.',
-      },
-      ifsDialogue: {
-        title: 'IFS Dialogue',
-        description: 'Engage in guided conversations with your financial parts to understand their needs.',
-      },
-      selfCompassion: {
-        title: 'Self-Compassion Practice',
-        description: 'Develop a kinder relationship with yourself and your financial journey.',
-      },
+            financialGPS: {        title: 'Financial GPS',        description: 'Track your financial journey with a clear view of past decisions and future goals.',        button: 'Explore Your Journey'      },
+            ifsDialogue: {        title: 'IFS Dialogue',        description: 'Engage in guided conversations with your financial parts to understand their needs.',        button: 'Start a Dialogue'      },
+            selfCompassion: {        title: 'Self-Compassion Practice',        description: 'Develop a kinder relationship with yourself and your financial journey.',        button: 'Practice Self-Compassion'      },
     },
   },
   selfCompassion: {

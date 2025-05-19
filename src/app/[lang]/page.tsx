@@ -7,7 +7,8 @@ import Link from 'next/link';
 import { useI18n } from '@/contexts/i18n-context';
 
 export default function LandingPage() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
+  const localePrefix = `/${locale}`;
 
   return (
     <div className="container mx-auto py-8 space-y-12">
@@ -21,7 +22,7 @@ export default function LandingPage() {
         </p>
         <div className="flex justify-center gap-4 pt-4">
           <Button size="lg" asChild>
-            <Link href="/ifs-dialogue">
+            <Link href={`${localePrefix}/ifs-dialogue`}>
               {t('landing.hero.cta')} <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>

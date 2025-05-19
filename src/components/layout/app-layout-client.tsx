@@ -27,13 +27,16 @@ export function AppLayoutClient({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const { isPanicActive } = usePanicMode();
   const { open } = useSidebar();
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
+  
+  // Extract the current locale from the pathname
+  const localePrefix = `/${locale}`;
 
   return (
     <>
       <Sidebar collapsible="icon" className="border-r">
         <SidebarHeader className="p-4">
-          <Link href="/" className="flex items-center gap-2">
+          <Link href={`${localePrefix}/`} className="flex items-center gap-2">
             <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full bg-primary/20 hover:bg-primary/30">
                <Leaf className="h-6 w-6 text-primary" />
             </Button>
@@ -44,21 +47,34 @@ export function AppLayoutClient({ children }: { children: ReactNode }) {
         <SidebarContent>
           <ScrollArea className="h-full">
             <SidebarMenu className="p-2">
-              {NAV_ITEMS.map((item) => (
-                <SidebarMenuItem key={item.href}>
-                  <SidebarMenuButton
-                    asChild
-                    isActive={pathname === item.href}
-                    tooltip={t(item.tooltip)}
-                    className="justify-start"
-                  >
-                    <Link href={item.href}>
-                      <item.icon className="h-5 w-5" />
-                      <span>{t(item.label)}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              {NAV_ITEMS.map((item) => {
+                // Prefix each href with the locale
+                const localizedHref = item.href === '/' 
+                  ? localePrefix 
+                  : `${localePrefix}${item.href}`;
+                
+                // Check if current path matches or starts with this item's path
+                // For the home route, we need an exact match
+                const isActive = item.href === '/' 
+                  ? pathname === localePrefix || pathname === `${localePrefix}/`
+                  : pathname === localizedHref || pathname.startsWith(`${localizedHref}/`);
+                
+                return (
+                  <SidebarMenuItem key={item.href}>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={isActive}
+                      tooltip={t(item.tooltip)}
+                      className="justify-start"
+                    >
+                      <Link href={localizedHref}>
+                        <item.icon className="h-5 w-5" />
+                        <span>{t(item.label)}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                );
+              })}
             </SidebarMenu>
           </ScrollArea>
         </SidebarContent>

@@ -17,11 +17,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { identifyIFSPart, type IdentifyIFSPartInput, type IdentifyIFSPartOutput } from '@/ai/flows/ifs-part-identification';
-import { ifsPartResolution, type IFSPartResolutionInput, type IFSPartResolutionOutput } from '@/ai/flows/ifs-part-resolution';
 import { Loader2, Wand2, MessageSquareHeart, UserCheck, AlertTriangle } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import type { IdentifyIFSPartInput, IdentifyIFSPartOutput } from '@/ai/flows/ifs-part-identification';
+import type { IFSPartResolutionInput, IFSPartResolutionOutput } from '@/ai/flows/ifs-part-resolution';
 
 const identifySchema = z.object({
   financialSituation: z.string().min(10, "Please describe your financial situation in more detail."),
@@ -53,7 +53,13 @@ export default function IFSDialoguePage() {
     setIdentificationResult(null);
     setResolutionResult(null); 
     try {
-      const result = await identifyIFSPart(data);
+      const response = await fetch('/api/identifyIFSPart', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) throw new Error('API error');
+      const result: IdentifyIFSPartOutput = await response.json();
       setIdentificationResult(result);
     } catch (e) {
       console.error(e);
@@ -73,7 +79,13 @@ export default function IFSDialoguePage() {
         partName: identificationResult.identifiedPart.partName,
         partBehavior: `${identificationResult.identifiedPart.role} ${identificationResult.identifiedPart.burden} ${identificationResult.identifiedPart.concern}`,
       };
-      const result = await ifsPartResolution(input);
+      const response = await fetch('/api/ifsPartResolution', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(input),
+      });
+      if (!response.ok) throw new Error('API error');
+      const result: IFSPartResolutionOutput = await response.json();
       setResolutionResult(result);
     } catch (e) {
       console.error(e);

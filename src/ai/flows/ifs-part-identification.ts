@@ -25,16 +25,16 @@ export type IdentifyIFSPartInput = z.infer<typeof IdentifyIFSPartInputSchema>;
 
 const IFSPartDetailsSchema = z.object({
   partName: z.string().describe('The name of the identified financial part.'),
-  role: z.string().describe('The role this part plays in the user’s financial life.'),
+  role: z.string().describe("The role this part plays in the user's financial life."),
   burden: z.string().describe('The burden or negative belief this part carries.'),
-  concern: z.string().describe('The underlying concern or fear driving this part’s behavior.'),
+  concern: z.string().describe("The underlying concern or fear driving this part's behavior."),
 });
 
 const IdentifyIFSPartOutputSchema = z.object({
-  identifiedPart: IFSPartDetailsSchema.describe('Details of the identified financial part.'),
+  identifiedPart: IFSPartDetailsSchema.describe("Details of the identified financial part."),
   suggestedEngagement: z
     .string()
-    .describe('A suggestion on how to engage with this part based on the user’s personality.'),
+    .describe("A suggestion on how to engage with this part based on the user's personality."),
 });
 export type IdentifyIFSPartOutput = z.infer<typeof IdentifyIFSPartOutputSchema>;
 
@@ -45,10 +45,10 @@ const decideEngagementTool = ai.defineTool({
     personalityType: z
       .string()
       .describe("The user's personality type or preferred communication style."),
-    partName: z.string().describe('The name of the identified financial part.'),
-    role: z.string().describe('The role this part plays in the user’s financial life.'),
-    burden: z.string().describe('The burden or negative belief this part carries.'),
-    concern: z.string().describe('The underlying concern or fear driving this part’s behavior.'),
+    partName: z.string().describe("The name of the identified financial part."),
+    role: z.string().describe("The role this part plays in the user's financial life."),
+    burden: z.string().describe("The burden or negative belief this part carries."),
+    concern: z.string().describe("The underlying concern or fear driving this part's behavior."),
   }),
   outputSchema: z.string(),
 },

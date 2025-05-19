@@ -154,6 +154,11 @@ export const cs = {
           image: 'Obrázek (URL)'
         }
       }
+    },
+    youAreHere: {
+      title: 'Jste zde',
+      description: "Zamyslete se nad svou aktuální finanční pozicí na základě vaší časové osy.",
+      content: "Na základě událostí na časové ose, zejména vašich záznamů 'Současný stav', si udělejte chvilku na zamyšlení, kde se právě nacházíte na své finanční cestě. Toto je váš bod 'Jste zde'. Jasné pochopení této pozice je prvním krokem k dosažení vaší vysněné budoucnosti."
     }
   },
   ifsDialogue: {

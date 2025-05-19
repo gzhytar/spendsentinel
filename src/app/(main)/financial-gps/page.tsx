@@ -146,69 +146,6 @@ export default function FinancialGPSPage() {
         </CardHeader>
       </Card>
 
-      {/* Timeline Section */}
-      <Card>
-        <CardHeader>
-          <div className="flex items-center space-x-3">
-            <History className="w-7 h-7 text-accent" />
-            <CardTitle className="text-2xl">{t('financialGPS.timeline.title')}</CardTitle>
-          </div>
-          <CardDescription>{t('financialGPS.timeline.subtitle')}</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="max-h-[500px]">
-            <ScrollArea className="h-full pr-4">
-              {timelineEvents.length === 0 && <p className="text-muted-foreground">{t('financialGPS.timeline.empty')}</p>}
-              <div className="relative">
-                {timelineEvents
-                  .sort((a,b) => new Date(a.date).getTime() - new Date(b.date).getTime())
-                  .map((event, index) => renderTimelineNode(event, index, timelineEvents.length))}
-              </div>
-            </ScrollArea>
-          </div>
-        </CardContent>
-        <CardFooter>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button variant="outline"><PlusCircle className="mr-2 h-4 w-4" /> {t('financialGPS.timeline.addEvent')}</Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
-              <DialogHeader>
-                <DialogTitle>{t('financialGPS.timeline.addEvent')}</DialogTitle>
-                <DialogDescription>
-                  {t('financialGPS.timeline.addEventDescription')}
-                </DialogDescription>
-              </DialogHeader>
-              <div className="grid gap-4 py-4">
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="event-title" className="text-right">{t('financialGPS.timeline.form.title')}</Label>
-                  <Input id="event-title" value={newEventTitle} onChange={(e) => setNewEventTitle(e.target.value)} className="col-span-3" />
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="event-date" className="text-right">{t('financialGPS.timeline.form.date')}</Label>
-                  <Input id="event-date" type="date" value={newEventDate} onChange={(e) => setNewEventDate(e.target.value)} className="col-span-3" />
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="event-type" className="text-right">{t('financialGPS.timeline.form.type')}</Label>
-                  <select id="event-type" value={newEventtype} onChange={(e) => setNewEventType(e.target.value as 'past'|'present'|'future')} className="col-span-3 border border-input rounded-md px-3 py-2 text-sm">
-                    <option value="past">{t('financialGPS.timeline.form.types.past')}</option>
-                    <option value="present">{t('financialGPS.timeline.form.types.present')}</option>
-                    <option value="future">{t('financialGPS.timeline.form.types.future')}</option>
-                  </select>
-                </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="event-description" className="text-right">{t('financialGPS.timeline.form.description')}</Label>
-                  <Textarea id="event-description" value={newEventDescription} onChange={(e) => setNewEventDescription(e.target.value)} className="col-span-3 min-h-[80px]" />
-                </div>
-              </div>
-              <DialogFooter>
-                <Button onClick={() => { handleAddTimelineEvent(); }}>{t('financialGPS.timeline.form.save')}</Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        </CardFooter>
-      </Card>
-
       {/* Vision Board Section */}
       <Card>
         <CardHeader>
@@ -292,16 +229,81 @@ export default function FinancialGPSPage() {
           </Dialog>
         </CardFooter>
       </Card>
-       <Card>
+
+      {/* Timeline Section */}
+      <Card>
+        <CardHeader>
+          <div className="flex items-center space-x-3">
+            <History className="w-7 h-7 text-accent" />
+            <CardTitle className="text-2xl">{t('financialGPS.timeline.title')}</CardTitle>
+          </div>
+          <CardDescription>{t('financialGPS.timeline.subtitle')}</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="max-h-[500px]">
+            <ScrollArea className="h-full pr-4">
+              {timelineEvents.length === 0 && <p className="text-muted-foreground">{t('financialGPS.timeline.empty')}</p>}
+              <div className="relative">
+                {timelineEvents
+                  .sort((a,b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+                  .map((event, index) => renderTimelineNode(event, index, timelineEvents.length))}
+              </div>
+            </ScrollArea>
+          </div>
+        </CardContent>
+        <CardFooter>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline"><PlusCircle className="mr-2 h-4 w-4" /> {t('financialGPS.timeline.addEvent')}</Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>{t('financialGPS.timeline.addEvent')}</DialogTitle>
+                <DialogDescription>
+                  {t('financialGPS.timeline.addEventDescription')}
+                </DialogDescription>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="event-title" className="text-right">{t('financialGPS.timeline.form.title')}</Label>
+                  <Input id="event-title" value={newEventTitle} onChange={(e) => setNewEventTitle(e.target.value)} className="col-span-3" />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="event-date" className="text-right">{t('financialGPS.timeline.form.date')}</Label>
+                  <Input id="event-date" type="date" value={newEventDate} onChange={(e) => setNewEventDate(e.target.value)} className="col-span-3" />
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="event-type" className="text-right">{t('financialGPS.timeline.form.type')}</Label>
+                  <select id="event-type" value={newEventtype} onChange={(e) => setNewEventType(e.target.value as 'past'|'present'|'future')} className="col-span-3 border border-input rounded-md px-3 py-2 text-sm">
+                    <option value="past">{t('financialGPS.timeline.form.types.past')}</option>
+                    <option value="present">{t('financialGPS.timeline.form.types.present')}</option>
+                    <option value="future">{t('financialGPS.timeline.form.types.future')}</option>
+                  </select>
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="event-description" className="text-right">{t('financialGPS.timeline.form.description')}</Label>
+                  <Textarea id="event-description" value={newEventDescription} onChange={(e) => setNewEventDescription(e.target.value)} className="col-span-3 min-h-[80px]" />
+                </div>
+              </div>
+              <DialogFooter>
+                <Button onClick={() => { handleAddTimelineEvent(); }}>{t('financialGPS.timeline.form.save')}</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </CardFooter>
+      </Card>
+
+      {/* You Are Here Section */}
+      <Card>
         <CardHeader>
           <div className="flex items-center space-x-3">
             <Pin className="w-7 h-7 text-destructive" />
-            <CardTitle className="text-2xl">You Are Here</CardTitle>
+            <CardTitle className="text-2xl">{t('financialGPS.youAreHere.title')}</CardTitle>
           </div>
-          <CardDescription>Reflect on your current financial position based on your timeline.</CardDescription>
+          <CardDescription>{t('financialGPS.youAreHere.description')}</CardDescription>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground">Based on the timeline events you've added, particularly your 'Present Snapshot' entries, take a moment to consider where you currently stand in your financial journey. This is your 'You Are Here' point. Understanding this clearly is the first step towards navigating to your desired future.</p>
+          <p className="text-muted-foreground">{t('financialGPS.youAreHere.content')}</p>
           {/* Could add a summary of 'present' items here */}
         </CardContent>
       </Card>

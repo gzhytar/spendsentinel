@@ -154,6 +154,11 @@ export const en = {
           image: 'Image (URL)'
         }
       }
+    },
+    youAreHere: {
+      title: 'You Are Here',
+      description: "Reflect on your current financial position based on your timeline.",
+      content: "Based on the timeline events you've added, particularly your 'Present Snapshot' entries, take a moment to consider where you currently stand in your financial journey. This is your 'You Are Here' point. Understanding this clearly is the first step towards navigating to your desired future."
     }
   },
   ifsDialogue: {

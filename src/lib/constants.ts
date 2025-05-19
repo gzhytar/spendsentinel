@@ -9,11 +9,11 @@ export interface NavItem {
 }
 
 export const NAV_ITEMS: NavItem[] = [
-  { href: '/expense-highlighter', label: 'Expense Highlighter', icon: PenLine, tooltip: 'Expense Highlighter' },
-  { href: '/financial-gps', label: 'Financial GPS', icon: MapPinned, tooltip: 'Financial GPS' },
-  { href: '/', label: 'Self-Compassion', icon: LayoutDashboard, tooltip: 'Self-Compassion' },
   { href: '/ifs-dialogue', label: 'IFS Dialogue', icon: BrainCircuit, tooltip: 'IFS Dialogue' },
-];
+  { href: '/financial-gps', label: 'Financial GPS', icon: MapPinned, tooltip: 'Financial GPS' },
+  { href: '/expense-highlighter', label: 'Expense Highlighter', icon: PenLine, tooltip: 'Expense Highlighter' },
+  { href: '/', label: 'Self-Compassion', icon: LayoutDashboard, tooltip: 'Self-Compassion' },
+ ];
 
 export const APP_NAME = "InnerBalance";
 

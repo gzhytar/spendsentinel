@@ -39,24 +39,22 @@ export function AppLayoutClient({ children }: { children: ReactNode }) {
             {open && <h1 className="text-xl font-semibold text-primary">{APP_NAME}</h1>}
           </Link>
         </SidebarHeader>
-        <SidebarContent asChild>
+        <SidebarContent>
           <ScrollArea className="h-full">
             <SidebarMenu className="p-2">
               {NAV_ITEMS.map((item) => (
                 <SidebarMenuItem key={item.href}>
-                  <Link href={item.href} legacyBehavior passHref>
-                    <SidebarMenuButton
-                      asChild
-                      isActive={pathname === item.href}
-                      tooltip={item.tooltip}
-                      className="justify-start"
-                    >
-                      <a>
-                        <item.icon className="h-5 w-5" />
-                        <span>{item.label}</span>
-                      </a>
-                    </SidebarMenuButton>
-                  </Link>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={pathname === item.href}
+                    tooltip={item.tooltip}
+                    className="justify-start"
+                  >
+                    <Link href={item.href}>
+                      <item.icon className="h-5 w-5" />
+                      <span>{item.label}</span>
+                    </Link>
+                  </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
             </SidebarMenu>

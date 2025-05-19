@@ -10,6 +10,7 @@ import { Map, Pin, History, Eye, PlusCircle, Trash2 } from 'lucide-react';
 import Image from 'next/image';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { useI18n } from '@/contexts/i18n-context';
 
 interface TimelineEvent {
   id: string;
@@ -26,8 +27,8 @@ interface VisionBoardItem {
   description?: string; // Optional description for image
 }
 
-
 export default function FinancialGPSPage() {
+  const { t } = useI18n();
   const [timelineEvents, setTimelineEvents] = useState<TimelineEvent[]>([]);
   const [visionBoardItems, setVisionBoardItems] = useState<VisionBoardItem[]>([]);
   
@@ -41,7 +42,6 @@ export default function FinancialGPSPage() {
   const [newVisionItemType, setNewVisionItemType] = useState<'text' | 'image'>('text');
   const [newVisionItemContent, setNewVisionItemContent] = useState('');
   const [newVisionItemDescription, setNewVisionItemDescription] = useState('');
-
 
   useEffect(() => {
     const storedEvents = localStorage.getItem('timelineEvents');
@@ -139,8 +139,8 @@ export default function FinancialGPSPage() {
           <div className="flex items-center space-x-3">
             <Map className="w-10 h-10 text-primary" />
             <div>
-              <CardTitle className="text-3xl">Financial GPS</CardTitle>
-              <CardDescription className="text-lg">Map your financial journey: Past, Present, and Future.</CardDescription>
+              <CardTitle className="text-3xl">{t('financialGPS.title')}</CardTitle>
+              <CardDescription className="text-lg">{t('financialGPS.subtitle')}</CardDescription>
             </div>
           </div>
         </CardHeader>
@@ -151,14 +151,14 @@ export default function FinancialGPSPage() {
         <CardHeader>
           <div className="flex items-center space-x-3">
             <History className="w-7 h-7 text-accent" />
-            <CardTitle className="text-2xl">Your Financial Timeline</CardTitle>
+            <CardTitle className="text-2xl">{t('financialGPS.timeline.title')}</CardTitle>
           </div>
-          <CardDescription>Key moments that shaped your financial landscape and your current standing.</CardDescription>
+          <CardDescription>{t('financialGPS.timeline.subtitle')}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="max-h-[500px]">
             <ScrollArea className="h-full pr-4">
-              {timelineEvents.length === 0 && <p className="text-muted-foreground">No timeline events yet. Add one to get started!</p>}
+              {timelineEvents.length === 0 && <p className="text-muted-foreground">{t('financialGPS.timeline.empty')}</p>}
               <div className="relative">
                 {timelineEvents
                   .sort((a,b) => new Date(a.date).getTime() - new Date(b.date).getTime())
@@ -170,39 +170,39 @@ export default function FinancialGPSPage() {
         <CardFooter>
           <Dialog>
             <DialogTrigger asChild>
-              <Button variant="outline"><PlusCircle className="mr-2 h-4 w-4" /> Add Timeline Event</Button>
+              <Button variant="outline"><PlusCircle className="mr-2 h-4 w-4" /> {t('financialGPS.timeline.addEvent')}</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
-                <DialogTitle>Add New Timeline Event</DialogTitle>
+                <DialogTitle>{t('financialGPS.timeline.addEvent')}</DialogTitle>
                 <DialogDescription>
-                  Document a significant financial moment or your current status.
+                  {t('financialGPS.timeline.addEventDescription')}
                 </DialogDescription>
               </DialogHeader>
               <div className="grid gap-4 py-4">
                 <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="event-title" className="text-right">Title</Label>
+                  <Label htmlFor="event-title" className="text-right">{t('financialGPS.timeline.form.title')}</Label>
                   <Input id="event-title" value={newEventTitle} onChange={(e) => setNewEventTitle(e.target.value)} className="col-span-3" />
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="event-date" className="text-right">Date</Label>
+                  <Label htmlFor="event-date" className="text-right">{t('financialGPS.timeline.form.date')}</Label>
                   <Input id="event-date" type="date" value={newEventDate} onChange={(e) => setNewEventDate(e.target.value)} className="col-span-3" />
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="event-type" className="text-right">Type</Label>
+                  <Label htmlFor="event-type" className="text-right">{t('financialGPS.timeline.form.type')}</Label>
                   <select id="event-type" value={newEventtype} onChange={(e) => setNewEventType(e.target.value as 'past'|'present'|'future')} className="col-span-3 border border-input rounded-md px-3 py-2 text-sm">
-                    <option value="past">Past Influence</option>
-                    <option value="present">Present Snapshot</option>
-                    <option value="future">Future Goal/Vision</option>
+                    <option value="past">{t('financialGPS.timeline.form.types.past')}</option>
+                    <option value="present">{t('financialGPS.timeline.form.types.present')}</option>
+                    <option value="future">{t('financialGPS.timeline.form.types.future')}</option>
                   </select>
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="event-description" className="text-right">Description</Label>
+                  <Label htmlFor="event-description" className="text-right">{t('financialGPS.timeline.form.description')}</Label>
                   <Textarea id="event-description" value={newEventDescription} onChange={(e) => setNewEventDescription(e.target.value)} className="col-span-3 min-h-[80px]" />
                 </div>
               </div>
               <DialogFooter>
-                <Button onClick={() => { handleAddTimelineEvent(); }}>Save Event</Button>
+                <Button onClick={() => { handleAddTimelineEvent(); }}>{t('financialGPS.timeline.form.save')}</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
@@ -214,19 +214,19 @@ export default function FinancialGPSPage() {
         <CardHeader>
            <div className="flex items-center space-x-3">
             <Eye className="w-7 h-7 text-accent" />
-            <CardTitle className="text-2xl">Financial Vision Board</CardTitle>
+            <CardTitle className="text-2xl">{t('financialGPS.visionBoard.title')}</CardTitle>
           </div>
-          <CardDescription>Visualize your financial goals and aspirations.</CardDescription>
+          <CardDescription>{t('financialGPS.visionBoard.subtitle')}</CardDescription>
         </CardHeader>
         <CardContent>
-           {visionBoardItems.length === 0 && <p className="text-muted-foreground">Your vision board is empty. Add items to visualize your goals!</p>}
+           {visionBoardItems.length === 0 && <p className="text-muted-foreground">{t('financialGPS.visionBoard.empty')}</p>}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {visionBoardItems.map(item => (
               <Card key={item.id} className="overflow-hidden group relative">
                 {item.type === 'image' && (
                   <Image 
                     src={item.content} 
-                    alt={item.description || 'Vision board image'} 
+                    alt={item.description || t('financialGPS.visionBoard.imageAlt')} 
                     width={300} 
                     height={200} 
                     className="w-full h-48 object-cover" 
@@ -251,35 +251,42 @@ export default function FinancialGPSPage() {
           </div>
         </CardContent>
         <CardFooter>
-           <Dialog>
+          <Dialog>
             <DialogTrigger asChild>
-              <Button variant="outline"><PlusCircle className="mr-2 h-4 w-4" /> Add to Vision Board</Button>
+              <Button variant="outline"><PlusCircle className="mr-2 h-4 w-4" /> {t('financialGPS.visionBoard.addItem')}</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
-                <DialogTitle>Add Vision Board Item</DialogTitle>
+                <DialogTitle>{t('financialGPS.visionBoard.addItem')}</DialogTitle>
+                <DialogDescription>
+                  {t('financialGPS.visionBoard.addItemDescription')}
+                </DialogDescription>
               </DialogHeader>
               <div className="grid gap-4 py-4">
                 <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="vision-type" className="text-right">Type</Label>
-                  <select id="vision-type" value={newVisionItemType} onChange={(e) => setNewVisionItemType(e.target.value as 'text'|'image')} className="col-span-3 border border-input rounded-md px-3 py-2 text-sm">
-                    <option value="text">Text Affirmation</option>
-                    <option value="image">Image (URL or Placeholder)</option>
+                  <Label htmlFor="item-type" className="text-right">{t('financialGPS.visionBoard.form.type')}</Label>
+                  <select id="item-type" value={newVisionItemType} onChange={(e) => setNewVisionItemType(e.target.value as 'text'|'image')} className="col-span-3 border border-input rounded-md px-3 py-2 text-sm">
+                    <option value="text">{t('financialGPS.visionBoard.form.types.text')}</option>
+                    <option value="image">{t('financialGPS.visionBoard.form.types.image')}</option>
                   </select>
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="vision-content" className="text-right">{newVisionItemType === 'text' ? 'Text' : 'Image URL'}</Label>
-                  <Input id="vision-content" value={newVisionItemContent} onChange={(e) => setNewVisionItemContent(e.target.value)} placeholder={newVisionItemType === 'image' ? 'https://placehold.co/300x200.png or keyword' : 'My financial goal...'} className="col-span-3" />
+                  <Label htmlFor="item-content" className="text-right">{t('financialGPS.visionBoard.form.content')}</Label>
+                  {newVisionItemType === 'text' ? (
+                    <Input id="item-content" value={newVisionItemContent} onChange={(e) => setNewVisionItemContent(e.target.value)} className="col-span-3" />
+                  ) : (
+                    <Input id="item-content" type="url" value={newVisionItemContent} onChange={(e) => setNewVisionItemContent(e.target.value)} className="col-span-3" placeholder="https://..." />
+                  )}
                 </div>
                 {newVisionItemType === 'image' && (
-                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="vision-description" className="text-right">Description</Label>
-                    <Input id="vision-description" value={newVisionItemDescription} onChange={(e) => setNewVisionItemDescription(e.target.value)} placeholder="e.g. Dream vacation, new home" className="col-span-3" />
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="item-description" className="text-right">{t('financialGPS.visionBoard.form.description')}</Label>
+                    <Input id="item-description" value={newVisionItemDescription} onChange={(e) => setNewVisionItemDescription(e.target.value)} className="col-span-3" />
                   </div>
                 )}
               </div>
               <DialogFooter>
-                <Button onClick={() => { handleAddVisionBoardItem(); }}>Add Item</Button>
+                <Button onClick={handleAddVisionBoardItem}>{t('financialGPS.visionBoard.form.save')}</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>

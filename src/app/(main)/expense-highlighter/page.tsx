@@ -7,9 +7,10 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { PlusCircle, Trash2, Edit3, Lightbulb, Utensils, Home, ShoppingCart, TrendingUp, Palette } from 'lucide-react';
+import { PlusCircle, Trash2, Edit3, Lightbulb, Utensils, Home, ShoppingCart, TrendingUp, Palette, PenLine } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
+import { useI18n } from '@/contexts/i18n-context';
 
 interface Expense {
   id: string;
@@ -26,6 +27,7 @@ const COLORS = {
 };
 
 export default function ExpenseHighlighterPage() {
+  const { t } = useI18n();
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentExpense, setCurrentExpense] = useState<Partial<Expense> & { id?: string }>({});
@@ -92,11 +94,10 @@ export default function ExpenseHighlighterPage() {
   }, [expenses]);
 
   const chartData = [
-    { name: 'Living', value: expenseSummary.living },
-    { name: 'Lifestyle', value: expenseSummary.lifestyle },
+    { name: t('expenseHighlighter.categories.living'), value: expenseSummary.living },
+    { name: t('expenseHighlighter.categories.lifestyle'), value: expenseSummary.lifestyle },
     { name: 'Unassigned', value: expenseSummary.unassigned },
   ].filter(d => d.value > 0);
-
 
   const getCategoryIcon = (category: Expense['category']) => {
     switch (category) {
@@ -111,20 +112,20 @@ export default function ExpenseHighlighterPage() {
       <Card className="shadow-lg">
         <CardHeader>
            <div className="flex items-center space-x-3">
-            <PenLine className="w-8 h-8 text-primary" /> {/* Using PenLine as Highlight isn't available */}
-            <CardTitle className="text-2xl">Expense Highlighter</CardTitle>
+            <PenLine className="w-8 h-8 text-primary" />
+            <CardTitle className="text-2xl">{t('expenseHighlighter.title')}</CardTitle>
           </div>
-          <CardDescription>Categorize your expenses as 'Living' vs. 'Lifestyle' to promote mindful spending decisions.</CardDescription>
+          <CardDescription>{t('expenseHighlighter.subtitle')}</CardDescription>
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground">
-            <strong>Living Expenses:</strong> Essential costs like rent/mortgage, utilities, groceries, transportation for work, insurance.
+            <strong>{t('expenseHighlighter.categories.living')}:</strong> Essential costs like rent/mortgage, utilities, groceries, transportation for work, insurance.
             <br />
-            <strong>Lifestyle Expenses:</strong> Discretionary spending like dining out, entertainment, hobbies, travel, luxury items.
+            <strong>{t('expenseHighlighter.categories.lifestyle')}:</strong> Discretionary spending like dining out, entertainment, hobbies, travel, luxury items.
           </p>
         </CardContent>
          <CardFooter>
-          <Button onClick={openNewExpenseModal}><PlusCircle className="mr-2 h-4 w-4" /> Add New Expense</Button>
+          <Button onClick={openNewExpenseModal}><PlusCircle className="mr-2 h-4 w-4" /> {t('expenseHighlighter.addExpense')}</Button>
         </CardFooter>
       </Card>
 
@@ -133,15 +134,15 @@ export default function ExpenseHighlighterPage() {
           <CardHeader>
             <div className="flex items-center space-x-3">
                 <TrendingUp className="w-7 h-7 text-accent" />
-                <CardTitle className="text-xl">Expense Overview</CardTitle>
+                <CardTitle className="text-xl">{t('expenseHighlighter.title')}</CardTitle>
             </div>
           </CardHeader>
           <CardContent className="grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <h3 className="font-semibold mb-2 text-lg">Summary:</h3>
-              <p>Total Expenses: <span className="font-bold text-primary">${expenseSummary.total.toFixed(2)}</span></p>
-              <p>Living: <span className="font-bold" style={{color: COLORS.living}}>${expenseSummary.living.toFixed(2)}</span></p>
-              <p>Lifestyle: <span className="font-bold" style={{color: COLORS.lifestyle}}>${expenseSummary.lifestyle.toFixed(2)}</span></p>
+              <h3 className="font-semibold mb-2 text-lg">{t('expenseHighlighter.overview')}:</h3>
+              <p>{t('expenseHighlighter.total')}: <span className="font-bold text-primary">${expenseSummary.total.toFixed(2)}</span></p>
+              <p>{t('expenseHighlighter.categories.living')}: <span className="font-bold" style={{color: COLORS.living}}>${expenseSummary.living.toFixed(2)}</span></p>
+              <p>{t('expenseHighlighter.categories.lifestyle')}: <span className="font-bold" style={{color: COLORS.lifestyle}}>${expenseSummary.lifestyle.toFixed(2)}</span></p>
               <p>Unassigned: <span className="font-bold" style={{color: COLORS.unassigned}}>${expenseSummary.unassigned.toFixed(2)}</span></p>
             </div>
             <div className="h-[300px]">
@@ -172,20 +173,20 @@ export default function ExpenseHighlighterPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-xl">Your Expenses</CardTitle>
+          <CardTitle className="text-xl">{t('expenseHighlighter.yourExpenses')}</CardTitle>
         </CardHeader>
         <CardContent>
           {expenses.length === 0 ? (
-            <p className="text-muted-foreground">No expenses recorded yet. Click "Add New Expense" to start.</p>
+            <p className="text-muted-foreground">{t('expenseHighlighter.noExpenses')}</p>
           ) : (
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Description</TableHead>
-                  <TableHead>Amount</TableHead>
-                  <TableHead>Date</TableHead>
-                  <TableHead>Category</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
+                  <TableHead>{t('expenseHighlighter.form.description')}</TableHead>
+                  <TableHead>{t('expenseHighlighter.form.amount')}</TableHead>
+                  <TableHead>{t('expenseHighlighter.form.date')}</TableHead>
+                  <TableHead>{t('expenseHighlighter.form.category')}</TableHead>
+                  <TableHead className="text-right">{t('expenseHighlighter.actions')}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -197,7 +198,8 @@ export default function ExpenseHighlighterPage() {
                     <TableCell>
                       <div className="flex items-center space-x-2">
                         {getCategoryIcon(expense.category)}
-                        <span className="capitalize">{expense.category}</span>
+                        <span className="capitalize">{expense.category === 'living' ? t('expenseHighlighter.categories.living') : 
+                          expense.category === 'lifestyle' ? t('expenseHighlighter.categories.lifestyle') : 'Unassigned'}</span>
                       </div>
                     </TableCell>
                     <TableCell className="text-right">
@@ -219,52 +221,44 @@ export default function ExpenseHighlighterPage() {
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>{currentExpense.id ? 'Edit Expense' : 'Add New Expense'}</DialogTitle>
+            <DialogTitle>{currentExpense.id ? t('expenseHighlighter.editExpense') : t('expenseHighlighter.addExpense')}</DialogTitle>
             <DialogDescription>
-              {currentExpense.id ? 'Update the details of your expense.' : 'Enter the details of your new expense.'}
+              {currentExpense.id ? t('expenseHighlighter.editDescription') : t('expenseHighlighter.addDescription')}
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="space-y-1">
-              <Label htmlFor="description">Description</Label>
+              <Label htmlFor="description">{t('expenseHighlighter.form.description')}</Label>
               <Input id="description" name="description" value={currentExpense.description || ''} onChange={handleInputChange} />
             </div>
             <div className="space-y-1">
-              <Label htmlFor="amount">Amount</Label>
+              <Label htmlFor="amount">{t('expenseHighlighter.form.amount')}</Label>
               <Input id="amount" name="amount" type="number" value={currentExpense.amount || ''} onChange={handleInputChange} />
             </div>
             <div className="space-y-1">
-              <Label htmlFor="date">Date</Label>
+              <Label htmlFor="date">{t('expenseHighlighter.form.date')}</Label>
               <Input id="date" name="date" type="date" value={currentExpense.date || ''} onChange={handleInputChange} />
             </div>
             <div className="space-y-1">
-              <Label htmlFor="category">Category</Label>
+              <Label htmlFor="category">{t('expenseHighlighter.form.category')}</Label>
               <Select value={currentExpense.category || 'unassigned'} onValueChange={handleSelectChange}>
                 <SelectTrigger id="category">
-                  <SelectValue placeholder="Select category" />
+                  <SelectValue placeholder={t('expenseHighlighter.selectCategory')} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="unassigned">Unassigned</SelectItem>
-                  <SelectItem value="living">Living</SelectItem>
-                  <SelectItem value="lifestyle">Lifestyle</SelectItem>
+                  <SelectItem value="living">{t('expenseHighlighter.categories.living')}</SelectItem>
+                  <SelectItem value="lifestyle">{t('expenseHighlighter.categories.lifestyle')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setIsModalOpen(false)}>Cancel</Button>
-            <Button onClick={handleSubmit}>{currentExpense.id ? 'Save Changes' : 'Add Expense'}</Button>
+            <Button onClick={handleSubmit}>{currentExpense.id ? t('expenseHighlighter.editExpense') : t('expenseHighlighter.addExpense')}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>
   );
 }
-
-const PenLine = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <path d="M12 20h9"/>
-    <path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
-  </svg>
-);
 

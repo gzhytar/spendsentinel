@@ -70,4 +70,122 @@ export const cs = {
       }
     }
   },
+  selfCompassion: {
+    title: 'Denní Sebesoucit',
+    subtitle: 'Okamžik pro laskavost a reflexi.',
+    calmScore: {
+      label: 'Jak klidný se cítíte právě teď? (1-10)',
+      saveButton: 'Uložit Skóre & Reflektovat',
+      newPromptButton: 'Získat Nový Podnět k Sebesoucit'
+    },
+    journey: {
+      title: 'Vaše Cesta ke Klidu',
+      subtitle: 'Sledujte své vlastní hodnocení klidu v čase.',
+      currentAverage: 'Aktuální průměrný klid:'
+    },
+    criticalThoughts: {
+      title: 'Poměr Sebekritických Výroků',
+      subtitle: 'Sledujte svůj vnitřní dialog. (Placeholder pro sledování)',
+      comingSoon: 'Funkce brzy k dispozici. Tato sekce vám pomůže sledovat a porozumět vzorcům sebekritických myšlenek, podporujíc laskavější vnitřní hlas.'
+    }
+  },
+  expenseHighlighter: {
+    title: 'Zvýraznění Výdajů',
+    subtitle: 'Sledujte a kategorizujte své výdaje pro lepší pochopení vzorců utrácení.',
+    addExpense: 'Přidat Výdaj',
+    editExpense: 'Upravit Výdaj',
+    deleteExpense: 'Smazat Výdaj',
+    categories: {
+      living: 'Životní Výdaje',
+      lifestyle: 'Výdaje na Životní Styl'
+    },
+    form: {
+      amount: 'Částka',
+      description: 'Popis',
+      category: 'Kategorie',
+      date: 'Datum'
+    }
+  },
+  financialGPS: {
+    title: 'Finanční GPS',
+    subtitle: 'Mapujte svou finanční cestu: Minulost, Přítomnost a Budoucnost.',
+    timeline: {
+      title: 'Vaše Finanční Časová Osa',
+      subtitle: 'Klíčové momenty, které formovaly vaši finanční krajinu a současný stav.',
+      empty: 'Zatím žádné události na časové ose. Přidejte první pro začátek!',
+      addEvent: 'Přidat Událost',
+      addEventDescription: 'Dokumentujte významný finanční moment nebo svůj současný stav.',
+      form: {
+        title: 'Název',
+        date: 'Datum',
+        type: 'Typ',
+        description: 'Popis',
+        save: 'Uložit Událost',
+        types: {
+          past: 'Minulý Vliv',
+          present: 'Současný Snapshot',
+          future: 'Budoucí Cíl/Vize'
+        }
+      }
+    },
+    visionBoard: {
+      title: 'Finanční Vize',
+      subtitle: 'Vizualizujte své finanční cíle a aspirace.',
+      empty: 'Vaše vize je prázdná. Přidejte položky pro vizualizaci vašich cílů!',
+      addItem: 'Přidat do Vize',
+      addItemDescription: 'Přidejte textová potvrzení nebo obrázky pro vizualizaci vašich finančních cílů.',
+      imageAlt: 'Obrázek vize',
+      form: {
+        type: 'Typ',
+        content: 'Obsah',
+        description: 'Popis',
+        save: 'Přidat Položku',
+        types: {
+          text: 'Textové Potvrzení',
+          image: 'Obrázek (URL)'
+        }
+      }
+    }
+  },
+  ifsDialogue: {
+    title: 'IFS Dialog: Pochopte své finanční části',
+    subtitle: 'Použijte AI k identifikaci a pochopení vašich vnitřních finančních "hasicích" částí pomocí 6F rámce.',
+    form: {
+      financialSituation: {
+        label: 'Vaše Současná Finanční Situace',
+        placeholder: 'např. Bojuji s dluhy, šetřím na dům...',
+        error: 'Prosím, popište svou finanční situaci podrobněji.'
+      },
+      recentFinancialBehavior: {
+        label: 'Nedávné Finanční Chování/Rozhodnutí',
+        placeholder: 'např. Nedávno jsem provedl velký impulzivní nákup, vyhýbám se pohledu na svůj bankovní účet...',
+        error: 'Prosím, popište své nedávné finanční chování.'
+      },
+      personalityType: {
+        label: 'Primární Komunikační Styl',
+        placeholder: 'Vyberte svůj preferovaný styl',
+        error: 'Prosím, vyberte typ osobnosti.',
+        options: {
+          analytical: 'Analytický & Přímý',
+          expressive: 'Expresivní & Nadšený',
+          amiable: 'Přívětivý & Podpůrný',
+          driver: 'Řidič & Zaměřený na Výsledky',
+          gentle: 'Jemný & Opatrný'
+        }
+      }
+    },
+    identifyButton: 'Identifikovat Finanční Část',
+    error: {
+      title: 'Chyba',
+      identifyFailed: 'Nepodařilo se identifikovat část. Prosím, zkuste to znovu.',
+      resolveFailed: 'Nepodařilo se vyřešit část. Prosím, zkuste to znovu.'
+    },
+    result: {
+      title: 'Identifikovaná Část: {partName}',
+      role: 'Role',
+      burden: 'Břemeno',
+      concern: 'Obava',
+      suggestedEngagement: 'Doporučený Přístup'
+    }
+  }
 } as const; 

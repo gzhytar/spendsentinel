@@ -12,7 +12,7 @@ export const en = {
     expenseHighlighter: 'Expense Highlighter',
     financialGPS: 'Financial GPS',
     ifsDialogue: 'IFS Dialogue',
-    selfCompassion: 'Self-Compassion',
+    selfCompassion: 'Self Compassion',
   },
   landing: {
     hero: {
@@ -70,4 +70,122 @@ export const en = {
       },
     },
   },
+  selfCompassion: {
+    title: 'Daily Self-Compassion',
+    subtitle: 'A moment for kindness and reflection.',
+    calmScore: {
+      label: 'How calm do you feel right now? (1-10)',
+      saveButton: 'Save Score & Reflect',
+      newPromptButton: 'Get a New Self-Compassion Prompt'
+    },
+    journey: {
+      title: 'Your Calm Journey',
+      subtitle: 'Track your self-reported calm scores over time.',
+      currentAverage: 'Current average calm:'
+    },
+    criticalThoughts: {
+      title: 'Ratio of Self-Critical Statements',
+      subtitle: 'Monitor your inner dialogue. (Placeholder for tracking)',
+      comingSoon: 'Feature coming soon. This section will help you track and understand patterns in self-critical thoughts, promoting a more compassionate inner voice.'
+    }
+  },
+  expenseHighlighter: {
+    title: 'Expense Highlighter',
+    subtitle: 'Track and categorize your expenses to understand your spending patterns.',
+    addExpense: 'Add Expense',
+    editExpense: 'Edit Expense',
+    deleteExpense: 'Delete Expense',
+    categories: {
+      living: 'Living Expenses',
+      lifestyle: 'Lifestyle Expenses'
+    },
+    form: {
+      amount: 'Amount',
+      description: 'Description',
+      category: 'Category',
+      date: 'Date'
+    }
+  },
+  financialGPS: {
+    title: 'Financial GPS',
+    subtitle: 'Map your financial journey: Past, Present, and Future.',
+    timeline: {
+      title: 'Your Financial Timeline',
+      subtitle: 'Key moments that shaped your financial landscape and your current standing.',
+      empty: 'No timeline events yet. Add one to get started!',
+      addEvent: 'Add Timeline Event',
+      addEventDescription: 'Document a significant financial moment or your current status.',
+      form: {
+        title: 'Title',
+        date: 'Date',
+        type: 'Type',
+        description: 'Description',
+        save: 'Save Event',
+        types: {
+          past: 'Past Influence',
+          present: 'Present Snapshot',
+          future: 'Future Goal/Vision'
+        }
+      }
+    },
+    visionBoard: {
+      title: 'Financial Vision Board',
+      subtitle: 'Visualize your financial goals and aspirations.',
+      empty: 'Your vision board is empty. Add items to visualize your goals!',
+      addItem: 'Add to Vision Board',
+      addItemDescription: 'Add text affirmations or images to visualize your financial goals.',
+      imageAlt: 'Vision board image',
+      form: {
+        type: 'Type',
+        content: 'Content',
+        description: 'Description',
+        save: 'Add Item',
+        types: {
+          text: 'Text Affirmation',
+          image: 'Image (URL)'
+        }
+      }
+    }
+  },
+  ifsDialogue: {
+    title: 'IFS Dialogue: Understand Your Financial Parts',
+    subtitle: 'Use AI to identify and understand your inner financial "firefighter" parts using the 6F framework.',
+    form: {
+      financialSituation: {
+        label: 'Your Current Financial Situation',
+        placeholder: 'e.g., I\'m struggling with debt, I\'m saving for a house...',
+        error: 'Please describe your financial situation in more detail.'
+      },
+      recentFinancialBehavior: {
+        label: 'Recent Financial Behavior/Decisions',
+        placeholder: 'e.g., I recently made a large impulse purchase, I avoided looking at my bank account...',
+        error: 'Please describe your recent financial behavior.'
+      },
+      personalityType: {
+        label: 'Primary Communication Style',
+        placeholder: 'Select your preferred style',
+        error: 'Please select a personality type.',
+        options: {
+          analytical: 'Analytical & Direct',
+          expressive: 'Expressive & Enthusiastic',
+          amiable: 'Amiable & Supportive',
+          driver: 'Driver & Results-Oriented',
+          gentle: 'Gentle & Cautious'
+        }
+      }
+    },
+    identifyButton: 'Identify Financial Part',
+    error: {
+      title: 'Error',
+      identifyFailed: 'Failed to identify part. Please try again.',
+      resolveFailed: 'Failed to resolve part. Please try again.'
+    },
+    result: {
+      title: 'Identified Part: {partName}',
+      role: 'Role',
+      burden: 'Burden',
+      concern: 'Concern',
+      suggestedEngagement: 'Suggested Engagement'
+    }
+  }
 } as const; 

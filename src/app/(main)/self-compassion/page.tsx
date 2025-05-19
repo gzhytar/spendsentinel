@@ -8,7 +8,7 @@ import { Progress } from "@/components/ui/progress";
 import { SELF_COMPASSION_PROMPTS } from "@/lib/constants";
 import { Lightbulb, TrendingUp, Heart } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LabelList } from 'recharts';
-
+import { useI18n } from '@/contexts/i18n-context';
 
 interface CalmScoreData {
   date: string;
@@ -16,6 +16,7 @@ interface CalmScoreData {
 }
 
 export default function DashboardPage() {
+  const { t } = useI18n();
   const [currentPrompt, setCurrentPrompt] = useState("");
   const [calmScore, setCalmScore] = useState<number>(5);
   const [calmHistory, setCalmHistory] = useState<CalmScoreData[]>([]);
@@ -57,9 +58,9 @@ export default function DashboardPage() {
         <CardHeader>
           <div className="flex items-center space-x-3">
             <Heart className="w-8 h-8 text-primary" />
-            <CardTitle className="text-2xl">Daily Self-Compassion</CardTitle>
+            <CardTitle className="text-2xl">{t('selfCompassion.title')}</CardTitle>
           </div>
-          <CardDescription>A moment for kindness and reflection.</CardDescription>
+          <CardDescription>{t('selfCompassion.subtitle')}</CardDescription>
         </CardHeader>
         {showPrompt && currentPrompt && (
           <CardContent>
@@ -74,7 +75,7 @@ export default function DashboardPage() {
             <>
               <div className="flex-1 w-full sm:w-auto">
                 <label htmlFor="calm-score" className="block text-sm font-medium text-muted-foreground mb-2">
-                  How calm do you feel right now? (1-10)
+                  {t('selfCompassion.calmScore.label')}
                 </label>
                 <div className="flex items-center space-x-3">
                   <Slider
@@ -90,12 +91,12 @@ export default function DashboardPage() {
                 </div>
               </div>
               <Button onClick={handleSaveCalmScore} size="lg">
-                Save Score & Reflect
+                {t('selfCompassion.calmScore.saveButton')}
               </Button>
             </>
           ) : (
             <Button onClick={handleNewPrompt} size="lg" variant="outline" className="w-full">
-              Get a New Self-Compassion Prompt
+              {t('selfCompassion.calmScore.newPromptButton')}
             </Button>
           )}
         </CardFooter>
@@ -106,9 +107,9 @@ export default function DashboardPage() {
           <CardHeader>
             <div className="flex items-center space-x-3">
               <TrendingUp className="w-8 h-8 text-accent" />
-              <CardTitle className="text-2xl">Your Calm Journey</CardTitle>
+              <CardTitle className="text-2xl">{t('selfCompassion.journey.title')}</CardTitle>
             </div>
-            <CardDescription>Track your self-reported calm scores over time.</CardDescription>
+            <CardDescription>{t('selfCompassion.journey.subtitle')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="h-[300px] w-full">
@@ -133,18 +134,18 @@ export default function DashboardPage() {
             </div>
              <Progress value={ (calmHistory[calmHistory.length-1]?.score || 0) * 10} className="mt-4 h-3" />
              <p className="text-sm text-muted-foreground text-center mt-2">
-                Current average calm: { (chartData.reduce((acc, curr) => acc + curr.score, 0) / chartData.length).toFixed(1) }
+                {t('selfCompassion.journey.currentAverage')} { (chartData.reduce((acc, curr) => acc + curr.score, 0) / chartData.length).toFixed(1) }
              </p>
           </CardContent>
         </Card>
       )}
        <Card className="shadow-lg">
           <CardHeader>
-            <CardTitle className="text-2xl">Ratio of Self-Critical Statements</CardTitle>
-            <CardDescription>Monitor your inner dialogue. (Placeholder for tracking)</CardDescription>
+            <CardTitle className="text-2xl">{t('selfCompassion.criticalThoughts.title')}</CardTitle>
+            <CardDescription>{t('selfCompassion.criticalThoughts.subtitle')}</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-muted-foreground">Feature coming soon. This section will help you track and understand patterns in self-critical thoughts, promoting a more compassionate inner voice.</p>
+            <p className="text-muted-foreground">{t('selfCompassion.criticalThoughts.comingSoon')}</p>
           </CardContent>
         </Card>
     </div>

@@ -112,6 +112,22 @@ export default function LandingPage() {
             <div className="grid md:grid-cols-2 gap-8">
               <div className="space-y-4">
                 <div className="flex items-start space-x-4">
+                  <MessageSquare className="w-6 h-6 text-primary mt-1" />
+                  <div>
+                    <h3 className="font-semibold">{t('landing.features.ifsDialogue.title')}</h3>
+                    <p className="text-muted-foreground">
+                      {t('landing.features.ifsDialogue.description')}
+                    </p>
+                    <div className="mt-4">
+                      <Button asChild>
+                          <Link href={`${localePrefix}/ifs-dialogue`}>
+                            <span>{t('landing.features.ifsDialogue.button')} <ArrowRight className="ml-2 h-4 w-4 inline" /></span>
+                          </Link>
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-4">
                   <Lightbulb className="w-6 h-6 text-primary mt-1" />
                   <div>
                     <h3 className="font-semibold">{t('landing.features.expenseHighlighter.title')}</h3>
@@ -127,6 +143,8 @@ export default function LandingPage() {
                     </div>
                   </div>
                 </div>
+              </div>
+              <div className="space-y-4">
                 <div className="flex items-start space-x-4">
                   <TrendingUp className="w-6 h-6 text-primary mt-1" />
                   <div>
@@ -138,24 +156,6 @@ export default function LandingPage() {
                       <Button asChild>
                           <Link href={`${localePrefix}/financial-gps`}>
                             <span>{t('landing.features.financialGPS.button')} <ArrowRight className="ml-2 h-4 w-4 inline" /></span>
-                          </Link>
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="space-y-4">
-                <div className="flex items-start space-x-4">
-                  <MessageSquare className="w-6 h-6 text-primary mt-1" />
-                  <div>
-                    <h3 className="font-semibold">{t('landing.features.ifsDialogue.title')}</h3>
-                    <p className="text-muted-foreground">
-                      {t('landing.features.ifsDialogue.description')}
-                    </p>
-                    <div className="mt-4">
-                      <Button asChild>
-                          <Link href={`${localePrefix}/ifs-dialogue`}>
-                            <span>{t('landing.features.ifsDialogue.button')} <ArrowRight className="ml-2 h-4 w-4 inline" /></span>
                           </Link>
                       </Button>
                     </div>

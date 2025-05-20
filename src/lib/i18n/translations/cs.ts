@@ -14,7 +14,7 @@ export const cs = {
     expenseHighlighter: 'Zvýrazňovač výdajů',
     financialGPS: 'Finanční GPS',
     ifsDialogue: 'IFS Dialog',
-    selfCompassion: 'Sebesoucit',
+    selfCompassion: 'Praxe sebelásky',
   },
   landing: {
     hero: {
@@ -59,13 +59,13 @@ export const cs = {
         description: 'Kategorizujte výdaje jako \'Životní\' vs. \'Životní styl\' pro podporu vědomého rozhodování o výdajích.',
         button: 'Sledovat Vaše Výdaje'
       },
-            financialGPS: {        title: 'Finanční GPS',        description: 'Sledujte svou finanční cestu s jasným pohledem na minulá rozhodnutí a budoucí cíle.',        button: 'Prozkoumat Vaši Cestu'      },
-            ifsDialogue: {        title: 'IFS Dialog',        description: 'Zapojte se do vedených konverzací se svými finančními částmi, abyste pochopili jejich potřeby.',        button: 'Začít Dialog'      },
-            selfCompassion: {        title: 'Praxe sebelásky',        description: 'Rozvíjejte laskavější vztah k sobě a své finanční cestě.',        button: 'Praktikovat Sebelásku'      }
+      financialGPS: {        title: 'Finanční GPS',        description: 'Sledujte svou finanční cestu s jasným pohledem na minulá rozhodnutí a budoucí cíle.',        button: 'Prozkoumat Vaši Cestu'      },
+      ifsDialogue: {        title: 'IFS Dialog',        description: 'Zapojte se do vedených konverzací se svými finančními částmi, abyste pochopili jejich potřeby.',        button: 'Začít Dialog'      },
+      selfCompassion: {        title: 'Praxe sebelásky',        description: 'Rozvíjejte laskavější vztah k sobě a své finanční cestě.',        button: 'Praktikovat Sebelásku'      }
     }
   },
   selfCompassion: {
-    title: 'Denní Sebesoucit',
+    title: 'Denní praxe sebelásky',
     subtitle: 'Okamžik pro laskavost a reflexi.',
     calmScore: {
       label: 'Jak klidný se cítíte právě teď? (1-10)',

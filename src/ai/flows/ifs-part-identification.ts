@@ -20,6 +20,7 @@ const IdentifyIFSPartInputSchema = z.object({
   personalityType: z
     .string()
     .describe("The user's personality type or preferred communication style."),
+  locale: z.string().optional().describe('The language locale to respond in (en, cs, ru)'),
 });
 export type IdentifyIFSPartInput = z.infer<typeof IdentifyIFSPartInputSchema>;
 
@@ -78,6 +79,14 @@ const prompt = ai.definePrompt({
 
 	Based on the provided information, identify one prominent financial part, including its role, burden, and concern.
 	Then, use the decideEngagement tool to determine the best way to communicate with the user about this part, considering their personality.
+
+  {{#if locale}}
+    IMPORTANT: Respond in the user's preferred language: {{locale}}
+    - If locale is "en": Respond in English
+    - If locale is "cs": Respond in Czech (Český jazyk)
+    - If locale is "ru": Respond in Russian (Русский язык)
+    {{/if}}
+
 	Return the part details and the engagement suggestion in the specified JSON format.
 
 	Example:

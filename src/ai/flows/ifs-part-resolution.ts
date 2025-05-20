@@ -18,6 +18,7 @@ const IFSPartResolutionInputSchema = z.object({
   partBehavior: z
     .string()
     .describe('A description of the behavior of the financial firefighter part.'),
+  locale: z.string().optional().describe('The language locale to respond in (en, cs, ru)')
 });
 export type IFSPartResolutionInput = z.infer<typeof IFSPartResolutionInputSchema>;
 
@@ -32,6 +33,7 @@ const IFSPartResolutionOutputSchema = z.object({
 export type IFSPartResolutionOutput = z.infer<typeof IFSPartResolutionOutputSchema>;
 
 export async function ifsPartResolution(input: IFSPartResolutionInput): Promise<IFSPartResolutionOutput> {
+  // The locale is now passed directly from the API route
   return ifsPartResolutionFlow(input);
 }
 
@@ -74,6 +76,13 @@ const ifsPartResolutionPrompt = ai.definePrompt({
     - role: What positive role does this part play in the user's financial system?
     - burden: What burden is this part carrying? What negative emotions or beliefs does it hold?
     - concern: What is the underlying concern driving this part's behavior? What is it trying to protect the user from?
+
+    {{#if locale}}
+    IMPORTANT: Respond in the user's preferred language: {{locale}}
+    - If locale is "en": Respond in English
+    - If locale is "cs": Respond in Czech (Český jazyk)
+    - If locale is "ru": Respond in Russian (Русский язык)
+    {{/if}}
 
     Provide your response in the following JSON format:
     {

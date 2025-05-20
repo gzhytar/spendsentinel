@@ -191,7 +191,8 @@ export const en = {
       role: 'Role',
       burden: 'Burden',
       concern: 'Concern',
-      suggestedEngagement: 'Suggested Engagement'
+      suggestedEngagement: 'Suggested Engagement',
+      engagementDescription: 'This strategy suggests a tailored approach to communicate with this part based on its nature and your profile.'
     }
   }
 } as const; 

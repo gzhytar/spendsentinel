@@ -33,7 +33,7 @@ const identifySchema = z.object({
 type IdentifyFormValues = z.infer<typeof identifySchema>;
 
 export default function IFSDialoguePage() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const [isLoadingIdentify, setIsLoadingIdentify] = useState(false);
   const [isLoadingResolve, setIsLoadingResolve] = useState(false);
   const [identificationResult, setIdentificationResult] = useState<IdentifyIFSPartOutput | null>(null);
@@ -55,10 +55,10 @@ export default function IFSDialoguePage() {
     setIdentificationResult(null);
     setResolutionResult(null); 
     try {
-      const response = await fetch('/api/identifyIFSPart', {
+      const response = await fetch(`/api/identifyIFSPart?lang=${locale}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify({...data, locale}),
       });
       if (!response.ok) throw new Error('API error');
       const result: IdentifyIFSPartOutput = await response.json();
@@ -80,8 +80,9 @@ export default function IFSDialoguePage() {
       const input: IFSPartResolutionInput = {
         partName: identificationResult.identifiedPart.partName,
         partBehavior: `${identificationResult.identifiedPart.role} ${identificationResult.identifiedPart.burden} ${identificationResult.identifiedPart.concern}`,
+        locale,
       };
-      const response = await fetch('/api/ifsPartResolution', {
+      const response = await fetch(`/api/ifsPartResolution?lang=${locale}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(input),
@@ -218,31 +219,31 @@ export default function IFSDialoguePage() {
           <CardHeader>
              <div className="flex items-center space-x-3">
                 <MessageSquareHeart className="w-8 h-8 text-green-500" />
-                <CardTitle className="text-2xl">Part Resolution Insights for "{identificationResult?.identifiedPart.partName}"</CardTitle>
+                <CardTitle className="text-2xl">{t('ifsDialogue.result.title').replace('{partName}', identificationResult?.identifiedPart.partName || '')}</CardTitle>
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <h3 className="font-semibold text-lg text-primary">Uncovered Role:</h3>
+              <h3 className="font-semibold text-lg text-primary">{t('ifsDialogue.result.role')}:</h3>
               <p className="text-muted-foreground">{resolutionResult.role}</p>
             </div>
             <div>
-              <h3 className="font-semibold text-lg text-primary">Identified Burden:</h3>
+              <h3 className="font-semibold text-lg text-primary">{t('ifsDialogue.result.burden')}:</h3>
               <p className="text-muted-foreground">{resolutionResult.burden}</p>
             </div>
             <div>
-              <h3 className="font-semibold text-lg text-primary">Underlying Concern:</h3>
+              <h3 className="font-semibold text-lg text-primary">{t('ifsDialogue.result.concern')}:</h3>
               <p className="text-muted-foreground">{resolutionResult.concern}</p>
             </div>
             <Separator className="my-6" />
             <div>
                 <div className="flex items-center space-x-2">
                     <UserCheck className="w-5 h-5 text-green-500" />
-                    <h3 className="font-semibold text-lg">Proposed Engagement Strategy:</h3>
+                    <h3 className="font-semibold text-lg">{t('ifsDialogue.result.suggestedEngagement')}:</h3>
                 </div>
               <p className="text-muted-foreground mt-1 capitalize">{resolutionResult.engagementStrategy}</p>
               <p className="text-sm text-muted-foreground mt-1">
-                This strategy suggests a tailored approach to communicate with this part based on its nature and your profile.
+                {t('ifsDialogue.result.engagementDescription')}
               </p>
             </div>
           </CardContent>

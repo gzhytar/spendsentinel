@@ -191,7 +191,8 @@ export const cs = {
       role: 'Role',
       burden: 'Břemeno',
       concern: 'Obava',
-      suggestedEngagement: 'Doporučený Přístup'
+      suggestedEngagement: 'Doporučený Přístup',
+      engagementDescription: 'Tato strategie navrhuje přizpůsobený přístup ke komunikaci s touto částí na základě její povahy a vašeho profilu.'
     }
   }
 } as const; 

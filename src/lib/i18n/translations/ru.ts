@@ -191,7 +191,8 @@ export const ru = {
       role: 'Роль',
       burden: 'Бремя',
       concern: 'Обеспокоенность',
-      suggestedEngagement: 'Рекомендуемый Подход'
+      suggestedEngagement: 'Рекомендуемый Подход',
+      engagementDescription: 'Эта стратегия предлагает индивидуальный подход к общению с этой частью, основанный на ее характере и вашем профиле.'
     }
   }
 } as const; 

@@ -44,9 +44,9 @@ interface Expense {
 }
 
 const COLORS = {
-  living: 'hsl(var(--chart-1))', // Blue
-  lifestyle: 'hsl(var(--chart-2))', // Green
-  unassigned: 'hsl(var(--muted))', // Gray
+  living: '#e76e50', // Red
+  lifestyle: '#10b981', // Green
+  unassigned: '#9ca3af', // Gray
 };
 
 export default function ExpenseHighlighterPage() {
@@ -117,9 +117,9 @@ export default function ExpenseHighlighterPage() {
   }, [expenses]);
 
   const chartData = [
-    { name: t('expenseHighlighter.categories.living'), value: expenseSummary.living },
-    { name: t('expenseHighlighter.categories.lifestyle'), value: expenseSummary.lifestyle },
-    { name: t('expenseHighlighter.unassigned'), value: expenseSummary.unassigned },
+    { name: t('expenseHighlighter.categories.living'), value: expenseSummary.living, category: 'living' },
+    { name: t('expenseHighlighter.categories.lifestyle'), value: expenseSummary.lifestyle, category: 'lifestyle' },
+    { name: t('expenseHighlighter.unassigned'), value: expenseSummary.unassigned, category: 'unassigned' },
   ].filter(d => d.value > 0);
 
   const getCategoryIcon = (category: Expense['category'], size: 'sm' | 'md' | 'lg' = 'sm') => {
@@ -224,10 +224,10 @@ export default function ExpenseHighlighterPage() {
                     outerRadius={100}
                     fill="#8884d8"
                     dataKey="value"
-                    label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                    label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
                   >
                     {chartData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[entry.name.toLowerCase() as keyof typeof COLORS]} />
+                      <Cell key={`cell-${index}`} fill={COLORS[entry.category.toLowerCase() as keyof typeof COLORS]} />
                     ))}
                   </Pie>
                   <Tooltip formatter={(value: number) => `$${value.toFixed(0)}`} />

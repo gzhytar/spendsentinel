@@ -201,6 +201,7 @@ export const cs = {
     identifyButton: 'Identifikovat Finanční Část',
     repeatAssessmentButton: 'Opakovat hodnocení hasičských částí',
     explorePartButton: 'Prozkoumat tuto část hlouběji',
+    premiumFeatureTooltip: 'Toto hluboké prozkoumání je prémiová funkce. Pro aktivaci prémiových funkcí se přihlaste k odběru.',
     error: {
       title: 'Chyba',
       identifyFailed: 'Nepodařilo se identifikovat část. Prosím, zkuste to znovu.',

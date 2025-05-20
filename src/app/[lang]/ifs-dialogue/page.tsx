@@ -23,6 +23,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import type { IdentifyIFSPartInput, IdentifyIFSPartOutput } from '@/ai/flows/ifs-part-identification';
 import type { IFSPartResolutionInput, IFSPartResolutionOutput } from '@/ai/flows/ifs-part-resolution';
 import { useI18n } from '@/contexts/i18n-context';
+import { PremiumButton } from '@/components/ui/premium-button';
 
 const identifySchema = z.object({
   financialSituation: z.string().min(10, "Please describe your financial situation in more detail."),
@@ -282,11 +283,16 @@ export default function IFSDialoguePage() {
             </div>
           </CardContent>
           <CardFooter>
-            <Button onClick={handleResolvePart} disabled={isLoadingResolve} size="lg">
+            <PremiumButton 
+              onClick={handleResolvePart} 
+              disabled={isLoadingResolve} 
+              size="lg"
+              tooltipText={t('ifsDialogue.premiumFeatureTooltip') || "This deep exploration is a premium feature. Subscribe to enable premium features."}
+            >
               {isLoadingResolve && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                <Wand2 className="mr-2 h-4 w-4" />
               {t('ifsDialogue.explorePartButton')}
-            </Button>
+            </PremiumButton>
           </CardFooter>
         </Card>
       )}

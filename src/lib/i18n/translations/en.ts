@@ -201,6 +201,7 @@ export const en = {
     identifyButton: 'Identify Financial Part',
     repeatAssessmentButton: 'Repeat Firefighter-parts assessment',
     explorePartButton: 'Explore This Part Deeper',
+    premiumFeatureTooltip: 'This deep exploration is a premium feature. Subscribe to enable premium features.',
     error: {
       title: 'Error',
       identifyFailed: 'Failed to identify part. Please try again.',

@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Flame, Brain, Shield, Heart, ArrowRight, Lightbulb, TrendingUp, MessageSquare } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useI18n } from '@/contexts/i18n-context';
 
 export default function LandingPage() {
@@ -20,13 +21,6 @@ export default function LandingPage() {
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
           {t('landing.hero.subtitle')}
         </p>
-        <div className="flex justify-center gap-4 pt-4">
-          <Button size="lg" asChild>
-            <Link href={`${localePrefix}/ifs-dialogue`}>
-              <span>{t('landing.hero.cta')} <ArrowRight className="ml-2 h-4 w-4 inline" /></span>
-            </Link>
-          </Button>
-        </div>
       </section>
 
       {/* Theory Section */}
@@ -73,24 +67,58 @@ export default function LandingPage() {
           </CardHeader>
           <CardContent>
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="space-y-2">
-                <h3 className="font-semibold text-lg">{t('landing.firefighters.spender.title')}</h3>
+              <div className="space-y-4">
+                <div className="rounded-lg overflow-hidden h-48 relative">
+                  <Image 
+                    src="/images/spender.jpg"
+                    alt={t('landing.firefighters.spender.title')}
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+                <h3 className="font-semibold text-lg text-center">{t('landing.firefighters.spender.title')}</h3>
                 <p className="text-muted-foreground">
                   {t('landing.firefighters.spender.description')}
                 </p>
               </div>
-              <div className="space-y-2">
-                <h3 className="font-semibold text-lg">{t('landing.firefighters.hoarder.title')}</h3>
+              <div className="space-y-4">
+                <div className="rounded-lg overflow-hidden h-48 relative">
+                  <Image 
+                    src="/images/hoarder.jpg" 
+                    alt={t('landing.firefighters.hoarder.title')}
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+                <h3 className="font-semibold text-lg text-center">{t('landing.firefighters.hoarder.title')}</h3>
                 <p className="text-muted-foreground">
                   {t('landing.firefighters.hoarder.description')}
                 </p>
               </div>
-              <div className="space-y-2">
-                <h3 className="font-semibold text-lg">{t('landing.firefighters.avoider.title')}</h3>
+              <div className="space-y-4">
+                <div className="rounded-lg overflow-hidden h-48 relative">
+                  <Image 
+                    src="/images/avoider.jpg" 
+                    alt={t('landing.firefighters.avoider.title')}
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+                <h3 className="font-semibold text-lg text-center">{t('landing.firefighters.avoider.title')}</h3>
                 <p className="text-muted-foreground">
                   {t('landing.firefighters.avoider.description')}
                 </p>
               </div>
+            </div>
+            <div className="flex justify-center gap-4 pt-8">
+              <Button size="lg" asChild>
+                <Link href={`${localePrefix}/ifs-dialogue`}>
+                  <span>{t('landing.hero.cta')} <ArrowRight className="ml-2 h-4 w-4 inline" /></span>
+                </Link>
+              </Button>
             </div>
           </CardContent>
         </Card>

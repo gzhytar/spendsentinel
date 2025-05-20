@@ -20,7 +20,7 @@ export const en = {
     hero: {
       title: 'Transform Your Relationship with Money',
       subtitle: 'Discover how understanding your emotional patterns can lead to better financial decisions and lasting change.',
-      cta: 'Start Your Journey',
+      cta: 'Get to know your Firefighters',
     },
     theory: {
       title: 'The Financial Firefighters Model',
@@ -76,11 +76,6 @@ export const en = {
       title: 'Your Calm Journey',
       subtitle: 'Track your self-reported calm scores over time.',
       currentAverage: 'Current average calm:'
-    },
-    criticalThoughts: {
-      title: 'Ratio of Self-Critical Statements',
-      subtitle: 'Monitor your inner dialogue. (Placeholder for tracking)',
-      comingSoon: 'Feature coming soon. This section will help you track and understand patterns in self-critical thoughts, promoting a more compassionate inner voice.'
     },
     prompts: [
       'Today, I will treat myself with the same kindness I would offer a good friend.',
@@ -159,7 +154,7 @@ export const en = {
       }
     },
     youAreHere: {
-      title: 'You Are Here',
+      title: 'Slow down and reflect',
       description: "Reflect on your current financial position based on your timeline.",
       content: "Based on the timeline events you've added, particularly your 'Present Snapshot' entries, take a moment to consider where you currently stand in your financial journey. This is your 'You Are Here' point. Understanding this clearly is the first step towards navigating to your desired future."
     }

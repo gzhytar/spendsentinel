@@ -20,7 +20,7 @@ export const cs = {
     hero: {
       title: 'Transformujte svůj vztah k penězům',
       subtitle: 'Objevte, jak porozumění vašim emočním vzorcům může vést k lepším finančním rozhodnutím a trvalé změně.',
-      cta: 'Začněte svou cestu'
+      cta: 'Poznejte své Hasiče'
     },
     theory: {
       title: 'Model Finančních Hasičů',
@@ -76,11 +76,6 @@ export const cs = {
       title: 'Vaše Cesta ke Klidu',
       subtitle: 'Sledujte své vlastní hodnocení klidu v čase.',
       currentAverage: 'Aktuální průměrný klid:'
-    },
-    criticalThoughts: {
-      title: 'Poměr Sebekritických Výroků',
-      subtitle: 'Sledujte svůj vnitřní dialog. (Placeholder pro sledování)',
-      comingSoon: 'Funkce brzy k dispozici. Tato sekce vám pomůže sledovat a porozumět vzorcům sebekritických myšlenek, podporujíc laskavější vnitřní hlas.'
     },
     prompts: [
       'Dnes se budu k sobě chovat se stejnou laskavostí, jakou bych nabídl dobrému příteli.',
@@ -159,7 +154,7 @@ export const cs = {
       }
     },
     youAreHere: {
-      title: 'Jste zde',
+      title: 'Zpomalte a zamyslite se',
       description: "Zamyslete se nad svou aktuální finanční pozicí na základě vaší časové osy.",
       content: "Na základě událostí na časové ose, zejména vašich záznamů 'Současný stav', si udělejte chvilku na zamyšlení, kde se právě nacházíte na své finanční cestě. Toto je váš bod 'Jste zde'. Jasné pochopení této pozice je prvním krokem k dosažení vaší vysněné budoucnosti."
     }

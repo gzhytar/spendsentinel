@@ -96,7 +96,7 @@ export default function ExpenseHighlighterPage() {
   const chartData = [
     { name: t('expenseHighlighter.categories.living'), value: expenseSummary.living },
     { name: t('expenseHighlighter.categories.lifestyle'), value: expenseSummary.lifestyle },
-    { name: 'Unassigned', value: expenseSummary.unassigned },
+    { name: t('expenseHighlighter.unassigned'), value: expenseSummary.unassigned },
   ].filter(d => d.value > 0);
 
   const getCategoryIcon = (category: Expense['category']) => {
@@ -119,9 +119,9 @@ export default function ExpenseHighlighterPage() {
         </CardHeader>
         <CardContent>
           <p className="text-muted-foreground">
-            <strong>{t('expenseHighlighter.categories.living')}:</strong> Essential costs like rent/mortgage, utilities, groceries, transportation for work, insurance.
+            <strong>{t('expenseHighlighter.categories.living')}:</strong> {t('expenseHighlighter.livingDescription')}
             <br />
-            <strong>{t('expenseHighlighter.categories.lifestyle')}:</strong> Discretionary spending like dining out, entertainment, hobbies, travel, luxury items.
+            <strong>{t('expenseHighlighter.categories.lifestyle')}:</strong> {t('expenseHighlighter.lifestyleDescription')}
           </p>
         </CardContent>
          <CardFooter>
@@ -140,10 +140,10 @@ export default function ExpenseHighlighterPage() {
           <CardContent className="grid md:grid-cols-2 gap-8 items-center">
             <div>
               <h3 className="font-semibold mb-2 text-lg">{t('expenseHighlighter.overview')}:</h3>
-              <p>{t('expenseHighlighter.total')}: <span className="font-bold text-primary">${expenseSummary.total.toFixed(2)}</span></p>
-              <p>{t('expenseHighlighter.categories.living')}: <span className="font-bold" style={{color: COLORS.living}}>${expenseSummary.living.toFixed(2)}</span></p>
-              <p>{t('expenseHighlighter.categories.lifestyle')}: <span className="font-bold" style={{color: COLORS.lifestyle}}>${expenseSummary.lifestyle.toFixed(2)}</span></p>
-              <p>Unassigned: <span className="font-bold" style={{color: COLORS.unassigned}}>${expenseSummary.unassigned.toFixed(2)}</span></p>
+              <p>{t('expenseHighlighter.total')}: <span className="font-bold text-primary">${expenseSummary.total.toFixed(0)}</span></p>
+              <p>{t('expenseHighlighter.categories.living')}: <span className="font-bold" style={{color: COLORS.living}}>${expenseSummary.living.toFixed(0)}</span></p>
+              <p>{t('expenseHighlighter.categories.lifestyle')}: <span className="font-bold" style={{color: COLORS.lifestyle}}>${expenseSummary.lifestyle.toFixed(0)}</span></p>
+              <p>{t('expenseHighlighter.unassigned')}: <span className="font-bold" style={{color: COLORS.unassigned}}>${expenseSummary.unassigned.toFixed(0)}</span></p>
             </div>
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
@@ -162,7 +162,7 @@ export default function ExpenseHighlighterPage() {
                       <Cell key={`cell-${index}`} fill={COLORS[entry.name.toLowerCase() as keyof typeof COLORS]} />
                     ))}
                   </Pie>
-                  <Tooltip formatter={(value: number) => `$${value.toFixed(2)}`} />
+                  <Tooltip formatter={(value: number) => `$${value.toFixed(0)}`} />
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
@@ -199,7 +199,7 @@ export default function ExpenseHighlighterPage() {
                       <div className="flex items-center space-x-2">
                         {getCategoryIcon(expense.category)}
                         <span className="capitalize">{expense.category === 'living' ? t('expenseHighlighter.categories.living') : 
-                          expense.category === 'lifestyle' ? t('expenseHighlighter.categories.lifestyle') : 'Unassigned'}</span>
+                          expense.category === 'lifestyle' ? t('expenseHighlighter.categories.lifestyle') : t('expenseHighlighter.unassigned')}</span>
                       </div>
                     </TableCell>
                     <TableCell className="text-right">
@@ -246,7 +246,7 @@ export default function ExpenseHighlighterPage() {
                   <SelectValue placeholder={t('expenseHighlighter.selectCategory')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="unassigned">Unassigned</SelectItem>
+                  <SelectItem value="unassigned">{t('expenseHighlighter.unassigned')}</SelectItem>
                   <SelectItem value="living">{t('expenseHighlighter.categories.living')}</SelectItem>
                   <SelectItem value="lifestyle">{t('expenseHighlighter.categories.lifestyle')}</SelectItem>
                 </SelectContent>

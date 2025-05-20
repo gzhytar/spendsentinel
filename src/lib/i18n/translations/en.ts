@@ -96,6 +96,17 @@ export const en = {
     addExpense: 'Add Expense',
     editExpense: 'Edit Expense',
     deleteExpense: 'Delete Expense',
+    overview: 'Overview',
+    total: 'Total Expenses',
+    yourExpenses: 'Your Expenses',
+    noExpenses: 'You haven\'t added any expenses yet. Click "Add Expense" to get started.',
+    actions: 'Actions',
+    selectCategory: 'Select a category',
+    addDescription: 'Fill in the details below to add a new expense.',
+    editDescription: 'Update the details of this expense.',
+    livingDescription: 'Essential costs like rent/mortgage, utilities, groceries, transportation for work, insurance.',
+    lifestyleDescription: 'Discretionary spending like dining out, entertainment, hobbies, travel, luxury items.',
+    unassigned: 'Unassigned',
     categories: {
       living: 'Living Expenses',
       lifestyle: 'Lifestyle Expenses'

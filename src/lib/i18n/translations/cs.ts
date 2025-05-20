@@ -96,6 +96,17 @@ export const cs = {
     addExpense: 'Přidat Výdaj',
     editExpense: 'Upravit Výdaj',
     deleteExpense: 'Smazat Výdaj',
+    overview: 'Přehled',
+    total: 'Celkové Výdaje',
+    yourExpenses: 'Vaše Výdaje',
+    noExpenses: 'Zatím jste nepřidali žádné výdaje. Klikněte na "Přidat Výdaj" pro začátek.',
+    actions: 'Akce',
+    selectCategory: 'Vyberte kategorii',
+    addDescription: 'Vyplňte níže uvedené údaje pro přidání nového výdaje.',
+    editDescription: 'Aktualizujte údaje tohoto výdaje.',
+    livingDescription: 'Nezbytné náklady jako nájem/hypotéka, služby, potraviny, doprava do práce, pojištění.',
+    lifestyleDescription: 'Volitelné výdaje jako stravování venku, zábava, koníčky, cestování, luxusní předměty.',
+    unassigned: 'Nezařazené',
     categories: {
       living: 'Životní Výdaje',
       lifestyle: 'Výdaje na Životní Styl'

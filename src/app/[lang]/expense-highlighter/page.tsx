@@ -7,10 +7,33 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { PlusCircle, Trash2, Edit3, Lightbulb, Utensils, Home, ShoppingCart, TrendingUp, Palette, PenLine } from 'lucide-react';
+import { 
+  PlusCircle, 
+  Trash2, 
+  Edit3, 
+  Building2, 
+  ShoppingBag, 
+  HelpCircle, 
+  TrendingUp, 
+  Home, 
+  Utensils, 
+  Car, 
+  ReceiptText, 
+  Package, 
+  Briefcase, 
+  HeartPulse, 
+  ShoppingCart, 
+  Laptop, 
+  Plane, 
+  Theater, 
+  PiggyBank, 
+  PenLine,
+  DollarSign
+} from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { useI18n } from '@/contexts/i18n-context';
+import { cn } from '@/lib/utils';
 
 interface Expense {
   id: string;
@@ -99,11 +122,33 @@ export default function ExpenseHighlighterPage() {
     { name: t('expenseHighlighter.unassigned'), value: expenseSummary.unassigned },
   ].filter(d => d.value > 0);
 
-  const getCategoryIcon = (category: Expense['category']) => {
+  const getCategoryIcon = (category: Expense['category'], size: 'sm' | 'md' | 'lg' = 'sm') => {
+    const dimensions = {
+      sm: "h-4 w-4",
+      md: "h-5 w-5",
+      lg: "h-6 w-6"
+    };
+    
     switch (category) {
-      case 'living': return <Home className="h-4 w-4 text-chart-1" />;
-      case 'lifestyle': return <Palette className="h-4 w-4 text-chart-2" />;
-      default: return <Lightbulb className="h-4 w-4 text-muted-foreground" />;
+      case 'living':
+        return <Home className={cn(dimensions[size], "text-chart-1")} />;
+      case 'lifestyle':
+        return <ShoppingBag className={cn(dimensions[size], "text-chart-2")} />;
+      default:
+        return <HelpCircle className={cn(dimensions[size], "text-muted-foreground")} />;
+    }
+  };
+
+  const getCategoryIconForSummary = (category: Expense['category']) => {
+    switch (category) {
+      case 'living':
+        return <Home className="mr-2 h-5 w-5 text-chart-1" />;
+      case 'lifestyle':
+        return <ShoppingBag className="mr-2 h-5 w-5 text-chart-2" />;
+      case 'unassigned':
+        return <HelpCircle className="mr-2 h-5 w-5 text-muted-foreground" />;
+      default:
+        return <DollarSign className="mr-2 h-5 w-5 text-primary" />;
     }
   };
 
@@ -112,17 +157,29 @@ export default function ExpenseHighlighterPage() {
       <Card className="shadow-lg">
         <CardHeader>
            <div className="flex items-center space-x-3">
-            <PenLine className="w-8 h-8 text-primary" />
+            <ReceiptText className="w-8 h-8 text-primary" />
             <CardTitle className="text-2xl">{t('expenseHighlighter.title')}</CardTitle>
           </div>
           <CardDescription>{t('expenseHighlighter.subtitle')}</CardDescription>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground">
-            <strong>{t('expenseHighlighter.categories.living')}:</strong> {t('expenseHighlighter.livingDescription')}
-            <br />
-            <strong>{t('expenseHighlighter.categories.lifestyle')}:</strong> {t('expenseHighlighter.lifestyleDescription')}
-          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex items-start space-x-3">
+              <Home className="w-5 h-5 text-chart-1 mt-1" />
+              <div>
+                <strong>{t('expenseHighlighter.categories.living')}:</strong>
+                <p className="text-muted-foreground text-sm">{t('expenseHighlighter.livingDescription')}</p>
+              </div>
+            </div>
+            
+            <div className="flex items-start space-x-3">
+              <ShoppingBag className="w-5 h-5 text-chart-2 mt-1" />
+              <div>
+                <strong>{t('expenseHighlighter.categories.lifestyle')}:</strong>
+                <p className="text-muted-foreground text-sm">{t('expenseHighlighter.lifestyleDescription')}</p>
+              </div>
+            </div>
+          </div>
         </CardContent>
          <CardFooter>
           <Button onClick={openNewExpenseModal}><PlusCircle className="mr-2 h-4 w-4" /> {t('expenseHighlighter.addExpense')}</Button>
@@ -134,16 +191,27 @@ export default function ExpenseHighlighterPage() {
           <CardHeader>
             <div className="flex items-center space-x-3">
                 <TrendingUp className="w-7 h-7 text-accent" />
-                <CardTitle className="text-xl">{t('expenseHighlighter.title')}</CardTitle>
+                <CardTitle className="text-xl">{t('expenseHighlighter.overview')}</CardTitle>
             </div>
           </CardHeader>
           <CardContent className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h3 className="font-semibold mb-2 text-lg">{t('expenseHighlighter.overview')}:</h3>
-              <p>{t('expenseHighlighter.total')}: <span className="font-bold text-primary">${expenseSummary.total.toFixed(0)}</span></p>
-              <p>{t('expenseHighlighter.categories.living')}: <span className="font-bold" style={{color: COLORS.living}}>${expenseSummary.living.toFixed(0)}</span></p>
-              <p>{t('expenseHighlighter.categories.lifestyle')}: <span className="font-bold" style={{color: COLORS.lifestyle}}>${expenseSummary.lifestyle.toFixed(0)}</span></p>
-              <p>{t('expenseHighlighter.unassigned')}: <span className="font-bold" style={{color: COLORS.unassigned}}>${expenseSummary.unassigned.toFixed(0)}</span></p>
+            <div className="space-y-3">
+              <div className="flex items-center">
+                <DollarSign className="mr-2 h-5 w-5 text-primary" />
+                <p>{t('expenseHighlighter.total')}: <span className="font-bold text-primary">${expenseSummary.total.toFixed(0)}</span></p>
+              </div>
+              <div className="flex items-center">
+                {getCategoryIconForSummary('living')}
+                <p>{t('expenseHighlighter.categories.living')}: <span className="font-bold" style={{color: COLORS.living}}>${expenseSummary.living.toFixed(0)}</span></p>
+              </div>
+              <div className="flex items-center">
+                {getCategoryIconForSummary('lifestyle')}
+                <p>{t('expenseHighlighter.categories.lifestyle')}: <span className="font-bold" style={{color: COLORS.lifestyle}}>${expenseSummary.lifestyle.toFixed(0)}</span></p>
+              </div>
+              <div className="flex items-center">
+                {getCategoryIconForSummary('unassigned')}
+                <p>{t('expenseHighlighter.unassigned')}: <span className="font-bold" style={{color: COLORS.unassigned}}>${expenseSummary.unassigned.toFixed(0)}</span></p>
+              </div>
             </div>
             <div className="h-[300px]">
               <ResponsiveContainer width="100%" height="100%">
@@ -173,11 +241,20 @@ export default function ExpenseHighlighterPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="text-xl">{t('expenseHighlighter.yourExpenses')}</CardTitle>
+          <div className="flex items-center space-x-3">
+            <ReceiptText className="w-6 h-6 text-primary" />
+            <CardTitle className="text-xl">{t('expenseHighlighter.yourExpenses')}</CardTitle>
+          </div>
         </CardHeader>
         <CardContent>
           {expenses.length === 0 ? (
-            <p className="text-muted-foreground">{t('expenseHighlighter.noExpenses')}</p>
+            <div className="flex flex-col items-center justify-center py-6 text-center">
+              <PiggyBank className="w-12 h-12 text-muted mb-2" />
+              <p className="text-muted-foreground">{t('expenseHighlighter.noExpenses')}</p>
+              <Button onClick={openNewExpenseModal} variant="outline" className="mt-4">
+                <PlusCircle className="mr-2 h-4 w-4" /> {t('expenseHighlighter.addExpense')}
+              </Button>
+            </div>
           ) : (
             <Table>
               <TableHeader>
@@ -193,7 +270,7 @@ export default function ExpenseHighlighterPage() {
                 {expenses.sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map(expense => (
                   <TableRow key={expense.id}>
                     <TableCell className="font-medium">{expense.description}</TableCell>
-                    <TableCell>${expense.amount.toFixed(2)}</TableCell>
+                    <TableCell>${expense.amount.toFixed(0)}</TableCell>
                     <TableCell>{new Date(expense.date).toLocaleDateString()}</TableCell>
                     <TableCell>
                       <div className="flex items-center space-x-2">
@@ -246,9 +323,24 @@ export default function ExpenseHighlighterPage() {
                   <SelectValue placeholder={t('expenseHighlighter.selectCategory')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="unassigned">{t('expenseHighlighter.unassigned')}</SelectItem>
-                  <SelectItem value="living">{t('expenseHighlighter.categories.living')}</SelectItem>
-                  <SelectItem value="lifestyle">{t('expenseHighlighter.categories.lifestyle')}</SelectItem>
+                  <SelectItem value="unassigned">
+                    <div className="flex items-center">
+                      <HelpCircle className="mr-2 h-4 w-4 text-muted-foreground" />
+                      <span>{t('expenseHighlighter.unassigned')}</span>
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="living">
+                    <div className="flex items-center">
+                      <Home className="mr-2 h-4 w-4 text-chart-1" />
+                      <span>{t('expenseHighlighter.categories.living')}</span>
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="lifestyle">
+                    <div className="flex items-center">
+                      <ShoppingBag className="mr-2 h-4 w-4 text-chart-2" />
+                      <span>{t('expenseHighlighter.categories.lifestyle')}</span>
+                    </div>
+                  </SelectItem>
                 </SelectContent>
               </Select>
             </div>

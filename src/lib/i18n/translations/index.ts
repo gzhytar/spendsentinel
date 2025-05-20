@@ -9,4 +9,3 @@ export const translations = {
 } as const;
 
 export type Locale = keyof typeof translations;
-export type Translation = typeof en; 

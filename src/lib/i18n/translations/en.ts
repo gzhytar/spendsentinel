@@ -10,7 +10,7 @@ export const en = {
   },
   navigation: {
     home: 'Home',
-    overview: 'Overview',
+    overview: 'Application guide',
     expenseHighlighter: 'Expense Highlighter',
     financialGPS: 'Financial GPS',
     ifsDialogue: 'IFS Dialogue',
@@ -31,7 +31,7 @@ export const en = {
         description: 'Traditional financial advice often focuses on knowledge and discipline, but ignores the emotional factors that drive our decisions. Understanding these emotional patterns is key to lasting change.',
       },
       ifsConnection: {
-        title: 'The IFS Connection',
+        title: 'Confirmed by science',
         description: 'Based on Internal Family Systems (IFS) therapy, this model helps you identify and work with the different "parts" of yourself that influence your financial behaviors.',
       },
     },
@@ -59,9 +59,21 @@ export const en = {
         description: 'Categorize expenses as \'Living\' vs. \'Lifestyle\' to promote mindful spending decisions.',
         button: 'Track Your Expenses'
       },
-            financialGPS: {        title: 'Financial GPS',        description: 'Track your financial journey with a clear view of past decisions and future goals.',        button: 'Explore Your Journey'      },
-            ifsDialogue: {        title: 'IFS Dialogue',        description: 'Engage in guided conversations with your financial parts to understand their needs.',        button: 'Start a Dialogue'      },
-            selfCompassion: {        title: 'Self-Compassion Practice',        description: 'Develop a kinder relationship with yourself and your financial journey.',        button: 'Practice Self-Compassion'      },
+      financialGPS: {
+        title: 'Financial GPS',
+        description: 'Track your financial journey with a clear view of past decisions and future goals.',
+        button: 'Explore Your Journey'
+      },
+      ifsDialogue: {
+        title: 'IFS Dialogue',
+        description: 'Engage in guided conversations with your financial parts to understand their needs.',
+        button: 'Start a Dialogue'
+      },
+      selfCompassion: {
+        title: 'Self-Compassion Practice',
+        description: 'Develop a kinder relationship with yourself and your financial journey.',
+        button: 'Practice Self-Compassion'
+      }
     },
   },
   selfCompassion: {

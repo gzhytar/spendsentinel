@@ -10,9 +10,9 @@ export const cs = {
   },
   navigation: {
     home: 'Domů',
-    overview: 'Přehled',
-    expenseHighlighter: 'Zvýrazňovač výdajů',
-    financialGPS: 'Finanční GPS',
+    overview: 'Průvodce aplikací',
+    expenseHighlighter: 'Reflexe výdajů',
+    financialGPS: 'Moje finanční cesta',
     ifsDialogue: 'IFS Dialog',
     selfCompassion: 'Praxe sebelásky',
   },
@@ -31,7 +31,7 @@ export const cs = {
         description: 'Tradiční finanční poradenství se často zaměřuje na znalosti a disciplínu, ale ignoruje emoční faktory, které ovlivňují naše rozhodnutí. Porozumění těmto emočním vzorcům je klíčem k trvalé změně.'
       },
       ifsConnection: {
-        title: 'Spojení s IFS',
+        title: 'Potvrzeno vědou',
         description: 'Založeno na terapii Internal Family Systems (IFS), tento model vám pomáhá identifikovat a pracovat s různými "částmi" sebe sama, které ovlivňují vaše finanční chování.'
       }
     },
@@ -59,9 +59,21 @@ export const cs = {
         description: 'Kategorizujte výdaje jako \'Životní\' vs. \'Životní styl\' pro podporu vědomého rozhodování o výdajích.',
         button: 'Sledovat Vaše Výdaje'
       },
-      financialGPS: {        title: 'Finanční GPS',        description: 'Sledujte svou finanční cestu s jasným pohledem na minulá rozhodnutí a budoucí cíle.',        button: 'Prozkoumat Vaši Cestu'      },
-      ifsDialogue: {        title: 'IFS Dialog',        description: 'Zapojte se do vedených konverzací se svými finančními částmi, abyste pochopili jejich potřeby.',        button: 'Začít Dialog'      },
-      selfCompassion: {        title: 'Praxe sebelásky',        description: 'Rozvíjejte laskavější vztah k sobě a své finanční cestě.',        button: 'Praktikovat Sebelásku'      }
+      financialGPS: {
+        title: 'Finanční GPS',
+        description: 'Sledujte svou finanční cestu s jasným pohledem na minulá rozhodnutí a budoucí cíle.',
+        button: 'Prozkoumat Vaši Cestu'
+      },
+      ifsDialogue: {
+        title: 'IFS Dialog',
+        description: 'Zapojte se do vedených konverzací se svými finančními částmi, abyste pochopili jejich potřeby.',
+        button: 'Začít Dialog'
+      },
+      selfCompassion: {
+        title: 'Praxe sebelásky',
+        description: 'Rozvíjejte laskavější vztah k sobě a své finanční cestě.',
+        button: 'Praktikovat Sebelásku'
+      }
     }
   },
   selfCompassion: {

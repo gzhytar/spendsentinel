@@ -11,23 +11,12 @@ import {
   PlusCircle, 
   Trash2, 
   Edit3, 
-  Building2, 
   ShoppingBag, 
   HelpCircle, 
   TrendingUp, 
   Home, 
-  Utensils, 
-  Car, 
   ReceiptText, 
-  Package, 
-  Briefcase, 
-  HeartPulse, 
-  ShoppingCart, 
-  Laptop, 
-  Plane, 
-  Theater, 
   PiggyBank, 
-  PenLine,
   DollarSign
 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from '@/components/ui/dialog';
@@ -165,7 +154,7 @@ export default function ExpenseHighlighterPage() {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="flex items-start space-x-3">
-              <Home className="w-5 h-5 text-chart-1 mt-1" />
+              {getCategoryIcon('living', 'lg')}
               <div>
                 <strong>{t('expenseHighlighter.categories.living')}:</strong>
                 <p className="text-muted-foreground text-sm">{t('expenseHighlighter.livingDescription')}</p>
@@ -173,7 +162,7 @@ export default function ExpenseHighlighterPage() {
             </div>
             
             <div className="flex items-start space-x-3">
-              <ShoppingBag className="w-5 h-5 text-chart-2 mt-1" />
+              {getCategoryIcon('lifestyle', 'lg')}
               <div>
                 <strong>{t('expenseHighlighter.categories.lifestyle')}:</strong>
                 <p className="text-muted-foreground text-sm">{t('expenseHighlighter.lifestyleDescription')}</p>

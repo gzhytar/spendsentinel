@@ -199,13 +199,15 @@ export const en = {
       }
     },
     identifyButton: 'Identify Financial Part',
+    repeatAssessmentButton: 'Repeat Firefighter-parts assessment',
+    explorePartButton: 'Explore This Part Deeper',
     error: {
       title: 'Error',
       identifyFailed: 'Failed to identify part. Please try again.',
       resolveFailed: 'Failed to resolve part. Please try again.'
     },
     result: {
-      title: 'Identified Part: {partName}',
+      title: 'Your primary type of Firefighter: {partName}',
       role: 'Role',
       burden: 'Burden',
       concern: 'Concern',

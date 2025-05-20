@@ -199,13 +199,15 @@ export const cs = {
       }
     },
     identifyButton: 'Identifikovat Finanční Část',
+    repeatAssessmentButton: 'Opakovat hodnocení hasičských částí',
+    explorePartButton: 'Prozkoumat tuto část hlouběji',
     error: {
       title: 'Chyba',
       identifyFailed: 'Nepodařilo se identifikovat část. Prosím, zkuste to znovu.',
       resolveFailed: 'Nepodařilo se vyřešit část. Prosím, zkuste to znovu.'
     },
     result: {
-      title: 'Identifikovaná Část: {partName}',
+      title: 'Vaše hlavní typ Hasiče: {partName}',
       role: 'Role',
       burden: 'Břemeno',
       concern: 'Obava',

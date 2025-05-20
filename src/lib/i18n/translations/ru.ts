@@ -199,13 +199,15 @@ export const ru = {
       }
     },
     identifyButton: 'Идентифицировать Финансовую Часть',
+    repeatAssessmentButton: 'Повторить оценку пожарных частей',
+    explorePartButton: 'Исследовать эту часть глубже',
     error: {
       title: 'Ошибка',
       identifyFailed: 'Не удалось идентифицировать часть. Пожалуйста, попробуйте снова.',
       resolveFailed: 'Не удалось разрешить часть. Пожалуйста, попробуйте снова.'
     },
     result: {
-      title: 'Идентифицированная Часть: {partName}',
+      title: 'Ваш основной тип Пожарного: {partName}',
       role: 'Роль',
       burden: 'Бремя',
       concern: 'Обеспокоенность',

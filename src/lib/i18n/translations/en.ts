@@ -200,5 +200,19 @@ export const en = {
       suggestedEngagement: 'Suggested Engagement',
       engagementDescription: 'This strategy suggests a tailored approach to communicate with this part based on its nature and your profile.'
     }
+  },
+  groundingExercise: {
+    title: 'Take a Moment to Breathe',
+    subtitle: 'Focus on your breath. You are safe.',
+    introduction: 'Let\'s try a quick grounding exercise:',
+    steps: {
+      see: 'Notice 5 things you can see around you.',
+      touch: 'Notice 4 things you can touch.',
+      hear: 'Notice 3 things you can hear.',
+      smell: 'Notice 2 things you can smell.',
+      taste: 'Notice 1 thing you can taste.'
+    },
+    breathingPrompt: 'Breathe in deeply... and exhale slowly.',
+    continueButton: 'I\'m Ready to Continue'
   }
 } as const; 

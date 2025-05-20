@@ -200,5 +200,19 @@ export const cs = {
       suggestedEngagement: 'Doporučený Přístup',
       engagementDescription: 'Tato strategie navrhuje přizpůsobený přístup ke komunikaci s touto částí na základě její povahy a vašeho profilu.'
     }
+  },
+  groundingExercise: {
+    title: 'Udělejte si chvíli na dech',
+    subtitle: 'Soustřeďte se na svůj dech. Jste v bezpečí.',
+    introduction: 'Pojďme vyzkoušet rychlé uzemňovací cvičení:',
+    steps: {
+      see: 'Všimněte si 5 věcí, které kolem sebe vidíte.',
+      touch: 'Všimněte si 4 věcí, kterých se můžete dotknout.',
+      hear: 'Všimněte si 3 věcí, které slyšíte.',
+      smell: 'Všimněte si 2 věcí, které cítíte.',
+      taste: 'Všimněte si 1 věci, kterou můžete ochutnat.'
+    },
+    breathingPrompt: 'Hluboce se nadechněte... a pomalu vydechněte.',
+    continueButton: 'Jsem připraven(a) pokračovat'
   }
 } as const; 

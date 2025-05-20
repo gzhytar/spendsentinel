@@ -10,6 +10,6 @@ export const localeNames: Record<Locale, string> = {
 
 export const localeFlags: Record<Locale, string> = {
   en: '🇺🇸',
-  cs: '🇨s',
+  cs: '🇨🇿',
   ru: '🇷🇺',
 }; 

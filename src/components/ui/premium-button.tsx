@@ -53,17 +53,11 @@ export function PremiumButton({
             )}
             {...props}
           >
-            {isPremiumEnabled ? (
-              <Crown className="w-4 h-4 mr-2 text-amber-200" />
-            ) : (
-              <Lock className="w-4 h-4 mr-2" />
-            )}
             {children}
-            {isPremiumEnabled && (
-              <span className="absolute -top-1 -right-1 bg-amber-200 text-amber-800 text-xs font-bold px-1 rounded-full">
-                PRO
-              </span>
-            )}
+            {isPremiumEnabled ? ( <Crown className="w-4 h-4 mr-2 text-amber-200" /> ) : ( <Lock className="w-4 h-4 mr-2 text-muted-foreground" /> )}
+            <span className="absolute -top-1 -right-1 bg-amber-200 text-amber-800 text-xs font-bold px-1 rounded-full">
+              PRO
+            </span>
           </Button>
         </TooltipTrigger>
         {!isPremiumEnabled && (

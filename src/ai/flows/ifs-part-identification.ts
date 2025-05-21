@@ -17,9 +17,6 @@ const IdentifyIFSPartInputSchema = z.object({
   recentFinancialBehavior: z
     .string()
     .describe("A description of the user's recent financial behavior or decisions."),
-  personalityType: z
-    .string()
-    .describe("The user's personality type or preferred communication style."),
   locale: z.string().optional().describe('The language locale to respond in (en, cs, ru)'),
 });
 export type IdentifyIFSPartInput = z.infer<typeof IdentifyIFSPartInputSchema>;
@@ -35,7 +32,7 @@ const IdentifyIFSPartOutputSchema = z.object({
   identifiedPart: IFSPartDetailsSchema.describe("Details of the identified financial part."),
   suggestedEngagement: z
     .string()
-    .describe("A suggestion on how to engage with this part based on the user's personality."),
+    .describe("A suggestion on how to engage with this part."),
 });
 export type IdentifyIFSPartOutput = z.infer<typeof IdentifyIFSPartOutputSchema>;
 
@@ -85,7 +82,7 @@ const prompt = ai.definePrompt({
     - If locale is "en": Respond in English
     - If locale is "cs": Respond in Czech (Český jazyk)
     - If locale is "ru": Respond in Russian (Русский язык)
-    {{/if}}
+  {{/if}}
 
 	Return the part details and the engagement suggestion in the specified JSON format.
 
@@ -109,7 +106,7 @@ const identifyIFSPartFlow = ai.defineFlow(
     outputSchema: IdentifyIFSPartOutputSchema,
   },
   async input => {
-    const {output} = await prompt(input);
+      const {output} = await prompt(input);
     return output!;
   }
 );

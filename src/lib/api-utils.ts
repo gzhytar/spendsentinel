@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server';
-import { Locale, defaultLocale, locales } from '@/lib/i18n/config';
+import { Locale, defaultLocale, locales, localeNames } from '@/lib/i18n/config';
 
 /**
  * Extracts the appropriate locale from a NextRequest by checking:
@@ -56,6 +56,9 @@ export const prepareLocalizedInput = async (req: NextRequest): Promise<any> => {
   // Extract the appropriate locale
   const locale = extractLocale(req, data);
   
-  // Return data with locale added/overridden
-  return { ...data, locale };
+  // Format locale to include language name and code: "English (en)"
+  const formattedLocale = `${localeNames[locale]} (${locale})`;
+  
+  // Return data with formatted locale added/overridden
+  return { ...data, locale: formattedLocale };
 }; 

@@ -28,7 +28,6 @@ import { PremiumButton } from '@/components/ui/premium-button';
 const identifySchema = z.object({
   financialSituation: z.string().min(10, "Please describe your financial situation in more detail."),
   recentFinancialBehavior: z.string().min(10, "Please describe your recent financial behavior."),
-  personalityType: z.string().min(1, "Please select a personality type."),
 });
 
 type IdentifyFormValues = z.infer<typeof identifySchema>;
@@ -78,7 +77,6 @@ export default function IFSDialoguePage() {
     defaultValues: {
       financialSituation: "",
       recentFinancialBehavior: "",
-      personalityType: "",
     },
   });
 
@@ -206,25 +204,6 @@ export default function IFSDialoguePage() {
                 />
                 {identifyForm.formState.errors.recentFinancialBehavior && (
                   <p className="text-sm text-destructive">{t('ifsDialogue.form.recentFinancialBehavior.error')}</p>
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="personalityType">{t('ifsDialogue.form.personalityType.label')}</Label>
-                <Select onValueChange={(value) => identifyForm.setValue('personalityType', value)} defaultValue={identifyForm.getValues('personalityType')}>
-                  <SelectTrigger id="personalityType">
-                    <SelectValue placeholder={t('ifsDialogue.form.personalityType.placeholder')} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="analytical">{t('ifsDialogue.form.personalityType.options.analytical')}</SelectItem>
-                    <SelectItem value="expressive">{t('ifsDialogue.form.personalityType.options.expressive')}</SelectItem>
-                    <SelectItem value="amiable">{t('ifsDialogue.form.personalityType.options.amiable')}</SelectItem>
-                    <SelectItem value="driver">{t('ifsDialogue.form.personalityType.options.driver')}</SelectItem>
-                    <SelectItem value="gentle">{t('ifsDialogue.form.personalityType.options.gentle')}</SelectItem>
-                  </SelectContent>
-                </Select>
-                {identifyForm.formState.errors.personalityType && (
-                  <p className="text-sm text-destructive">{t('ifsDialogue.form.personalityType.error')}</p>
                 )}
               </div>
             </CardContent>

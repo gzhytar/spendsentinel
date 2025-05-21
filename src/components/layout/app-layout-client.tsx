@@ -95,7 +95,7 @@ export function AppLayoutClient({ children }: { children: ReactNode }) {
             {/* Page specific header content could go here, e.g. using a portal or context */}
           </div>
         </header>
-        <main className="flex-1 overflow-auto p-4 sm:p-2">
+        <main className="flex-1 overflow-x-hidden p-2 md:p-4">
           {children}
         </main>
       </SidebarInset>

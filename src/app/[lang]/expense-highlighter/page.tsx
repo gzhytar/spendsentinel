@@ -245,43 +245,88 @@ export default function ExpenseHighlighterPage() {
               </Button>
             </div>
           ) : (
-            <div className="overflow-x-auto">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>{t('expenseHighlighter.form.description')}</TableHead>
-                    <TableHead>{t('expenseHighlighter.form.amount')}</TableHead>
-                    <TableHead>{t('expenseHighlighter.form.date')}</TableHead>
-                    <TableHead>{t('expenseHighlighter.form.category')}</TableHead>
-                    <TableHead className="text-right">{t('expenseHighlighter.actions')}</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {expenses.sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map(expense => (
-                    <TableRow key={expense.id}>
-                      <TableCell className="font-medium">{expense.description}</TableCell>
-                      <TableCell>${expense.amount.toFixed(0)}</TableCell>
-                      <TableCell>{new Date(expense.date).toLocaleDateString()}</TableCell>
-                      <TableCell>
-                        <div className="flex items-center space-x-2">
+            <>
+              {/* Mobile view - Card layout for small screens */}
+              <div className="block sm:hidden space-y-4">
+                {expenses.sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map(expense => (
+                  <Card key={expense.id} className="overflow-hidden border">
+                    <CardContent className="p-4 space-y-3">
+                      <div className="border-b pb-2">
+                        <p className="text-xs text-muted-foreground">{t('expenseHighlighter.form.description')}</p>
+                        <p className="font-medium">{expense.description}</p>
+                      </div>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <p className="text-xs text-muted-foreground">{t('expenseHighlighter.form.amount')}</p>
+                          <p className="font-medium">${expense.amount.toFixed(0)}</p>
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground">{t('expenseHighlighter.form.date')}</p>
+                          <p className="font-medium">{new Date(expense.date).toLocaleDateString()}</p>
+                        </div>
+                      </div>
+                      <div>
+                        <p className="text-xs text-muted-foreground">{t('expenseHighlighter.form.category')}</p>
+                        <div className="flex items-center space-x-2 mt-1">
                           {getCategoryIcon(expense.category)}
-                          <span className="capitalize">{expense.category === 'living' ? t('expenseHighlighter.categories.living') :
+                          <span className="capitalize">{expense.category === 'living' ? t('expenseHighlighter.categories.living') : 
                             expense.category === 'lifestyle' ? t('expenseHighlighter.categories.lifestyle') : t('expenseHighlighter.unassigned')}</span>
                         </div>
-                      </TableCell>
-                      <TableCell className="text-right">
-                        <Button variant="ghost" size="icon" onClick={() => handleEdit(expense)} className="mr-2">
-                          <Edit3 className="h-4 w-4" />
+                      </div>
+                      <div className="flex justify-end space-x-2 pt-1">
+                        <Button variant="ghost" size="sm" onClick={() => handleEdit(expense)}>
+                          <Edit3 className="h-4 w-4 mr-1" />
+                          {t('expenseHighlighter.editExpense')}
                         </Button>
-                        <Button variant="ghost" size="icon" onClick={() => handleDelete(expense.id)} className="text-destructive">
-                          <Trash2 className="h-4 w-4" />
+                        <Button variant="ghost" size="sm" onClick={() => handleDelete(expense.id)} className="text-destructive">
+                          <Trash2 className="h-4 w-4 mr-1" />
+                          {t('expenseHighlighter.deleteExpense')}
                         </Button>
-                      </TableCell>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              {/* Desktop view - Table layout for larger screens */}
+              <div className="hidden sm:block overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>{t('expenseHighlighter.form.description')}</TableHead>
+                      <TableHead>{t('expenseHighlighter.form.amount')}</TableHead>
+                      <TableHead>{t('expenseHighlighter.form.date')}</TableHead>
+                      <TableHead>{t('expenseHighlighter.form.category')}</TableHead>
+                      <TableHead className="text-right">{t('expenseHighlighter.actions')}</TableHead>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
+                  </TableHeader>
+                  <TableBody>
+                    {expenses.sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map(expense => (
+                      <TableRow key={expense.id}>
+                        <TableCell className="font-medium">{expense.description}</TableCell>
+                        <TableCell>${expense.amount.toFixed(0)}</TableCell>
+                        <TableCell>{new Date(expense.date).toLocaleDateString()}</TableCell>
+                        <TableCell>
+                          <div className="flex items-center space-x-2">
+                            {getCategoryIcon(expense.category)}
+                            <span className="capitalize">{expense.category === 'living' ? t('expenseHighlighter.categories.living') :
+                              expense.category === 'lifestyle' ? t('expenseHighlighter.categories.lifestyle') : t('expenseHighlighter.unassigned')}</span>
+                          </div>
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <Button variant="ghost" size="icon" onClick={() => handleEdit(expense)} className="mr-2">
+                            <Edit3 className="h-4 w-4" />
+                          </Button>
+                          <Button variant="ghost" size="icon" onClick={() => handleDelete(expense.id)} className="text-destructive">
+                            <Trash2 className="h-4 w-4" />
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </>
           )}
         </CardContent>
       </Card>

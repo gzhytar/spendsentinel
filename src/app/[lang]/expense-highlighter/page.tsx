@@ -142,7 +142,7 @@ export default function ExpenseHighlighterPage() {
   };
 
   return (
-    <div className="container mx-auto py-8 space-y-8">
+    <div className="container mx-auto py-8 space-y-8 overflow-x-auto">
       <Card className="shadow-lg">
         <CardHeader>
            <div className="flex items-center space-x-3">
@@ -202,7 +202,7 @@ export default function ExpenseHighlighterPage() {
                 <p>{t('expenseHighlighter.unassigned')}: <span className="font-bold" style={{color: COLORS.unassigned}}>${expenseSummary.unassigned.toFixed(0)}</span></p>
               </div>
             </div>
-            <div className="h-[300px]">
+            <div className="h-[300px] w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
@@ -245,41 +245,43 @@ export default function ExpenseHighlighterPage() {
               </Button>
             </div>
           ) : (
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>{t('expenseHighlighter.form.description')}</TableHead>
-                  <TableHead>{t('expenseHighlighter.form.amount')}</TableHead>
-                  <TableHead>{t('expenseHighlighter.form.date')}</TableHead>
-                  <TableHead>{t('expenseHighlighter.form.category')}</TableHead>
-                  <TableHead className="text-right">{t('expenseHighlighter.actions')}</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {expenses.sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map(expense => (
-                  <TableRow key={expense.id}>
-                    <TableCell className="font-medium">{expense.description}</TableCell>
-                    <TableCell>${expense.amount.toFixed(0)}</TableCell>
-                    <TableCell>{new Date(expense.date).toLocaleDateString()}</TableCell>
-                    <TableCell>
-                      <div className="flex items-center space-x-2">
-                        {getCategoryIcon(expense.category)}
-                        <span className="capitalize">{expense.category === 'living' ? t('expenseHighlighter.categories.living') : 
-                          expense.category === 'lifestyle' ? t('expenseHighlighter.categories.lifestyle') : t('expenseHighlighter.unassigned')}</span>
-                      </div>
-                    </TableCell>
-                    <TableCell className="text-right">
-                      <Button variant="ghost" size="icon" onClick={() => handleEdit(expense)} className="mr-2">
-                        <Edit3 className="h-4 w-4" />
-                      </Button>
-                      <Button variant="ghost" size="icon" onClick={() => handleDelete(expense.id)} className="text-destructive">
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </TableCell>
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>{t('expenseHighlighter.form.description')}</TableHead>
+                    <TableHead>{t('expenseHighlighter.form.amount')}</TableHead>
+                    <TableHead>{t('expenseHighlighter.form.date')}</TableHead>
+                    <TableHead>{t('expenseHighlighter.form.category')}</TableHead>
+                    <TableHead className="text-right">{t('expenseHighlighter.actions')}</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHeader>
+                <TableBody>
+                  {expenses.sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map(expense => (
+                    <TableRow key={expense.id}>
+                      <TableCell className="font-medium">{expense.description}</TableCell>
+                      <TableCell>${expense.amount.toFixed(0)}</TableCell>
+                      <TableCell>{new Date(expense.date).toLocaleDateString()}</TableCell>
+                      <TableCell>
+                        <div className="flex items-center space-x-2">
+                          {getCategoryIcon(expense.category)}
+                          <span className="capitalize">{expense.category === 'living' ? t('expenseHighlighter.categories.living') :
+                            expense.category === 'lifestyle' ? t('expenseHighlighter.categories.lifestyle') : t('expenseHighlighter.unassigned')}</span>
+                        </div>
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <Button variant="ghost" size="icon" onClick={() => handleEdit(expense)} className="mr-2">
+                          <Edit3 className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="icon" onClick={() => handleDelete(expense.id)} className="text-destructive">
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
           )}
         </CardContent>
       </Card>

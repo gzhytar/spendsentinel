@@ -169,7 +169,7 @@ export default function IFSDialoguePage() {
   };
 
   return (
-    <div className="container mx-auto py-8 space-y-8">
+    <div className="container mx-auto py-8 space-y-8 overflow-x-auto">
       {showIdentifyForm ? (
         <Card className="shadow-lg">
           <CardHeader>

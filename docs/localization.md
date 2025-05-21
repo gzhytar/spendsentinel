@@ -2,7 +2,7 @@
 
 ## Overview
 
-This project implements a comprehensive localization (l10n) and internationalization (i18n) system using React and TypeScript. The system supports multiple languages (currently English, Czech, and Russian) and provides a type-safe way to manage translations.
+This project implements a comprehensive localization (l10n) and internationalization (i18n) system using React and TypeScript. The system supports multiple languages (currently English, Czech, Russian, and Ukrainian) and provides a type-safe way to manage translations.
 
 ## Architecture
 
@@ -12,6 +12,7 @@ Translations are stored in the `src/lib/i18n/translations` directory, with separ
 - `en.ts` - English translations
 - `cs.ts` - Czech translations
 - `ru.ts` - Russian translations
+- `uk.ts` - Ukrainian translations
 
 Each translation file exports a constant object with the same structure, ensuring type safety across languages.
 
@@ -73,7 +74,7 @@ function MyComponent() {
 
 ### 2. Adding New Translations
 
-1. Add new translation keys to all language files (`en.ts`, `cs.ts`, `ru.ts`)
+1. Add new translation keys to all language files (`en.ts`, `cs.ts`, `ru.ts`, `uk.ts`)
 2. Maintain the same structure across all files
 3. Use TypeScript's `as const` assertion to ensure type safety
 

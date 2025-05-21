@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server'
 import { match as matchLocale } from '@formatjs/intl-localematcher'
 import Negotiator from 'negotiator'
 
-const locales = ['en', 'cs', 'ru']
+const locales = ['en', 'cs', 'ru', 'uk']
 const defaultLocale = 'en'
 
 function getLocale(request: NextRequest): string {
@@ -12,7 +12,7 @@ function getLocale(request: NextRequest): string {
 
   // @ts-ignore locales are readonly
   const languages = new Negotiator({ headers: negotiatorHeaders }).languages()
-  const locales = ['en', 'cs', 'ru']
+  const locales = ['en', 'cs', 'ru', 'uk']
   
   try {
     return matchLocale(languages, locales, defaultLocale)

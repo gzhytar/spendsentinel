@@ -190,7 +190,7 @@ export default function FinancialGPSPage() {
         <CardFooter>
           <Dialog>
             <DialogTrigger asChild>
-              <Button variant="outline"><PlusCircle className="mr-2 h-4 w-4" /> {t('financialGPS.visionBoard.addItem')}</Button>
+              <Button variant="outline" wrap={true}><PlusCircle className="mr-2 h-4 w-4" /> {t('financialGPS.visionBoard.addItem')}</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
@@ -223,7 +223,7 @@ export default function FinancialGPSPage() {
                 )}
               </div>
               <DialogFooter>
-                <Button onClick={handleAddVisionBoardItem}>{t('financialGPS.visionBoard.form.save')}</Button>
+                <Button onClick={handleAddVisionBoardItem} wrap={true}>{t('financialGPS.visionBoard.form.save')}</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
@@ -254,7 +254,7 @@ export default function FinancialGPSPage() {
         <CardFooter>
           <Dialog>
             <DialogTrigger asChild>
-              <Button variant="outline"><PlusCircle className="mr-2 h-4 w-4" /> {t('financialGPS.timeline.addEvent')}</Button>
+              <Button variant="outline" wrap={true}><PlusCircle className="mr-2 h-4 w-4" /> {t('financialGPS.timeline.addEvent')}</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
               <DialogHeader>
@@ -286,7 +286,7 @@ export default function FinancialGPSPage() {
                 </div>
               </div>
               <DialogFooter>
-                <Button onClick={() => { handleAddTimelineEvent(); }}>{t('financialGPS.timeline.form.save')}</Button>
+                <Button onClick={() => { handleAddTimelineEvent(); }} wrap={true}>{t('financialGPS.timeline.form.save')}</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>

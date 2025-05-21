@@ -114,7 +114,7 @@ export default function LandingPage() {
               </div>
             </div>
             <div className="flex justify-center gap-4 pt-8">
-              <Button size="lg" className="w-full sm:w-auto" asChild>
+              <Button size="lg" className="w-full sm:w-auto" wrap={true} asChild>
                 <Link href={`${localePrefix}/ifs-dialogue`}>
                   <span>{t('landing.hero.cta')} <ArrowRight className="ml-2 h-4 w-4 inline" /></span>
                 </Link>
@@ -148,7 +148,7 @@ export default function LandingPage() {
                     {t('landing.features.ifsDialogue.description')}
                   </p>
                   <div className="mt-4">
-                    <Button className="w-full sm:w-auto" asChild>
+                    <Button className="w-full sm:w-auto" wrap={true} asChild>
                         <Link href={`${localePrefix}/ifs-dialogue`}>
                           <span>{t('landing.features.ifsDialogue.button')} <ArrowRight className="ml-2 h-4 w-4 inline" /></span>
                         </Link>
@@ -164,7 +164,7 @@ export default function LandingPage() {
                     {t('landing.features.expenseHighlighter.description')}
                   </p>
                   <div className="mt-4">
-                    <Button className="w-full sm:w-auto" asChild>
+                    <Button className="w-full sm:w-auto" wrap={true} asChild>
                         <Link href={`${localePrefix}/expense-highlighter`}>
                           <span>{t('landing.features.expenseHighlighter.button')} <ArrowRight className="ml-2 h-4 w-4 inline" /></span>
                         </Link>
@@ -182,7 +182,7 @@ export default function LandingPage() {
                     {t('landing.features.financialGPS.description')}
                   </p>
                   <div className="mt-4">
-                    <Button className="w-full sm:w-auto" asChild>
+                    <Button className="w-full sm:w-auto" wrap={true} asChild>
                         <Link href={`${localePrefix}/financial-gps`}>
                           <span>{t('landing.features.financialGPS.button')} <ArrowRight className="ml-2 h-4 w-4 inline" /></span>
                         </Link>
@@ -198,7 +198,7 @@ export default function LandingPage() {
                     {t('landing.features.selfCompassion.description')}
                   </p>
                   <div className="mt-4">
-                    <Button className="w-full sm:w-auto" asChild>
+                    <Button className="w-full sm:w-auto" wrap={true} asChild>
                         <Link href={`${localePrefix}/self-compassion`}>
                           <span>{t('landing.features.selfCompassion.button')} <ArrowRight className="ml-2 h-4 w-4 inline" /></span>
                         </Link>

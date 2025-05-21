@@ -14,6 +14,7 @@ import { cn } from '@/lib/utils';
 interface PremiumButtonProps extends Omit<ButtonProps, 'className'> {
   tooltipText?: string;
   className?: string;
+  wrap?: boolean;
 }
 
 /**
@@ -33,6 +34,7 @@ export function PremiumButton({
   children, 
   tooltipText = "This is a premium feature. Contact admin to enable premium functionality.",
   className,
+  wrap,
   ...props
 }: PremiumButtonProps) {
   const { isPremiumEnabled } = usePremiumStatus();
@@ -44,6 +46,7 @@ export function PremiumButton({
           <Button
             onClick={isPremiumEnabled ? onClick : undefined}
             disabled={!isPremiumEnabled}
+            wrap={wrap}
             className={cn(
               `relative`,
               isPremiumEnabled 

@@ -240,7 +240,7 @@ export default function ExpenseHighlighterPage() {
             <div className="flex flex-col items-center justify-center py-6 text-center">
               <PiggyBank className="w-12 h-12 text-muted mb-2" />
               <p className="text-muted-foreground">{t('expenseHighlighter.noExpenses')}</p>
-              <Button onClick={openNewExpenseModal} variant="outline" className="mt-4">
+              <Button onClick={openNewExpenseModal} variant="outline" className="mt-4" wrap={true}>
                 <PlusCircle className="mr-2 h-4 w-4" /> {t('expenseHighlighter.addExpense')}
               </Button>
             </div>
@@ -274,11 +274,11 @@ export default function ExpenseHighlighterPage() {
                         </div>
                       </div>
                       <div className="flex justify-end space-x-2 pt-1">
-                        <Button variant="ghost" size="sm" onClick={() => handleEdit(expense)}>
+                        <Button variant="ghost" size="sm" onClick={() => handleEdit(expense)} wrap={true}>
                           <Edit3 className="h-4 w-4 mr-1" />
                           {t('expenseHighlighter.editExpense')}
                         </Button>
-                        <Button variant="ghost" size="sm" onClick={() => handleDelete(expense.id)} className="text-destructive">
+                        <Button variant="ghost" size="sm" onClick={() => handleDelete(expense.id)} className="text-destructive" wrap={true}>
                           <Trash2 className="h-4 w-4 mr-1" />
                           {t('expenseHighlighter.deleteExpense')}
                         </Button>
@@ -382,7 +382,7 @@ export default function ExpenseHighlighterPage() {
             </div>
           </div>
           <DialogFooter>
-            <Button onClick={handleSubmit}>{currentExpense.id ? t('expenseHighlighter.editExpense') : t('expenseHighlighter.addExpense')}</Button>
+            <Button onClick={handleSubmit} wrap={true}>{currentExpense.id ? t('expenseHighlighter.editExpense') : t('expenseHighlighter.addExpense')}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

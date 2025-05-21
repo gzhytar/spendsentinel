@@ -89,12 +89,12 @@ export default function DashboardPage() {
                   <span className="font-semibold text-primary w-8 text-center">{calmScore}</span>
                 </div>
               </div>
-              <Button onClick={handleSaveCalmScore} size="lg">
+              <Button onClick={handleSaveCalmScore} size="lg" wrap={true}>
                 {t('selfCompassion.calmScore.saveButton')}
               </Button>
             </>
           ) : (
-            <Button onClick={handleNewPrompt} size="lg" variant="outline" className="w-full">
+            <Button onClick={handleNewPrompt} size="lg" variant="outline" className="w-full" wrap={true}>
               {t('selfCompassion.calmScore.newPromptButton')}
             </Button>
           )}

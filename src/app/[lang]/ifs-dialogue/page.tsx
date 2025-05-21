@@ -229,7 +229,7 @@ export default function IFSDialoguePage() {
               </div>
             </CardContent>
             <CardFooter>
-              <Button type="submit" disabled={isLoadingIdentify} size="lg" className="w-full sm:w-auto">
+              <Button type="submit" disabled={isLoadingIdentify} size="lg" className="w-full sm:w-auto" wrap={true}>
                 {isLoadingIdentify && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 <Wand2 className="mr-2 h-4 w-4" /> {t('ifsDialogue.identifyButton')}
               </Button>
@@ -238,7 +238,7 @@ export default function IFSDialoguePage() {
         </Card>
       ) : (
         <div className="flex justify-end mb-4">
-          <Button onClick={handleNewIdentification} variant="outline" className="w-full sm:w-auto">
+          <Button onClick={handleNewIdentification} variant="outline" className="w-full sm:w-auto" wrap={true}>
             <RefreshCw className="mr-2 h-4 w-4" /> {t('ifsDialogue.repeatAssessmentButton')}
           </Button>
         </div>
@@ -289,6 +289,7 @@ export default function IFSDialoguePage() {
               size="lg"
               className="w-full sm:w-auto"
               tooltipText={t('ifsDialogue.premiumFeatureTooltip') || "This deep exploration is a premium feature. Subscribe to enable premium features."}
+              wrap={true}
             >
               {isLoadingResolve && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                <Wand2 className="mr-2 h-4 w-4" />

@@ -26,17 +26,24 @@ import { useI18n } from '@/contexts/i18n-context';
 export function AppLayoutClient({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const { isPanicActive } = usePanicMode();
-  const { open } = useSidebar();
+  const { open, isMobile, setOpenMobile } = useSidebar();
   const { t, locale } = useI18n();
   
   // Extract the current locale from the pathname
   const localePrefix = `/${locale}`;
 
+  // Handle navigation click to close the sidebar on mobile
+  const handleNavClick = () => {
+    if (isMobile) {
+      setOpenMobile(false);
+    }
+  };
+
   return (
     <>
       <Sidebar collapsible="icon" className="border-r">
         <SidebarHeader className="p-4">
-          <Link href={`${localePrefix}/`} className="flex items-center gap-2">
+          <Link href={`${localePrefix}/`} className="flex items-center gap-2" onClick={handleNavClick}>
             <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full bg-primary/20 hover:bg-primary/30">
                <Leaf className="h-6 w-6 text-primary" />
             </Button>
@@ -67,7 +74,7 @@ export function AppLayoutClient({ children }: { children: ReactNode }) {
                       tooltip={t(item.tooltip)}
                       className="justify-start"
                     >
-                      <Link href={localizedHref}>
+                      <Link href={localizedHref} onClick={handleNavClick}>
                         <item.icon className="h-5 w-5" />
                         <span>{t(item.label)}</span>
                       </Link>

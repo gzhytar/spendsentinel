@@ -12,7 +12,7 @@ export default function LandingPage() {
   const localePrefix = `/${locale}`;
 
   return (
-    <div className="container mx-auto py-8 space-y-12 max-w-full">
+    <div className="container mx-auto py-8 space-y-12 px-4">
       {/* Hero Section */}
       <section className="text-center space-y-4">
         <h1 className="text-3xl md:text-4xl font-bold tracking-tight sm:text-5xl">

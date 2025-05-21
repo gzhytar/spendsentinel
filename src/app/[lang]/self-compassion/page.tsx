@@ -52,7 +52,7 @@ export default function DashboardPage() {
   const chartData = calmHistory.map((entry, index) => ({ name: `Day ${index + 1}`, score: entry.score }));
 
   return (
-    <div className="container mx-auto py-8 space-y-8">
+    <div className="container mx-auto py-8 space-y-8 px-4">
       <Card className="shadow-lg">
         <CardHeader>
           <div className="flex items-center space-x-3">

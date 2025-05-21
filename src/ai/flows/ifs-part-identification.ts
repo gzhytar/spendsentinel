@@ -17,10 +17,7 @@ const IdentifyIFSPartInputSchema = z.object({
   recentFinancialBehavior: z
     .string()
     .describe("A description of the user's recent financial behavior or decisions."),
-  personalityType: z
-    .string()
-    .describe("The user's personality type or preferred communication style."),
-  locale: z.string().optional().describe('The language locale to respond in (en, cs, ru)'),
+  locale: z.string().optional().describe('The language locale to respond in (en, cs, uk, ru)'),
 });
 export type IdentifyIFSPartInput = z.infer<typeof IdentifyIFSPartInputSchema>;
 
@@ -35,17 +32,14 @@ const IdentifyIFSPartOutputSchema = z.object({
   identifiedPart: IFSPartDetailsSchema.describe("Details of the identified financial part."),
   suggestedEngagement: z
     .string()
-    .describe("A suggestion on how to engage with this part based on the user's personality."),
+    .describe("A suggestion on how to engage with the part following the 6F framework (Find, Focus, Flesh out, Feel toward, Befriend, Fears) to help understand the user's financial parts."),
 });
 export type IdentifyIFSPartOutput = z.infer<typeof IdentifyIFSPartOutputSchema>;
 
 const decideEngagementTool = ai.defineTool({
   name: 'decideEngagement',
-  description: "Decides how to best engage with the user based on their personality type, to build rapport and trust when discussing the user's internal 'parts'.",
+  description: "Decides how to best engage with the user's part following the 6F framework (Find, Focus, Flesh out, Feel toward, Befriend, Fears) to help understand the user's financial parts.",
   inputSchema: z.object({
-    personalityType: z
-      .string()
-      .describe("The user's personality type or preferred communication style."),
     partName: z.string().describe("The name of the identified financial part."),
     role: z.string().describe("The role this part plays in the user's financial life."),
     burden: z.string().describe("The burden or negative belief this part carries."),
@@ -57,7 +51,7 @@ async input => {
   // Placeholder implementation for deciding engagement strategy
   // In a real application, this would contain logic to tailor the engagement
   // based on the user's personality type and the identified part's details.
-  return `Engage with ${input.partName} in a supportive and understanding manner, acknowledging their concerns.`;
+  return `Describe in details how to engage with the part following the 6F framework (Find, Focus, Flesh out, Feel toward, Befriend, Fears) to help understand the user's ${input.partName} financial parts.`;
 });
 
 export async function identifyIFSPart(input: IdentifyIFSPartInput): Promise<IdentifyIFSPartOutput> {
@@ -69,9 +63,8 @@ const prompt = ai.definePrompt({
   input: {schema: IdentifyIFSPartInputSchema},
   output: {schema: IdentifyIFSPartOutputSchema},
   tools: [decideEngagementTool],
-  prompt: `You are an AI trained in Internal Family Systems (IFS) therapy, specializing in financial behaviors.
-	Your goal is to help users understand their internal 'financial parts' to improve their financial decision-making.
-	Follow the 6F framework (Find, Focus, Flesh out, Feel toward, Befriend, Fears) to identify and understand the user's financial parts.
+  prompt: `You are an AI trained in Internal Family Systems (IFS) therapy, specializing in financial behaviors. You respond in language: {{locale}}
+	Your goal is to help users understand their internal 'financial parts' to improve their financial decision-making.	
 
 	User's Financial Situation: {{{financialSituation}}}
 	Recent Financial Behavior: {{{recentFinancialBehavior}}}
@@ -81,11 +74,8 @@ const prompt = ai.definePrompt({
 	Then, use the decideEngagement tool to determine the best way to communicate with the user about this part, considering their personality.
 
   {{#if locale}}
-    IMPORTANT: Respond in the user's preferred language: {{locale}}
-    - If locale is "en": Respond in English
-    - If locale is "cs": Respond in Czech (Český jazyk)
-    - If locale is "ru": Respond in Russian (Русский язык)
-    {{/if}}
+    IMPORTANT: Respond in language: {{locale}}
+  {{/if}}
 
 	Return the part details and the engagement suggestion in the specified JSON format.
 
@@ -99,6 +89,10 @@ const prompt = ai.definePrompt({
 		},
 		"suggestedEngagement": "Engage with The Worrier by acknowledging their concerns and reassuring them that you are taking steps to ensure financial stability."
 	}
+
+  {{#if locale}}
+    IMPORTANT: Respond in language: {{locale}}
+  {{/if}}
 	`,
 });
 

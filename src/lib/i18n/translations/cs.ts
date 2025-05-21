@@ -185,18 +185,6 @@ export const cs = {
         placeholder: 'např. Nedávno jsem provedl velký impulzivní nákup, vyhýbám se pohledu na svůj bankovní účet...',
         error: 'Prosím, popište své nedávné finanční chování.'
       },
-      personalityType: {
-        label: 'Primární Komunikační Styl',
-        placeholder: 'Vyberte svůj preferovaný styl',
-        error: 'Prosím, vyberte typ osobnosti.',
-        options: {
-          analytical: 'Analytický & Přímý',
-          expressive: 'Expresivní & Nadšený',
-          amiable: 'Přívětivý & Podpůrný',
-          driver: 'Řidič & Zaměřený na Výsledky',
-          gentle: 'Jemný & Opatrný'
-        }
-      }
     },
     identifyButton: 'Identifikovat Finanční Část',
     repeatAssessmentButton: 'Opakovat hodnocení hasičských částí',

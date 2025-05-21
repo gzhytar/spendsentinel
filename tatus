@@ -1,0 +1,78 @@
+[1mdiff --git a/src/ai/flows/ifs-part-identification.ts b/src/ai/flows/ifs-part-identification.ts[m
+[1mindex 6d8fc3d..cfbdb1f 100644[m
+[1m--- a/src/ai/flows/ifs-part-identification.ts[m
+[1m+++ b/src/ai/flows/ifs-part-identification.ts[m
+[36m@@ -17,7 +17,10 @@[m [mconst IdentifyIFSPartInputSchema = z.object({[m
+   recentFinancialBehavior: z[m
+     .string()[m
+     .describe("A description of the user's recent financial behavior or decisions."),[m
+[31m-  locale: z.string().optional().describe('The language locale to respond in (en, cs, ru)'),[m
+[32m+[m[32m  personalityType: z[m
+[32m+[m[32m    .string()[m
+[32m+[m[32m    .describe("The user's personality type or preferred communication style."),[m
+[32m+[m[32m  locale: z.string().optional().describe('The language locale to respond in (en, cs, uk, ru)'),[m
+ });[m
+ export type IdentifyIFSPartInput = z.infer<typeof IdentifyIFSPartInputSchema>;[m
+ [m
+[36m@@ -32,7 +35,7 @@[m [mconst IdentifyIFSPartOutputSchema = z.object({[m
+   identifiedPart: IFSPartDetailsSchema.describe("Details of the identified financial part."),[m
+   suggestedEngagement: z[m
+     .string()[m
+[31m-    .describe("A suggestion on how to engage with this part."),[m
+[32m+[m[32m    .describe("A suggestion on how to engage with this part based on the user's personality."),[m
+ });[m
+ export type IdentifyIFSPartOutput = z.infer<typeof IdentifyIFSPartOutputSchema>;[m
+ [m
+[36m@@ -54,7 +57,7 @@[m [masync input => {[m
+   // Placeholder implementation for deciding engagement strategy[m
+   // In a real application, this would contain logic to tailor the engagement[m
+   // based on the user's personality type and the identified part's details.[m
+[31m-  return `Engage with ${input.partName} in a supportive and understanding manner, acknowledging their concerns.`;[m
+[32m+[m[32m  return `Describe in detailes how to follow the 6F framework (Find, Focus, Flesh out, Feel toward, Befriend, Fears) to help understand the user's ${input.partName} financial parts.`;[m
+ });[m
+ [m
+ export async function identifyIFSPart(input: IdentifyIFSPartInput): Promise<IdentifyIFSPartOutput> {[m
+[36m@@ -66,9 +69,8 @@[m [mconst prompt = ai.definePrompt({[m
+   input: {schema: IdentifyIFSPartInputSchema},[m
+   output: {schema: IdentifyIFSPartOutputSchema},[m
+   tools: [decideEngagementTool],[m
+[31m-  prompt: `You are an AI trained in Internal Family Systems (IFS) therapy, specializing in financial behaviors.[m
+[31m-	Your goal is to help users understand their internal 'financial parts' to improve their financial decision-making.[m
+[31m-	Follow the 6F framework (Find, Focus, Flesh out, Feel toward, Befriend, Fears) to identify and understand the user's financial parts.[m
+[32m+[m[32m  prompt: `You are an AI trained in Internal Family Systems (IFS) therapy, specializing in financial behaviors. You respond in language: {{locale}}[m
+[32m+[m	[32mYour goal is to help users understand their internal 'financial parts' to improve their financial decision-making.[m[41m	[m
+ [m
+ 	User's Financial Situation: {{{financialSituation}}}[m
+ 	Recent Financial Behavior: {{{recentFinancialBehavior}}}[m
+[36m@@ -78,10 +80,7 @@[m [mconst prompt = ai.definePrompt({[m
+ 	Then, use the decideEngagement tool to determine the best way to communicate with the user about this part, considering their personality.[m
+ [m
+   {{#if locale}}[m
+[31m-    IMPORTANT: Respond in the user's preferred language: {{locale}}[m
+[31m-    - If locale is "en": Respond in English[m
+[31m-    - If locale is "cs": Respond in Czech (Český jazyk)[m
+[31m-    - If locale is "ru": Respond in Russian (Русский язык)[m
+[32m+[m[32m    IMPORTANT: Respond in language: {{locale}}[m
+   {{/if}}[m
+ [m
+ 	Return the part details and the engagement suggestion in the specified JSON format.[m
+[36m@@ -96,6 +95,10 @@[m [mconst prompt = ai.definePrompt({[m
+ 		},[m
+ 		"suggestedEngagement": "Engage with The Worrier by acknowledging their concerns and reassuring them that you are taking steps to ensure financial stability."[m
+ 	}[m
+[32m+[m
+[32m+[m[32m  {{#if locale}}[m
+[32m+[m[32m    IMPORTANT: Respond in language: {{locale}}[m
+[32m+[m[32m  {{/if}}[m
+ 	`,[m
+ });[m
+ [m
+[36m@@ -106,7 +109,7 @@[m [mconst identifyIFSPartFlow = ai.defineFlow([m
+     outputSchema: IdentifyIFSPartOutputSchema,[m
+   },[m
+   async input => {[m
+[31m-      const {output} = await prompt(input);[m
+[32m+[m[32m    const {output} = await prompt(input);[m
+     return output!;[m
+   }[m
+ );[m

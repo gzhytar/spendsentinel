@@ -185,18 +185,6 @@ export const en = {
         placeholder: 'e.g., I recently made a large impulse purchase, I avoided looking at my bank account...',
         error: 'Please describe your recent financial behavior.'
       },
-      personalityType: {
-        label: 'Primary Communication Style',
-        placeholder: 'Select your preferred style',
-        error: 'Please select a personality type.',
-        options: {
-          analytical: 'Analytical & Direct',
-          expressive: 'Expressive & Enthusiastic',
-          amiable: 'Amiable & Supportive',
-          driver: 'Driver & Results-Oriented',
-          gentle: 'Gentle & Cautious'
-        }
-      }
     },
     identifyButton: 'Identify Financial Part',
     repeatAssessmentButton: 'Repeat Firefighter-parts assessment',

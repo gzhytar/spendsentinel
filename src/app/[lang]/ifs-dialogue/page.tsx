@@ -169,13 +169,13 @@ export default function IFSDialoguePage() {
   };
 
   return (
-    <div className="container mx-auto py-8 space-y-8 overflow-x-auto">
+    <div className="container mx-auto py-8 space-y-8 max-w-full px-4">
       {showIdentifyForm ? (
         <Card className="shadow-lg">
           <CardHeader>
             <div className="flex items-center space-x-3">
-              <BrainCircuit className="w-8 h-8 text-primary" />
-              <CardTitle className="text-2xl">{t('ifsDialogue.title')}</CardTitle>
+              <BrainCircuit className="w-6 h-6 md:w-8 md:h-8 text-primary" />
+              <CardTitle className="text-xl md:text-2xl">{t('ifsDialogue.title')}</CardTitle>
             </div>
             <CardDescription>
               {t('ifsDialogue.subtitle')}
@@ -229,7 +229,7 @@ export default function IFSDialoguePage() {
               </div>
             </CardContent>
             <CardFooter>
-              <Button type="submit" disabled={isLoadingIdentify} size="lg">
+              <Button type="submit" disabled={isLoadingIdentify} size="lg" className="w-full sm:w-auto">
                 {isLoadingIdentify && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 <Wand2 className="mr-2 h-4 w-4" /> {t('ifsDialogue.identifyButton')}
               </Button>
@@ -238,7 +238,7 @@ export default function IFSDialoguePage() {
         </Card>
       ) : (
         <div className="flex justify-end mb-4">
-          <Button onClick={handleNewIdentification} variant="outline">
+          <Button onClick={handleNewIdentification} variant="outline" className="w-full sm:w-auto">
             <RefreshCw className="mr-2 h-4 w-4" /> {t('ifsDialogue.repeatAssessmentButton')}
           </Button>
         </div>
@@ -256,8 +256,8 @@ export default function IFSDialoguePage() {
         <Card className="shadow-lg mt-8">
           <CardHeader>
             <div className="flex items-center space-x-3">
-                <MessageSquareHeart className="w-8 h-8 text-accent" />
-                <CardTitle className="text-2xl">{t('ifsDialogue.result.title').replace('{partName}', identificationResult.identifiedPart.partName)}</CardTitle>
+                <MessageSquareHeart className="w-6 h-6 md:w-8 md:h-8 text-accent" />
+                <CardTitle className="text-xl md:text-2xl">{t('ifsDialogue.result.title').replace('{partName}', identificationResult.identifiedPart.partName)}</CardTitle>
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -287,6 +287,7 @@ export default function IFSDialoguePage() {
               onClick={handleResolvePart} 
               disabled={isLoadingResolve} 
               size="lg"
+              className="w-full sm:w-auto"
               tooltipText={t('ifsDialogue.premiumFeatureTooltip') || "This deep exploration is a premium feature. Subscribe to enable premium features."}
             >
               {isLoadingResolve && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
@@ -301,8 +302,8 @@ export default function IFSDialoguePage() {
          <Card className="shadow-lg mt-8">
           <CardHeader>
              <div className="flex items-center space-x-3">
-                <MessageSquareHeart className="w-8 h-8 text-green-500" />
-                <CardTitle className="text-2xl">{t('ifsDialogue.result.title').replace('{partName}', identificationResult?.identifiedPart.partName || '')}</CardTitle>
+                <MessageSquareHeart className="w-6 h-6 md:w-8 md:h-8 text-green-500" />
+                <CardTitle className="text-xl md:text-2xl">{t('ifsDialogue.result.title').replace('{partName}', identificationResult?.identifiedPart.partName || '')}</CardTitle>
             </div>
           </CardHeader>
           <CardContent className="space-y-4">

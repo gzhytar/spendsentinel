@@ -142,7 +142,7 @@ export default function ExpenseHighlighterPage() {
   };
 
   return (
-    <div className="container mx-auto py-8 space-y-8 overflow-x-auto">
+    <div className="container mx-auto py-8 space-y-8 px-4">
       <Card className="shadow-lg">
         <CardHeader>
            <div className="flex items-center space-x-3">

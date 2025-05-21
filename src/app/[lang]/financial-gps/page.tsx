@@ -133,7 +133,7 @@ export default function FinancialGPSPage() {
   );
 
   return (
-    <div className="container mx-auto py-8 space-y-12">
+    <div className="container mx-auto py-8 space-y-12 px-4">
       <Card className="shadow-xl">
         <CardHeader>
           <div className="flex items-center space-x-3">

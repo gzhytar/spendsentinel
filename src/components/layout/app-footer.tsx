@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { Shield, Heart, Mail } from 'lucide-react';
+import { Shield, Heart, Mail, AlertTriangle } from 'lucide-react';
 import { useI18n } from '@/contexts/i18n-context';
 
 export function AppFooter() {
@@ -16,53 +16,56 @@ export function AppFooter() {
           <div className="space-y-2">
             <div className="flex items-center gap-2">
               <Heart className="h-4 w-4 text-primary" />
-              <span className="font-semibold text-primary">InnerBalance</span>
+              <span className="font-semibold text-primary">{t('common.appName')}</span>
             </div>
             <p className="text-muted-foreground text-xs leading-relaxed">
-              AI-powered financial therapy and coaching for emotional well-being and financial health.
+              {t('footer.description')}
             </p>
           </div>
 
           {/* Legal Links */}
           <div className="space-y-2">
-            <h4 className="font-medium text-foreground">Legal</h4>
+            <h4 className="font-medium text-foreground">{t('footer.legal')}</h4>
             <div className="flex flex-col space-y-1">
               <Link 
-                href="/privacy-policy.html" 
-                target="_blank"
-                rel="noopener noreferrer"
+                href={`/${locale}/privacy-policy`}
                 className="text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1"
               >
                 <Shield className="h-3 w-3" />
-                Privacy Policy
+                {t('footer.privacyPolicy')}
               </Link>
               <Link 
-                href="/terms-of-service.html" 
-                target="_blank"
-                rel="noopener noreferrer"
+                href={`/${locale}/terms-of-service`}
                 className="text-muted-foreground hover:text-primary transition-colors"
               >
-                Terms of Service
+                {t('footer.termsOfService')}
               </Link>
             </div>
           </div>
 
           {/* Contact and Support */}
           <div className="space-y-2">
-            <h4 className="font-medium text-foreground">Support</h4>
+            <h4 className="font-medium text-foreground">{t('footer.support')}</h4>
             <div className="flex flex-col space-y-1">
+              <Link 
+                href={`/${locale}/terms-of-service#emergency-protocol`}
+                className="text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1"
+              >
+                <AlertTriangle className="h-3 w-3" />
+                {t('footer.emergencyProtocol')}
+              </Link>
               <a 
                 href="mailto:privacy@innerbalance.app"
                 className="text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1"
               >
                 <Mail className="h-3 w-3" />
-                Privacy Questions
+                {t('footer.privacyQuestions')}
               </a>
               <a 
                 href="mailto:support@innerbalance.app"
                 className="text-muted-foreground hover:text-primary transition-colors"
               >
-                General Support
+                {t('footer.generalSupport')}
               </a>
             </div>
           </div>
@@ -71,8 +74,7 @@ export function AppFooter() {
         {/* Disclaimer */}
         <div className="mt-4 p-3 bg-muted/30 rounded-lg">
           <p className="text-xs text-muted-foreground text-center leading-relaxed">
-            <strong>Disclaimer:</strong> InnerBalance is a digital wellness tool and does not replace professional financial advice or mental health treatment. 
-            If you're experiencing a mental health crisis, please contact your local emergency services or a mental health professional.
+            <strong>{t('footer.disclaimerLabel')}:</strong> {t('footer.disclaimer')}
           </p>
         </div>
 
@@ -80,10 +82,10 @@ export function AppFooter() {
         <div className="mt-6 pt-4 border-t border-border">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-muted-foreground">
             <p>
-              © {currentYear} InnerBalance. All rights reserved.
+              © {currentYear} {t('common.appName')}. {t('footer.allRightsReserved')}
             </p>
             <p className="text-center sm:text-right">
-              Made with <Heart className="h-3 w-3 inline text-red-500" /> awareness in Czech Republic
+              {t('footer.madeWithLove')} <Heart className="h-3 w-3 inline text-red-500" />
             </p>
           </div>
         </div>

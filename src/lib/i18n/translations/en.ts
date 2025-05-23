@@ -7,6 +7,8 @@ export const en = {
     cancel: 'Cancel',
     delete: 'Delete',
     edit: 'Edit',
+    importantLimitation: 'Important Limitation',
+    legalQuestions: 'Legal Questions',
   },
   navigation: {
     home: 'Home',
@@ -217,5 +219,189 @@ export const en = {
     },
     breathingPrompt: 'Breathe in deeply... and exhale slowly.',
     continueButton: 'I\'m Ready to Continue'
+  },
+  footer: {
+    description: 'AI-powered financial therapy and coaching for emotional well-being and financial health.',
+    legal: 'Legal',
+    support: 'Support',
+    privacyPolicy: 'Privacy Policy',
+    termsOfService: 'Terms of Service',
+    emergencyProtocol: 'Emergency Protocol',
+    privacyQuestions: 'Privacy Questions',
+    generalSupport: 'General Support',
+    allRightsReserved: 'All rights reserved.',
+    madeWithLove: 'Made with awareness in Czech Republic',
+    disclaimerLabel: 'Disclaimer',
+    disclaimer: 'InnerBalance is a digital wellness tool and does not replace professional financial advice or mental health treatment. If you\'re experiencing a mental health crisis, please contact your local emergency services or a mental health professional.'
+  },
+  privacyPolicy: {
+    title: 'Privacy Policy',
+    lastUpdated: 'Last updated: {date}',
+    sections: {
+      intro: {
+        title: 'Your Privacy Matters',
+        content: 'At InnerBalance, we understand that financial and emotional data is deeply personal. This privacy policy explains how we collect, use, protect, and respect your information while providing our AI-powered financial therapy and coaching services.'
+      },
+      informationWeCollect: {
+        title: 'Information We Collect',
+        financialInfo: {
+          title: 'Financial Information',
+          items: [
+            'Expense data you categorize as "Living" vs "Lifestyle" expenses through our Expense Highlighter tool',
+            'Financial timeline information including past influences, present snapshot, and future goals via Financial GPS',
+            'Emergency fund and financial planning data',
+            'Self-reported financial behaviors and patterns'
+          ]
+        },
+        emotionalData: {
+          title: 'Emotional and Psychological Data',
+          items: [
+            'IFS dialogue responses identifying your financial "firefighter" parts',
+            'Self-compassion practice data and calm scores',
+            'Emotional responses and coping mechanisms related to financial stress',
+            'Trauma-informed coaching session data',
+            'Panic button usage and grounding exercise participation',
+            'Self-critical statement tracking over time'
+          ]
+        },
+        technicalInfo: {
+          title: 'Technical Information',
+          items: [
+            'Device information and browser type',
+            'Usage patterns and interaction data with our AI tools',
+            'Session duration and feature usage analytics',
+            'Error logs and performance data'
+          ]
+        }
+      },
+      howWeUseInfo: {
+        title: 'How We Use Your Information',
+        primaryPurposes: {
+          title: 'Primary Purposes',
+          items: [
+            'Provide personalized AI-driven financial therapy and coaching',
+            'Generate insights about your financial "firefighter" parts using IFS methodology',
+            'Track your emotional and financial wellness progress',
+            'Deliver compassionate, trauma-informed financial guidance',
+            'Customize self-compassion prompts and mindfulness exercises'
+          ]
+        },
+        aiProcessing: {
+          title: 'AI Processing',
+          items: [
+            'Our AI analyzes your input to provide personalized coaching responses',
+            'Pattern recognition to identify financial behaviors and emotional triggers',
+            'Generate supportive messaging aligned with your emotional state',
+            'Assess communication strategies based on your personality type'
+          ]
+        }
+      },
+      dataSecurityAndProtection: {
+        title: 'Data Security and Protection',
+        securityFirst: 'Given the sensitive nature of financial and emotional data, we implement enterprise-grade security measures including end-to-end encryption, secure data storage, and regular security audits.',
+        technicalSafeguards: {
+          title: 'Technical Safeguards',
+          items: [
+            'End-to-end encryption for all data transmission',
+            'Encrypted storage of all personal information',
+            'Regular security vulnerability assessments',
+            'Multi-factor authentication for account access',
+            'Secure cloud infrastructure with industry-standard protections'
+          ]
+        },
+        accessControls: {
+          title: 'Access Controls',
+          items: [
+            'Strict employee access controls on a need-to-know basis',
+            'Regular access reviews and audit trails',
+            'Confidentiality agreements for all staff members',
+            'Specialized training on handling sensitive psychological data'
+          ]
+        }
+      },
+      yourRights: {
+        title: 'Your Rights and Control',
+        accessAndControl: {
+          title: 'Access and Control',
+          items: [
+            'View all data we have collected about you',
+            'Download your data in a portable format',
+            'Correct inaccurate information',
+            'Delete specific data entries or your entire account',
+            'Opt out of certain data processing activities'
+          ]
+        },
+        panicMode: {
+          title: 'Panic Mode Protection',
+          items: [
+            'Instant data hiding capabilities through our "Red-Dot Panic" feature',
+            'Immediate access to grounding exercises without data retention',
+            'Option to pause all data collection during emotional distress'
+          ]
+        }
+      },
+      ethicalCommitment: {
+        title: 'Ethical Commitment',
+        content: 'We recognize that our app processes sensitive mental health information. We adhere to ethical guidelines for digital mental health tools and maintain the highest standards of care.'
+      },
+      contactUs: {
+        title: 'Contact Us',
+        content: 'If you have questions about this privacy policy or how we handle your data, please contact us:',
+        email: 'privacy@innerbalance.app',
+        responseTime: 'We respond to privacy inquiries within 72 hours'
+      },
+      trustIsSacred: 'We understand that choosing to share your financial and emotional journey with us requires tremendous trust. We honor that trust by maintaining the highest standards of privacy protection and ethical data handling.'
+    }
+  },
+  termsOfService: {
+    title: 'Terms of Service',
+    lastUpdated: 'Last updated: {date}',
+    sections: {
+      welcome: 'These terms govern your use of our AI-powered financial therapy and coaching platform. By using our services, you agree to these terms and our commitment to supporting your financial wellness journey.',
+      acceptanceOfTerms: {
+        title: 'Acceptance of Terms',
+        content: 'By accessing or using InnerBalance ("the Service"), you agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree to these terms, please do not use the Service.'
+      },
+      serviceDescription: {
+        title: 'Description of Service',
+        content: 'InnerBalance is an AI-powered digital wellness platform that provides:',
+        features: [
+          'Financial behavior analysis using Internal Family Systems (IFS) methodology',
+          'AI-driven coaching and therapy tools for financial wellness',
+          'Expense tracking and categorization features',
+          'Financial timeline mapping and goal visualization',
+          'Self-compassion and mindfulness exercises',
+          'Panic mode and grounding exercise features'
+        ]
+      },
+      importantLimitation: 'InnerBalance is a digital wellness tool and does NOT replace professional financial advice, therapy, or mental health treatment. We are not licensed financial advisors or mental health professionals.',
+      userEligibility: {
+        title: 'User Eligibility',
+        ageRequirements: {
+          title: 'Age Requirements',
+          items: [
+            'You must be at least 18 years old to use this Service',
+            'Users under 18 are prohibited from creating accounts'
+          ]
+        }
+      },
+      emergencyProtocol: {
+        title: 'Emergency Protocol',
+        content: 'If you are experiencing thoughts of self-harm or are in crisis, immediately contact:',
+        contacts: [
+          'Emergency services (911 in the US)',
+          'National Suicide Prevention Lifeline: 988',
+          'Crisis Text Line: Text HOME to 741741'
+        ]
+      },
+      contactInfo: {
+        title: 'Contact Information',
+        content: 'For questions about these terms or our Service:',
+        generalSupport: 'support@innerbalance.app',
+        legalQuestions: 'legal@innerbalance.app',
+        privacyConcerns: 'privacy@innerbalance.app'
+      },
+      commitment: 'We are dedicated to supporting your financial wellness journey with compassion, respect, and the highest ethical standards. These terms exist to protect both you and our ability to provide this important service.'
+    }
   }
 } as const; 

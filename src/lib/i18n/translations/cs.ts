@@ -7,6 +7,8 @@ export const cs = {
     cancel: 'Zrušit',
     delete: 'Smazat',
     edit: 'Upravit',
+    importantLimitation: 'Důležité omezení',
+    legalQuestions: 'Právní otázky',
   },
   navigation: {
     home: 'Domů',
@@ -205,17 +207,201 @@ export const cs = {
     }
   },
   groundingExercise: {
-    title: 'Udělejte si chvíli na dech',
+    title: 'Najděte si chvilku k dýchání',
     subtitle: 'Soustřeďte se na svůj dech. Jste v bezpečí.',
-    introduction: 'Pojďme vyzkoušet rychlé uzemňovací cvičení:',
+    introduction: 'Zkusíme rychlé uklidňující cvičení:',
     steps: {
-      see: 'Všimněte si 5 věcí, které kolem sebe vidíte.',
+      see: 'Všimněte si 5 věcí, které vidíte kolem sebe.',
       touch: 'Všimněte si 4 věcí, kterých se můžete dotknout.',
       hear: 'Všimněte si 3 věcí, které slyšíte.',
       smell: 'Všimněte si 2 věcí, které cítíte.',
       taste: 'Všimněte si 1 věci, kterou můžete ochutnat.'
     },
-    breathingPrompt: 'Hluboce se nadechněte... a pomalu vydechněte.',
+    breathingPrompt: 'Zhluboka se nadechněte... a pomalu vydechněte.',
     continueButton: 'Jsem připraven(a) pokračovat'
+  },
+  footer: {
+    description: 'AI-poháněná finanční terapie a koučování pro emoční pohodu a finanční zdraví.',
+    legal: 'Právní',
+    support: 'Podpora',
+    privacyPolicy: 'Ochrana soukromí',
+    termsOfService: 'Podmínky služby',
+    emergencyProtocol: 'Nouzový protokol',
+    privacyQuestions: 'Otázky o soukromí',
+    generalSupport: 'Obecná podpora',
+    allRightsReserved: 'Všechna práva vyhrazena.',
+    madeWithLove: 'Vytvořeno s vědomím v České republice',
+    disclaimerLabel: 'Upozornění',
+    disclaimer: 'InnerBalance je nástroj pro digitální wellness a nenahrazuje profesionální finanční poradenství nebo léčbu duševního zdraví. Pokud prožíváte krizi duševního zdraví, kontaktujte prosím místní záchranné služby nebo odborníka na duševní zdraví.'
+  },
+  privacyPolicy: {
+    title: 'Ochrana soukromí',
+    lastUpdated: 'Naposledy aktualizováno: {date}',
+    sections: {
+      intro: {
+        title: 'Vaše soukromí záleží',
+        content: 'Ve společnosti InnerBalance chápeme, že finanční a emoční data jsou hluboce osobní. Tyto zásady ochrany soukromí vysvětlují, jak shromažďujeme, používáme, chráníme a respektujeme vaše informace při poskytování našich AI-poháněných služeb finanční terapie a koučování.'
+      },
+      informationWeCollect: {
+        title: 'Informace, které shromažďujeme',
+        financialInfo: {
+          title: 'Finanční informace',
+          items: [
+            'Data o výdajích, která kategorizujete jako "Životní" vs "Životní styl" prostřednictvím našeho nástroje Zvýrazňovač výdajů',
+            'Informace o finanční časové ose včetně minulých vlivů, současného snímku a budoucích cílů prostřednictvím Finančního GPS',
+            'Data o nouzových fondech a finančním plánování',
+            'Samy hlášené finanční chování a vzorce'
+          ]
+        },
+        emotionalData: {
+          title: 'Emoční a psychologická data',
+          items: [
+            'Odpovědi z IFS dialogu identifikující vaše finanční "hasičské" části',
+            'Data o praxi sebelásky a hodnocení klidu',
+            'Emoční reakce a mechanismy zvládání související s finančním stresem',
+            'Data z koučovacích sezení informovaných o traumatu',
+            'Používání panikového tlačítka a účast na uklidňujících cvičeních',
+            'Sledování sebepokřivujících výroků v čase'
+          ]
+        },
+        technicalInfo: {
+          title: 'Technické informace',
+          items: [
+            'Informace o zařízení a typu prohlížeče',
+            'Vzorce používání a interakční data s našimi AI nástroji',
+            'Doba trvání relace a analytika používání funkcí',
+            'Protokoly chyb a data o výkonu'
+          ]
+        }
+      },
+      howWeUseInfo: {
+        title: 'Jak používáme vaše informace',
+        primaryPurposes: {
+          title: 'Hlavní účely',
+          items: [
+            'Poskytování personalizované AI-poháněné finanční terapie a koučování',
+            'Generování poznatků o vašich finančních "hasičských" částech pomocí IFS metodologie',
+            'Sledování vašeho emočního a finančního wellness pokroku',
+            'Poskytování soucitného, traumatu-informovaného finančního vedení',
+            'Přizpůsobení podnětů k sebelásce a mindfulness cvičení'
+          ]
+        },
+        aiProcessing: {
+          title: 'AI zpracování',
+          items: [
+            'Naše AI analyzuje váš vstup pro poskytování personalizovaných koučovacích odpovědí',
+            'Rozpoznávání vzorců pro identifikaci finančního chování a emočních spouštěčů',
+            'Generování podpůrných zpráv sladěných s vaším emočním stavem',
+            'Hodnocení komunikačních strategií na základě vašeho typu osobnosti'
+          ]
+        }
+      },
+      dataSecurityAndProtection: {
+        title: 'Bezpečnost a ochrana dat',
+        securityFirst: 'Vzhledem k citlivé povaze finančních a emočních dat implementujeme bezpečnostní opatření na podnikové úrovni včetně end-to-end šifrování, bezpečného ukládání dat a pravidelných bezpečnostních auditů.',
+        technicalSafeguards: {
+          title: 'Technické záruky',
+          items: [
+            'End-to-end šifrování pro veškerý přenos dat',
+            'Šifrované ukládání všech osobních informací',
+            'Pravidelná hodnocení bezpečnostních zranitelností',
+            'Vícefaktorová autentifikace pro přístup k účtu',
+            'Bezpečná cloudová infrastruktura s průmyslovými standardy ochrany'
+          ]
+        },
+        accessControls: {
+          title: 'Kontroly přístupu',
+          items: [
+            'Striktní kontroly přístupu zaměstnanců na základě potřeby vědět',
+            'Pravidelné revize přístupu a auditní stopy',
+            'Dohody o důvěrnosti pro všechny zaměstnance',
+            'Specializované školení pro zacházení s citlivými psychologickými daty'
+          ]
+        }
+      },
+      yourRights: {
+        title: 'Vaše práva a kontrola',
+        accessAndControl: {
+          title: 'Přístup a kontrola',
+          items: [
+            'Zobrazit všechna data, která jsme o vás shromáždili',
+            'Stáhnout vaše data v přenosném formátu',
+            'Opravit nepřesné informace',
+            'Smazat konkrétní datové záznamy nebo celý váš účet',
+            'Odhlásit se z určitých aktivit zpracování dat'
+          ]
+        },
+        panicMode: {
+          title: 'Ochrana v panikovém režimu',
+          items: [
+            'Okamžité schování dat prostřednictvím naší funkce "Červené tlačítko paniky"',
+            'Okamžitý přístup k uklidňujícím cvičením bez uchovávání dat',
+            'Možnost pozastavit veškeré shromažďování dat během emočního stresu'
+          ]
+        }
+      },
+      ethicalCommitment: {
+        title: 'Etický závazek',
+        content: 'Uznáváme, že naše aplikace zpracovává citlivé informace o duševním zdraví. Dodržujeme etické směrnice pro digitální nástroje duševního zdraví a udržujeme nejvyšší standardy péče.'
+      },
+      contactUs: {
+        title: 'Kontaktujte nás',
+        content: 'Pokud máte otázky ohledně těchto zásad ochrany soukromí nebo jak zacházíme s vašimi daty, kontaktujte nás:',
+        email: 'privacy@innerbalance.app',
+        responseTime: 'Na dotazy ohledně soukromí odpovídáme do 72 hodin'
+      },
+      trustIsSacred: 'Chápeme, že rozhodnutí sdílet s námi svou finanční a emoční cestu vyžaduje obrovskou důvěru. Tuto důvěru ctíme udržováním nejvyšších standardů ochrany soukromí a etického zacházení s daty.'
+    }
+  },
+  termsOfService: {
+    title: 'Podmínky služby',
+    lastUpdated: 'Naposledy aktualizováno: {date}',
+    sections: {
+      welcome: 'Tyto podmínky upravují vaše používání naší AI-poháněné platformy finanční terapie a koučování. Používáním našich služeb souhlasíte s těmito podmínkami a naším závazkem podporovat vaši cestu finančního wellness.',
+      acceptanceOfTerms: {
+        title: 'Přijetí podmínek',
+        content: 'Přístupem nebo používáním InnerBalance ("Služba") souhlasíte s tím, že budete vázáni těmito Podmínkami služby a našimi Zásadami ochrany soukromí. Pokud s těmito podmínkami nesouhlasíte, nepoužívejte prosím Službu.'
+      },
+      serviceDescription: {
+        title: 'Popis služby',
+        content: 'InnerBalance je AI-poháněná platforma digitálního wellness, která poskytuje:',
+        features: [
+          'Analýzu finančního chování pomocí metodologie Internal Family Systems (IFS)',
+          'AI-poháněné koučovací a terapeutické nástroje pro finanční wellness',
+          'Funkce sledování a kategorizace výdajů',
+          'Mapování finanční časové osy a vizualizaci cílů',
+          'Cvičení sebelásky a mindfulness',
+          'Funkce panikového režimu a uklidňujících cvičení'
+        ]
+      },
+      importantLimitation: 'InnerBalance je nástroj digitálního wellness a NENAHRAZUJE profesionální finanční poradenství, terapii nebo léčbu duševního zdraví. Nejsme licencovaní finanční poradci nebo odborníci na duševní zdraví.',
+      userEligibility: {
+        title: 'Způsobilost uživatele',
+        ageRequirements: {
+          title: 'Věkové požadavky',
+          items: [
+            'Pro používání této Služby musíte být starší nejméně 18 let',
+            'Uživatelům mladším 18 let je zakázáno vytvářet účty'
+          ]
+        }
+      },
+      emergencyProtocol: {
+        title: 'Nouzový protokol',
+        content: 'Pokud máte myšlenky na sebepoškození nebo jste v krizi, okamžitě kontaktujte:',
+        contacts: [
+          'Tísňova linka 112 (evropské tísňové číslo) nebo 155 (záchranná služba).',
+          'Linka první psychické pomoci (24/7, dospělí): 116 123',
+          'Linka bezpečí (24/7, děti a mládež do 26 let): 116 111 aneb Chat a e-mail pomoc@linkabezpeci.cz'
+        ]
+      },
+      contactInfo: {
+        title: 'Kontaktní informace',
+        content: 'Pro otázky ohledně těchto podmínek nebo naší Služby:',
+        generalSupport: 'support@innerbalance.app',
+        legalQuestions: 'legal@innerbalance.app',
+        privacyConcerns: 'privacy@innerbalance.app'
+      },
+      commitment: 'Jsme odhodláni podporovat vaši cestu finančního wellness se soucitem, respektem a nejvyššími etickými standardy. Tyto podmínky existují pro ochranu jak vás, tak naší schopnosti poskytovat tuto důležitou službu.'
+    }
   }
 } as const; 

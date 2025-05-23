@@ -20,6 +20,7 @@ import { NAV_ITEMS, APP_NAME } from '@/lib/constants';
 import { usePanicMode } from '@/contexts/panic-mode-context';
 import { PanicButton } from '@/components/common/panic-button';
 import { GroundingExercise } from '@/components/common/grounding-exercise';
+import { AppFooter } from '@/components/layout/app-footer';
 import { Leaf } from 'lucide-react';
 import { useI18n } from '@/contexts/i18n-context';
 
@@ -87,7 +88,7 @@ export function AppLayoutClient({ children }: { children: ReactNode }) {
         </SidebarContent>
       </Sidebar>
 
-      <SidebarInset>
+      <SidebarInset className="flex flex-col min-h-screen">
         <header className="sticky top-0 z-10 flex h-14 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sm:h-16 sm:px-6">
           <SidebarTrigger className="md:hidden" />
           {/* TODO: Add page title or breadcrumbs here if needed */}
@@ -98,6 +99,7 @@ export function AppLayoutClient({ children }: { children: ReactNode }) {
         <main className="flex-1 overflow-x-hidden p-2 md:p-4">
           {children}
         </main>
+        <AppFooter />
       </SidebarInset>
       
       <PanicButton />

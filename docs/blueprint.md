@@ -1,4 +1,6 @@
-# **App Name**: InnerBalance
+# **App Name**: ToBeDefined
+
+## App vision: an interactive, AI-powered Financial Therapist and Coach that behaves like a personal financial-behavior specialist, mindfulness mentor, and trauma-informed coach. With the goal of supporting and guiding users on how to achieve both financial health and emotional well-being. 
 
 ## Core Features:
 

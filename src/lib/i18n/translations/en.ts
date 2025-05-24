@@ -29,7 +29,7 @@ export const en = {
       description: 'Traditional budgeting treats symptoms. We address the root: the emotional parts of you that drive financial behavior. By understanding and befriending these parts instead of fighting them, you create lasting change.',
       emotionsMatter: {
         title: 'Emotions Drive Spending',
-        description: 'Research shows 95% of financial decisions are emotional, not logical. Until we understand our emotional patterns, we\'re fighting our own nature.',
+        description: 'Several research studies provide evidence that financial decisions are predominantly driven by emotions rather than logic. Until we understand our emotional patterns, we\'re fighting our own nature.',
       },
       ifsConnection: {
         title: 'The IFS Connection',

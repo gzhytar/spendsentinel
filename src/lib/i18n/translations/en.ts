@@ -42,15 +42,19 @@ export const en = {
       subtitle: 'Recognize your patterns and understand their purpose',
       spender: {
         title: 'The Spender',
-        description: 'Uses shopping and spending to cope with stress, seeking immediate comfort through purchases.',
+        description: 'Uses shopping and spending to cope with stress, seeking immediate comfort through purchases. Typical Triggers: Sudden spike in stress, boredom, or loneliness; social-media scroll reveals a sale, haul video, or "limited drop"; emotional highs (bonus day, praise) that whisper "celebrate!" Immediate Behaviors: One-click checkouts or rapid "Add to Cart" bursts; up-sizing ("Go for the premium version—future me will appreciate it"); upgrading flights, hotel rooms, or meal add-ons on the spot.',
       },
       hoarder: {
         title: 'The Hoarder',
-        description: 'Saves excessively, often driven by fear and anxiety about future security.',
+        description: 'Saves excessively, often driven by fear and anxiety about future security. Typical Triggers: News of layoffs, recessions, or medical bills; seeing someone else struggle financially; large inflows (bonus, inheritance) that awaken "lock it away" instincts. Immediate Behaviors: Redirects virtually every extra euro into savings or investments—including money earmarked for necessities; cancels or postpones maintenance/health appointments to avoid spending; creates multiple sub-accounts to keep funds "untouchable."',
       },
       avoider: {
         title: 'The Avoider',
-        description: 'Avoids dealing with finances altogether, often due to past negative experiences.',
+        description: 'Avoids dealing with finances altogether, often due to past negative experiences. Typical Triggers: Arrival of bills, bank statements, tax forms; conversations about budgets, investing, or debt; reminders of past money mistakes (late-fee email, collection call). Immediate Behaviors: Leaves envelopes/sealed emails unopened; deletes finance apps or silences their notifications; switches to entertainment or chores ("productive procrastination").',
+      },
+      indulger: {
+        title: 'The Indulger',
+        description: 'Provides immediate gratification and escape from financial stress. Typical Triggers: End of stressful day/week; Celebration ("We crushed the project!"); Social invitations promising fun experiences. Immediate Behaviors: Splurges on dining out, travel upgrades, VIP event tickets; Same-day delivery of treats, clothes, gadgets; Disregards budget categories with "YOLO" logic.',
       },
     },
     features: {

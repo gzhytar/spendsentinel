@@ -66,7 +66,7 @@ export default function LandingPage() {
             <CardDescription>{t('landing.firefighters.subtitle')}</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="space-y-4">
                 <div className="rounded-lg overflow-hidden h-36 sm:h-48 relative">
                   <Image 
@@ -97,7 +97,7 @@ export default function LandingPage() {
                   {t('landing.firefighters.hoarder.description')}
                 </p>
               </div>
-              <div className="space-y-4 sm:col-span-2 md:col-span-1">
+              <div className="space-y-4">
                 <div className="rounded-lg overflow-hidden h-36 sm:h-48 relative">
                   <Image 
                     src="/images/avoider.jpg" 
@@ -110,6 +110,21 @@ export default function LandingPage() {
                 <h3 className="font-semibold text-lg text-center">{t('landing.firefighters.avoider.title')}</h3>
                 <p className="text-muted-foreground">
                   {t('landing.firefighters.avoider.description')}
+                </p>
+              </div>
+              <div className="space-y-4">
+                <div className="rounded-lg overflow-hidden h-36 sm:h-48 relative">
+                  <Image 
+                    src="/images/indulger.jpg" 
+                    alt={t('landing.firefighters.indulger.title')}
+                    fill
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+                <h3 className="font-semibold text-lg text-center">{t('landing.firefighters.indulger.title')}</h3>
+                <p className="text-muted-foreground">
+                  {t('landing.firefighters.indulger.description')}
                 </p>
               </div>
             </div>

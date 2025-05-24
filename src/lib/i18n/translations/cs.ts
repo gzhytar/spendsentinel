@@ -42,16 +42,20 @@ export const cs = {
       subtitle: 'Rozpoznejte své vzorce a pochopte jejich účel',
       spender: {
         title: 'Utráceč',
-        description: 'Používá nakupování a utrácení jako způsob zvládání stresu, hledá okamžitou úlevu prostřednictvím nákupů.'
+        description: 'Používá nakupování a utrácení jako způsob zvládání stresu, hledá okamžitou úlevu prostřednictvím nákupů. Typické spouštěče: Náhlý nárůst stresu, nudy nebo osamělosti; prohlížení sociálních sítí odhalí výprodej, haul video nebo "limitovanou nabídku"; emoční vrcholy (den bonusu, pochvala), které šeptají "oslavme!" Okamžité chování: Nákupy jedním kliknutím nebo rychlé "Přidat do košíku" záchvaty; navyšování ("Jdi pro prémiovou verzi—budoucí já to ocení"); upgrady letů, hotelových pokojů nebo doplňků jídla na místě.',
       },
       hoarder: {
         title: 'Hromadič',
-        description: 'Šetří nadměrně, často poháněn strachem a úzkostí z budoucího zabezpečení.'
+        description: 'Šetří nadměrně, často poháněn strachem a úzkostí z budoucího zabezpečení. Typické spouštěče: Zprávy o propouštění, recesi nebo lékařských účtech; sledování někoho jiného, kdo bojuje finančně; velké příjmy (bonus, dědictví), které probouzejí instinkty "zamknout to pryč". Okamžité chování: Přesměrovává prakticky každé extra euro do úspor nebo investic—včetně peněz určených pro nezbytnosti; ruší nebo odkládá údržbu/zdravotní termíny, aby se vyhnul výdajům; vytváří několik podúčtů, aby udržel prostředky "nedotknutelné".',
       },
       avoider: {
         title: 'Vyhýbač',
-        description: 'Vyhýbá se řešení financí, často kvůli minulým negativním zkušenostem.'
-      }
+        description: 'Vyhýbá se řešení financí, často kvůli minulým negativním zkušenostem. Typické spouštěče: Příchod účtů, bankovních výpisů, daňových formulářů; rozhovory o rozpočtech, investování nebo dluzích; připomínky minulých finančních chyb (email o poplatku za zpoždění, vymáhací hovor). Okamžité chování: Nechává obálky/zapečetěné emaily neotevřené; maže finanční aplikace nebo ztlumuje jejich oznámení; přepíná na zábavu nebo domácí práce ("produktivní prokrastinace").',
+      },
+      indulger: {
+        title: 'Požitkář',
+        description: 'Poskytuje okamžité uspokojení a únik od finančního stresu. Typické spouštěče: Konec stresujícího dne/týdne; Oslavy ("Zvládli jsme projekt!"); Společenské pozvánky slibující zábavné zážitky. Okamžité chování: Utrácí za jídlo venku, upgrady cestování, VIP vstupenky na akce; Doručení tentýž den lahůdek, oblečení, gadgetů; Ignoruje rozpočtové kategorie s "YOLO" logikou.',
+      },
     },
     features: {
       title: 'Hlavní funkce',

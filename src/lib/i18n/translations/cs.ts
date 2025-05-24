@@ -30,7 +30,7 @@ export const cs = {
       description: 'Finanční rozhodnutí zřídka souvisí pouze s čísly. Jsou hluboce propojena s našimi emocemi, minulými zkušenostmi a psychologickými vzorci. Model Finančních Hasičů vám pomáhá tyto vzorce pochopit a transformovat.',
       emotionsMatter: {
         title: 'Emoce ovlivňují utrácení',
-        description: 'Několik výzkumných studií poskytuje důkazy, že finanční rozhodnutí jsou převážně ovlivňována emocemi spíše než logikou. Dokud neporozumíme našim emočním vzorcům, bojujeme proti své vlastní povaze.'
+        description: 'Výzkumné studie poskytují důkazy, že finanční rozhodnutí jsou převážně ovlivňována emocemi spíše než logikou. Dokud neporozumíme našim emočním vzorcům, bojujeme proti své vlastní povaze.'
       },
       ifsConnection: {
         title: 'Potvrzeno vědou',

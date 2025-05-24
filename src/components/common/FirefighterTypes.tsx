@@ -5,15 +5,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { 
-  ShoppingBag, 
-  PiggyBank, 
-  EyeOff, 
-  Gift,
   ArrowRight,
-  Lightbulb,
   AlertCircle,
   CheckCircle2,
   Info,
@@ -24,11 +18,9 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 import { useI18n } from '@/contexts/i18n-context';
-import { FirefighterQuiz } from './FirefighterQuiz';
 
 interface FirefighterType {
   id: string;
-  color: string;
   title: string;
   description: string;
   triggers: string[];
@@ -40,23 +32,18 @@ export function FirefighterTypes() {
   const { t, locale } = useI18n();
   const localePrefix = `/${locale}`;
   const [selectedType, setSelectedType] = useState<string>('spender');
-  const [quizStarted, setQuizStarted] = useState(false);
-  const [quizProgress, setQuizProgress] = useState(0);
-  const [showQuizResult, setShowQuizResult] = useState(false);
 
   const firefighterTypes: FirefighterType[] = [
     {
       id: 'spender',
-      color: 'text-red-500',
       title: t('landing.firefighters.spender.title'),
       description: t('landing.firefighters.spender.description'),
       triggers: t<string[]>('landing.firefighters.spender.triggers.items'),
       behaviors: t<string[]>('landing.firefighters.spender.behaviors.items'),
-      healingPath: t('landing.firefighters.spender.healingPath')
+      healingPath: t('landing.firefighters.spender.healingPath'),
     },
     {
       id: 'hoarder',
-      color: 'text-green-500',
       title: t('landing.firefighters.hoarder.title'),
       description: t('landing.firefighters.hoarder.description'),
       triggers: t<string[]>('landing.firefighters.hoarder.triggers.items'),
@@ -65,7 +52,6 @@ export function FirefighterTypes() {
     },
     {
       id: 'avoider',
-      color: 'text-purple-500',
       title: t('landing.firefighters.avoider.title'),
       description: t('landing.firefighters.avoider.description'),
       triggers: t<string[]>('landing.firefighters.avoider.triggers.items'),
@@ -74,7 +60,6 @@ export function FirefighterTypes() {
     },
     {
       id: 'indulger',
-      color: 'text-orange-500',
       title: t('landing.firefighters.indulger.title'),
       description: t('landing.firefighters.indulger.description'),
       triggers: t<string[]>('landing.firefighters.indulger.triggers.items'),
@@ -142,7 +127,10 @@ export function FirefighterTypes() {
         {/* Detailed Type Information */}
         <div className="space-y-6">
           <div className="flex items-center space-x-6">
+            <div className="flex-1">
+              <h3 className="text-xl font-semibold mb-2">{currentType.title}</h3>
               <p className="text-muted-foreground">{currentType.description}</p>
+            </div>
           </div>
 
           {/* Triggers and Behaviors in Tabs */}
@@ -206,57 +194,11 @@ export function FirefighterTypes() {
           </Tabs>
         </div>
 
-        {/* Self-Assessment Section */}
-        <div className="bg-muted/50 rounded-lg p-6">
-          <h4 className="font-semibold mb-3 flex items-center">
-            <Lightbulb className="w-5 h-5 mr-2 text-yellow-600" />
-            {t('landing.firefighters.assessment.title')}
-          </h4>
-          {!quizStarted ? (
-            <div className="space-y-3">
-              <p className="text-sm text-muted-foreground">
-                {t('landing.firefighters.assessment.description')}
-              </p>
-              <Button 
-                onClick={() => setQuizStarted(true)}
-                variant="outline"
-                className="w-full sm:w-auto"
-              >
-                {t('landing.firefighters.assessment.startButton')}
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </div>
-          ) : (
-            <FirefighterQuiz
-              onComplete={(result) => {
-                setSelectedType(result);
-                setQuizStarted(false);
-                setShowQuizResult(true);
-                // Scroll to the top to show the selected type
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              onCancel={() => {
-                setQuizStarted(false);
-                setShowQuizResult(false);
-              }}
-            />
-          )}
-          {showQuizResult && !quizStarted && (
-            <Alert className="mt-4 bg-green-50 border-green-200 dark:bg-green-950/20 dark:border-green-900">
-              <CheckCircle2 className="h-4 w-4 text-green-600 dark:text-green-400" />
-              <AlertDescription className="text-green-800 dark:text-green-200">
-                Based on your answers, your primary firefighter type is <strong>{currentType.title}</strong>. 
-                Scroll up to learn more about this type and explore the healing path.
-              </AlertDescription>
-            </Alert>
-          )}
-        </div>
-
         {/* Call to Action */}
         <div className="flex flex-col sm:flex-row gap-4 pt-4">
           <Button size="lg" className="flex-1 sm:flex-initial" asChild>
-            <Link href={`${localePrefix}/ifs-dialogue`}>
-              <span>{t('landing.firefighters.discoverButton')}</span>
+            <Link href={`${localePrefix}/self-assessment`}>
+              <span>{t('landing.firefighters.assessmentButton')}</span>
               <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </Button>

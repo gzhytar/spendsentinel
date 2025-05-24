@@ -12,29 +12,28 @@ export const en = {
   },
   navigation: {
     home: 'Home',
-    overview: 'Application guide',
+    overview: 'Overview',
+    selfAssessment: 'Self-assessment',
     expenseHighlighter: 'Expense Highlighter',
     financialGPS: 'Financial GPS',
-    ifsDialogue: 'IFS Dialogue',
-    selfCompassion: 'Self-Compassion',
+    selfCompassion: 'Self-compassion',
   },
   landing: {
     hero: {
-      title: 'Transform Your Relationship with Money',
-      subtitle: 'Discover how understanding your emotional patterns can lead to better financial decisions and lasting change.',
-      cta: 'Get to know your Firefighters',
+      title: 'Transform Your Relationship with Money Through Compassionate Self-Discovery',
+      subtitle: 'Using Internal Family Systems (IFS) therapy, understand the different parts of yourself that influence your financial decisions and learn to work with them, not against them.',
     },
     theory: {
-      title: 'The Financial Firefighters Model',
-      subtitle: 'Understanding the emotional landscape of financial decisions',
-      description: 'Financial decisions are rarely just about numbers. They\'re deeply intertwined with our emotions, past experiences, and psychological patterns. The Financial Firefighters model helps you understand and transform these patterns.',
+      title: 'Why This Works',
+      subtitle: 'The science and compassion behind financial transformation',
+      description: 'Traditional budgeting treats symptoms. We address the root: the emotional parts of you that drive financial behavior. By understanding and befriending these parts instead of fighting them, you create lasting change.',
       emotionsMatter: {
-        title: 'Why Emotions Matter',
-        description: 'Traditional financial advice often focuses on knowledge and discipline, but ignores the emotional factors that drive our decisions. Understanding these emotional patterns is key to lasting change.',
+        title: 'Emotions Drive Spending',
+        description: 'Research shows 95% of financial decisions are emotional, not logical. Until we understand our emotional patterns, we\'re fighting our own nature.',
       },
       ifsConnection: {
-        title: 'Confirmed by science',
-        description: 'Based on Internal Family Systems (IFS) therapy, this model helps you identify and work with the different "parts" of yourself that influence your financial behaviors.',
+        title: 'The IFS Connection',
+        description: 'Internal Family Systems helps you recognize that different parts of you want different things with money. Instead of self-criticism, you learn self-compassion.',
       },
     },
     firefighters: {
@@ -51,8 +50,8 @@ export const en = {
           label: 'Common situations that activate this firefighter:',
           items: [
             'Sudden spike in stress, boredom, or loneliness',
-            'Social media reveals sales or "limited drops"',
-            'Emotional highs that whisper "celebrate!"'
+            'Social media reveals a sale, haul video, or "limited drop"',
+            'Emotional highs (bonus day, praise) that whisper "celebrate!"'
           ]
         },
         behaviors: {
@@ -71,17 +70,17 @@ export const en = {
         triggers: {
           label: 'Common situations that activate this firefighter:',
           items: [
-            'News of layoffs, recessions, or medical bills',
-            'Seeing others struggle financially',
-            'Large inflows that awaken "lock it away" instincts'
+            'News about layoffs, recession, or medical bills',
+            'Watching others struggle financially',
+            'Large windfalls that trigger "hide it away" instincts'
           ]
         },
         behaviors: {
           label: 'How this firefighter typically responds:',
           items: [
-            'Redirects every extra euro into savings',
-            'Cancels necessary maintenance to avoid spending',
-            'Creates multiple "untouchable" sub-accounts'
+            'Extreme coupon clipping or deal-hunting',
+            'Avoiding "unnecessary" expenses like entertainment',
+            'Anxiety when others spend money freely'
           ]
         },
         healingPath: 'Building trust in financial security while allowing for present needs'
@@ -92,17 +91,17 @@ export const en = {
         triggers: {
           label: 'Common situations that activate this firefighter:',
           items: [
-            'Arrival of bills, bank statements, tax forms',
-            'Conversations about budgets or investing',
-            'Reminders of past money mistakes'
+            'Bills arriving in the mail or email notifications',
+            'Bank balance reminders or low balance alerts',
+            'Investment account statements or retirement planning talks'
           ]
         },
         behaviors: {
           label: 'How this firefighter typically responds:',
           items: [
-            'Leaves financial documents unopened',
-            'Deletes finance apps or silences notifications',
-            'Engages in "productive procrastination"'
+            'Leaving bills unopened for weeks',
+            'Avoiding banking apps or account logins',
+            'Procrastinating on financial decisions'
           ]
         },
         healingPath: 'Creating safety around financial awareness through small, gentle steps'
@@ -113,64 +112,103 @@ export const en = {
         triggers: {
           label: 'Common situations that activate this firefighter:',
           items: [
-            'End of stressful day/week',
-            'Celebration moments ("We crushed the project!")',
-            'Social invitations promising fun experiences'
+            'Periods of intense work stress or burnout',
+            'Celebrations, achievements, or "treat yourself" moments',
+            'Social invitations or fear of missing out (FOMO)'
           ]
         },
         behaviors: {
           label: 'How this firefighter typically responds:',
           items: [
-            'Splurges on dining out, travel upgrades, VIP tickets',
-            'Same-day delivery of treats and gadgets',
-            'Disregards budget with "YOLO" logic'
+            'Booking spontaneous trips or expensive experiences',
+            'Upgrading to premium options "just this once"',
+            'Justifying luxury purchases as "investing in happiness"'
           ]
         },
         healingPath: 'Finding sustainable ways to celebrate and reward without financial harm'
       },
       tabs: {
-        triggers: 'Triggers',
         behaviors: 'Behaviors',
-        healing: 'Healing'
+        triggers: 'Triggers',
+        healing: 'Healing Path'
       },
       healing: {
-        title: 'Path to Balance'
+        title: 'Path to Healing'
       },
-      assessment: {
-        title: 'Quick Self-Assessment',
-        description: 'Not sure which firefighter is most active in your life? Take a quick assessment to identify your primary financial coping patterns.',
-        startButton: 'Start Self-Assessment',
-        inProgress: 'Answer a few questions to discover your primary firefighter type...',
-        reset: 'Reset'
-      },
-      peoplePercentage: '~{percentage}% of people',
-      discoverButton: 'Discover Your Firefighter',
-      compassionButton: 'Practice Self-Compassion'
+      assessmentButton: 'Take Self-Assessment',
+      compassionButton: 'Learn Self-Compassion'
     },
     features: {
-      title: 'Core Features',
-      subtitle: 'Tools designed to help you transform your financial relationship',
+      title: 'Discover Your Financial Self',
+      subtitle: 'Tools designed to help you understand and work with your financial patterns',
+      selfAssessment: {
+        title: 'Self-Assessment',
+        description: 'Discover which financial "firefighter" parts are most active in your life and learn about their protective intentions.',
+        button: 'Take Assessment',
+      },
       expenseHighlighter: {
         title: 'Expense Highlighter',
-        description: 'Categorize expenses as \'Living\' vs. \'Lifestyle\' to promote mindful spending decisions.',
-        button: 'Track Your Expenses'
+        description: 'Upload bank statements and discover the emotional patterns behind your spending with AI-powered insights.',
+        button: 'Analyze Expenses',
       },
       financialGPS: {
         title: 'Financial GPS',
-        description: 'Track your financial journey with a clear view of past decisions and future goals.',
-        button: 'Explore Your Journey'
-      },
-      ifsDialogue: {
-        title: 'IFS Dialogue',
-        description: 'Engage in guided conversations with your financial parts to understand their needs.',
-        button: 'Start a Dialogue'
+        description: 'Get personalized guidance for your financial journey based on your unique situation and goals.',
+        button: 'Start Navigation',
       },
       selfCompassion: {
-        title: 'Self-Compassion Practice',
-        description: 'Develop a kinder relationship with yourself and your financial journey.',
-        button: 'Practice Self-Compassion'
+        title: 'Self-Compassion Practices',
+        description: 'Learn evidence-based techniques to treat yourself with kindness during financial challenges.',
+        button: 'Practice Compassion',
+      },
+    },
+  },
+  selfAssessment: {
+    title: 'Self-Assessment',
+    subtitle: 'Discover your financial patterns and learn to work with them compassionately',
+    quiz: {
+      title: 'Quick Firefighter Assessment',
+      description: 'Take this brief quiz to identify your primary financial firefighter type',
+      instruction: 'Answer 4 quick questions to discover which financial "firefighter" part is most active in your life.',
+      startButton: 'Start Assessment',
+      result: 'Your primary firefighter type is:',
+      resultDescription: 'This doesn\'t define you completely—we all have multiple parts. Understanding your dominant pattern is the first step toward financial self-compassion.'
+    },
+    deepAssessment: {
+      title: 'Deep Assessment',
+      description: 'For a more personalized analysis, describe your specific financial situation and patterns.',
+      formTitle: 'Personalized Financial Part Identification',
+      formDescription: 'Share your financial experiences and we\'ll help you understand the parts of yourself that influence your money decisions.'
+    },
+    form: {
+      financialSituation: {
+        label: 'Describe your current financial situation',
+        placeholder: 'Share what\'s happening with your finances right now - debts, income, expenses, goals, challenges...',
+        error: 'Please provide more details about your financial situation.'
+      },
+      recentFinancialBehavior: {
+        label: 'Describe your recent financial behavior',
+        placeholder: 'Tell us about your spending, saving, or money-related decisions in the past few weeks or months...',
+        error: 'Please describe your recent financial behavior in more detail.'
       }
     },
+    identifyButton: 'Identify My Financial Parts',
+    repeatAssessmentButton: 'Start New Assessment',
+    explorePartButton: 'Explore This Part Deeper',
+    premiumFeatureTooltip: 'This deep exploration is a premium feature. Subscribe to enable premium features.',
+    result: {
+      title: 'Meet Your {partName}',
+      role: 'Role',
+      burden: 'What it carries',
+      concern: 'Its biggest worry',
+      suggestedEngagement: 'How to work with this part',
+      engagementDescription: 'Remember: this part is trying to help you. Approach it with curiosity and compassion.'
+    },
+    error: {
+      title: 'Something went wrong',
+      identifyFailed: 'Unable to identify your financial parts. Please try again.',
+      resolveFailed: 'Unable to explore this part further. Please try again.'
+    }
   },
   selfCompassion: {
     title: 'Daily Self-Compassion',

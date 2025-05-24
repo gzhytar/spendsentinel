@@ -12,11 +12,11 @@ export const cs = {
   },
   navigation: {
     home: 'Domů',
-    overview: 'Průvodce aplikací',
-    expenseHighlighter: 'Reflexe výdajů',
-    financialGPS: 'Moje finanční cesta',
-    ifsDialogue: 'IFS Dialog',
-    selfCompassion: 'Praxe sebelásky',
+    overview: 'Přehled',
+    selfAssessment: 'Sebehodnocení',
+    expenseHighlighter: 'Zvýrazňovač výdajů',
+    financialGPS: 'Finanční GPS',
+    selfCompassion: 'Sebesoucit',
   },
   landing: {
     hero: {
@@ -150,25 +150,25 @@ export const cs = {
     features: {
       title: 'Hlavní funkce',
       subtitle: 'Nástroje navržené k transformaci vašeho finančního vztahu',
+      selfAssessment: {
+        title: 'Sebehodnocení',
+        description: 'Objevte, které finanční "hasičské" části jsou ve vašem životě nejaktivnější a dozvíte se o jejich ochranných záměrech.',
+        button: 'Provést hodnocení',
+      },
       expenseHighlighter: {
         title: 'Zvýrazňovač výdajů',
-        description: 'Kategorizujte výdaje jako \'Životní\' vs. \'Životní styl\' pro podporu vědomého rozhodování o výdajích.',
-        button: 'Sledovat Vaše Výdaje'
+        description: 'Nahrajte bankovní výpisy a objevte emocionální vzorce za vašimi výdaji s AI poznatky.',
+        button: 'Analyzovat výdaje',
       },
       financialGPS: {
         title: 'Finanční GPS',
-        description: 'Sledujte svou finanční cestu s jasným pohledem na minulá rozhodnutí a budoucí cíle.',
-        button: 'Prozkoumat Vaši Cestu'
-      },
-      ifsDialogue: {
-        title: 'IFS Dialog',
-        description: 'Zapojte se do vedených konverzací se svými finančními částmi, abyste pochopili jejich potřeby.',
-        button: 'Začít Dialog'
+        description: 'Získejte personalizované vedení pro vaši finanční cestu založené na vaší jedinečné situaci a cílech.',
+        button: 'Začít navigaci',
       },
       selfCompassion: {
-        title: 'Praxe sebelásky',
-        description: 'Rozvíjejte laskavější vztah k sobě a své finanční cestě.',
-        button: 'Praktikovat Sebelásku'
+        title: 'Praktiky sebesoucitu',
+        description: 'Naučte se techniky založené na důkazech, jak se k sobě chovat laskavě během finančních výzev.',
+        button: 'Praktikovat soucit',
       }
     }
   },
@@ -496,6 +496,53 @@ export const cs = {
         privacyConcerns: 'privacy@innerbalance.app'
       },
       commitment: 'Jsme odhodláni podporovat vaši cestu finančního wellness se soucitem, respektem a nejvyššími etickými standardy. Tyto podmínky existují pro ochranu jak vás, tak naší schopnosti poskytovat tuto důležitou službu.'
+    }
+  },
+  selfAssessment: {
+    title: 'Sebehodnocení',
+    subtitle: 'Objevte své finanční vzorce a naučte se s nimi pracovat soucitně',
+    quiz: {
+      title: 'Rychlé hodnocení hasičů',
+      description: 'Proveďte tento krátký kvíz k identifikaci vašeho primárního typu finančního hasiče',
+      instruction: 'Odpovězte na 4 rychlé otázky a objevte, která finanční "hasičská" část je ve vašem životě nejaktivnější.',
+      startButton: 'Začít hodnocení',
+      result: 'Váš primární typ hasiče je:',
+      resultDescription: 'Toto vás úplně nedefinuje—všichni máme více částí. Porozumění vašemu dominantnímu vzorci je prvním krokem k finančnímu sebesoucitu.'
+    },
+    deepAssessment: {
+      title: 'Hluboké hodnocení',
+      description: 'Pro podrobnější analýzu popište svou konkrétní finanční situaci a vzorce.',
+      formTitle: 'Personalizovaná identifikace finanční části',
+      formDescription: 'Sdílejte své finanční zkušenosti a pomůžeme vám pochopit části sebe, které ovlivňují vaše rozhodnutí o penězích.'
+    },
+    form: {
+      financialSituation: {
+        label: 'Popište svou současnou finanční situaci',
+        placeholder: 'Sdílejte, co se děje s vašimi financemi právě teď - dluhy, příjmy, výdaje, cíle, výzvy...',
+        error: 'Prosím poskytněte více podrobností o vaší finanční situaci.'
+      },
+      recentFinancialBehavior: {
+        label: 'Popište své nedávné finanční chování',
+        placeholder: 'Řekněte nám o vašem utrácení, spoření nebo rozhodnutích týkajících se peněz v posledních týdnech nebo měsících...',
+        error: 'Prosím popište své nedávné finanční chování podrobněji.'
+      }
+    },
+    identifyButton: 'Identifikovat mé finanční části',
+    repeatAssessmentButton: 'Začít nové hodnocení',
+    explorePartButton: 'Prozkoumat tuto část hlouběji',
+    premiumFeatureTooltip: 'Tento hluboký průzkum je prémiová funkce. Přihlaste se k odběru pro aktivaci prémiových funkcí.',
+    result: {
+      title: 'Seznamte se s vaším {partName}',
+      role: 'Role',
+      burden: 'Co nese',
+      concern: 'Jeho největší obava',
+      suggestedEngagement: 'Jak s touto částí pracovat',
+      engagementDescription: 'Pamatujte: tato část se vám snaží pomoci. Přistupujte k ní se zvědavostí a soucitem.'
+    },
+    error: {
+      title: 'Něco se pokazilo',
+      identifyFailed: 'Nelze identifikovat vaše finanční části. Zkuste to prosím znovu.',
+      resolveFailed: 'Nelze tuto část prozkoumat dále. Zkuste to prosím znovu.'
     }
   }
 } as const; 

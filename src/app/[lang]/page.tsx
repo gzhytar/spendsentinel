@@ -79,15 +79,15 @@ export default function LandingPage() {
                 <div>
                   <div className="flex items-center space-x-3 mb-2">
                     <MessageSquare className="w-6 h-6 text-primary flex-shrink-0" />
-                    <h3 className="font-semibold">{t('landing.features.ifsDialogue.title')}</h3>
+                    <h3 className="font-semibold">{t('landing.features.selfAssessment.title')}</h3>
                   </div>
                   <p className="text-muted-foreground">
-                    {t('landing.features.ifsDialogue.description')}
+                    {t('landing.features.selfAssessment.description')}
                   </p>
                   <div className="mt-4">
                     <Button className="w-full sm:w-auto" wrap={true} asChild>
-                        <Link href={`${localePrefix}/ifs-dialogue`}>
-                          <span>{t('landing.features.ifsDialogue.button')} <ArrowRight className="ml-2 h-4 w-4 inline" /></span>
+                        <Link href={`${localePrefix}/self-assessment`}>
+                          <span>{t('landing.features.selfAssessment.button')} <ArrowRight className="ml-2 h-4 w-4 inline" /></span>
                         </Link>
                     </Button>
                   </div>

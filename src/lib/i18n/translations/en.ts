@@ -40,22 +40,112 @@ export const en = {
     firefighters: {
       title: 'Types of Financial Firefighters',
       subtitle: 'Recognize your patterns and understand their purpose',
+      introduction: {
+        title: 'What are Financial Firefighters?',
+        description: 'They\'re protective parts of us that jump into action during financial stress. Like real firefighters, they mean well but sometimes use extreme measures that can cause problems later.'
+      },
       spender: {
         title: 'The Spender',
-        description: 'Uses shopping and spending to cope with stress, seeking immediate comfort through purchases. Typical Triggers: Sudden spike in stress, boredom, or loneliness; social-media scroll reveals a sale, haul video, or "limited drop"; emotional highs (bonus day, praise) that whisper "celebrate!" Immediate Behaviors: One-click checkouts or rapid "Add to Cart" bursts; up-sizing ("Go for the premium version—future me will appreciate it"); upgrading flights, hotel rooms, or meal add-ons on the spot.',
+        description: 'When stress or loneliness hits, this part rushes in with quick buys and upgrades to lift your mood. It hopes each purchase reminds you that you matter and keeps anxiety from sinking in. Think of it as a friend handing you a little present to brighten the day.',
+        triggers: {
+          label: 'Common situations that activate this firefighter:',
+          items: [
+            'Sudden spike in stress, boredom, or loneliness',
+            'Social media reveals sales or "limited drops"',
+            'Emotional highs that whisper "celebrate!"'
+          ]
+        },
+        behaviors: {
+          label: 'How this firefighter typically responds:',
+          items: [
+            'One-click checkouts or rapid "Add to Cart" bursts',
+            'Upgrading to premium versions impulsively',
+            'Last-minute upgrades on flights, hotels, meals'
+          ]
+        },
+        healingPath: 'Learning to pause and identify emotional needs before purchasing'
       },
       hoarder: {
         title: 'The Hoarder',
-        description: 'Saves excessively, often driven by fear and anxiety about future security. Typical Triggers: News of layoffs, recessions, or medical bills; seeing someone else struggle financially; large inflows (bonus, inheritance) that awaken "lock it away" instincts. Immediate Behaviors: Redirects virtually every extra euro into savings or investments—including money earmarked for necessities; cancels or postpones maintenance/health appointments to avoid spending; creates multiple sub-accounts to keep funds "untouchable."',
+        description: 'Shaped by past scarcity, the Hoarder works nonstop to stash every spare euro. Skipping expenses or fun isn\'t greed; it\'s its way of saying, "You\'ll be safe no matter what." Saving is the Hoarder\'s love language, wrapping you in a thick blanket of security.',
+        triggers: {
+          label: 'Common situations that activate this firefighter:',
+          items: [
+            'News of layoffs, recessions, or medical bills',
+            'Seeing others struggle financially',
+            'Large inflows that awaken "lock it away" instincts'
+          ]
+        },
+        behaviors: {
+          label: 'How this firefighter typically responds:',
+          items: [
+            'Redirects every extra euro into savings',
+            'Cancels necessary maintenance to avoid spending',
+            'Creates multiple "untouchable" sub-accounts'
+          ]
+        },
+        healingPath: 'Building trust in financial security while allowing for present needs'
       },
       avoider: {
         title: 'The Avoider',
-        description: 'Avoids dealing with finances altogether, often due to past negative experiences. Typical Triggers: Arrival of bills, bank statements, tax forms; conversations about budgets, investing, or debt; reminders of past money mistakes (late-fee email, collection call). Immediate Behaviors: Leaves envelopes/sealed emails unopened; deletes finance apps or silences their notifications; switches to entertainment or chores ("productive procrastination").',
+        description: 'Bills and balances can trigger old shame, so the Avoider shields you by leaving envelopes unopened and apps unchecked. It isn\'t laziness—it\'s protection, giving your nervous system a break until you feel stronger. Its goal is simple: spare you from overwhelm right now.',
+        triggers: {
+          label: 'Common situations that activate this firefighter:',
+          items: [
+            'Arrival of bills, bank statements, tax forms',
+            'Conversations about budgets or investing',
+            'Reminders of past money mistakes'
+          ]
+        },
+        behaviors: {
+          label: 'How this firefighter typically responds:',
+          items: [
+            'Leaves financial documents unopened',
+            'Deletes finance apps or silences notifications',
+            'Engages in "productive procrastination"'
+          ]
+        },
+        healingPath: 'Creating safety around financial awareness through small, gentle steps'
       },
       indulger: {
         title: 'The Indulger',
-        description: 'Provides immediate gratification and escape from financial stress. Typical Triggers: End of stressful day/week; Celebration ("We crushed the project!"); Social invitations promising fun experiences. Immediate Behaviors: Splurges on dining out, travel upgrades, VIP event tickets; Same-day delivery of treats, clothes, gadgets; Disregards budget categories with "YOLO" logic.',
+        description: 'When life feels dull or heavy, the Indulger jumps in with dinners out, trips, or VIP tickets. It believes joy is essential fuel and fears that too much restraint will drain your spirit. By creating bursts of pleasure, it helps you remember life is for living, not just surviving.',
+        triggers: {
+          label: 'Common situations that activate this firefighter:',
+          items: [
+            'End of stressful day/week',
+            'Celebration moments ("We crushed the project!")',
+            'Social invitations promising fun experiences'
+          ]
+        },
+        behaviors: {
+          label: 'How this firefighter typically responds:',
+          items: [
+            'Splurges on dining out, travel upgrades, VIP tickets',
+            'Same-day delivery of treats and gadgets',
+            'Disregards budget with "YOLO" logic'
+          ]
+        },
+        healingPath: 'Finding sustainable ways to celebrate and reward without financial harm'
       },
+      tabs: {
+        triggers: 'Triggers',
+        behaviors: 'Behaviors',
+        healing: 'Healing'
+      },
+      healing: {
+        title: 'Path to Balance'
+      },
+      assessment: {
+        title: 'Quick Self-Assessment',
+        description: 'Not sure which firefighter is most active in your life? Take a quick assessment to identify your primary financial coping patterns.',
+        startButton: 'Start Self-Assessment',
+        inProgress: 'Answer a few questions to discover your primary firefighter type...',
+        reset: 'Reset'
+      },
+      peoplePercentage: '~{percentage}% of people',
+      discoverButton: 'Discover Your Firefighter',
+      compassionButton: 'Practice Self-Compassion'
     },
     features: {
       title: 'Core Features',

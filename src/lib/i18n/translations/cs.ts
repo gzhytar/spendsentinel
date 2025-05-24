@@ -40,22 +40,112 @@ export const cs = {
     firefighters: {
       title: 'Typy Finančních Hasičů',
       subtitle: 'Rozpoznejte své vzorce a pochopte jejich účel',
+      introduction: {
+        title: 'Co jsou Finanční Hasiči?',
+        description: 'Jsou to ochranné části nás, které vstupují do akce během finančního stresu. Jako skuteční hasiči to myslí dobře, ale někdy používají extrémní opatření, která později mohou způsobit problémy.'
+      },
       spender: {
         title: 'Utráceč',
-        description: 'Používá nakupování a utrácení jako způsob zvládání stresu, hledá okamžitou úlevu prostřednictvím nákupů. Typické spouštěče: Náhlý nárůst stresu, nudy nebo osamělosti; prohlížení sociálních sítí odhalí výprodej, haul video nebo "limitovanou nabídku"; emoční vrcholy (den bonusu, pochvala), které šeptají "oslavme!" Okamžité chování: Nákupy jedním kliknutím nebo rychlé "Přidat do košíku" záchvaty; navyšování ("Jdi pro prémiovou verzi—budoucí já to ocení"); upgrady letů, hotelových pokojů nebo doplňků jídla na místě.',
+        description: 'Když přijde stres nebo osamělost, tato část spěchá s rychlými nákupy a vylepšeními, aby zvedla náladu. Doufá, že každý nákup vám připomene, že na vás záleží, a zabrání úzkosti proniknout. Představte si to jako přítele, který vám podává malý dárek, aby vám rozjasnili den.',
+        triggers: {
+          label: 'Běžné situace, které aktivují tohoto hasiče:',
+          items: [
+            'Náhlý nárůst stresu, nudy nebo osamělosti',
+            'Sociální média odhalí výprodeje nebo "omezené nabídky"',
+            'Emoční vrcholy, které šeptají "oslavme!"'
+          ]
+        },
+        behaviors: {
+          label: 'Jak tento hasič typicky reaguje:',
+          items: [
+            'Nákupy jedním kliknutím nebo rychlé "Přidat do košíku" záchvaty',
+            'Impulzivní upgrady na prémiové verze',
+            'Lastminute upgrady letů, hotelů, jídel'
+          ]
+        },
+        healingPath: 'Učení se pozastavit a identifikovat emoční potřeby před nákupem'
       },
       hoarder: {
         title: 'Hromadič',
-        description: 'Šetří nadměrně, často poháněn strachem a úzkostí z budoucího zabezpečení. Typické spouštěče: Zprávy o propouštění, recesi nebo lékařských účtech; sledování někoho jiného, kdo bojuje finančně; velké příjmy (bonus, dědictví), které probouzejí instinkty "zamknout to pryč". Okamžité chování: Přesměrovává prakticky každé extra euro do úspor nebo investic—včetně peněz určených pro nezbytnosti; ruší nebo odkládá údržbu/zdravotní termíny, aby se vyhnul výdajům; vytváří několik podúčtů, aby udržel prostředky "nedotknutelné".',
+        description: 'Formován minulou nedostatkem, Hromadič pracuje neustále, aby uschoval každé volné euro. Vynechávání výdajů nebo zábavy není chamtivost; je to jeho způsob, jak říci "Budeš v bezpečí bez ohledu na cokoliv." Šetření je láska Hromadiče vyjádřená jazykem, zabaluje vás do tlusté deky bezpečí.',
+        triggers: {
+          label: 'Běžné situace, které aktivují tohoto hasiče:',
+          items: [
+            'Zprávy o propouštění, recesi nebo lékařských účtech',
+            'Vidění jiných, kteří bojují finančně',
+            'Velké příjmy, které probouzejí instinkty "zamknout to pryč"'
+          ]
+        },
+        behaviors: {
+          label: 'Jak tento hasič typicky reaguje:',
+          items: [
+            'Přesměrovává každé extra euro do úspor',
+            'Ruší nezbytnou údržbu, aby se vyhnul výdajům',
+            'Vytváří několik "nedotknutelných" podúčtů'
+          ]
+        },
+        healingPath: 'Budování důvěry ve finanční bezpečnost při umožnění současných potřeb'
       },
       avoider: {
         title: 'Vyhýbač',
-        description: 'Vyhýbá se řešení financí, často kvůli minulým negativním zkušenostem. Typické spouštěče: Příchod účtů, bankovních výpisů, daňových formulářů; rozhovory o rozpočtech, investování nebo dluzích; připomínky minulých finančních chyb (email o poplatku za zpoždění, vymáhací hovor). Okamžité chování: Nechává obálky/zapečetěné emaily neotevřené; maže finanční aplikace nebo ztlumuje jejich oznámení; přepíná na zábavu nebo domácí práce ("produktivní prokrastinace").',
+        description: 'Účty a zůstatky mohou spustit starou hanbu, takže Vyhýbač vás chrání tím, že nechává obálky neotevřené a aplikace nekontrolované. Není to lenost—je to ochrana, poskytuje vašemu nervovému systému přestávku, dokud se necítíte silnější. Jeho cíl je jednoduchý: ušetřit vás od přetížení právě teď.',
+        triggers: {
+          label: 'Běžné situace, které aktivují tohoto hasiče:',
+          items: [
+            'Příchod účtů, bankovních výpisů, daňových formulářů',
+            'Rozhovory o rozpočtech nebo investování',
+            'Připomínky minulých finančních chyb'
+          ]
+        },
+        behaviors: {
+          label: 'Jak tento hasič typicky reaguje:',
+          items: [
+            'Nechává finanční dokumenty neotevřené',
+            'Maže finanční aplikace nebo ztlumuje oznámení',
+            'Zapojuje se do "produktivní prokrastinace"'
+          ]
+        },
+        healingPath: 'Vytváření bezpečí kolem finančního uvědomění pomocí malých, jemných kroků'
       },
       indulger: {
         title: 'Požitkář',
-        description: 'Poskytuje okamžité uspokojení a únik od finančního stresu. Typické spouštěče: Konec stresujícího dne/týdne; Oslavy ("Zvládli jsme projekt!"); Společenské pozvánky slibující zábavné zážitky. Okamžité chování: Utrácí za jídlo venku, upgrady cestování, VIP vstupenky na akce; Doručení tentýž den lahůdek, oblečení, gadgetů; Ignoruje rozpočtové kategorie s "YOLO" logikou.',
+        description: 'Když se život cítí nudný nebo těžký, Požitkář skočí s večeřemi venku, výlety nebo VIP vstupenkami. Věří, že radost je nezbytné palivo a bojí se, že příliš mnoho zdrženlivosti vyčerpá vašeho ducha. Vytvářením výbuchů potěšení vám pomáhá vzpomenout si, že život je pro život, ne jen pro přežití.',
+        triggers: {
+          label: 'Běžné situace, které aktivují tohoto hasiče:',
+          items: [
+            'Konec stresujícího dne/týdne',
+            'Oslavné momenty ("Zvládli jsme projekt!")',
+            'Společenské pozvánky slibující zábavné zážitky'
+          ]
+        },
+        behaviors: {
+          label: 'Jak tento hasič typicky reaguje:',
+          items: [
+            'Utrácí za jídlo venku, upgrady cestování, VIP vstupenky',
+            'Doručení tentýž den lahůdek a gadgetů',
+            'Ignoruje rozpočet s "YOLO" logikou'
+          ]
+        },
+        healingPath: 'Nalezení udržitelných způsobů oslavy a odměňování bez finančního poškození'
       },
+      tabs: {
+        triggers: 'Spouštěče',
+        behaviors: 'Chování',
+        healing: 'Léčení'
+      },
+      healing: {
+        title: 'Cesta k rovnováze'
+      },
+      assessment: {
+        title: 'Rychlé sebehodnocení',
+        description: 'Nejste si jisti, který hasič je ve vašem životě nejaktivnější? Absolvujte rychlé hodnocení pro identifikaci vašich primárních finančních zvládacích vzorců.',
+        startButton: 'Začít sebehodnocení',
+        inProgress: 'Odpovězte na několik otázek pro objevení vašeho primárního typu hasiče...',
+        reset: 'Reset'
+      },
+      peoplePercentage: '~{percentage}% lidí',
+      discoverButton: 'Objevte svého hasiče',
+      compassionButton: 'Praktikujte sebelásku'
     },
     features: {
       title: 'Hlavní funkce',

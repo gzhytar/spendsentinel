@@ -6,6 +6,7 @@ import { Flame, Brain, Shield, Heart, ArrowRight, Lightbulb, TrendingUp, Message
 import Link from 'next/link';
 import Image from 'next/image';
 import { useI18n } from '@/contexts/i18n-context';
+import { FirefighterTypes } from '@/components/common/FirefighterTypes';
 
 export default function LandingPage() {
   const { t, locale } = useI18n();
@@ -55,88 +56,9 @@ export default function LandingPage() {
         </Card>
       </section>
 
-      {/* Firefighter Types Section */}
+      {/* Firefighter Types Section - Now using the new component */}
       <section className="space-y-6 px-4">
-        <Card className="shadow-lg">
-          <CardHeader>
-            <div className="flex items-center space-x-3">
-              <Flame className="w-6 h-6 md:w-8 md:h-8 text-destructive" />
-              <CardTitle className="text-xl md:text-2xl">{t('landing.firefighters.title')}</CardTitle>
-            </div>
-            <CardDescription>{t('landing.firefighters.subtitle')}</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-              <div className="space-y-4">
-                <div className="rounded-lg overflow-hidden h-36 sm:h-48 relative">
-                  <Image 
-                    src="/images/spender.jpg"
-                    alt={t('landing.firefighters.spender.title')}
-                    fill
-                    className="object-cover"
-                    priority
-                  />
-                </div>
-                <h3 className="font-semibold text-lg text-center">{t('landing.firefighters.spender.title')}</h3>
-                <p className="text-muted-foreground">
-                  {t('landing.firefighters.spender.description')}
-                </p>
-              </div>
-              <div className="space-y-4">
-                <div className="rounded-lg overflow-hidden h-36 sm:h-48 relative">
-                  <Image 
-                    src="/images/hoarder.jpg" 
-                    alt={t('landing.firefighters.hoarder.title')}
-                    fill
-                    className="object-cover"
-                    priority
-                  />
-                </div>
-                <h3 className="font-semibold text-lg text-center">{t('landing.firefighters.hoarder.title')}</h3>
-                <p className="text-muted-foreground">
-                  {t('landing.firefighters.hoarder.description')}
-                </p>
-              </div>
-              <div className="space-y-4">
-                <div className="rounded-lg overflow-hidden h-36 sm:h-48 relative">
-                  <Image 
-                    src="/images/avoider.jpg" 
-                    alt={t('landing.firefighters.avoider.title')}
-                    fill
-                    className="object-cover"
-                    priority
-                  />
-                </div>
-                <h3 className="font-semibold text-lg text-center">{t('landing.firefighters.avoider.title')}</h3>
-                <p className="text-muted-foreground">
-                  {t('landing.firefighters.avoider.description')}
-                </p>
-              </div>
-              <div className="space-y-4">
-                <div className="rounded-lg overflow-hidden h-36 sm:h-48 relative">
-                  <Image 
-                    src="/images/indulger.jpg" 
-                    alt={t('landing.firefighters.indulger.title')}
-                    fill
-                    className="object-cover"
-                    priority
-                  />
-                </div>
-                <h3 className="font-semibold text-lg text-center">{t('landing.firefighters.indulger.title')}</h3>
-                <p className="text-muted-foreground">
-                  {t('landing.firefighters.indulger.description')}
-                </p>
-              </div>
-            </div>
-            <div className="flex justify-center gap-4 pt-8">
-              <Button size="lg" className="w-full sm:w-auto" wrap={true} asChild>
-                <Link href={`${localePrefix}/ifs-dialogue`}>
-                  <span>{t('landing.hero.cta')} <ArrowRight className="ml-2 h-4 w-4 inline" /></span>
-                </Link>
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+        <FirefighterTypes />
       </section>
 
       {/* Features Section */}

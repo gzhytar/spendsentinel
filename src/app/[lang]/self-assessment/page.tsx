@@ -17,7 +17,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Loader2, Wand2, MessageSquareHeart, UserCheck, AlertTriangle, BrainCircuit, RefreshCw, ArrowRight, Lightbulb, CheckCircle2 } from 'lucide-react';
+import { Loader2, Wand2, MessageSquareHeart, UserCheck, AlertTriangle, BrainCircuit, RefreshCw, ArrowRight, Lightbulb, CheckCircle2, AlertCircle } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import type { IdentifyIFSPartInput, IdentifyIFSPartOutput } from '@/ai/flows/ifs-part-identification';
@@ -48,6 +48,9 @@ export default function SelfAssessmentPage() {
   const [quizStarted, setQuizStarted] = useState(false);
   const [showQuizResult, setShowQuizResult] = useState(false);
   const [quizResult, setQuizResult] = useState<string | null>(null);
+  
+  // Deep assessment visibility state
+  const [showDeepAssessment, setShowDeepAssessment] = useState(false);
 
   // Load saved identification results from local storage on initial render
   useEffect(() => {
@@ -65,6 +68,7 @@ export default function SelfAssessmentPage() {
             )[0];
             setIdentificationResult(mostRecent.result);
             setShowIdentifyForm(false); // Hide the form when we have saved results
+            setShowDeepAssessment(true); // Show deep assessment when we have saved results
           } else {
             setShowIdentifyForm(true); // Show the form if no results for this locale
           }
@@ -143,6 +147,13 @@ export default function SelfAssessmentPage() {
     setResolutionResult(null);
     setShowIdentifyForm(true);
     identifyForm.reset();
+  };
+
+  const handleQuizSuggestDeepAssessment = () => {
+    setQuizStarted(false);
+    setShowQuizResult(false);
+    setQuizResult(null);
+    setShowDeepAssessment(true);
   };
 
   const handleResolvePart = async () => {
@@ -229,6 +240,7 @@ export default function SelfAssessmentPage() {
                 setQuizStarted(false);
                 setShowQuizResult(false);
               }}
+              onSuggestDeepAssessment={handleQuizSuggestDeepAssessment}
             />
           )}
           {showQuizResult && !quizStarted && quizResult && (
@@ -240,70 +252,82 @@ export default function SelfAssessmentPage() {
               </AlertDescription>
             </Alert>
           )}
+          {showDeepAssessment && !showQuizResult && (
+            <Alert className="mt-4 bg-blue-50 border-blue-200 dark:bg-blue-950/20 dark:border-blue-900">
+              <AlertCircle className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+              <AlertDescription className="text-blue-800 dark:text-blue-200">
+                <strong>{t('selfAssessment.quiz.uncertaintyNotice.title')}</strong> {t('selfAssessment.quiz.uncertaintyNotice.description')}
+              </AlertDescription>
+            </Alert>
+          )}
         </CardContent>
       </Card>
 
       <Separator className="my-8" />
 
       {/* Deep Assessment Section */}
-      <div className="text-center space-y-2 mb-6">
-        <h2 className="text-2xl font-semibold">{t('selfAssessment.deepAssessment.title')}</h2>
-        <p className="text-muted-foreground">{t('selfAssessment.deepAssessment.description')}</p>
-      </div>
+      {showDeepAssessment && (
+        <>
+          <div className="text-center space-y-2 mb-6">
+            <h2 className="text-2xl font-semibold">{t('selfAssessment.deepAssessment.title')}</h2>
+            <p className="text-muted-foreground">{t('selfAssessment.deepAssessment.description')}</p>
+          </div>
 
-      {showIdentifyForm ? (
-        <Card className="shadow-lg">
-          <CardHeader>
-            <div className="flex items-center space-x-3">
-              <BrainCircuit className="w-6 h-6 md:w-8 md:h-8 text-primary" />
-              <CardTitle className="text-xl md:text-2xl">{t('selfAssessment.deepAssessment.formTitle')}</CardTitle>
-            </div>
-            <CardDescription>
-              {t('selfAssessment.deepAssessment.formDescription')}
-            </CardDescription>
-          </CardHeader>
-          <form onSubmit={identifyForm.handleSubmit(handleIdentifySubmit)}>
-            <CardContent className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="financialSituation">{t('selfAssessment.form.financialSituation.label')}</Label>
-                <Textarea
-                  id="financialSituation"
-                  placeholder={t('selfAssessment.form.financialSituation.placeholder')}
-                  {...identifyForm.register("financialSituation")}
-                  className="min-h-[100px]"
-                />
-                {identifyForm.formState.errors.financialSituation && (
-                  <p className="text-sm text-destructive">{t('selfAssessment.form.financialSituation.error')}</p>
-                )}
-              </div>
+          {showIdentifyForm ? (
+            <Card className="shadow-lg">
+              <CardHeader>
+                <div className="flex items-center space-x-3">
+                  <BrainCircuit className="w-6 h-6 md:w-8 md:h-8 text-primary" />
+                  <CardTitle className="text-xl md:text-2xl">{t('selfAssessment.deepAssessment.formTitle')}</CardTitle>
+                </div>
+                <CardDescription>
+                  {t('selfAssessment.deepAssessment.formDescription')}
+                </CardDescription>
+              </CardHeader>
+              <form onSubmit={identifyForm.handleSubmit(handleIdentifySubmit)}>
+                <CardContent className="space-y-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="financialSituation">{t('selfAssessment.form.financialSituation.label')}</Label>
+                    <Textarea
+                      id="financialSituation"
+                      placeholder={t('selfAssessment.form.financialSituation.placeholder')}
+                      {...identifyForm.register("financialSituation")}
+                      className="min-h-[100px]"
+                    />
+                    {identifyForm.formState.errors.financialSituation && (
+                      <p className="text-sm text-destructive">{t('selfAssessment.form.financialSituation.error')}</p>
+                    )}
+                  </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="recentFinancialBehavior">{t('selfAssessment.form.recentFinancialBehavior.label')}</Label>
-                <Textarea
-                  id="recentFinancialBehavior"
-                  placeholder={t('selfAssessment.form.recentFinancialBehavior.placeholder')}
-                  {...identifyForm.register("recentFinancialBehavior")}
-                  className="min-h-[100px]"
-                />
-                {identifyForm.formState.errors.recentFinancialBehavior && (
-                  <p className="text-sm text-destructive">{t('selfAssessment.form.recentFinancialBehavior.error')}</p>
-                )}
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button type="submit" disabled={isLoadingIdentify} size="lg" className="w-full sm:w-auto" wrap={true}>
-                {isLoadingIdentify && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                <Wand2 className="mr-2 h-4 w-4" /> {t('selfAssessment.identifyButton')}
+                  <div className="space-y-2">
+                    <Label htmlFor="recentFinancialBehavior">{t('selfAssessment.form.recentFinancialBehavior.label')}</Label>
+                    <Textarea
+                      id="recentFinancialBehavior"
+                      placeholder={t('selfAssessment.form.recentFinancialBehavior.placeholder')}
+                      {...identifyForm.register("recentFinancialBehavior")}
+                      className="min-h-[100px]"
+                    />
+                    {identifyForm.formState.errors.recentFinancialBehavior && (
+                      <p className="text-sm text-destructive">{t('selfAssessment.form.recentFinancialBehavior.error')}</p>
+                    )}
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Button type="submit" disabled={isLoadingIdentify} size="lg" className="w-full sm:w-auto" wrap={true}>
+                    {isLoadingIdentify && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    <Wand2 className="mr-2 h-4 w-4" /> {t('selfAssessment.identifyButton')}
+                  </Button>
+                </CardFooter>
+              </form>
+            </Card>
+          ) : (
+            <div className="flex justify-end mb-4">
+              <Button onClick={handleNewIdentification} variant="outline" className="w-full sm:w-auto" wrap={true}>
+                <RefreshCw className="mr-2 h-4 w-4" /> {t('selfAssessment.repeatAssessmentButton')}
               </Button>
-            </CardFooter>
-          </form>
-        </Card>
-      ) : (
-        <div className="flex justify-end mb-4">
-          <Button onClick={handleNewIdentification} variant="outline" className="w-full sm:w-auto" wrap={true}>
-            <RefreshCw className="mr-2 h-4 w-4" /> {t('selfAssessment.repeatAssessmentButton')}
-          </Button>
-        </div>
+            </div>
+          )}
+        </>
       )}
 
       {error && (

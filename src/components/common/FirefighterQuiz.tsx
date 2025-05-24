@@ -15,60 +15,66 @@ interface QuizQuestion {
   options: {
     value: string;
     label: string;
-    type: 'spender' | 'hoarder' | 'avoider' | 'indulger';
+    type: 'spender' | 'hoarder' | 'avoider' | 'indulger' | 'unsure';
   }[];
 }
 
 interface QuizProps {
   onComplete: (result: string) => void;
   onCancel: () => void;
+  onSuggestDeepAssessment?: () => void;
 }
 
-export function FirefighterQuiz({ onComplete, onCancel }: QuizProps) {
+export function FirefighterQuiz({ onComplete, onCancel, onSuggestDeepAssessment }: QuizProps) {
   const { t } = useI18n();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [selectedValue, setSelectedValue] = useState<string>('');
+  const [unsureCount, setUnsureCount] = useState(0);
 
   const questions: QuizQuestion[] = [
     {
       id: 'stress-response',
-      question: 'When you feel stressed about money, what\'s your first instinct?',
+      question: t('selfAssessment.quiz.questions.stressResponse.question'),
       options: [
-        { value: 'shop', label: 'Browse online stores or go shopping', type: 'spender' },
-        { value: 'save', label: 'Check my savings and move more money there', type: 'hoarder' },
-        { value: 'ignore', label: 'Distract myself with something else', type: 'avoider' },
-        { value: 'treat', label: 'Treat myself to something special', type: 'indulger' }
+        { value: 'shop', label: t('selfAssessment.quiz.questions.stressResponse.options.shop'), type: 'spender' },
+        { value: 'save', label: t('selfAssessment.quiz.questions.stressResponse.options.save'), type: 'hoarder' },
+        { value: 'ignore', label: t('selfAssessment.quiz.questions.stressResponse.options.ignore'), type: 'avoider' },
+        { value: 'treat', label: t('selfAssessment.quiz.questions.stressResponse.options.treat'), type: 'indulger' },
+        { value: 'unsure-1', label: t('selfAssessment.quiz.unsureOption'), type: 'unsure' }
       ]
     },
     {
       id: 'unexpected-money',
-      question: 'You receive an unexpected bonus. What do you do?',
+      question: t('selfAssessment.quiz.questions.unexpectedMoney.question'),
       options: [
-        { value: 'splurge', label: 'Immediately think of things to buy', type: 'spender' },
-        { value: 'secure', label: 'Put it all in savings before I can spend it', type: 'hoarder' },
-        { value: 'delay', label: 'Put off deciding what to do with it', type: 'avoider' },
-        { value: 'celebrate', label: 'Plan a celebration or special experience', type: 'indulger' }
+        { value: 'splurge', label: t('selfAssessment.quiz.questions.unexpectedMoney.options.splurge'), type: 'spender' },
+        { value: 'secure', label: t('selfAssessment.quiz.questions.unexpectedMoney.options.secure'), type: 'hoarder' },
+        { value: 'delay', label: t('selfAssessment.quiz.questions.unexpectedMoney.options.delay'), type: 'avoider' },
+        { value: 'celebrate', label: t('selfAssessment.quiz.questions.unexpectedMoney.options.celebrate'), type: 'indulger' },
+        { value: 'unsure-2', label: t('selfAssessment.quiz.unsureOption'), type: 'unsure' }
       ]
     },
     {
       id: 'financial-planning',
-      question: 'How do you feel about budgeting and financial planning?',
+      question: t('selfAssessment.quiz.questions.financialPlanning.question'),
       options: [
-        { value: 'restrictive', label: 'It feels too restrictive and takes the fun out of life', type: 'spender' },
-        { value: 'essential', label: 'It\'s essential - I track every penny', type: 'hoarder' },
-        { value: 'overwhelming', label: 'It\'s overwhelming and I\'d rather not think about it', type: 'avoider' },
-        { value: 'flexible', label: 'I prefer to keep things flexible for spontaneous enjoyment', type: 'indulger' }
+        { value: 'restrictive', label: t('selfAssessment.quiz.questions.financialPlanning.options.restrictive'), type: 'spender' },
+        { value: 'essential', label: t('selfAssessment.quiz.questions.financialPlanning.options.essential'), type: 'hoarder' },
+        { value: 'overwhelming', label: t('selfAssessment.quiz.questions.financialPlanning.options.overwhelming'), type: 'avoider' },
+        { value: 'flexible', label: t('selfAssessment.quiz.questions.financialPlanning.options.flexible'), type: 'indulger' },
+        { value: 'unsure-3', label: t('selfAssessment.quiz.unsureOption'), type: 'unsure' }
       ]
     },
     {
       id: 'financial-regret',
-      question: 'What type of financial decision do you most often regret?',
+      question: t('selfAssessment.quiz.questions.financialRegret.question'),
       options: [
-        { value: 'impulse', label: 'Impulse purchases I didn\'t really need', type: 'spender' },
-        { value: 'missing-out', label: 'Missing out on experiences because I was saving', type: 'hoarder' },
-        { value: 'procrastination', label: 'Not dealing with financial issues sooner', type: 'avoider' },
-        { value: 'overindulgence', label: 'Spending too much on luxury or entertainment', type: 'indulger' }
+        { value: 'impulse', label: t('selfAssessment.quiz.questions.financialRegret.options.impulse'), type: 'spender' },
+        { value: 'missing-out', label: t('selfAssessment.quiz.questions.financialRegret.options.missingOut'), type: 'hoarder' },
+        { value: 'procrastination', label: t('selfAssessment.quiz.questions.financialRegret.options.procrastination'), type: 'avoider' },
+        { value: 'overindulgence', label: t('selfAssessment.quiz.questions.financialRegret.options.overindulgence'), type: 'indulger' },
+        { value: 'unsure-4', label: t('selfAssessment.quiz.unsureOption'), type: 'unsure' }
       ]
     }
   ];
@@ -77,12 +83,29 @@ export function FirefighterQuiz({ onComplete, onCancel }: QuizProps) {
 
   const handleNext = () => {
     if (selectedValue) {
+      const currentOption = questions[currentQuestion].options.find(
+        opt => opt.value === selectedValue
+      );
+      
+      // Count unsure answers
+      let newUnsureCount = unsureCount;
+      if (currentOption?.type === 'unsure') {
+        newUnsureCount = unsureCount + 1;
+        setUnsureCount(newUnsureCount);
+      }
+
       setAnswers({ ...answers, [questions[currentQuestion].id]: selectedValue });
       
       if (currentQuestion < questions.length - 1) {
         setCurrentQuestion(currentQuestion + 1);
         setSelectedValue(answers[questions[currentQuestion + 1].id] || '');
       } else {
+        // Check if user answered "unsure" to too many questions (2 or more)
+        if (newUnsureCount >= 2 && onSuggestDeepAssessment) {
+          onSuggestDeepAssessment();
+          return;
+        }
+
         // Calculate result
         const typeScores: Record<string, number> = {
           spender: 0,
@@ -91,24 +114,33 @@ export function FirefighterQuiz({ onComplete, onCancel }: QuizProps) {
           indulger: 0
         };
 
+        // Count all answers except current one
         Object.values(answers).forEach((answer) => {
           const question = questions.find(q => 
             q.options.some(opt => opt.value === answer)
           );
           if (question) {
             const option = question.options.find(opt => opt.value === answer);
-            if (option) {
+            if (option && option.type !== 'unsure') {
               typeScores[option.type]++;
             }
           }
         });
 
-        // Add the current answer
-        const currentOption = questions[currentQuestion].options.find(
-          opt => opt.value === selectedValue
-        );
-        if (currentOption) {
+        // Add the current answer if it's not unsure
+        if (currentOption && currentOption.type !== 'unsure') {
           typeScores[currentOption.type]++;
+        }
+
+        // Check if we have any non-unsure answers
+        const totalNonUnsureAnswers = Object.values(typeScores).reduce((sum, score) => sum + score, 0);
+        
+        if (totalNonUnsureAnswers === 0) {
+          // All answers were unsure, suggest deep assessment
+          if (onSuggestDeepAssessment) {
+            onSuggestDeepAssessment();
+            return;
+          }
         }
 
         // Find the type with the highest score
@@ -123,6 +155,16 @@ export function FirefighterQuiz({ onComplete, onCancel }: QuizProps) {
 
   const handlePrevious = () => {
     if (currentQuestion > 0) {
+      // If we're going back and the previous answer was "unsure", decrease the count
+      const previousAnswer = answers[questions[currentQuestion - 1].id];
+      if (previousAnswer) {
+        const previousQuestion = questions[currentQuestion - 1];
+        const previousOption = previousQuestion.options.find(opt => opt.value === previousAnswer);
+        if (previousOption?.type === 'unsure' && unsureCount > 0) {
+          setUnsureCount(unsureCount - 1);
+        }
+      }
+      
       setCurrentQuestion(currentQuestion - 1);
       setSelectedValue(answers[questions[currentQuestion - 1].id] || '');
     }
@@ -135,7 +177,10 @@ export function FirefighterQuiz({ onComplete, onCancel }: QuizProps) {
           <div>
             <Progress value={progress} className="h-2 mb-2" />
             <p className="text-sm text-muted-foreground text-center">
-              Question {currentQuestion + 1} of {questions.length}
+              {t('selfAssessment.quiz.navigation.progress', { 
+                current: currentQuestion + 1, 
+                total: questions.length 
+              })}
             </p>
           </div>
 
@@ -154,7 +199,9 @@ export function FirefighterQuiz({ onComplete, onCancel }: QuizProps) {
                   <RadioGroupItem value={option.value} id={option.value} />
                   <Label 
                     htmlFor={option.value} 
-                    className="text-sm font-normal cursor-pointer"
+                    className={`text-sm font-normal cursor-pointer ${
+                      option.type === 'unsure' ? 'text-muted-foreground italic' : ''
+                    }`}
                   >
                     {option.label}
                   </Label>
@@ -170,14 +217,14 @@ export function FirefighterQuiz({ onComplete, onCancel }: QuizProps) {
               size="sm"
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
-              {currentQuestion === 0 ? 'Cancel' : 'Previous'}
+              {currentQuestion === 0 ? t('selfAssessment.quiz.navigation.cancel') : t('selfAssessment.quiz.navigation.previous')}
             </Button>
             <Button
               onClick={handleNext}
               disabled={!selectedValue}
               size="sm"
             >
-              {currentQuestion === questions.length - 1 ? 'See Results' : 'Next'}
+              {currentQuestion === questions.length - 1 ? t('selfAssessment.quiz.navigation.seeResults') : t('selfAssessment.quiz.navigation.next')}
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </div>

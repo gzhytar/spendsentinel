@@ -171,8 +171,58 @@ export const en = {
       description: 'Take this brief quiz to identify your primary financial firefighter type',
       instruction: 'Answer 4 quick questions to discover which financial "firefighter" part is most active in your life.',
       startButton: 'Start Assessment',
+      unsureOption: 'I\'m not sure / None of these match me',
       result: 'Your primary firefighter type is:',
-      resultDescription: 'This doesn\'t define you completely—we all have multiple parts. Understanding your dominant pattern is the first step toward financial self-compassion.'
+      resultDescription: 'This doesn\'t define you completely—we all have multiple parts. Understanding your dominant pattern is the first step toward financial self-compassion.',
+      uncertaintyNotice: {
+        title: 'Having trouble choosing?',
+        description: 'Since you\'re uncertain about several answers, we recommend the personalized assessment below for more accurate insights into your financial patterns.'
+      },
+      questions: {
+        stressResponse: {
+          question: 'When you feel stressed about money, what\'s your first instinct?',
+          options: {
+            shop: 'Browse online stores or go shopping',
+            save: 'Check my savings and move more money there',
+            ignore: 'Distract myself with something else',
+            treat: 'Treat myself to something special'
+          }
+        },
+        unexpectedMoney: {
+          question: 'You receive an unexpected bonus. What do you do?',
+          options: {
+            splurge: 'Immediately think of things to buy',
+            secure: 'Put it all in savings before I can spend it',
+            delay: 'Put off deciding what to do with it',
+            celebrate: 'Plan a celebration or special experience'
+          }
+        },
+        financialPlanning: {
+          question: 'How do you feel about budgeting and financial planning?',
+          options: {
+            restrictive: 'It feels too restrictive and takes the fun out of life',
+            essential: 'It\'s essential - I track every penny',
+            overwhelming: 'It\'s overwhelming and I\'d rather not think about it',
+            flexible: 'I prefer to keep things flexible for spontaneous enjoyment'
+          }
+        },
+        financialRegret: {
+          question: 'What type of financial decision do you most often regret?',
+          options: {
+            impulse: 'Impulse purchases I didn\'t really need',
+            missingOut: 'Missing out on experiences because I was saving',
+            procrastination: 'Not dealing with financial issues sooner',
+            overindulgence: 'Spending too much on luxury or entertainment'
+          }
+        }
+      },
+      navigation: {
+        cancel: 'Cancel',
+        previous: 'Previous',
+        next: 'Next',
+        seeResults: 'See Results',
+        progress: 'Question {current} of {total}'
+      }
     },
     deepAssessment: {
       title: 'Deep Assessment',

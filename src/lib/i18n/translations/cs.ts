@@ -136,16 +136,8 @@ export const cs = {
       healing: {
         title: 'Cesta k rovnováze'
       },
-      assessment: {
-        title: 'Rychlé sebehodnocení',
-        description: 'Nejste si jisti, který hasič je ve vašem životě nejaktivnější? Absolvujte rychlé hodnocení pro identifikaci vašich primárních finančních zvládacích vzorců.',
-        startButton: 'Začít sebehodnocení',
-        inProgress: 'Odpovězte na několik otázek pro objevení vašeho primárního typu hasiče...',
-        reset: 'Reset'
-      },
-      peoplePercentage: '~{percentage}% lidí',
-      discoverButton: 'Objevte svého hasiče',
-      compassionButton: 'Praktikujte sebelásku'
+      assessmentButton: 'Provést sebehodnocení',
+      compassionButton: 'Praktikovat sebesoucit'
     },
     features: {
       title: 'Hlavní funkce',
@@ -506,8 +498,58 @@ export const cs = {
       description: 'Proveďte tento krátký kvíz k identifikaci vašeho primárního typu finančního hasiče',
       instruction: 'Odpovězte na 4 rychlé otázky a objevte, která finanční "hasičská" část je ve vašem životě nejaktivnější.',
       startButton: 'Začít hodnocení',
+      unsureOption: 'Nejsem si jistý / Nic z toho mi neodpovídá',
       result: 'Váš primární typ hasiče je:',
-      resultDescription: 'Toto vás úplně nedefinuje—všichni máme více částí. Porozumění vašemu dominantnímu vzorci je prvním krokem k finančnímu sebesoucitu.'
+      resultDescription: 'Toto vás úplně nedefinuje—všichni máme více částí. Porozumění vašemu dominantnímu vzorci je prvním krokem k finančnímu sebesoucitu.',
+      uncertaintyNotice: {
+        title: 'Máte potíže s výběrem?',
+        description: 'Protože si nejste jisti několika odpověďmi, doporučujeme personalizované hodnocení níže pro přesnější poznatky o vašich finančních vzorcích.'
+      },
+      questions: {
+        stressResponse: {
+          question: 'Když se cítíte ve stresu kvůli penězům, jaký je váš první instinkt?',
+          options: {
+            shop: 'Procházet online obchody nebo jít nakupovat',
+            save: 'Zkontrolovat své úspory a přesunout tam více peněz',
+            ignore: 'Rozptýlit se něčím jiným',
+            treat: 'Dopřát si něco speciálního'
+          }
+        },
+        unexpectedMoney: {
+          question: 'Dostanete nečekaný bonus. Co děláte?',
+          options: {
+            splurge: 'Okamžitě myslím na věci k nákupu',
+            secure: 'Dám to celé do úspor, než to utratím',
+            delay: 'Odložím rozhodnutí, co s tím udělat',
+            celebrate: 'Naplánujem oslavu nebo speciální zážitek'
+          }
+        },
+        financialPlanning: {
+          question: 'Jak se cítíte při rozpočtování a finančním plánování?',
+          options: {
+            restrictive: 'Připadá mi to příliš omezující a bere to radost ze života',
+            essential: 'Je to nezbytné - sleduji každou korunu',
+            overwhelming: 'Je to ohromující a radši o tom nechci přemýšlet',
+            flexible: 'Dávám přednost flexibilitě pro spontánní radosti'
+          }
+        },
+        financialRegret: {
+          question: 'Jaký typ finančního rozhodnutí nejčastěji litujete?',
+          options: {
+            impulse: 'Impulzivní nákupy, které jsem ve skutečnosti nepotřeboval',
+            missingOut: 'Zmeškat zážitky kvůli šetření',
+            procrastination: 'Neřešit finanční problémy dříve',
+            overindulgence: 'Utrácet příliš za luxus nebo zábavu'
+          }
+        }
+      },
+      navigation: {
+        cancel: 'Zrušit',
+        previous: 'Předchozí',
+        next: 'Další',
+        seeResults: 'Zobrazit výsledky',
+        progress: 'Otázka {current} z {total}'
+      }
     },
     deepAssessment: {
       title: 'Hluboké hodnocení',

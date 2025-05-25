@@ -21,7 +21,7 @@ import { usePanicMode } from '@/contexts/panic-mode-context';
 import { PanicButton } from '@/components/common/panic-button';
 import { GroundingExercise } from '@/components/common/grounding-exercise';
 import { AppFooter } from '@/components/layout/app-footer';
-import { Leaf } from 'lucide-react';
+import { Eye } from 'lucide-react';
 import { useI18n } from '@/contexts/i18n-context';
 
 export function AppLayoutClient({ children }: { children: ReactNode }) {
@@ -46,7 +46,7 @@ export function AppLayoutClient({ children }: { children: ReactNode }) {
         <SidebarHeader className="p-4">
           <Link href={`${localePrefix}/`} className="flex items-center gap-2" onClick={handleNavClick}>
             <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full bg-primary/20 hover:bg-primary/30">
-               <Leaf className="h-6 w-6 text-primary" />
+               <Eye className="h-6 w-6 text-primary" />
             </Button>
             {!open && <span className="sr-only">{t(APP_NAME)}</span>}
             {open && <h1 className="text-xl font-semibold text-primary">{t(APP_NAME)}</h1>}

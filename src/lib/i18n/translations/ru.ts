@@ -1,6 +1,6 @@
 export const ru = {
   common: {
-    appName: 'ВнутреннийБаланс',
+    appName: 'СтражТрат',
     loading: 'Загрузка...',
     error: 'Произошла ошибка',
     save: 'Сохранить',
@@ -523,8 +523,8 @@ export const ru = {
       },
       contactUs: {
         title: 'Свяжитесь с нами',
-        content: 'Если у вас есть вопросы об этой политике конфиденциальности или о том, как мы обрабатываем ваши данные, свяжитесь с нами:',
-        email: 'privacy@innerbalance.app',
+        content: 'Если у вас есть вопросы об этой политике конфиденциальности или о том, как мы обрабатываем ваши данные, пожалуйста, свяжитесь с нами:',
+        email: 'privacy@spendsentinel.app',
         responseTime: 'Мы отвечаем на запросы о конфиденциальности в течение 72 часов'
       },
       trustIsSacred: 'Мы понимаем, что решение поделиться с нами своим финансовым и эмоциональным путешествием требует огромного доверия. Мы чтим это доверие, поддерживая самые высокие стандарты защиты конфиденциальности и этичного обращения с данными.'
@@ -571,12 +571,12 @@ export const ru = {
           'Телефон доверия «Суицид/Кризис»: +7 (495) 625-31-01 (24/7, бесплатно)'
         ]
       },
-      contactInfo: {
+      contactInformation: {
         title: 'Контактная информация',
         content: 'По вопросам об этих условиях или нашей Услуге:',
-        generalSupport: 'support@innerbalance.app',
-        legalQuestions: 'legal@innerbalance.app',
-        privacyConcerns: 'privacy@innerbalance.app'
+        generalSupport: 'support@spendsentinel.app',
+        legalQuestions: 'legal@spendsentinel.app',
+        privacyConcerns: 'privacy@spendsentinel.app'
       },
       commitment: 'Мы посвящены поддержке вашего путешествия финансового благополучия с состраданием, уважением и самыми высокими этическими стандартами. Эти условия существуют для защиты как вас, так и нашей способности предоставлять эту важную услугу.'
     }

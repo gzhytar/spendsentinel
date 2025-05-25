@@ -1,6 +1,6 @@
 export const en = {
   common: {
-    appName: 'InnerBalance',
+    appName: 'SpendSentinel',
     loading: 'Loading...',
     error: 'An error occurred',
     save: 'Save',
@@ -512,7 +512,7 @@ export const en = {
     allRightsReserved: 'All rights reserved.',
     madeWithLove: 'Made with awareness in Czech Republic',
     disclaimerLabel: 'Disclaimer',
-    disclaimer: 'InnerBalance is a digital wellness tool and does not replace professional financial advice or mental health treatment. If you\'re experiencing a mental health crisis, please contact your local emergency services or a mental health professional.'
+    disclaimer: 'SpendSentinel is a digital wellness tool and does not replace professional financial advice or mental health treatment. If you\'re experiencing a mental health crisis, please contact your local emergency services or a mental health professional.'
   },
   privacyPolicy: {
     title: 'Privacy Policy',
@@ -520,7 +520,7 @@ export const en = {
     sections: {
       intro: {
         title: 'Your Privacy Matters',
-        content: 'At InnerBalance, we understand that financial and emotional data is deeply personal. This privacy policy explains how we collect, use, protect, and respect your information while providing our AI-powered financial therapy and coaching services.'
+        content: 'At SpendSentinel, we understand that financial and emotional data is deeply personal. This privacy policy explains how we collect, use, protect, and respect your information while providing our AI-powered financial wellness tools.'
       },
       informationWeCollect: {
         title: 'Information We Collect',
@@ -627,7 +627,7 @@ export const en = {
       contactUs: {
         title: 'Contact Us',
         content: 'If you have questions about this privacy policy or how we handle your data, please contact us:',
-        email: 'privacy@innerbalance.app',
+        email: 'privacy@spendsentinel.app',
         responseTime: 'We respond to privacy inquiries within 72 hours'
       },
       trustIsSacred: 'We understand that choosing to share your financial and emotional journey with us requires tremendous trust. We honor that trust by maintaining the highest standards of privacy protection and ethical data handling.'
@@ -640,11 +640,11 @@ export const en = {
       welcome: 'These terms govern your use of our AI-powered financial therapy and coaching platform. By using our services, you agree to these terms and our commitment to supporting your financial wellness journey.',
       acceptanceOfTerms: {
         title: 'Acceptance of Terms',
-        content: 'By accessing or using InnerBalance ("the Service"), you agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree to these terms, please do not use the Service.'
+        content: 'By accessing or using SpendSentinel ("the Service"), you agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree to these terms, please do not use the Service.'
       },
       serviceDescription: {
         title: 'Description of Service',
-        content: 'InnerBalance is an AI-powered digital wellness platform that provides:',
+        content: 'SpendSentinel is an AI-powered digital wellness platform that provides:',
         features: [
           'Financial behavior analysis using Internal Family Systems (IFS) methodology',
           'AI-driven coaching and therapy tools for financial wellness',
@@ -654,7 +654,7 @@ export const en = {
           'Panic mode and grounding exercise features'
         ]
       },
-      importantLimitation: 'InnerBalance is a digital wellness tool and does NOT replace professional financial advice, therapy, or mental health treatment. We are not licensed financial advisors or mental health professionals.',
+      importantLimitation: 'SpendSentinel is a digital wellness tool and does NOT replace professional financial advice, therapy, or mental health treatment. We are not licensed financial advisors or mental health professionals.',
       userEligibility: {
         title: 'User Eligibility',
         ageRequirements: {
@@ -677,9 +677,9 @@ export const en = {
       contactInfo: {
         title: 'Contact Information',
         content: 'For questions about these terms or our Service:',
-        generalSupport: 'support@innerbalance.app',
-        legalQuestions: 'legal@innerbalance.app',
-        privacyConcerns: 'privacy@innerbalance.app'
+        generalSupport: 'support@spendsentinel.app',
+        legalQuestions: 'legal@spendsentinel.app',
+        privacyConcerns: 'privacy@spendsentinel.app'
       },
       commitment: 'We are dedicated to supporting your financial wellness journey with compassion, respect, and the highest ethical standards. These terms exist to protect both you and our ability to provide this important service.'
     }

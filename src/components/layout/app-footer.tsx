@@ -55,14 +55,14 @@ export function AppFooter() {
                 {t('footer.emergencyProtocol')}
               </Link>
               <a 
-                href="mailto:privacy@innerbalance.app"
+                href="mailto:privacy@spendsentinel.app"
                 className="text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1"
               >
                 <Mail className="h-3 w-3" />
                 {t('footer.privacyQuestions')}
               </a>
               <a 
-                href="mailto:support@innerbalance.app"
+                href="mailto:support@spendsentinel.app"
                 className="text-muted-foreground hover:text-primary transition-colors"
               >
                 {t('footer.generalSupport')}

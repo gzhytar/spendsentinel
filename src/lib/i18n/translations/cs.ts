@@ -1,6 +1,6 @@
 export const cs = {
   common: {
-    appName: 'InnerBalance',
+    appName: 'SpendSentinel',
     loading: 'Načítání...',
     error: 'Došlo k chybě',
     save: 'Uložit',
@@ -524,7 +524,7 @@ export const cs = {
       contactUs: {
         title: 'Kontaktujte nás',
         content: 'Pokud máte otázky ohledně těchto zásad ochrany soukromí nebo jak zacházíme s vašimi daty, kontaktujte nás:',
-        email: 'privacy@innerbalance.app',
+        email: 'privacy@spendsentinel.app',
         responseTime: 'Na dotazy ohledně soukromí odpovídáme do 72 hodin'
       },
       trustIsSacred: 'Chápeme, že rozhodnutí sdílet s námi svou finanční a emoční cestu vyžaduje obrovskou důvěru. Tuto důvěru ctíme udržováním nejvyšších standardů ochrany soukromí a etického zacházení s daty.'

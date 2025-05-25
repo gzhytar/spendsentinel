@@ -212,7 +212,7 @@ export default function PrivacyPolicyPage() {
             <p className="leading-relaxed">{t('privacyPolicy.sections.contactUs.content')}</p>
             <div className="flex items-center gap-2 p-3 bg-muted/30 rounded-lg">
               <Mail className="h-4 w-4 text-primary" />
-              <a href="mailto:privacy@innerbalance.app" className="text-primary hover:underline">
+              <a href="mailto:privacy@spendsentinel.app" className="text-primary hover:underline">
                 {t('privacyPolicy.sections.contactUs.email')}
               </a>
             </div>

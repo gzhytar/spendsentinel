@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 240 17% 95%; /* Light Gray #F0F0F5 */
+    --background: 40 47% 86%; /* Soft sand #EADDCB */
     --foreground: 240 10% 25%; /* Dark Gray for text */
 
     --card: 0 0% 100%; /* White */
@@ -19,16 +19,16 @@
     --secondary: 237 30% 90%; /* Lighter Lavender */
     --secondary-foreground: 237 30% 25%;
 
-    --muted: 240 15% 90%; /* Lighter Gray */
+    --muted: 40 30% 92%; /* Lighter sand */
     --muted-foreground: 240 10% 45%;
 
-    --accent: 203 69% 83%; /* Soft Blue #A0D2EB */
-    --accent-foreground: 203 40% 25%;
+    --accent: 170 72% 20%; /* Deep teal #0F5850 */
+    --accent-foreground: 170 60% 97%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 10% 85%;
+    --border: 40 40% 80%;
     --input: 0 0% 100%; /* White for input background */
     --ring: 237 49% 70%; /* Darker/Saturated Lavender for focus rings */
     
@@ -42,23 +42,23 @@
     /* Sidebar specific theme */
     --sidebar-background: 237 40% 88%; /* Slightly darker lavender */
     --sidebar-foreground: 237 30% 20%; /* Dark text for readability */
-    --sidebar-primary: 203 69% 75%; /* Accent blue for active/primary items in sidebar */
-    --sidebar-primary-foreground: 203 40% 15%; /* Darker text on accent blue */
+    --sidebar-primary: 170 72% 20%; /* Accent teal for active/primary items in sidebar */
+    --sidebar-primary-foreground: 170 60% 97%; /* Light text on accent teal */
     --sidebar-accent: 237 49% 81%; /* Primary lavender for hover/accent in sidebar */
     --sidebar-accent-foreground: 237 30% 25%;
     --sidebar-border: 237 30% 80%;
-    --sidebar-ring: 203 69% 70%; /* Accent blue based ring */
+    --sidebar-ring: 170 72% 20%; /* Accent teal based ring */
   }
 
   .dark {
     /* Define dark theme colors - for now, we'll keep them similar to light or use default dark shadcn */
-    --background: 240 10% 3.9%;
+    --background: 40 30% 15%;
     --foreground: 0 0% 98%;
 
-    --card: 240 10% 3.9%;
+    --card: 40 30% 10%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 240 10% 3.9%;
+    --popover: 40 30% 10%;
     --popover-foreground: 0 0% 98%;
 
     --primary: 237 49% 81%; /* Lavender for dark mode too, or adjust as needed */
@@ -67,17 +67,17 @@
     --secondary: 237 30% 15%;
     --secondary-foreground: 0 0% 98%;
 
-    --muted: 240 10% 15%;
+    --muted: 40 15% 25%;
     --muted-foreground: 0 0% 63.9%;
 
-    --accent: 203 69% 83%; /* Soft Blue for dark mode too, or adjust */
-    --accent-foreground: 203 40% 15%;
+    --accent: 170 72% 30%; /* Deep teal for dark mode */
+    --accent-foreground: 0 0% 98%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 240 10% 14.9%;
-    --input: 240 10% 14.9%;
+    --border: 40 15% 25%;
+    --input: 40 15% 25%;
     --ring: 237 49% 70%;
     
     --chart-1: 220 70% 50%;
@@ -86,14 +86,14 @@
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
 
-    --sidebar-background: 240 5.9% 10%;
+    --sidebar-background: 40 10% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 203 69% 65%;
+    --sidebar-primary: 170 72% 30%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 240 3.7% 15.9%;
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 203 69% 60%;
+    --sidebar-ring: 170 72% 30%;
   }
 }
 

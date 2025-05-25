@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'InnerBalance',
-  description: 'Find your financial peace with InnerBalance.',
+  title: 'SpendSentinel',
+  description: 'Pause · Notice · Choose. Transform your relationship with money through compassionate self-discovery.',
 };
 
 export default function RootLayout({

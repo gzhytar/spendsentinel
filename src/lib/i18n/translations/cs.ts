@@ -70,6 +70,14 @@ export const cs = {
             'Během nákupu: nával úlevy, moci nebo euforie.',
             'Po nákupu: záblesky viny, "Co jsem to udělal?" nebo napětí v žaludku.'
           ]
+        },
+        innerDialogue: {
+          label: 'Běžné myšlenky této části:',
+          items: [
+            'Tvrdě jsem pracoval—_zasloužím_ si to.',
+            'Je to jen €19; jaký to udělá rozdíl?',
+            'Pokud to nekoupím teď, budu toho navždy litovat.'
+          ]
         }
       },
       hoarder: {
@@ -97,6 +105,14 @@ export const cs = {
             'Před šetřením: úzkost, strach z katastrofy.',
             'Během převodu: krátký klid, kontrola.',
             'Po převodu: nízký stupeň strachu se vrací; cyklus se opakuje.'
+          ]
+        },
+        innerDialogue: {
+          label: 'Běžné myšlenky této části:',
+          items: [
+            'Nemůžeme věřit budoucnosti—schovej víc.',
+            'Jedna krize a jsme zničeni.',
+            'Utrácet za potěšení je nezodpovědné.'
           ]
         }
       },
@@ -126,6 +142,14 @@ export const cs = {
             'Během vyhýbání: dočasná otupělá úleva.',
             'Po vyhýbání: plížící se vina; strach se vrací silnější.'
           ]
+        },
+        innerDialogue: {
+          label: 'Běžné myšlenky této části:',
+          items: [
+            'Vyřeším to zítra.',
+            'Dívání se jen zkazí můj den.',
+            'Jsem hrozný s penězi—proč se vůbec snažit?'
+          ]
         }
       },
       indulger: {
@@ -154,12 +178,21 @@ export const cs = {
             'Během nákupu/zážitku: radost, osvobození.',
             'Po požitku: možný pád—vina, prázdnota nebo nový stres z dluhu.'
           ]
+        },
+        innerDialogue: {
+          label: 'Běžné myšlenky této části:',
+          items: [
+            'Zasloužili jsme si to!',
+            'Život je příliš krátký na škudlení peněz.',
+            'Dobrá nálada stojí za dluh.'
+          ]
         }
       },
       tabs: {
         triggers: 'Spouštěče',
         behaviors: 'Chování',
-        emotions: 'Emoce v Čase'
+        emotions: 'Emoce v Čase',
+        innerDialogue: 'Vnitřní Dialog'
       },
       assessmentButton: 'Provést sebehodnocení',
       compassionButton: 'Praktikovat sebesoucit'

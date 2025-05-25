@@ -26,6 +26,7 @@ interface FirefighterType {
   triggers: string[];
   behaviors: string[];
   emotions?: string[];
+  innerDialogue?: string[];
 }
 
 interface FirefighterTypesProps {
@@ -55,6 +56,7 @@ export function FirefighterTypes({
       triggers: t<string[]>('landing.firefighters.spender.triggers.items'),
       behaviors: t<string[]>('landing.firefighters.spender.behaviors.items'),
       emotions: t<string[]>('landing.firefighters.spender.emotions.items'),
+      innerDialogue: t<string[]>('landing.firefighters.spender.innerDialogue.items'),
     },
     {
       id: 'hoarder',
@@ -63,6 +65,7 @@ export function FirefighterTypes({
       triggers: t<string[]>('landing.firefighters.hoarder.triggers.items'),
       behaviors: t<string[]>('landing.firefighters.hoarder.behaviors.items'),
       emotions: t<string[]>('landing.firefighters.hoarder.emotions.items'),
+      innerDialogue: t<string[]>('landing.firefighters.hoarder.innerDialogue.items'),
     },
     {
       id: 'avoider',
@@ -71,6 +74,7 @@ export function FirefighterTypes({
       triggers: t<string[]>('landing.firefighters.avoider.triggers.items'),
       behaviors: t<string[]>('landing.firefighters.avoider.behaviors.items'),
       emotions: t<string[]>('landing.firefighters.avoider.emotions.items'),
+      innerDialogue: t<string[]>('landing.firefighters.avoider.innerDialogue.items'),
     },
     {
       id: 'indulger',
@@ -79,6 +83,7 @@ export function FirefighterTypes({
       triggers: t<string[]>('landing.firefighters.indulger.triggers.items'),
       behaviors: t<string[]>('landing.firefighters.indulger.behaviors.items'),
       emotions: t<string[]>('landing.firefighters.indulger.emotions.items'),
+      innerDialogue: t<string[]>('landing.firefighters.indulger.innerDialogue.items'),
     }
   ];
 
@@ -177,7 +182,7 @@ export function FirefighterTypes({
 
           {/* Triggers and Behaviors in Tabs */}
           <Tabs defaultValue="behaviors" className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
+            <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="behaviors">
                 <Brain className="w-4 h-4 mr-2" />
                 {t('landing.firefighters.tabs.behaviors')}
@@ -189,6 +194,10 @@ export function FirefighterTypes({
               <TabsTrigger value="emotions">
                 <Heart className="w-4 h-4 mr-2" />
                 {t('landing.firefighters.tabs.emotions')}
+              </TabsTrigger>
+              <TabsTrigger value="innerDialogue">
+                <Shield className="w-4 h-4 mr-2" />
+                {t('landing.firefighters.tabs.innerDialogue')}
               </TabsTrigger>
             </TabsList>
 
@@ -224,6 +233,18 @@ export function FirefighterTypes({
                 <div key={index} className="flex items-start space-x-3">
                   <Heart className="w-4 h-4 text-muted-foreground mt-0.5 flex-shrink-0" />
                   <p className="text-sm">{emotion}</p>
+                </div>
+              ))}
+            </TabsContent>
+
+            <TabsContent value="innerDialogue" className="mt-4 space-y-3">
+              <p className="text-sm text-muted-foreground mb-3">
+                {t(`landing.firefighters.${currentType.id}.innerDialogue.label`)}
+              </p>
+              {currentType.innerDialogue?.map((dialogue, index) => (
+                <div key={index} className="flex items-start space-x-3">
+                  <Shield className="w-4 h-4 text-muted-foreground mt-0.5 flex-shrink-0" />
+                  <p className="text-sm">{dialogue}</p>
                 </div>
               ))}
             </TabsContent>

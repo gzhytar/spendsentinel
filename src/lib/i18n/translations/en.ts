@@ -70,6 +70,14 @@ export const en = {
             'Post-purchase: flickers of guilt, "What have I done?" or tightness in stomach.'
           ]
         },
+        innerDialogue: {
+          label: 'Common thoughts this part has:',
+          items: [
+            'I\'ve worked hard—I _deserve_ this.',
+            'It\'s only €19; what difference will it make?',
+            'If I don\'t grab it, I\'ll regret it forever.'
+          ]
+        },
       },
       hoarder: {
         title: 'The Hoarder',
@@ -98,6 +106,14 @@ export const en = {
             'Post-transfer: low-grade dread returns; cycle repeats.'
           ]
         },
+        innerDialogue: {
+          label: 'Common thoughts this part has:',
+          items: [
+            'We can\'t trust the future—stash more.',
+            'One emergency and we\'re ruined.',
+            'Spending on pleasure is irresponsible.'
+          ]
+        },
       },
       avoider: {
         title: 'The Avoider',
@@ -124,6 +140,14 @@ export const en = {
             'Pre-avoidance: dread, shame.',
             'During avoidance: temporary numb relief.',
             'Post-avoidance: creeping guilt; dread resurfaces stronger.'
+          ]
+        },
+        innerDialogue: {
+          label: 'Common thoughts this part has:',
+          items: [
+            'I\'ll deal with it tomorrow.',
+            'Looking will just ruin my day.',
+            'I\'m terrible with money—why bother?'
           ]
         }
       },
@@ -154,11 +178,20 @@ export const en = {
             'Post-indulgence: possible crash—guilt, emptiness, or new stress about debt.'
           ]
         },
+        innerDialogue: {
+          label: 'Common thoughts this part has:',
+          items: [
+            'We earned this!',
+            'Life\'s too short to pinch pennies.',
+            'Good vibes are worth the debt.'
+          ]
+        },
       },
       tabs: {
         behaviors: 'Behaviors',
         triggers: 'Triggers',
-        emotions: 'Emotions Over Time'
+        emotions: 'Emotions Over Time',
+        innerDialogue: 'Inner Dialogue'
       },
       assessmentButton: 'Take Self-Assessment',
       compassionButton: 'Learn Self-Compassion'

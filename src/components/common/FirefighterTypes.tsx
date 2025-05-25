@@ -198,9 +198,7 @@ export function FirefighterTypes({
               </p>
               {currentType.triggers.map((trigger, index) => (
                 <div key={index} className="flex items-start space-x-3">
-                  <Badge variant="outline" className="mt-0.5">
-                    {index + 1}
-                  </Badge>
+                  <AlertCircle className="w-4 h-4 mr-2" />
                   <p className="text-sm">{trigger}</p>
                 </div>
               ))}
@@ -242,12 +240,6 @@ export function FirefighterTypes({
             <Button size="lg" className="flex-1 sm:flex-initial" asChild>
               <Link href={`${localePrefix}/self-assessment`}>
                 {t('landing.firefighters.assessmentButton')}
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Link>
-            </Button>
-            <Button variant="outline" size="lg" className="flex-1 sm:flex-initial" asChild>
-              <Link href={`${localePrefix}/self-compassion`}>
-                {t('landing.firefighters.compassionButton')}
                 <ArrowRight className="w-4 h-4 ml-2" />
               </Link>
             </Button>

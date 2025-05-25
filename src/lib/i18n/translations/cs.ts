@@ -62,8 +62,7 @@ export const cs = {
             'Impulzivní upgrady na prémiové verze',
             'Lastminute upgrady letů, hotelů, jídel'
           ]
-        },
-        healingPath: 'Učení se pozastavit a identifikovat emoční potřeby před nákupem'
+        }
       },
       hoarder: {
         title: 'Hromadič',
@@ -83,8 +82,7 @@ export const cs = {
             'Ruší nezbytnou údržbu, aby se vyhnul výdajům',
             'Vytváří několik "nedotknutelných" podúčtů'
           ]
-        },
-        healingPath: 'Budování důvěry ve finanční bezpečnost při umožnění současných potřeb'
+        }
       },
       avoider: {
         title: 'Vyhýbač',
@@ -104,8 +102,7 @@ export const cs = {
             'Maže finanční aplikace nebo ztlumuje oznámení',
             'Zapojuje se do "produktivní prokrastinace"'
           ]
-        },
-        healingPath: 'Vytváření bezpečí kolem finančního uvědomění pomocí malých, jemných kroků'
+        }
       },
       indulger: {
         title: 'Požitkář',
@@ -125,16 +122,11 @@ export const cs = {
             'Doručení tentýž den lahůdek a gadgetů',
             'Ignoruje rozpočet s "YOLO" logikou'
           ]
-        },
-        healingPath: 'Nalezení udržitelných způsobů oslavy a odměňování bez finančního poškození'
+        }
       },
       tabs: {
         triggers: 'Spouštěče',
-        behaviors: 'Chování',
-        healing: 'Léčení'
-      },
-      healing: {
-        title: 'Cesta k rovnováze'
+        behaviors: 'Chování'
       },
       assessmentButton: 'Provést sebehodnocení',
       compassionButton: 'Praktikovat sebesoucit'
@@ -443,51 +435,7 @@ export const cs = {
     title: 'Podmínky služby',
     lastUpdated: 'Naposledy aktualizováno: {date}',
     sections: {
-      welcome: 'Tyto podmínky upravují vaše používání naší AI-poháněné platformy finanční terapie a koučování. Používáním našich služeb souhlasíte s těmito podmínkami a naším závazkem podporovat vaši cestu finančního wellness.',
-      acceptanceOfTerms: {
-        title: 'Přijetí podmínek',
-        content: 'Přístupem nebo používáním InnerBalance ("Služba") souhlasíte s tím, že budete vázáni těmito Podmínkami služby a našimi Zásadami ochrany soukromí. Pokud s těmito podmínkami nesouhlasíte, nepoužívejte prosím Službu.'
-      },
-      serviceDescription: {
-        title: 'Popis služby',
-        content: 'InnerBalance je AI-poháněná platforma digitálního wellness, která poskytuje:',
-        features: [
-          'Analýzu finančního chování pomocí metodologie Internal Family Systems (IFS)',
-          'AI-poháněné koučovací a terapeutické nástroje pro finanční wellness',
-          'Funkce sledování a kategorizace výdajů',
-          'Mapování finanční časové osy a vizualizaci cílů',
-          'Cvičení sebelásky a mindfulness',
-          'Funkce panikového režimu a uklidňujících cvičení'
-        ]
-      },
-      importantLimitation: 'InnerBalance je nástroj digitálního wellness a NENAHRAZUJE profesionální finanční poradenství, terapii nebo léčbu duševního zdraví. Nejsme licencovaní finanční poradci nebo odborníci na duševní zdraví.',
-      userEligibility: {
-        title: 'Způsobilost uživatele',
-        ageRequirements: {
-          title: 'Věkové požadavky',
-          items: [
-            'Pro používání této Služby musíte být starší nejméně 18 let',
-            'Uživatelům mladším 18 let je zakázáno vytvářet účty'
-          ]
-        }
-      },
-      emergencyProtocol: {
-        title: 'Nouzový protokol',
-        content: 'Pokud máte myšlenky na sebepoškození nebo jste v krizi, okamžitě kontaktujte:',
-        contacts: [
-          'Tísňova linka 112 (evropské tísňové číslo) nebo 155 (záchranná služba).',
-          'Linka první psychické pomoci (24/7, dospělí): 116 123',
-          'Linka bezpečí (24/7, děti a mládež do 26 let): 116 111 aneb Chat a e-mail pomoc@linkabezpeci.cz'
-        ]
-      },
-      contactInfo: {
-        title: 'Kontaktní informace',
-        content: 'Pro otázky ohledně těchto podmínek nebo naší Služby:',
-        generalSupport: 'support@innerbalance.app',
-        legalQuestions: 'legal@innerbalance.app',
-        privacyConcerns: 'privacy@innerbalance.app'
-      },
-      commitment: 'Jsme odhodláni podporovat vaši cestu finančního wellness se soucitem, respektem a nejvyššími etickými standardy. Tyto podmínky existují pro ochranu jak vás, tak naší schopnosti poskytovat tuto důležitou službu.'
+      welcome: 'Tyto podmínky upravují vaše používání naší AI-poháněné platformy finanční terapie a koučování. Používáním našich služeb souhlasíte s těmito podmínkami a našimi Zásadami ochrany soukromí. Pokud s těmito podmínkami nesouhlasíte, nepoužívejte prosím Službu.'
     }
   },
   selfAssessment: {

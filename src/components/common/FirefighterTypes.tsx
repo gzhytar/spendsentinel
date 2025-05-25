@@ -25,7 +25,6 @@ interface FirefighterType {
   description: string;
   triggers: string[];
   behaviors: string[];
-  healingPath: string;
 }
 
 interface FirefighterTypesProps {
@@ -54,7 +53,6 @@ export function FirefighterTypes({
       description: t('landing.firefighters.spender.description'),
       triggers: t<string[]>('landing.firefighters.spender.triggers.items'),
       behaviors: t<string[]>('landing.firefighters.spender.behaviors.items'),
-      healingPath: t('landing.firefighters.spender.healingPath'),
     },
     {
       id: 'hoarder',
@@ -62,7 +60,6 @@ export function FirefighterTypes({
       description: t('landing.firefighters.hoarder.description'),
       triggers: t<string[]>('landing.firefighters.hoarder.triggers.items'),
       behaviors: t<string[]>('landing.firefighters.hoarder.behaviors.items'),
-      healingPath: t('landing.firefighters.hoarder.healingPath'),
     },
     {
       id: 'avoider',
@@ -70,7 +67,6 @@ export function FirefighterTypes({
       description: t('landing.firefighters.avoider.description'),
       triggers: t<string[]>('landing.firefighters.avoider.triggers.items'),
       behaviors: t<string[]>('landing.firefighters.avoider.behaviors.items'),
-      healingPath: t('landing.firefighters.avoider.healingPath'),
     },
     {
       id: 'indulger',
@@ -78,7 +74,6 @@ export function FirefighterTypes({
       description: t('landing.firefighters.indulger.description'),
       triggers: t<string[]>('landing.firefighters.indulger.triggers.items'),
       behaviors: t<string[]>('landing.firefighters.indulger.behaviors.items'),
-      healingPath: t('landing.firefighters.indulger.healingPath'),
     }
   ];
 
@@ -177,7 +172,7 @@ export function FirefighterTypes({
 
           {/* Triggers and Behaviors in Tabs */}
           <Tabs defaultValue="behaviors" className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
+            <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="behaviors">
                 <Brain className="w-4 h-4 mr-2" />
                 {t('landing.firefighters.tabs.behaviors')}
@@ -185,10 +180,6 @@ export function FirefighterTypes({
               <TabsTrigger value="triggers">
                 <AlertCircle className="w-4 h-4 mr-2" />
                 {t('landing.firefighters.tabs.triggers')}
-              </TabsTrigger>
-              <TabsTrigger value="healing">
-                <Heart className="w-4 h-4 mr-2" />
-                {t('landing.firefighters.tabs.healing')}
               </TabsTrigger>
             </TabsList>
 
@@ -214,22 +205,6 @@ export function FirefighterTypes({
                   <p className="text-sm">{behavior}</p>
                 </div>
               ))}
-            </TabsContent>
-
-            <TabsContent value="healing" className="mt-4">
-              <div className="bg-green-50 dark:bg-green-950/20 p-4 rounded-lg">
-                <div className="flex items-start space-x-3">
-                  <Shield className="w-5 h-5 text-green-600 dark:text-green-400 mt-0.5" />
-                  <div>
-                    <p className="font-medium text-green-800 dark:text-green-200 mb-1">
-                      {t('landing.firefighters.healing.title')}
-                    </p>
-                    <p className="text-sm text-green-700 dark:text-green-300">
-                      {currentType.healingPath}
-                    </p>
-                  </div>
-                </div>
-              </div>
             </TabsContent>
           </Tabs>
         </div>

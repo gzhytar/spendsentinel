@@ -62,7 +62,6 @@ export const en = {
             'Last-minute upgrades on flights, hotels, meals'
           ]
         },
-        healingPath: 'Learning to pause and identify emotional needs before purchasing'
       },
       hoarder: {
         title: 'The Hoarder',
@@ -83,7 +82,6 @@ export const en = {
             'Anxiety when others spend money freely'
           ]
         },
-        healingPath: 'Building trust in financial security while allowing for present needs'
       },
       avoider: {
         title: 'The Avoider',
@@ -103,8 +101,7 @@ export const en = {
             'Avoiding banking apps or account logins',
             'Procrastinating on financial decisions'
           ]
-        },
-        healingPath: 'Creating safety around financial awareness through small, gentle steps'
+        }
       },
       indulger: {
         title: 'The Indulger',
@@ -125,15 +122,10 @@ export const en = {
             'Justifying luxury purchases as "investing in happiness"'
           ]
         },
-        healingPath: 'Finding sustainable ways to celebrate and reward without financial harm'
       },
       tabs: {
         behaviors: 'Behaviors',
-        triggers: 'Triggers',
-        healing: 'Healing Path'
-      },
-      healing: {
-        title: 'Path to Healing'
+        triggers: 'Triggers'
       },
       assessmentButton: 'Take Self-Assessment',
       compassionButton: 'Learn Self-Compassion'

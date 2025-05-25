@@ -90,6 +90,7 @@ export default function SelfAssessmentPage() {
             setIdentificationResult(mostRecent.result);
             setShowIdentifyForm(false); // Hide the form when we have saved results
             setShowDeepAssessment(true); // Show deep assessment when we have saved results
+            setShowQuizSection(false); // Hide quiz section when deep assessment results are loaded
           } else {
             setShowIdentifyForm(true); // Show the form if no results for this locale
           }
@@ -126,6 +127,7 @@ export default function SelfAssessmentPage() {
       const result: IdentifyIFSPartOutput = await response.json();
       setIdentificationResult(result);
       setShowIdentifyForm(false); // Hide form after successful identification
+      setShowQuizSection(false); // Hide quiz section after successful deep assessment identification
       
       // Save to local storage with timestamp and locale
       if (typeof window !== 'undefined') {
@@ -175,6 +177,7 @@ export default function SelfAssessmentPage() {
     setShowQuizResult(false);
     setQuizResult(null);
     setShowDeepAssessment(true);
+    setShowQuizSection(false);
   };
 
   const handleQuizComplete = (result: string) => {

@@ -45,117 +45,90 @@ export const cs = {
         description: 'Jsou to ochranné části nás, které vstupují do akce během finančního stresu. Jako skuteční hasiči to myslí dobře, ale někdy používají extrémní opatření, která později mohou způsobit problémy.'
       },
       spender: {
-        title: 'Utrácejí',
-        description: 'Když přijde stres nebo osamělost, tato část přichází s rychlými nákupy a upgrady, aby zlepšila vaši náladu. Doufá, že každý nákup vám připomene, že na vás záleží a zabrání tomu, aby se usadila úzkost. Představte si to jako přítele, který vám dává malý dárek, aby vám rozjasnil den.',
+        title: 'Utráceč',
+        description: 'Když přijde stres nebo osamělost, tato část spěchá s rychlými nákupy a vylepšeními, aby zvedla náladu. Doufá, že každý nákup vám připomene, že na vás záleží, a zabrání úzkosti proniknout. Představte si to jako přítele, který vám podává malý dárek, aby vám rozjasnili den.',
         triggers: {
           label: 'Běžné situace, které aktivují tohoto hasiče:',
           items: [
             'Náhlý nárůst stresu, nudy nebo osamělosti',
-            'Sociální média odhalují výprodej, video s nákupy nebo "limitovanou edici"',
-            'Emocionální vrcholy (den bonusů, pochvala), které šeptají "oslavujte!"'
+            'Sociální média odhalí výprodeje nebo "omezené nabídky"',
+            'Emoční vrcholy, které šeptají "oslavme!"'
           ]
         },
         behaviors: {
           label: 'Jak tento hasič typicky reaguje:',
           items: [
-            'Nákupy na jedno kliknutí nebo rychlé přidávání do košíku',
+            'Nákupy jedním kliknutím nebo rychlé "Přidat do košíku" záchvaty',
             'Impulzivní upgrady na prémiové verze',
-            'Upgrady na poslední chvíli u letů, hotelů, jídel'
+            'Lastminute upgrady letů, hotelů, jídel'
           ]
-        },
-        emotionsOverTime: {
-          pre: 'Před nákupem: nervozita, neklid nebo otupělost.',
-          during: 'Během nákupu: nával úlevy, moci nebo euforie.',
-          post: 'Po nákupu: záblesky viny, "Co jsem to udělal/a?" nebo sevření v žaludku.'
         }
       },
       hoarder: {
-        title: 'Hromadí',
-        description: 'Formován/a minulým nedostatkem, Hromadící pracuje nepřetržitě na ukládání každého volného eura. Přeskakování výdajů nebo zábavy není chamtivost; je to jeho způsob, jak říci: "Budeš v bezpečí bez ohledu na to, co se stane." Spoření je jazykem lásky Hromadícího, který vás zabalí do tlusté přikrývky bezpečí.',
+        title: 'Hromadič',
+        description: 'Formován minulou nedostatkem, Hromadič pracuje neustále, aby uschoval každé volné euro. Vynechávání výdajů nebo zábavy není chamtivost; je to jeho způsob, jak říci "Budeš v bezpečí bez ohledu na cokoliv." Šetření je láska Hromadiče vyjádřená jazykem, zabaluje vás do tlusté deky bezpečí.',
         triggers: {
           label: 'Běžné situace, které aktivují tohoto hasiče:',
           items: [
-            'Zprávy o propouštění, recesi nebo zdravotních účtech',
-            'Sledování ostatních, kteří finančně bojují',
-            'Velké neočekávané příjmy, které spouštějí instinkty "schovej to"'
+            'Zprávy o propouštění, recesi nebo lékařských účtech',
+            'Vidění jiných, kteří bojují finančně',
+            'Velké příjmy, které probouzejí instinkty "zamknout to pryč"'
           ]
         },
         behaviors: {
           label: 'Jak tento hasič typicky reaguje:',
           items: [
-            'Extrémní vystřihování kuponů nebo honba za výhodnými nabídkami',
-            'Vyhýbání se "zbytečným" výdajům jako je zábava',
-            'Úzkost, když ostatní volně utrácejí peníze'
+            'Přesměrovává každé extra euro do úspor',
+            'Ruší nezbytnou údržbu, aby se vyhnul výdajům',
+            'Vytváří několik "nedotknutelných" podúčtů'
           ]
-        },
-        emotionsOverTime: {
-          pre: 'Před spořením: úzkost, obava z katastrofy.',
-          during: 'Během převodu: krátký klid, kontrola.',
-          post: 'Po převodu: nízkostupňová obava se vrací; cyklus se opakuje.'
         }
       },
       avoider: {
-        title: 'Vyhýbají se',
-        description: 'Účty a zůstatky mohou spustit starou hanbu, takže Vyhýbající vás chrání tím, že nechává obálky neotevřené a aplikace nekontrolované. Není to lenost — je to ochrana, která dává vašemu nervovému systému přestávku, dokud se nebudete cítit silnější. Jeho cíl je jednoduchý: ušetřit vás od zahlcení právě teď.',
+        title: 'Vyhýbač',
+        description: 'Účty a zůstatky mohou spustit starou hanbu, takže Vyhýbač vás chrání tím, že nechává obálky neotevřené a aplikace nekontrolované. Není to lenost—je to ochrana, poskytuje vašemu nervovému systému přestávku, dokud se necítíte silnější. Jeho cíl je jednoduchý: ušetřit vás od přetížení právě teď.',
         triggers: {
           label: 'Běžné situace, které aktivují tohoto hasiče:',
           items: [
-            'Účty přicházející poštou nebo e-mailová oznámení',
-            'Připomenutí zůstatku na účtu nebo upozornění na nízký zůstatek',
-            'Výpisy z investičních účtů nebo rozhovory o plánování důchodu'
+            'Příchod účtů, bankovních výpisů, daňových formulářů',
+            'Rozhovory o rozpočtech nebo investování',
+            'Připomínky minulých finančních chyb'
           ]
         },
         behaviors: {
           label: 'Jak tento hasič typicky reaguje:',
           items: [
-            'Ponechání účtů neotevřených po týdny',
-            'Vyhýbání se bankovním aplikacím nebo přihlášení k účtu',
-            'Oddalování finančních rozhodnutí'
+            'Nechává finanční dokumenty neotevřené',
+            'Maže finanční aplikace nebo ztlumuje oznámení',
+            'Zapojuje se do "produktivní prokrastinace"'
           ]
-        },
-        emotionsOverTime: {
-          pre: 'Před vyhýbáním: strach, stud.',
-          during: 'Během vyhýbání: dočasná otupělá úleva.',
-          post: 'Po vyhýbání: plížící se vina; strach se vrací silněji.'
         }
       },
       indulger: {
-        title: 'Dopřávají si',
-        description: 'Když se život zdá nudný nebo těžký, Dopřávající si přichází s večeřemi venku, výlety nebo VIP vstupenkami. Věří, že radost je základním palivem a obává se, že příliš velké omezení vyčerpá vašeho ducha. Vytvářením poryvů potěšení vám pomáhá pamatovat si, že život je pro žití, ne jen pro přežívání.',
+        title: 'Požitkář',
+        description: 'Když se život cítí nudný nebo těžký, Požitkář skočí s večeřemi venku, výlety nebo VIP vstupenkami. Věří, že radost je nezbytné palivo a bojí se, že příliš mnoho zdrženlivosti vyčerpá vašeho ducha. Vytvářením výbuchů potěšení vám pomáhá vzpomenout si, že život je pro život, ne jen pro přežití.',
         triggers: {
           label: 'Běžné situace, které aktivují tohoto hasiče:',
           items: [
-            'Období intenzivního pracovního stresu nebo vyhoření',
-            'Oslavy, úspěchy nebo momenty "odměň se"',
-            'Sociální pozvánky nebo strach z propásnutí (FOMO)'
+            'Konec stresujícího dne/týdne',
+            'Oslavné momenty ("Zvládli jsme projekt!")',
+            'Společenské pozvánky slibující zábavné zážitky'
           ]
         },
         behaviors: {
           label: 'Jak tento hasič typicky reaguje:',
           items: [
-            'Rezervace spontánních výletů nebo drahých zážitků',
-            'Upgrade na prémiové možnosti "jen tentokrát"',
-            'Ospravedlňování luxusních nákupů jako "investice do štěstí"'
+            'Utrácí za jídlo venku, upgrady cestování, VIP vstupenky',
+            'Doručení tentýž den lahůdek a gadgetů',
+            'Ignoruje rozpočet s "YOLO" logikou'
           ]
-        },
-        emotionsOverTime: {
-          pre: 'Před dopřáváním: únava, pocit nedostatečného ocenění.',
-          during: 'Během nákupu/zážitku: nadšení, osvobození.',
-          post: 'Po dopřávání: možný pád—vina, prázdnota nebo nový stres z dluhu.'
         }
       },
       tabs: {
-        behaviors: 'Chování',
         triggers: 'Spouštěče',
-        emotionsOverTime: 'Emoce v průběhu času'
+        behaviors: 'Chování'
       },
-      emotionsOverTime: {
-        description: 'Emocionální cyklus, který se odvíjí během typického vzorce reakce tohoto hasiče:',
-        pre: 'Před akcí',
-        during: 'Během akce',
-        post: 'Po akci'
-      },
-      assessmentButton: 'Udělat sebehodnocení',
+      assessmentButton: 'Provést sebehodnocení',
       compassionButton: 'Praktikovat sebesoucit'
     },
     features: {

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -18,9 +18,6 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 import { useI18n } from '@/contexts/i18n-context';
-import { useTranslation } from "react-i18next";
-import { cn } from "@/lib/utils";
-import { useParams } from "next/navigation";
 
 interface FirefighterType {
   id: string;
@@ -28,11 +25,6 @@ interface FirefighterType {
   description: string;
   triggers: string[];
   behaviors: string[];
-  emotionsOverTime: {
-    pre: string;
-    during: string;
-    post: string;
-  };
 }
 
 interface FirefighterTypesProps {
@@ -61,11 +53,6 @@ export function FirefighterTypes({
       description: t('landing.firefighters.spender.description'),
       triggers: t<string[]>('landing.firefighters.spender.triggers.items'),
       behaviors: t<string[]>('landing.firefighters.spender.behaviors.items'),
-      emotionsOverTime: {
-        pre: t('landing.firefighters.spender.emotionsOverTime.pre'),
-        during: t('landing.firefighters.spender.emotionsOverTime.during'),
-        post: t('landing.firefighters.spender.emotionsOverTime.post')
-      }
     },
     {
       id: 'hoarder',
@@ -73,11 +60,6 @@ export function FirefighterTypes({
       description: t('landing.firefighters.hoarder.description'),
       triggers: t<string[]>('landing.firefighters.hoarder.triggers.items'),
       behaviors: t<string[]>('landing.firefighters.hoarder.behaviors.items'),
-      emotionsOverTime: {
-        pre: t('landing.firefighters.hoarder.emotionsOverTime.pre'),
-        during: t('landing.firefighters.hoarder.emotionsOverTime.during'),
-        post: t('landing.firefighters.hoarder.emotionsOverTime.post')
-      }
     },
     {
       id: 'avoider',
@@ -85,11 +67,6 @@ export function FirefighterTypes({
       description: t('landing.firefighters.avoider.description'),
       triggers: t<string[]>('landing.firefighters.avoider.triggers.items'),
       behaviors: t<string[]>('landing.firefighters.avoider.behaviors.items'),
-      emotionsOverTime: {
-        pre: t('landing.firefighters.avoider.emotionsOverTime.pre'),
-        during: t('landing.firefighters.avoider.emotionsOverTime.during'),
-        post: t('landing.firefighters.avoider.emotionsOverTime.post')
-      }
     },
     {
       id: 'indulger',
@@ -97,11 +74,6 @@ export function FirefighterTypes({
       description: t('landing.firefighters.indulger.description'),
       triggers: t<string[]>('landing.firefighters.indulger.triggers.items'),
       behaviors: t<string[]>('landing.firefighters.indulger.behaviors.items'),
-      emotionsOverTime: {
-        pre: t('landing.firefighters.indulger.emotionsOverTime.pre'),
-        during: t('landing.firefighters.indulger.emotionsOverTime.during'),
-        post: t('landing.firefighters.indulger.emotionsOverTime.post')
-      }
     }
   ];
 
@@ -200,7 +172,7 @@ export function FirefighterTypes({
 
           {/* Triggers and Behaviors in Tabs */}
           <Tabs defaultValue="behaviors" className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
+            <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="behaviors">
                 <Brain className="w-4 h-4 mr-2" />
                 {t('landing.firefighters.tabs.behaviors')}
@@ -208,10 +180,6 @@ export function FirefighterTypes({
               <TabsTrigger value="triggers">
                 <AlertCircle className="w-4 h-4 mr-2" />
                 {t('landing.firefighters.tabs.triggers')}
-              </TabsTrigger>
-              <TabsTrigger value="emotionsOverTime">
-                <Heart className="w-4 h-4 mr-2" />
-                {t('landing.firefighters.tabs.emotionsOverTime')}
               </TabsTrigger>
             </TabsList>
 
@@ -237,61 +205,6 @@ export function FirefighterTypes({
                   <p className="text-sm">{behavior}</p>
                 </div>
               ))}
-            </TabsContent>
-
-            <TabsContent value="emotionsOverTime" className="mt-4 space-y-4">
-              <p className="text-sm text-muted-foreground mb-3">
-                {t('landing.firefighters.emotionsOverTime.description')}
-              </p>
-              <div className="grid gap-4">
-                <div className="bg-blue-50 dark:bg-blue-950/20 p-4 rounded-lg">
-                  <div className="flex items-start space-x-3">
-                    <div className="min-w-[24px] h-6 flex items-center justify-center bg-blue-100 dark:bg-blue-800 rounded-full text-blue-800 dark:text-blue-200 text-xs font-medium">
-                      1
-                    </div>
-                    <div>
-                      <p className="font-medium text-blue-800 dark:text-blue-200 mb-1">
-                        {t('landing.firefighters.emotionsOverTime.pre')}
-                      </p>
-                      <p className="text-sm text-blue-700 dark:text-blue-300">
-                        {currentType.emotionsOverTime.pre}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-purple-50 dark:bg-purple-950/20 p-4 rounded-lg">
-                  <div className="flex items-start space-x-3">
-                    <div className="min-w-[24px] h-6 flex items-center justify-center bg-purple-100 dark:bg-purple-800 rounded-full text-purple-800 dark:text-purple-200 text-xs font-medium">
-                      2
-                    </div>
-                    <div>
-                      <p className="font-medium text-purple-800 dark:text-purple-200 mb-1">
-                        {t('landing.firefighters.emotionsOverTime.during')}
-                      </p>
-                      <p className="text-sm text-purple-700 dark:text-purple-300">
-                        {currentType.emotionsOverTime.during}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-green-50 dark:bg-green-950/20 p-4 rounded-lg">
-                  <div className="flex items-start space-x-3">
-                    <div className="min-w-[24px] h-6 flex items-center justify-center bg-green-100 dark:bg-green-800 rounded-full text-green-800 dark:text-green-200 text-xs font-medium">
-                      3
-                    </div>
-                    <div>
-                      <p className="font-medium text-green-800 dark:text-green-200 mb-1">
-                        {t('landing.firefighters.emotionsOverTime.post')}
-                      </p>
-                      <p className="text-sm text-green-700 dark:text-green-300">
-                        {currentType.emotionsOverTime.post}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </TabsContent>
           </Tabs>
         </div>

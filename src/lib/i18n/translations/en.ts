@@ -62,11 +62,6 @@ export const en = {
             'Last-minute upgrades on flights, hotels, meals'
           ]
         },
-        emotionsOverTime: {
-          pre: 'Pre-purchase: jittery, restless, or numb.',
-          during: 'During purchase: rush of relief, power, or euphoria.',
-          post: 'Post-purchase: flickers of guilt, "What have I done?" or tightness in stomach.'
-        }
       },
       hoarder: {
         title: 'The Hoarder',
@@ -87,11 +82,6 @@ export const en = {
             'Anxiety when others spend money freely'
           ]
         },
-        emotionsOverTime: {
-          pre: 'Pre-saving: anxiety, dread of catastrophe.',
-          during: 'During transfer: brief calm, control.',
-          post: 'Post-transfer: low-grade dread returns; cycle repeats.'
-        }
       },
       avoider: {
         title: 'The Avoider',
@@ -111,11 +101,6 @@ export const en = {
             'Avoiding banking apps or account logins',
             'Procrastinating on financial decisions'
           ]
-        },
-        emotionsOverTime: {
-          pre: 'Pre-avoidance: dread, shame.',
-          during: 'During avoidance: temporary numb relief.',
-          post: 'Post-avoidance: creeping guilt; dread resurfaces stronger.'
         }
       },
       indulger: {
@@ -137,22 +122,10 @@ export const en = {
             'Justifying luxury purchases as "investing in happiness"'
           ]
         },
-        emotionsOverTime: {
-          pre: 'Pre-indulgence: fatigued, under-rewarded.',
-          during: 'During purchase/experience: elation, liberation.',
-          post: 'Post-indulgence: possible crash—guilt, emptiness, or new stress about debt.'
-        }
       },
       tabs: {
         behaviors: 'Behaviors',
-        triggers: 'Triggers',
-        emotionsOverTime: 'Emotions Over Time'
-      },
-      emotionsOverTime: {
-        description: 'The emotional cycle that unfolds during this firefighter\'s typical response pattern:',
-        pre: 'Before Action',
-        during: 'During Action',
-        post: 'After Action'
+        triggers: 'Triggers'
       },
       assessmentButton: 'Take Self-Assessment',
       compassionButton: 'Learn Self-Compassion'

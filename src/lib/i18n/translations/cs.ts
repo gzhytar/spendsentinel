@@ -501,10 +501,17 @@ export const cs = {
       unsureOption: 'Nejsem si jistý / Nic z toho mi neodpovídá',
       result: 'Váš primární typ hasiče je:',
       resultDescription: 'Toto vás úplně nedefinuje—všichni máme více částí. Porozumění vašemu dominantnímu vzorci je prvním krokem k finančnímu sebesoucitu.',
+      repeatQuizButton: 'Opakovat kvíz',
+      detailedResult: {
+        title: 'Váš typ finančního hasiče',
+        subtitle: 'Porozumění vašemu primárnímu vzorci a jak s ním pracovat soucitně'
+      },
       uncertaintyNotice: {
         title: 'Máte potíže s výběrem?',
         description: 'Protože si nejste jisti několika odpověďmi, doporučujeme personalizované hodnocení níže pro přesnější poznatky o vašich finančních vzorcích.'
       },
+      interpretationGuide: "Použijte podrobnou sekci níže k pochopení svého výsledku. Tento výsledek vás zcela nedefinuje—všichni máme více částí. Pokud cítíte, že to není váš hlavní vzorec, můžete kvíz zopakovat pomocí tlačítka 'Opakovat kvíz'.",
+      retakeHint: "Pokud to necítíte jako svou hlavní část, klikněte na 'Opakovat kvíz' a zkuste to znovu.",
       questions: {
         stressResponse: {
           question: 'Když se cítíte ve stresu kvůli penězům, jaký je váš první instinkt?',

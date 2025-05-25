@@ -25,6 +25,7 @@ import type { IFSPartResolutionInput, IFSPartResolutionOutput } from '@/ai/flows
 import { useI18n } from '@/contexts/i18n-context';
 import { PremiumButton } from '@/components/ui/premium-button';
 import { FirefighterQuiz } from '@/components/common/FirefighterQuiz';
+import { FirefighterTypes } from '@/components/common/FirefighterTypes';
 
 const identifySchema = z.object({
   financialSituation: z.string().min(10, "Please describe your financial situation in more detail."),
@@ -34,6 +35,7 @@ const identifySchema = z.object({
 type IdentifyFormValues = z.infer<typeof identifySchema>;
 
 const LOCAL_STORAGE_KEY = 'identifiedFinancialParts';
+const QUIZ_RESULTS_KEY = 'firefighterQuizResults';
 
 export default function SelfAssessmentPage() {
   const { t, locale } = useI18n();
@@ -48,14 +50,33 @@ export default function SelfAssessmentPage() {
   const [quizStarted, setQuizStarted] = useState(false);
   const [showQuizResult, setShowQuizResult] = useState(false);
   const [quizResult, setQuizResult] = useState<string | null>(null);
+  const [showQuizSection, setShowQuizSection] = useState(true);
   
   // Deep assessment visibility state
   const [showDeepAssessment, setShowDeepAssessment] = useState(false);
 
-  // Load saved identification results from local storage on initial render
+  // Load saved quiz results from local storage on initial render
   useEffect(() => {
     if (typeof window !== 'undefined') {
       try {
+        // Load quiz results
+        const savedQuizResults = localStorage.getItem(QUIZ_RESULTS_KEY);
+        if (savedQuizResults) {
+          const parsedQuizResults = JSON.parse(savedQuizResults);
+          // Find the most recent result for the current locale
+          const localeQuizResults = parsedQuizResults.filter((item: any) => item.locale === locale);
+          if (localeQuizResults.length > 0) {
+            // Get the most recent quiz result
+            const mostRecentQuiz = localeQuizResults.sort((a: any, b: any) => 
+              new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+            )[0];
+            setQuizResult(mostRecentQuiz.result);
+            setShowQuizResult(true);
+            setShowQuizSection(false); // Hide quiz section when we have results
+          }
+        }
+
+        // Load deep assessment results
         const savedResults = localStorage.getItem(LOCAL_STORAGE_KEY);
         if (savedResults) {
           const parsedResults = JSON.parse(savedResults);
@@ -76,7 +97,7 @@ export default function SelfAssessmentPage() {
           setShowIdentifyForm(true); // Show the form if no results at all
         }
       } catch (error) {
-        console.error('Error loading saved identification results:', error);
+        console.error('Error loading saved results:', error);
         setShowIdentifyForm(true); // Show the form on error
       }
     }
@@ -156,6 +177,49 @@ export default function SelfAssessmentPage() {
     setShowDeepAssessment(true);
   };
 
+  const handleQuizComplete = (result: string) => {
+    setQuizResult(result);
+    setQuizStarted(false);
+    setShowQuizResult(true);
+    setShowQuizSection(false); // Hide quiz section after completion
+    
+    // Save quiz result to localStorage
+    if (typeof window !== 'undefined') {
+      try {
+        const savedQuizResults = localStorage.getItem(QUIZ_RESULTS_KEY);
+        const existingResults = savedQuizResults ? JSON.parse(savedQuizResults) : [];
+        const newQuizResult = {
+          result,
+          timestamp: new Date().toISOString(),
+          locale
+        };
+        
+        // Keep maximum 10 results per locale
+        const otherLocaleResults = existingResults.filter((item: any) => item.locale !== locale);
+        const currentLocaleResults = existingResults.filter((item: any) => item.locale === locale);
+        
+        // Add new result and limit to 10 most recent per locale
+        const updatedLocaleResults = [newQuizResult, ...currentLocaleResults]
+          .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
+          .slice(0, 10);
+          
+        // Combine with other locale results
+        const allResults = [...updatedLocaleResults, ...otherLocaleResults];
+        
+        localStorage.setItem(QUIZ_RESULTS_KEY, JSON.stringify(allResults));
+      } catch (error) {
+        console.error('Error saving quiz results to local storage:', error);
+      }
+    }
+  };
+
+  const handleRetakeQuiz = () => {
+    setQuizResult(null);
+    setShowQuizResult(false);
+    setShowQuizSection(true);
+    setQuizStarted(false);
+  };
+
   const handleResolvePart = async () => {
     if (!identificationResult) return;
     setIsLoadingResolve(true);
@@ -204,66 +268,78 @@ export default function SelfAssessmentPage() {
       </div>
 
       {/* Quick Self-Assessment Quiz */}
-      <Card className="shadow-lg">
-        <CardHeader>
-          <div className="flex items-center space-x-3">
-            <Lightbulb className="w-6 h-6 text-yellow-600" />
-            <CardTitle className="text-xl md:text-2xl">{t('selfAssessment.quiz.title')}</CardTitle>
-          </div>
-          <CardDescription>
-            {t('selfAssessment.quiz.description')}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          {!quizStarted ? (
-            <div className="space-y-4">
-              <p className="text-muted-foreground">
-                {t('selfAssessment.quiz.instruction')}
-              </p>
-              <Button 
-                onClick={() => setQuizStarted(true)}
-                size="lg"
-                className="w-full sm:w-auto"
-              >
-                {t('selfAssessment.quiz.startButton')}
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
+      {showQuizSection && (
+        <Card className="shadow-lg">
+          <CardHeader>
+            <div className="flex items-center space-x-3">
+              <Lightbulb className="w-6 h-6 text-yellow-600" />
+              <CardTitle className="text-xl md:text-2xl">{t('selfAssessment.quiz.title')}</CardTitle>
             </div>
-          ) : (
-            <FirefighterQuiz
-              onComplete={(result) => {
-                setQuizResult(result);
-                setQuizStarted(false);
-                setShowQuizResult(true);
-              }}
-              onCancel={() => {
-                setQuizStarted(false);
-                setShowQuizResult(false);
-              }}
-              onSuggestDeepAssessment={handleQuizSuggestDeepAssessment}
-            />
-          )}
-          {showQuizResult && !quizStarted && quizResult && (
-            <Alert className="mt-4 bg-green-50 border-green-200 dark:bg-green-950/20 dark:border-green-900">
+            <CardDescription>
+              {t('selfAssessment.quiz.description')}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            {!quizStarted ? (
+              <div className="space-y-4">
+                <p className="text-muted-foreground">
+                  {t('selfAssessment.quiz.instruction')}
+                </p>
+                <Button 
+                  onClick={() => setQuizStarted(true)}
+                  size="lg"
+                  className="w-full sm:w-auto"
+                >
+                  {t('selfAssessment.quiz.startButton')}
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </div>
+            ) : (
+              <FirefighterQuiz
+                onComplete={handleQuizComplete}
+                onCancel={() => {
+                  setQuizStarted(false);
+                  setShowQuizResult(false);
+                }}
+                onSuggestDeepAssessment={handleQuizSuggestDeepAssessment}
+              />
+            )}
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Quiz Results Display */}
+      {showQuizResult && quizResult && (
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <Alert className="flex-1 bg-green-50 border-green-200 dark:bg-green-950/20 dark:border-green-900">
               <CheckCircle2 className="h-4 w-4 text-green-600 dark:text-green-400" />
               <AlertDescription className="text-green-800 dark:text-green-200">
-                <strong>{t('selfAssessment.quiz.result')}</strong> {firefighterTypeNames[quizResult as keyof typeof firefighterTypeNames]}. 
-                {t('selfAssessment.quiz.resultDescription')}
+                {t('selfAssessment.quiz.interpretationGuide', {
+                  retakeHint: t('selfAssessment.quiz.retakeHint')
+                })}
               </AlertDescription>
             </Alert>
-          )}
-          {showDeepAssessment && !showQuizResult && (
-            <Alert className="mt-4 bg-blue-50 border-blue-200 dark:bg-blue-950/20 dark:border-blue-900">
-              <AlertCircle className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-              <AlertDescription className="text-blue-800 dark:text-blue-200">
-                <strong>{t('selfAssessment.quiz.uncertaintyNotice.title')}</strong> {t('selfAssessment.quiz.uncertaintyNotice.description')}
-              </AlertDescription>
-            </Alert>
-          )}
-        </CardContent>
-      </Card>
+            <div className="ml-4">
+              <Button onClick={handleRetakeQuiz} variant="outline" size="sm">
+                <RefreshCw className="mr-2 h-4 w-4" /> 
+                {t('selfAssessment.quiz.repeatQuizButton')}
+              </Button>
+            </div>
+          </div>
 
-      <Separator className="my-8" />
+          {/* Detailed Firefighter Information */}
+          <FirefighterTypes 
+            highlightedType={quizResult}
+            showActions={false}
+            title={t('selfAssessment.quiz.detailedResult.title')}
+            subtitle={t('selfAssessment.quiz.detailedResult.subtitle')}
+            showIntroduction={false}
+          />
+        </div>
+      )}
+
+      {showQuizResult && <Separator className="my-8" />}
 
       {/* Deep Assessment Section */}
       {showDeepAssessment && (
@@ -347,75 +423,108 @@ export default function SelfAssessmentPage() {
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-lg text-primary">{t('selfAssessment.result.role')}:</h3>
-              <p className="text-muted-foreground">{identificationResult.identifiedPart.role}</p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-lg text-primary">{t('selfAssessment.result.burden')}:</h3>
-              <p className="text-muted-foreground">{identificationResult.identifiedPart.burden}</p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-lg text-primary">{t('selfAssessment.result.concern')}:</h3>
-              <p className="text-muted-foreground">{identificationResult.identifiedPart.concern}</p>
-            </div>
-            <Separator className="my-6" />
-            <div>
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="space-y-2">
                 <div className="flex items-center space-x-2">
-                    <UserCheck className="w-5 h-5 text-accent" />
-                    <h3 className="font-semibold text-lg">{t('selfAssessment.result.suggestedEngagement')}:</h3>
+                  <UserCheck className="w-4 h-4 text-primary" />
+                  <h3 className="text-lg font-semibold">{t('selfAssessment.result.role')}</h3>
                 </div>
-                <p className="text-muted-foreground mt-2">{identificationResult.suggestedEngagement}</p>
+                <p className="text-muted-foreground">{identificationResult.identifiedPart.role}</p>
+              </div>
+              
+              <div className="space-y-2">
+                <div className="flex items-center space-x-2">
+                  <AlertTriangle className="w-4 h-4 text-orange-500" />
+                  <h3 className="text-lg font-semibold">{t('selfAssessment.result.burden')}</h3>
+                </div>
+                <p className="text-muted-foreground">{identificationResult.identifiedPart.burden}</p>
+              </div>
+              
+              <div className="space-y-2 md:col-span-2">
+                <div className="flex items-center space-x-2">
+                  <BrainCircuit className="w-4 h-4 text-blue-500" />
+                  <h3 className="text-lg font-semibold">{t('selfAssessment.result.concern')}</h3>
+                </div>
+                <p className="text-muted-foreground">{identificationResult.identifiedPart.concern}</p>
+              </div>
+              
+              <div className="space-y-2 md:col-span-2">
+                <div className="flex items-center space-x-2">
+                  <MessageSquareHeart className="w-4 h-4 text-green-500" />
+                  <h3 className="text-lg font-semibold">{t('selfAssessment.result.suggestedEngagement')}</h3>
+                </div>
+                <p className="text-muted-foreground">{identificationResult.suggestedEngagement}</p>
+                <p className="text-sm text-muted-foreground italic">{t('selfAssessment.result.engagementDescription')}</p>
+              </div>
             </div>
           </CardContent>
           <CardFooter>
             <PremiumButton 
               onClick={handleResolvePart} 
-              disabled={isLoadingResolve} 
+              disabled={isLoadingResolve}
               size="lg"
               className="w-full sm:w-auto"
-              tooltipText={t('selfAssessment.premiumFeatureTooltip') || "This deep exploration is a premium feature. Subscribe to enable premium features."}
+              tooltipText={t('selfAssessment.premiumFeatureTooltip')}
               wrap={true}
             >
               {isLoadingResolve && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-               <Wand2 className="mr-2 h-4 w-4" />
-              {t('selfAssessment.explorePartButton')}
+              <MessageSquareHeart className="mr-2 h-4 w-4" /> {t('selfAssessment.explorePartButton')}
             </PremiumButton>
           </CardFooter>
         </Card>
       )}
 
       {resolutionResult && (
-         <Card className="shadow-lg mt-8">
+        <Card className="shadow-lg bg-gradient-to-br from-green-50 to-blue-50 border-green-200 dark:from-green-950/20 dark:to-blue-950/20 dark:border-green-900">
           <CardHeader>
-             <div className="flex items-center space-x-3">
-                <MessageSquareHeart className="w-6 h-6 md:w-8 md:h-8 text-green-500" />
-                <CardTitle className="text-xl md:text-2xl">{t('selfAssessment.result.title').replace('{partName}', identificationResult?.identifiedPart.partName || '')}</CardTitle>
+            <div className="flex items-center space-x-3">
+              <MessageSquareHeart className="w-6 h-6 md:w-8 md:h-8 text-green-600" />
+              <div>
+                <CardTitle className="text-xl md:text-2xl text-green-800 dark:text-green-200">
+                  Compassionate Resolution
+                </CardTitle>
+                <CardDescription className="text-green-600 dark:text-green-400">
+                  A deeper understanding and path forward
+                </CardDescription>
+              </div>
             </div>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <h3 className="font-semibold text-lg text-primary">{t('selfAssessment.result.role')}:</h3>
-              <p className="text-muted-foreground">{resolutionResult.role}</p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-lg text-primary">{t('selfAssessment.result.burden')}:</h3>
-              <p className="text-muted-foreground">{resolutionResult.burden}</p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-lg text-primary">{t('selfAssessment.result.concern')}:</h3>
-              <p className="text-muted-foreground">{resolutionResult.concern}</p>
-            </div>
-            <Separator className="my-6" />
-            <div>
-                <div className="flex items-center space-x-2">
-                    <UserCheck className="w-5 h-5 text-green-500" />
-                    <h3 className="font-semibold text-lg">{t('selfAssessment.result.suggestedEngagement')}:</h3>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="grid md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-2">
+                    <UserCheck className="w-4 h-4 text-primary" />
+                    <h3 className="text-lg font-semibold">{t('selfAssessment.result.role')}</h3>
+                  </div>
+                  <p className="text-green-700 dark:text-green-300">{resolutionResult.role}</p>
                 </div>
-              <p className="text-muted-foreground mt-1 capitalize">{resolutionResult.engagementStrategy}</p>
-              <p className="text-sm text-muted-foreground mt-1">
-                {t('selfAssessment.result.engagementDescription')}
-              </p>
+                
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-2">
+                    <AlertTriangle className="w-4 h-4 text-orange-500" />
+                    <h3 className="text-lg font-semibold">{t('selfAssessment.result.burden')}</h3>
+                  </div>
+                  <p className="text-green-700 dark:text-green-300">{resolutionResult.burden}</p>
+                </div>
+                
+                <div className="space-y-2 md:col-span-2">
+                  <div className="flex items-center space-x-2">
+                    <BrainCircuit className="w-4 h-4 text-blue-500" />
+                    <h3 className="text-lg font-semibold">{t('selfAssessment.result.concern')}</h3>
+                  </div>
+                  <p className="text-green-700 dark:text-green-300">{resolutionResult.concern}</p>
+                </div>
+                
+                <div className="space-y-2 md:col-span-2">
+                  <div className="flex items-center space-x-2">
+                    <MessageSquareHeart className="w-4 h-4 text-green-500" />
+                    <h3 className="text-lg font-semibold">{t('selfAssessment.result.suggestedEngagement')}</h3>
+                  </div>
+                  <p className="text-green-700 dark:text-green-300 capitalize">{resolutionResult.engagementStrategy}</p>
+                  <p className="text-sm text-green-600 dark:text-green-400 italic">{t('selfAssessment.result.engagementDescription')}</p>
+                </div>
+              </div>
             </div>
           </CardContent>
         </Card>

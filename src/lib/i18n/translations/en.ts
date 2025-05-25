@@ -174,6 +174,11 @@ export const en = {
       unsureOption: 'I\'m not sure / None of these match me',
       result: 'Your primary firefighter type is:',
       resultDescription: 'This doesn\'t define you completely—we all have multiple parts. Understanding your dominant pattern is the first step toward financial self-compassion.',
+      repeatQuizButton: 'Repeat Quiz',
+      detailedResult: {
+        title: 'Your Financial Firefighter Type',
+        subtitle: 'Understanding your primary pattern and how to work with it compassionately'
+      },
       uncertaintyNotice: {
         title: 'Having trouble choosing?',
         description: 'Since you\'re uncertain about several answers, we recommend the personalized assessment below for more accurate insights into your financial patterns.'
@@ -222,7 +227,9 @@ export const en = {
         next: 'Next',
         seeResults: 'See Results',
         progress: 'Question {current} of {total}'
-      }
+      },
+      interpretationGuide: "Use the detailed section below to understand your result. This doesn't define you completely—we all have multiple parts. If you feel this isn't your primary pattern, you can retake the quiz using the 'Repeat Quiz' button.",
+      retakeHint: "If this doesn't feel like your main part, click 'Repeat Quiz' to try again.",
     },
     deepAssessment: {
       title: 'Deep Assessment',

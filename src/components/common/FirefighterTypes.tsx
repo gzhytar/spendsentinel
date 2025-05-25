@@ -25,6 +25,7 @@ interface FirefighterType {
   description: string;
   triggers: string[];
   behaviors: string[];
+  emotions?: string[];
 }
 
 interface FirefighterTypesProps {
@@ -53,6 +54,7 @@ export function FirefighterTypes({
       description: t('landing.firefighters.spender.description'),
       triggers: t<string[]>('landing.firefighters.spender.triggers.items'),
       behaviors: t<string[]>('landing.firefighters.spender.behaviors.items'),
+      emotions: t<string[]>('landing.firefighters.spender.emotions.items'),
     },
     {
       id: 'hoarder',
@@ -60,6 +62,7 @@ export function FirefighterTypes({
       description: t('landing.firefighters.hoarder.description'),
       triggers: t<string[]>('landing.firefighters.hoarder.triggers.items'),
       behaviors: t<string[]>('landing.firefighters.hoarder.behaviors.items'),
+      emotions: t<string[]>('landing.firefighters.hoarder.emotions.items'),
     },
     {
       id: 'avoider',
@@ -67,6 +70,7 @@ export function FirefighterTypes({
       description: t('landing.firefighters.avoider.description'),
       triggers: t<string[]>('landing.firefighters.avoider.triggers.items'),
       behaviors: t<string[]>('landing.firefighters.avoider.behaviors.items'),
+      emotions: t<string[]>('landing.firefighters.avoider.emotions.items'),
     },
     {
       id: 'indulger',
@@ -74,6 +78,7 @@ export function FirefighterTypes({
       description: t('landing.firefighters.indulger.description'),
       triggers: t<string[]>('landing.firefighters.indulger.triggers.items'),
       behaviors: t<string[]>('landing.firefighters.indulger.behaviors.items'),
+      emotions: t<string[]>('landing.firefighters.indulger.emotions.items'),
     }
   ];
 
@@ -172,7 +177,7 @@ export function FirefighterTypes({
 
           {/* Triggers and Behaviors in Tabs */}
           <Tabs defaultValue="behaviors" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="behaviors">
                 <Brain className="w-4 h-4 mr-2" />
                 {t('landing.firefighters.tabs.behaviors')}
@@ -180,6 +185,10 @@ export function FirefighterTypes({
               <TabsTrigger value="triggers">
                 <AlertCircle className="w-4 h-4 mr-2" />
                 {t('landing.firefighters.tabs.triggers')}
+              </TabsTrigger>
+              <TabsTrigger value="emotions">
+                <Heart className="w-4 h-4 mr-2" />
+                {t('landing.firefighters.tabs.emotions')}
               </TabsTrigger>
             </TabsList>
 
@@ -203,6 +212,18 @@ export function FirefighterTypes({
                 <div key={index} className="flex items-start space-x-3">
                   <CheckCircle2 className="w-4 h-4 text-muted-foreground mt-0.5 flex-shrink-0" />
                   <p className="text-sm">{behavior}</p>
+                </div>
+              ))}
+            </TabsContent>
+
+            <TabsContent value="emotions" className="mt-4 space-y-3">
+              <p className="text-sm text-muted-foreground mb-3">
+                {t(`landing.firefighters.${currentType.id}.emotions.label`)}
+              </p>
+              {currentType.emotions?.map((emotion, index) => (
+                <div key={index} className="flex items-start space-x-3">
+                  <Heart className="w-4 h-4 text-muted-foreground mt-0.5 flex-shrink-0" />
+                  <p className="text-sm">{emotion}</p>
                 </div>
               ))}
             </TabsContent>

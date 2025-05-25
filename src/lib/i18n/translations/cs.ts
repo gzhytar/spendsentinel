@@ -62,6 +62,14 @@ export const cs = {
             'Impulzivní upgrady na prémiové verze',
             'Lastminute upgrady letů, hotelů, jídel'
           ]
+        },
+        emotions: {
+          label: 'Emocionální vzorce v průběhu času:',
+          items: [
+            'Před nákupem: nervózní, neklidný nebo otupělý.',
+            'Během nákupu: nával úlevy, moci nebo euforie.',
+            'Po nákupu: záblesky viny, "Co jsem to udělal?" nebo napětí v žaludku.'
+          ]
         }
       },
       hoarder: {
@@ -81,6 +89,14 @@ export const cs = {
             'Přesměrovává každé extra euro do úspor',
             'Ruší nezbytnou údržbu, aby se vyhnul výdajům',
             'Vytváří několik "nedotknutelných" podúčtů'
+          ]
+        },
+        emotions: {
+          label: 'Emocionální vzorce v průběhu času:',
+          items: [
+            'Před šetřením: úzkost, strach z katastrofy.',
+            'Během převodu: krátký klid, kontrola.',
+            'Po převodu: nízký stupeň strachu se vrací; cyklus se opakuje.'
           ]
         }
       },
@@ -102,6 +118,14 @@ export const cs = {
             'Maže finanční aplikace nebo ztlumuje oznámení',
             'Zapojuje se do "produktivní prokrastinace"'
           ]
+        },
+        emotions: {
+          label: 'Emocionální vzorce v průběhu času:',
+          items: [
+            'Před vyhýbáním: strach, stud.',
+            'Během vyhýbání: dočasná otupělá úleva.',
+            'Po vyhýbání: plížící se vina; strach se vrací silnější.'
+          ]
         }
       },
       indulger: {
@@ -122,11 +146,20 @@ export const cs = {
             'Doručení tentýž den lahůdek a gadgetů',
             'Ignoruje rozpočet s "YOLO" logikou'
           ]
+        },
+        emotions: {
+          label: 'Emocionální vzorce v průběhu času:',
+          items: [
+            'Před požitkem: unavený, nedostatečně odměněný.',
+            'Během nákupu/zážitku: radost, osvobození.',
+            'Po požitku: možný pád—vina, prázdnota nebo nový stres z dluhu.'
+          ]
         }
       },
       tabs: {
         triggers: 'Spouštěče',
-        behaviors: 'Chování'
+        behaviors: 'Chování',
+        emotions: 'Emoce v Čase'
       },
       assessmentButton: 'Provést sebehodnocení',
       compassionButton: 'Praktikovat sebesoucit'

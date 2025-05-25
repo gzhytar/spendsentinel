@@ -62,6 +62,14 @@ export const en = {
             'Last-minute upgrades on flights, hotels, meals'
           ]
         },
+        emotions: {
+          label: 'Emotional patterns over time:',
+          items: [
+            'Pre-purchase: jittery, restless, or numb.',
+            'During purchase: rush of relief, power, or euphoria.',
+            'Post-purchase: flickers of guilt, "What have I done?" or tightness in stomach.'
+          ]
+        },
       },
       hoarder: {
         title: 'The Hoarder',
@@ -82,6 +90,14 @@ export const en = {
             'Anxiety when others spend money freely'
           ]
         },
+        emotions: {
+          label: 'Emotional patterns over time:',
+          items: [
+            'Pre-saving: anxiety, dread of catastrophe.',
+            'During transfer: brief calm, control.',
+            'Post-transfer: low-grade dread returns; cycle repeats.'
+          ]
+        },
       },
       avoider: {
         title: 'The Avoider',
@@ -100,6 +116,14 @@ export const en = {
             'Leaving bills unopened for weeks',
             'Avoiding banking apps or account logins',
             'Procrastinating on financial decisions'
+          ]
+        },
+        emotions: {
+          label: 'Emotional patterns over time:',
+          items: [
+            'Pre-avoidance: dread, shame.',
+            'During avoidance: temporary numb relief.',
+            'Post-avoidance: creeping guilt; dread resurfaces stronger.'
           ]
         }
       },
@@ -122,10 +146,19 @@ export const en = {
             'Justifying luxury purchases as "investing in happiness"'
           ]
         },
+        emotions: {
+          label: 'Emotional patterns over time:',
+          items: [
+            'Pre-indulgence: fatigued, under-rewarded.',
+            'During purchase/experience: elation, liberation.',
+            'Post-indulgence: possible crash—guilt, emptiness, or new stress about debt.'
+          ]
+        },
       },
       tabs: {
         behaviors: 'Behaviors',
-        triggers: 'Triggers'
+        triggers: 'Triggers',
+        emotions: 'Emotions Over Time'
       },
       assessmentButton: 'Take Self-Assessment',
       compassionButton: 'Learn Self-Compassion'

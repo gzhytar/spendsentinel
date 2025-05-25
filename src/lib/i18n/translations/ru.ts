@@ -223,7 +223,7 @@ export const ru = {
       tabs: {
         triggers: 'Триггеры',
         behaviors: 'Поведение',
-        emotions: 'Эмоции Во Времени',
+        emotions: 'Эмоции',
         innerDialogue: 'Внутренний Диалог',
         digitalFootprints: 'Цифровые Следы'
       },

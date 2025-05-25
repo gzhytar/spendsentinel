@@ -223,7 +223,7 @@ export const cs = {
       tabs: {
         triggers: 'Spouštěče',
         behaviors: 'Chování',
-        emotions: 'Emoce v Čase',
+        emotions: 'Emoce',
         innerDialogue: 'Vnitřní Dialog',
         digitalFootprints: 'Digitální Stopy'
       },

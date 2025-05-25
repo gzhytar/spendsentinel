@@ -19,6 +19,7 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 import { useI18n } from '@/contexts/i18n-context';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 interface FirefighterType {
   id: string;
@@ -94,6 +95,49 @@ export function FirefighterTypes({
   ];
 
   const currentType = firefighterTypes.find(type => type.id === selectedType) || firefighterTypes[0];
+
+  const tabSections = [
+    {
+      id: 'behaviors',
+      titleKey: 'landing.firefighters.tabs.behaviors',
+      icon: Brain,
+      labelKey: `landing.firefighters.${currentType.id}.behaviors.label`,
+      itemIcon: CheckCircle2,
+      items: currentType.behaviors,
+    },
+    {
+      id: 'triggers',
+      titleKey: 'landing.firefighters.tabs.triggers',
+      icon: AlertCircle,
+      labelKey: `landing.firefighters.${currentType.id}.triggers.label`,
+      itemIcon: AlertCircle,
+      items: currentType.triggers,
+    },
+    {
+      id: 'emotions',
+      titleKey: 'landing.firefighters.tabs.emotions',
+      icon: Heart,
+      labelKey: `landing.firefighters.${currentType.id}.emotions.label`,
+      itemIcon: Heart,
+      items: currentType.emotions,
+    },
+    {
+      id: 'innerDialogue',
+      titleKey: 'landing.firefighters.tabs.innerDialogue',
+      icon: Shield,
+      labelKey: `landing.firefighters.${currentType.id}.innerDialogue.label`,
+      itemIcon: Shield,
+      items: currentType.innerDialogue,
+    },
+    {
+      id: 'digitalFootprints',
+      titleKey: 'landing.firefighters.tabs.digitalFootprints',
+      icon: Smartphone,
+      labelKey: `landing.firefighters.${currentType.id}.digitalFootprints.label`,
+      itemIcon: Smartphone,
+      items: currentType.digitalFootprints,
+    }
+  ];
 
   return (
     <Card className="shadow-xl border-0">
@@ -186,91 +230,62 @@ export function FirefighterTypes({
             </div>
           </div>
 
-          {/* Triggers and Behaviors in Tabs */}
-          <Tabs defaultValue="behaviors" className="w-full">
-            <TabsList className="grid w-full grid-cols-5">
-              <TabsTrigger value="behaviors">
-                <Brain className="w-4 h-4 mr-2" />
-                {t('landing.firefighters.tabs.behaviors')}
-              </TabsTrigger>
-              <TabsTrigger value="triggers">
-                <AlertCircle className="w-4 h-4 mr-2" />
-                {t('landing.firefighters.tabs.triggers')}
-              </TabsTrigger>
-              <TabsTrigger value="emotions">
-                <Heart className="w-4 h-4 mr-2" />
-                {t('landing.firefighters.tabs.emotions')}
-              </TabsTrigger>
-              <TabsTrigger value="innerDialogue">
-                <Shield className="w-4 h-4 mr-2" />
-                {t('landing.firefighters.tabs.innerDialogue')}
-              </TabsTrigger>
-              <TabsTrigger value="digitalFootprints">
-                <Smartphone className="w-4 h-4 mr-2" />
-                {t('landing.firefighters.tabs.digitalFootprints')}
-              </TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="triggers" className="mt-4 space-y-3">
-              <p className="text-sm text-muted-foreground mb-3">
-                {t(`landing.firefighters.${currentType.id}.triggers.label`)}
-              </p>
-              {currentType.triggers.map((trigger, index) => (
-                <div key={index} className="flex items-start space-x-3">
-                  <AlertCircle className="w-4 h-4 mr-2" />
-                  <p className="text-sm">{trigger}</p>
-                </div>
+          {/* Accordion for mobile */}
+          <div className="block md:hidden">
+            <Accordion type="single" collapsible className="w-full" defaultValue="behaviors">
+              {tabSections.map((section) => (
+                section.items && section.items.length > 0 && (
+                  <AccordionItem value={section.id} key={section.id}>
+                    <AccordionTrigger className="bg-[#EADDCB] dark:bg-[#EADDCB]/20 px-3 rounded-md font-medium">
+                      <section.icon className="w-4 h-4 mr-2 flex-shrink-0" />
+                      <span className="text-left">{t(section.titleKey)}</span>
+                    </AccordionTrigger>
+                    <AccordionContent className="space-y-3 pt-2 px-3">
+                      <p className="text-sm text-muted-foreground mb-3">
+                        {t(section.labelKey)}
+                      </p>
+                      {section.items.map((item, index) => (
+                        <div key={index} className="flex items-start space-x-3">
+                          <section.itemIcon className="w-4 h-4 text-muted-foreground mt-0.5 flex-shrink-0" />
+                          <p className="text-sm">{item}</p>
+                        </div>
+                      ))}
+                    </AccordionContent>
+                  </AccordionItem>
+                )
               ))}
-            </TabsContent>
+            </Accordion>
+          </div>
 
-            <TabsContent value="behaviors" className="mt-4 space-y-3">
-              <p className="text-sm text-muted-foreground mb-3">
-                {t(`landing.firefighters.${currentType.id}.behaviors.label`)}
-              </p>
-              {currentType.behaviors.map((behavior, index) => (
-                <div key={index} className="flex items-start space-x-3">
-                  <CheckCircle2 className="w-4 h-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-                  <p className="text-sm">{behavior}</p>
-                </div>
-              ))}
-            </TabsContent>
+          {/* Tabs for md and up */}
+          <div className="hidden md:block">
+            <Tabs defaultValue="behaviors" className="w-full">
+              <TabsList className=" grid-cols-5">
+                {tabSections.map((section) => (
+                  <TabsTrigger value={section.id} key={section.id} >
+                    <section.icon className="w-4 h-4 mr-2 flex-shrink-0" />
+                    <span className="text-sm whitespace-normal">{t(section.titleKey)}</span>
+                  </TabsTrigger>
+                ))}
+              </TabsList>
 
-            <TabsContent value="emotions" className="mt-4 space-y-3">
-              <p className="text-sm text-muted-foreground mb-3">
-                {t(`landing.firefighters.${currentType.id}.emotions.label`)}
-              </p>
-              {currentType.emotions?.map((emotion, index) => (
-                <div key={index} className="flex items-start space-x-3">
-                  <Heart className="w-4 h-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-                  <p className="text-sm">{emotion}</p>
-                </div>
+              {tabSections.map((section) => (
+                section.items && section.items.length > 0 && (
+                  <TabsContent value={section.id} key={section.id} className="mt-4 space-y-3">
+                    <p className="text-sm text-muted-foreground mb-3">
+                      {t(section.labelKey)}
+                    </p>
+                    {section.items.map((item, index) => (
+                      <div key={index} className="flex items-start space-x-3">
+                        <section.itemIcon className="w-4 h-4 text-muted-foreground mt-0.5 flex-shrink-0" />
+                        <p className="text-sm">{item}</p>
+                      </div>
+                    ))}
+                  </TabsContent>
+                )
               ))}
-            </TabsContent>
-
-            <TabsContent value="innerDialogue" className="mt-4 space-y-3">
-              <p className="text-sm text-muted-foreground mb-3">
-                {t(`landing.firefighters.${currentType.id}.innerDialogue.label`)}
-              </p>
-              {currentType.innerDialogue?.map((dialogue, index) => (
-                <div key={index} className="flex items-start space-x-3">
-                  <Shield className="w-4 h-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-                  <p className="text-sm">{dialogue}</p>
-                </div>
-              ))}
-            </TabsContent>
-
-            <TabsContent value="digitalFootprints" className="mt-4 space-y-3">
-              <p className="text-sm text-muted-foreground mb-3">
-                {t(`landing.firefighters.${currentType.id}.digitalFootprints.label`)}
-              </p>
-              {currentType.digitalFootprints?.map((footprint, index) => (
-                <div key={index} className="flex items-start space-x-3">
-                  <Smartphone className="w-4 h-4 text-muted-foreground mt-0.5 flex-shrink-0" />
-                  <p className="text-sm">{footprint}</p>
-                </div>
-              ))}
-            </TabsContent>
-          </Tabs>
+            </Tabs>
+          </div>
         </div>
 
         {/* Call to Action */}

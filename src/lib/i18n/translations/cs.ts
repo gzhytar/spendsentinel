@@ -78,6 +78,14 @@ export const cs = {
             'Je to jen €19; jaký to udělá rozdíl?',
             'Pokud to nekoupím teď, budu toho navždy litovat.'
           ]
+        },
+        digitalFootprints: {
+          label: 'Online stopy, které tato část zanechává:',
+          items: [
+            'Desítky maloobchodních aplikací s **aktivovanými push notifikacemi**.',
+            'E-mailová schránka přeplněná promo kódy, které "brzy budeš potřebovat".',
+            'Prohlížeč plný košíků uložených "pro všechny případy".'
+          ]
         }
       },
       hoarder: {
@@ -113,6 +121,14 @@ export const cs = {
             'Nemůžeme věřit budoucnosti—schovej víc.',
             'Jedna krize a jsme zničeni.',
             'Utrácet za potěšení je nezodpovědné.'
+          ]
+        },
+        digitalFootprints: {
+          label: 'Online stopy, které tato část zanechává:',
+          items: [
+            'Denní (někdy hodinové) kontroly zůstatků napříč bankami/makléřskými účty.',
+            'Rozpočtové prognózy sahající 20-30 let dopředu.',
+            'E-mailové složky plné upozornění na úrokové sazby a FIRE blogů.'
           ]
         }
       },
@@ -150,6 +166,14 @@ export const cs = {
             'Dívání se jen zkazí můj den.',
             'Jsem hrozný s penězi—proč se vůbec snažit?'
           ]
+        },
+        digitalFootprints: {
+          label: 'Online stopy, které tato část zanechává:',
+          items: [
+            'Selhání automatických plateb nebo expirované karty ponechané nevyřešené.',
+            'Filtry e-mailů, které skrývají finanční zprávy do skrytých složek.',
+            'Zapomenuté hesla pro bankovní stránky.'
+          ]
         }
       },
       indulger: {
@@ -186,13 +210,22 @@ export const cs = {
             'Život je příliš krátký na škudlení peněz.',
             'Dobrá nálada stojí za dluh.'
           ]
+        },
+        digitalFootprints: {
+          label: 'Online stopy, které tato část zanechává:',
+          items: [
+            'Časté využívání služby "kup teď, zaplať později".',
+            'Stohování předplatných (mnoho streamovacích služeb, prémiových aplikací).',
+            'Kalendář plný koncertů, degustačních menu, víkendových výletů.'
+          ]
         }
       },
       tabs: {
         triggers: 'Spouštěče',
         behaviors: 'Chování',
         emotions: 'Emoce v Čase',
-        innerDialogue: 'Vnitřní Dialog'
+        innerDialogue: 'Vnitřní Dialog',
+        digitalFootprints: 'Digitální Stopy'
       },
       assessmentButton: 'Provést sebehodnocení',
       compassionButton: 'Praktikovat sebesoucit'

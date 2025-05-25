@@ -78,6 +78,14 @@ export const en = {
             'If I don\'t grab it, I\'ll regret it forever.'
           ]
         },
+        digitalFootprints: {
+          label: 'Online signs this part leaves behind:',
+          items: [
+            'Dozens of retail apps with **push notifications on**.',
+            'Email inbox crammed with promo codes you "might need soon."',
+            'Browser tabs full of carts saved "just in case."'
+          ]
+        },
       },
       hoarder: {
         title: 'The Hoarder',
@@ -114,6 +122,14 @@ export const en = {
             'Spending on pleasure is irresponsible.'
           ]
         },
+        digitalFootprints: {
+          label: 'Online signs this part leaves behind:',
+          items: [
+            'Daily (sometimes hourly) balance checks across banks/brokerages.',
+            'Spreadsheet forecasts extending 20–30 years.',
+            'Email folders stuffed with interest-rate alerts and FIRE blogs.'
+          ]
+        },
       },
       avoider: {
         title: 'The Avoider',
@@ -148,6 +164,14 @@ export const en = {
             'I\'ll deal with it tomorrow.',
             'Looking will just ruin my day.',
             'I\'m terrible with money—why bother?'
+          ]
+        },
+        digitalFootprints: {
+          label: 'Online signs this part leaves behind:',
+          items: [
+            'Auto-pay failures or expired cards left unresolved.',
+            'Inbox filters sweeping finance messages into hidden folders.',
+            'Passwords forgotten for banking sites.'
           ]
         }
       },
@@ -186,12 +210,21 @@ export const en = {
             'Good vibes are worth the debt.'
           ]
         },
+        digitalFootprints: {
+          label: 'Online signs this part leaves behind:',
+          items: [
+            'Frequent use of "buy now, pay later."',
+            'Subscription stacking (multiple streaming, premium apps).',
+            'Calendar filled with concerts, tasting menus, weekend trips.'
+          ]
+        },
       },
       tabs: {
         behaviors: 'Behaviors',
         triggers: 'Triggers',
         emotions: 'Emotions Over Time',
-        innerDialogue: 'Inner Dialogue'
+        innerDialogue: 'Inner Dialogue',
+        digitalFootprints: 'Digital Footprints'
       },
       assessmentButton: 'Take Self-Assessment',
       compassionButton: 'Learn Self-Compassion'

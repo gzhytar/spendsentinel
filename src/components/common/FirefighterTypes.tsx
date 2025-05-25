@@ -13,7 +13,8 @@ import {
   Info,
   Brain,
   Heart,
-  Shield
+  Shield,
+  Smartphone
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -27,6 +28,7 @@ interface FirefighterType {
   behaviors: string[];
   emotions?: string[];
   innerDialogue?: string[];
+  digitalFootprints?: string[];
 }
 
 interface FirefighterTypesProps {
@@ -57,6 +59,7 @@ export function FirefighterTypes({
       behaviors: t<string[]>('landing.firefighters.spender.behaviors.items'),
       emotions: t<string[]>('landing.firefighters.spender.emotions.items'),
       innerDialogue: t<string[]>('landing.firefighters.spender.innerDialogue.items'),
+      digitalFootprints: t<string[]>('landing.firefighters.spender.digitalFootprints.items'),
     },
     {
       id: 'hoarder',
@@ -66,6 +69,7 @@ export function FirefighterTypes({
       behaviors: t<string[]>('landing.firefighters.hoarder.behaviors.items'),
       emotions: t<string[]>('landing.firefighters.hoarder.emotions.items'),
       innerDialogue: t<string[]>('landing.firefighters.hoarder.innerDialogue.items'),
+      digitalFootprints: t<string[]>('landing.firefighters.hoarder.digitalFootprints.items'),
     },
     {
       id: 'avoider',
@@ -75,6 +79,7 @@ export function FirefighterTypes({
       behaviors: t<string[]>('landing.firefighters.avoider.behaviors.items'),
       emotions: t<string[]>('landing.firefighters.avoider.emotions.items'),
       innerDialogue: t<string[]>('landing.firefighters.avoider.innerDialogue.items'),
+      digitalFootprints: t<string[]>('landing.firefighters.avoider.digitalFootprints.items'),
     },
     {
       id: 'indulger',
@@ -84,6 +89,7 @@ export function FirefighterTypes({
       behaviors: t<string[]>('landing.firefighters.indulger.behaviors.items'),
       emotions: t<string[]>('landing.firefighters.indulger.emotions.items'),
       innerDialogue: t<string[]>('landing.firefighters.indulger.innerDialogue.items'),
+      digitalFootprints: t<string[]>('landing.firefighters.indulger.digitalFootprints.items'),
     }
   ];
 
@@ -182,7 +188,7 @@ export function FirefighterTypes({
 
           {/* Triggers and Behaviors in Tabs */}
           <Tabs defaultValue="behaviors" className="w-full">
-            <TabsList className="grid w-full grid-cols-4">
+            <TabsList className="grid w-full grid-cols-5">
               <TabsTrigger value="behaviors">
                 <Brain className="w-4 h-4 mr-2" />
                 {t('landing.firefighters.tabs.behaviors')}
@@ -198,6 +204,10 @@ export function FirefighterTypes({
               <TabsTrigger value="innerDialogue">
                 <Shield className="w-4 h-4 mr-2" />
                 {t('landing.firefighters.tabs.innerDialogue')}
+              </TabsTrigger>
+              <TabsTrigger value="digitalFootprints">
+                <Smartphone className="w-4 h-4 mr-2" />
+                {t('landing.firefighters.tabs.digitalFootprints')}
               </TabsTrigger>
             </TabsList>
 
@@ -245,6 +255,18 @@ export function FirefighterTypes({
                 <div key={index} className="flex items-start space-x-3">
                   <Shield className="w-4 h-4 text-muted-foreground mt-0.5 flex-shrink-0" />
                   <p className="text-sm">{dialogue}</p>
+                </div>
+              ))}
+            </TabsContent>
+
+            <TabsContent value="digitalFootprints" className="mt-4 space-y-3">
+              <p className="text-sm text-muted-foreground mb-3">
+                {t(`landing.firefighters.${currentType.id}.digitalFootprints.label`)}
+              </p>
+              {currentType.digitalFootprints?.map((footprint, index) => (
+                <div key={index} className="flex items-start space-x-3">
+                  <Smartphone className="w-4 h-4 text-muted-foreground mt-0.5 flex-shrink-0" />
+                  <p className="text-sm">{footprint}</p>
                 </div>
               ))}
             </TabsContent>

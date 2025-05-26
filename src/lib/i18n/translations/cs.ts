@@ -17,6 +17,7 @@ export const cs = {
     expenseHighlighter: 'Zvýrazňovač výdajů',
     financialGPS: 'Finanční GPS',
     selfCompassion: 'Sebesoucit',
+    dailyCheckIn: 'Denní check-in',
   },
   landing: {
     hero: {
@@ -639,6 +640,59 @@ export const cs = {
       title: 'Něco se pokazilo',
       identifyFailed: 'Nelze identifikovat vaše finanční části. Zkuste to prosím znovu.',
       resolveFailed: 'Nelze tuto část prozkoumat dále. Zkuste to prosím znovu.'
+    }
+  },
+  dailyCheckIn: {
+    title: 'Denní check-in',
+    subtitle: 'Budujte návyk reflexe a porozumění se svými finančními částmi',
+    progress: 'Krok {current} z {total}',
+    panicButtonReminder: 'Pamatujte, panikové tlačítko je tu vždy pro vás - bez odsuzování, jen podpora, když ji potřebujete.',
+    comingSoon: 'Již brzy',
+    completionMessage: 'Skvělá práce při dokončení vašeho denního check-inu! Váš pokrok byl uložen.',
+    navigation: {
+      previous: 'Předchozí',
+      next: 'Další',
+      complete: 'Dokončit check-in'
+    },
+    steps: {
+      breathing: {
+        title: 'Uzemňující dechové cvičení',
+        instruction: 'Seďte nebo stůjte vzpřímeně s uvolněnými rameny a uzemněnými chodidly, pozvěte jakoukoli napjatou nebo zaneprázdněnou část sebe, aby jen pozorovala. Položte jednu ruku na srdce, druhou na břicho a tiše si stanovte záměr jako "Nechť tento dech dá všem mým částem klid." \n\n Vdechněte nosem, abyste naplnili hrudník, pak vydechněte vzduch otevřenými ústy bez pauzy, udržujte spojený 5sekundový nádech / 5sekundový výdech po dobu asi šesti vln, zatímco napětí nechte odejít s každým výdechem. \n\n Po minutě nechte své dýchání usadit zpět do přirozeného rytmu.'
+      },
+      reflection: {
+        title: 'Zamyslete se nad svým dnem',
+        prompt: 'Věnujte chvilku vzpomínce na svůj den. Které události vynikly? Jaké emoce jste zažili? Jaká finanční rozhodnutí jste učinili? \n Tato tichá praxe pomáhá budovat všímavost a sebeuvědomění v čase.',
+      },
+      expenseLogging: {
+        title: 'Zaznamenejte dnešní výdaje',
+        description: 'Zaznamenejte jakékoli výdaje nebo finanční rozhodnutí z dnešního dne. Označte, které části byly spuštěny každým výdajem.',
+        triggeredParts: 'Které části byly spuštěny?',
+        journalNotes: 'Poznámky z deníku pro spuštěné části:',
+        partNote: 'poznámka:',
+        journalPlaceholder: 'Jak se tato část projevila? Co se snažila chránit nebo poskytnout?'
+      },
+      timeline: {
+        title: 'Vaše cesta check-inu',
+        caption: 'Vaše cesta check-inu za posledních 30 dní'
+      },
+      deepenRelationships: {
+        title: 'Prohloubte vztahy s částmi',
+        description: 'Prozkoumejte a budujte hlubší porozumění s částmi, které byly dnes spuštěny.',
+        button: 'Prohloubte vztahy s částmi'
+      },
+      selfCompassion: {
+        title: 'Skóre sebelásky',
+        prompt: 'Ohodnoťte svou sebelásku dnes (1 = velmi kritický, 10 = velmi soucitný)',
+        veryCritical: 'velmi kritický',
+        veryCompassionate: 'velmi soucitný'
+      }
+    },
+    timeline: {
+      completed: 'Dokončeno',
+      missed: 'Vynecháno',
+      streak: 'Současná série',
+      days: 'dní',
+      totalCompleted: 'Celkem dokončeno'
     }
   }
 } as const; 

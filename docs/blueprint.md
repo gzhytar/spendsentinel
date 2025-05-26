@@ -265,46 +265,62 @@ Use "invite" not "warn", "notice" not "fail", "parts" language sparingly outside
 ### Feature: Expense Highlighter (Financial Decisions Tracker)
 
 #### Purpose and Impact
-- **User Need**: Users need a comprehensive tool to track both spending and saving decisions, understand their financial patterns, and see visual insights into their financial behavior across different categories.
-- **Expected Outcome**: Users gain awareness of their financial patterns through detailed tracking, visual analytics, and categorized insights that help them understand both their spending habits and saving achievements. This promotes mindful financial decision-making and celebrates positive financial behaviors.
-- **Emotional Impact**: Should make users feel empowered and informed about their financial decisions, celebrating both spending awareness and saving achievements without judgment. The dual nature (spend/save) promotes a balanced view of financial health.
+- **User Need**: Users need a comprehensive tool to track both spending and saving decisions, understand their financial patterns, and see visual insights into their financial behavior across different categories with efficient use of screen space.
+- **Expected Outcome**: Users gain awareness of their financial patterns through detailed tracking, visual analytics, and categorized insights that help them understand both their spending habits and saving achievements. The responsive layout maximizes screen real estate while maintaining mobile accessibility.
+- **Emotional Impact**: Should make users feel empowered and informed about their financial decisions, celebrating both spending awareness and saving achievements without judgment. The clean, organized layout promotes confidence in financial tracking.
 
 #### Functional Requirements
 - **Core Functionality**: 
   - Dual-purpose transaction logging for both expenses and savings with radio button selection
   - Comprehensive categorization system with spending categories (Living, Lifestyle) and saving categories (Emergency/Money Spared, Goals from Vision Board, Other Savings)
-  - Visual analytics with separate pie chart overviews for spending and savings
+  - Responsive visual analytics with side-by-side pie chart overviews for spending and savings on larger screens
+  - Clean pie chart display with percentages shown only in legend descriptions without tooltips or slice labels
   - Complete transaction history with type distinction and category-specific icons
+  - Vision board integration for goal visualization and financial aspiration tracking
   - Category education sections with descriptions and visual icons for both spending and saving types
 - **User Interactions**: 
   - Add transactions using "Add Spend or Saving" dialog with radio button type selection
   - Dynamic button text that changes based on selected type (Add Spend/Add Saving)
-  - View separate overview widgets for spending patterns and saving achievements
+  - View side-by-side overview widgets for spending patterns and saving achievements on desktop
   - Browse complete Financial Decisions History with type and category filtering
   - Access educational content about spending and saving categories with descriptions
+  - Manage vision board items with text affirmations and image goals
 - **Data Requirements**: 
   - Transaction entries with type (expense/saving), amount, description, date, category, and optional triggered parts
   - Category definitions and descriptions for both spending and saving types
-  - Visual chart data with category-specific colors and icons
+  - Visual chart data with category-specific colors and percentage calculations for legend display
+  - Vision board items with text/image content and descriptions
   - Historical transaction data with sorting and filtering capabilities
 
 #### UI/UX Specifications
 - **Component Placement**: 
   - Dedicated page at `/[lang]/expense-highlighter` accessible via side navigation
+  - Vision board section at top for goal visualization
+  - Category education card with spending and saving explanations
+  - Responsive grid layout for overview cards (side-by-side on lg+ screens, stacked on mobile)
   - AddExpenseForm dialog component with radio button type selection
-  - Separate overview widgets for spending and saving analytics
   - ExpenseList component showing comprehensive transaction history
 - **Visual Elements**:
+  - **Vision Board Section**: 
+    - Grid layout for text affirmations and image goals
+    - Add/remove functionality with dialog interface
+    - Responsive card display with hover effects
   - **Transaction Entry Dialog**: 
     - Radio button selection for "Expense" vs "Saving" type
     - Dynamic dialog title "Add Spend or Saving"
     - Category dropdowns that change based on selected type
     - Dynamic submit button text (Add Spend/Add Saving)
-  - **Overview Widgets**: 
-    - "Spend Overview" pie chart with Living (blue) and Lifestyle (orange) categories
-    - "Savings Overview" pie chart with Emergency (green), Goals (blue), Investment (purple) categories
-    - Category breakdowns with icons, amounts, and percentages
-    - Conditional display (only show when relevant transactions exist)
+  - **Responsive Overview Layout**: 
+    - Grid container with `grid-cols-1 lg:grid-cols-2 gap-6` for responsive side-by-side display
+    - "Spend Overview" and "Total Savings" cards positioned side-by-side on large screens (≥1024px)
+    - Stacked vertically on mobile and tablet devices for optimal readability
+    - Conditional rendering based on data availability (only show relevant cards)
+  - **Enhanced Pie Charts**: 
+    - Clean pie slices without percentage labels or tooltips
+    - Percentages displayed exclusively in legend with format "Category Name (XX%)"
+    - Custom legend formatter with percentage calculations
+    - Category-specific color coding: Living (red), Lifestyle (green), Emergency (green), Goals (blue), Investment (purple)
+    - Responsive chart sizing with 300px height containers
   - **Financial Decisions History**: 
     - Comprehensive table/card view with Type, Description, Amount, Date, Category columns
     - Category-specific icons (Home, ShoppingBag for spending; Shield, Target, TrendingUp for saving)
@@ -317,33 +333,40 @@ Use "invite" not "warn", "notice" not "fail", "parts" language sparingly outside
     - Visual icons and explanatory text for each category type
 - **Interactive Behavior**: 
   - Real-time chart updates when new transactions are added
-  - Smooth transitions between spending and saving modes
+  - Smooth responsive transitions between desktop side-by-side and mobile stacked layouts
+  - Clean chart interactions without hover tooltips or slice highlighting
   - Responsive design with mobile-optimized card layouts
   - Sort transactions by date (newest first) automatically
+  - Vision board item management with add/remove functionality
 - **States**:
   - Empty state (no transactions recorded)
-  - Spending-only view (only expense transactions)
-  - Saving-only view (only saving transactions)
-  - Mixed view (both expense and saving transactions)
+  - Spending-only view (only expense transactions, only Spend Overview card shown)
+  - Saving-only view (only saving transactions, only Total Savings card shown)
+  - Mixed view (both expense and saving transactions, both cards shown side-by-side on desktop)
+  - Responsive layout states (side-by-side vs stacked based on screen size)
   - Loading states for chart calculations
 
 #### Technical Implementation Guidelines
 - **Suggested Approach**: 
   - React components with localStorage persistence for offline functionality
+  - Responsive grid layout using Tailwind CSS classes (`grid-cols-1 lg:grid-cols-2`)
+  - Enhanced pie chart implementation with custom legend formatters and disabled tooltips
   - AddExpenseForm with radio button type selection using RadioGroup component
-  - Separate chart calculations for spending and saving analytics
+  - Separate chart calculations for spending and saving analytics with percentage computation
   - ExpenseList component enhanced with type distinction and category-specific styling
   - Shared expense storage system with Daily Check-in feature
 - **Integration Points**: 
   - Shared localStorage system (`expenseStorage` utility) with Daily Check-in feature
   - I18n translation system for all category names, descriptions, and UI text
   - Consistent styling with app's design system (Radix UI components)
-  - Chart.js or similar for pie chart visualizations with custom color schemes
+  - Recharts library for pie chart visualizations with custom formatters and responsive containers
+  - Vision board localStorage integration for goal tracking
 - **Performance Considerations**: 
   - Efficient localStorage operations with error handling
-  - Optimized chart rendering with conditional display logic
-  - Responsive design considerations for mobile and desktop views
+  - Optimized chart rendering with conditional display logic and responsive containers
+  - Responsive design considerations for mobile and desktop views with CSS Grid
   - Lazy loading of chart calculations for large transaction datasets
+  - Type-safe percentage calculations with null checking for legend formatters
 
 #### Examples
 - **Sample Content (from translation files)**:
@@ -351,10 +374,12 @@ Use "invite" not "warn", "notice" not "fail", "parts" language sparingly outside
   - **Type Options**: "Expense" and "Saving" radio buttons
   - **Dynamic Buttons**: "Add Spend" (when expense selected), "Add Saving" (when saving selected)
   - **Category Names**: 
-    - Spending: "Living" (essential needs), "Lifestyle" (discretionary spending)
-    - Saving: "Money spared because I didn't spend", "Goals from Vision Board", "Other Savings"
-  - **Overview Titles**: "Spend Overview" and "Savings Overview"
+    - Spending: "Living Expenses" (essential needs), "Lifestyle Expenses" (discretionary spending)
+    - Saving: "Money spared because I didn't spend", "Vision Board Goals", "Other Savings"
+  - **Overview Titles**: "Spend Overview" and "Total Savings"
+  - **Legend Format**: "Living Expenses (45%)", "Lifestyle Expenses (55%)", "Emergency Fund (30%)"
   - **History Title**: "Financial Decisions History"
+  - **Responsive Behavior**: Side-by-side cards on desktop (≥1024px), stacked on mobile/tablet
   - **Category Descriptions**: Educational content explaining the purpose and examples for each category type
   - **Empty State**: "No transactions recorded yet. Start by adding your first spend or saving!"
 

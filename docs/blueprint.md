@@ -108,6 +108,74 @@ Use "invite" not "warn", "notice" not "fail", "parts" language sparingly outside
 
 ---
 
+### Feature: Self-Compassion Practice
+
+#### Purpose and Impact
+- **User Need**: Users need a dedicated space to practice self-compassion and track their emotional well-being over time, especially during challenging financial periods
+- **Expected Outcome**: Users develop consistent self-compassion habits, gain awareness of their emotional patterns, and build resilience through regular practice and visual progress tracking
+- **Emotional Impact**: Should create a nurturing, supportive environment that encourages self-kindness and emotional awareness without judgment
+
+#### Functional Requirements
+- **Core Functionality**: Daily self-compassion scoring system with timeline visualization, inspirational prompts for reflection, and 30-day historical tracking with emoji-based mood indicators
+- **User Interactions**: 
+  - Rate daily self-compassion level on 1-10 scale with contextual prompts
+  - View 30-day timeline with visual mood indicators (sad/neutral/happy faces)
+  - Access rotating collection of self-compassion prompts for reflection
+  - Track progress through calendar-style interface with completion statistics
+- **Data Requirements**: 
+  - Daily self-compassion scores stored in localStorage with date stamps
+  - Collection of inspirational self-compassion prompts in multiple languages
+  - 30-day historical data with score-to-emoji mapping (1-3: sad, 4-7: neutral, 8-10: happy)
+
+#### UI/UX Specifications
+- **Component Placement**: 
+  - Dedicated page at `/[lang]/self-compassion` accessible via side navigation
+  - SelfCompassionScore component for daily scoring with prompts
+  - CompassionTimeline component displaying 30-day calendar view
+- **Visual Elements**:
+  - **Scoring Interface**: Slider input (1-10) with contextual prompts and save button
+  - **Timeline Display**: 
+    - 30-day calendar grid with day numbers and emoji indicators
+    - Color-coded backgrounds: red (1-3), yellow (4-7), green (8-10), gray (no data)
+    - Emoji icons: Frown (sad), Meh (neutral), Smile (happy), empty circle (no data)
+    - Month labels and today highlighting with ring indicator
+  - **Statistics**: Average score calculation and total entries count
+  - **Legend**: Clear explanation of emoji meanings and score ranges
+- **Interactive Behavior**: 
+  - Real-time timeline updates when new scores are saved
+  - Hover tooltips showing exact scores on timeline days
+  - Smooth transitions and responsive design
+  - Storage event listening for cross-component updates
+- **States**:
+  - Empty state (no scores recorded yet)
+  - Populated timeline with historical data
+  - Today highlighting and current streak tracking
+
+#### Technical Implementation Guidelines
+- **Suggested Approach**: 
+  - React components with localStorage persistence for offline functionality
+  - CompassionTimeline component similar to CheckinTimeline but with score-based emoji mapping
+  - Event-driven updates using storage events for real-time synchronization
+  - Internationalization support for all text content and prompts
+- **Integration Points**: 
+  - Shared localStorage system with other app features
+  - I18n translation system for multi-language support
+  - Consistent styling with app's design system (Radix UI components)
+  - Integration with existing SelfCompassionScore component
+- **Performance Considerations**: 
+  - Efficient localStorage operations with error handling
+  - Optimized re-rendering using React hooks and event listeners
+  - Lazy loading of historical data calculation
+
+#### Examples
+- **Sample Content (from translation files)**:
+  - **Prompts**: "Today, I will treat myself with the same kindness I would offer a good friend."
+  - **Timeline Labels**: "High compassion (8-10)", "Medium compassion (4-7)", "Low compassion (1-3)", "No data"
+  - **Statistics**: "Average score: 7.2", "Total entries: 15 / 30"
+  - **Score Interface**: "How self-compassionate do you feel right now? (1-10)" with "Save Score & Reflect" button
+
+---
+
 ### Feature: Daily Check-in
 
 #### Purpose and Impact

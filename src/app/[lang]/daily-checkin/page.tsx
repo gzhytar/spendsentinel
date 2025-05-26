@@ -14,6 +14,7 @@ import { CheckinTimeline } from '@/components/daily-checkin';
 import { AddExpenseForm, type Expense } from '@/components/ui/add-expense-form';
 import { ExpenseList } from '@/components/ui/expense-list';
 import { SelfCompassionScore } from '@/components/ui/self-compassion-score';
+import { CompassionTimeline } from '@/components/ui/compassion-timeline';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { expenseStorage } from '@/lib/expense-storage';
 import { useIdentifiedParts } from '@/lib/assessment-utils';
@@ -352,28 +353,55 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
 
         {/* Step 6: Self-Compassion Score */}
         {currentStep === 6 && (
-          <div className="space-y-6">
+          <div className="space-y-6 overflow-hidden">
             <h2 className="text-2xl font-semibold">{t('dailyCheckIn.steps.selfCompassion.title')}</h2>
             <p className="text-muted-foreground">
               {t('dailyCheckIn.steps.selfCompassion.prompt')}
             </p>
             
-            <SelfCompassionScore
-              initialScore={checkInData.selfCompassionScore}
-              onScoreSave={(score) => {
-                setCheckInData({ ...checkInData, selfCompassionScore: score });
-                
-                // Also save to calm history for consistency with self-compassion page
-                const newEntry = { date: new Date().toLocaleDateString(), score };
-                const storedHistory = localStorage.getItem('calmHistory');
-                const calmHistory = storedHistory ? JSON.parse(storedHistory) : [];
-                const updatedHistory = [...calmHistory, newEntry].slice(-7); // Keep last 7 entries
-                localStorage.setItem('calmHistory', JSON.stringify(updatedHistory));
-              }}
-              showPrompt={true}
-              compact={true}
-              showActions={false}
-            />
+            <div className="w-full overflow-hidden">
+              <SelfCompassionScore
+                initialScore={checkInData.selfCompassionScore}
+                onScoreSave={(score) => {
+                  setCheckInData({ ...checkInData, selfCompassionScore: score });
+                  
+                  // Save to calm history for consistency with self-compassion page
+                  const newEntry = { date: new Date().toISOString().split('T')[0], score };
+                  const storedHistory = localStorage.getItem('calmHistory');
+                  const calmHistory = storedHistory ? JSON.parse(storedHistory) : [];
+                  
+                  // Keep all entries instead of just last 7 for better timeline tracking
+                  const existingEntryIndex = calmHistory.findIndex((entry: any) => entry.date === newEntry.date);
+                  if (existingEntryIndex >= 0) {
+                    calmHistory[existingEntryIndex] = newEntry;
+                  } else {
+                    calmHistory.push(newEntry);
+                  }
+                  
+                  localStorage.setItem('calmHistory', JSON.stringify(calmHistory));
+                  
+                  // Trigger storage event for real-time timeline updates
+                  window.dispatchEvent(new StorageEvent('storage', {
+                    key: 'calmHistory',
+                    newValue: JSON.stringify(calmHistory)
+                  }));
+                }}
+                showPrompt={true}
+                compact={true}
+                showActions={false}
+              />
+            </div>
+            
+            {/* Self-Compassion Timeline */}
+            <div className="mt-8 w-full overflow-hidden">
+              <div className="flex items-center gap-2 mb-4">
+                <Calendar className="h-5 w-5 text-primary" />
+                <h3 className="text-lg font-semibold">{t('selfCompassion.journey.title')}</h3>
+              </div>
+              <div className="w-full overflow-x-auto">
+                <CompassionTimeline lang={lang} />
+              </div>
+            </div>
           </div>
         )}
 

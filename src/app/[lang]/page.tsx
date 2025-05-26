@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Flame, Brain, Shield, Heart, ArrowRight, Lightbulb, TrendingUp, MessageSquare, CalendarCheck } from 'lucide-react';
+import { Flame, Brain, Shield, ArrowRight, Lightbulb, TrendingUp, MessageSquare, CalendarCheck } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useI18n } from '@/contexts/i18n-context';
@@ -123,38 +123,8 @@ export default function LandingPage() {
                   </Button>
                 </div>
               </div>
-              <div>
-                <div className="flex items-center space-x-3 mb-2">
-                  <TrendingUp className="w-6 h-6 text-primary flex-shrink-0" />
-                  <h3 className="font-semibold">{t('landing.features.financialGPS.title')}</h3>
-                </div>
-                <p className="text-muted-foreground">
-                  {t('landing.features.financialGPS.description')}
-                </p>
-                <div className="mt-4">
-                  <Button className="w-full sm:w-auto" wrap={true} asChild>
-                      <Link href={`${localePrefix}/financial-gps`}>
-                        <span>{t('landing.features.financialGPS.button')} <ArrowRight className="ml-2 h-4 w-4 inline" /></span>
-                      </Link>
-                  </Button>
-                </div>
-              </div>
-              <div>
-                <div className="flex items-center space-x-3 mb-2">
-                  <Heart className="w-6 h-6 text-primary flex-shrink-0" />
-                  <h3 className="font-semibold">{t('landing.features.selfCompassion.title')}</h3>
-                </div>
-                <p className="text-muted-foreground">
-                  {t('landing.features.selfCompassion.description')}
-                </p>
-                <div className="mt-4">
-                  <Button className="w-full sm:w-auto" wrap={true} asChild>
-                      <Link href={`${localePrefix}/self-compassion`}>
-                        <span>{t('landing.features.selfCompassion.button')} <ArrowRight className="ml-2 h-4 w-4 inline" /></span>
-                      </Link>
-                  </Button>
-                </div>
-              </div>
+
+
             </div>
           </CardContent>
         </Card>

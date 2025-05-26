@@ -17,7 +17,8 @@ import {
   Home, 
   ReceiptText, 
   PiggyBank, 
-  DollarSign
+  DollarSign,
+  Eye
 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
@@ -26,6 +27,8 @@ import { cn } from '@/lib/utils';
 import { AddExpenseForm, type Expense } from '@/components/ui/add-expense-form';
 import { ExpenseList } from '@/components/ui/expense-list';
 import { expenseStorage } from '@/lib/expense-storage';
+import { VisionBoardItem } from '@/types';
+import Image from 'next/image';
 
 const COLORS = {
   living: '#e76e50', // Red
@@ -39,10 +42,21 @@ export default function ExpenseHighlighterPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
   const [currentExpense, setCurrentExpense] = useState<Partial<Expense> & { id?: string }>({});
+  const [visionBoardItems, setVisionBoardItems] = useState<VisionBoardItem[]>([]);
+  
+  // Form state for adding new vision board item
+  const [newVisionItemType, setNewVisionItemType] = useState<'text' | 'image'>('text');
+  const [newVisionItemContent, setNewVisionItemContent] = useState('');
+  const [newVisionItemDescription, setNewVisionItemDescription] = useState('');
 
   useEffect(() => {
     const storedExpenses = expenseStorage.getAll();
     setExpenses(storedExpenses);
+    
+    const storedVisionItems = localStorage.getItem('visionBoardItems');
+    if (storedVisionItems) {
+      setVisionBoardItems(JSON.parse(storedVisionItems));
+    }
   }, []);
 
   const saveExpenses = (updatedExpenses: Expense[]) => {
@@ -90,6 +104,33 @@ export default function ExpenseHighlighterPage() {
 
   const openNewExpenseModal = () => {
     setIsAddFormOpen(true);
+  };
+
+  const saveVisionBoardItems = (items: VisionBoardItem[]) => {
+    setVisionBoardItems(items);
+    localStorage.setItem('visionBoardItems', JSON.stringify(items));
+  };
+
+  const handleAddVisionBoardItem = () => {
+    if (!newVisionItemContent) return;
+    // For image type, use a placeholder if content is not a URL
+    const content = newVisionItemType === 'image' && !newVisionItemContent.startsWith('https://') 
+      ? `https://placehold.co/300x200.png` 
+      : newVisionItemContent;
+      
+    const newItem: VisionBoardItem = {
+      id: Date.now().toString(),
+      type: newVisionItemType,
+      content: content,
+      description: newVisionItemType === 'image' ? newVisionItemDescription : undefined,
+    };
+    saveVisionBoardItems([...visionBoardItems, newItem]);
+    setNewVisionItemContent('');
+    setNewVisionItemDescription('');
+  };
+
+  const handleRemoveVisionBoardItem = (id: string) => {
+    saveVisionBoardItems(visionBoardItems.filter(item => item.id !== id));
   };
   
   const expenseSummary = useMemo(() => {
@@ -144,6 +185,91 @@ export default function ExpenseHighlighterPage() {
 
   return (
     <div className="container mx-auto py-8 space-y-8 px-4">
+ {/* Vision Board Section */}
+ <Card>
+        <CardHeader>
+           <div className="flex items-center space-x-3">
+            <Eye className="w-7 h-7 text-accent" />
+            <CardTitle className="text-2xl">{t('expenseHighlighter.visionBoard.title')}</CardTitle>
+          </div>
+          <CardDescription>{t('expenseHighlighter.visionBoard.subtitle')}</CardDescription>
+        </CardHeader>
+        <CardContent>
+           {visionBoardItems.length === 0 && <p className="text-muted-foreground">{t('expenseHighlighter.visionBoard.empty')}</p>}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {visionBoardItems.map(item => (
+              <Card key={item.id} className="overflow-hidden group relative">
+                {item.type === 'image' && (
+                  <Image 
+                    src={item.content} 
+                    alt={item.description || t('expenseHighlighter.visionBoard.imageAlt')} 
+                    width={300} 
+                    height={200} 
+                    className="w-full h-48 object-cover" 
+                    data-ai-hint="abstract goal"
+                  />
+                )}
+                {item.type === 'text' && (
+                  <div className="h-48 p-4 bg-primary/10 flex items-center justify-center">
+                    <p className="text-lg font-semibold text-center text-primary-foreground">{item.content}</p>
+                  </div>
+                )}
+                {item.description && item.type === 'image' && (
+                  <div className="absolute bottom-0 left-0 right-0 bg-black/50 p-2 text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity">
+                    {item.description}
+                  </div>
+                )}
+                 <Button variant="ghost" size="icon" onClick={() => handleRemoveVisionBoardItem(item.id)} className="absolute top-1 right-1 text-muted-foreground hover:text-destructive opacity-50 group-hover:opacity-100 transition-opacity">
+                    <Trash2 className="w-4 h-4" />
+                 </Button>
+              </Card>
+            ))}
+          </div>
+        </CardContent>
+        <CardFooter>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline"><PlusCircle className="mr-2 h-4 w-4" /> {t('expenseHighlighter.visionBoard.addItem')}</Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>{t('expenseHighlighter.visionBoard.addItem')}</DialogTitle>
+                <DialogDescription>
+                  {t('expenseHighlighter.visionBoard.addItemDescription')}
+                </DialogDescription>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="item-type" className="text-right">{t('expenseHighlighter.visionBoard.form.type')}</Label>
+                  <select id="item-type" value={newVisionItemType} onChange={(e) => setNewVisionItemType(e.target.value as 'text'|'image')} className="col-span-3 border border-input rounded-md px-3 py-2 text-sm">
+                    <option value="text">{t('expenseHighlighter.visionBoard.form.types.text')}</option>
+                    <option value="image">{t('expenseHighlighter.visionBoard.form.types.image')}</option>
+                  </select>
+                </div>
+                <div className="grid grid-cols-4 items-center gap-4">
+                  <Label htmlFor="item-content" className="text-right">{t('expenseHighlighter.visionBoard.form.content')}</Label>
+                  {newVisionItemType === 'text' ? (
+                    <Input id="item-content" value={newVisionItemContent} onChange={(e) => setNewVisionItemContent(e.target.value)} className="col-span-3" />
+                  ) : (
+                    <Input id="item-content" type="url" value={newVisionItemContent} onChange={(e) => setNewVisionItemContent(e.target.value)} className="col-span-3" placeholder="https://..." />
+                  )}
+                </div>
+                {newVisionItemType === 'image' && (
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="item-description" className="text-right">{t('expenseHighlighter.visionBoard.form.description')}</Label>
+                    <Input id="item-description" value={newVisionItemDescription} onChange={(e) => setNewVisionItemDescription(e.target.value)} className="col-span-3" />
+                  </div>
+                )}
+              </div>
+              <DialogFooter>
+                <Button onClick={handleAddVisionBoardItem}>{t('expenseHighlighter.visionBoard.form.save')}</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </CardFooter>
+      </Card>
+
+
       <Card className="shadow-lg">
         <CardHeader>
            <div className="flex items-center space-x-3">

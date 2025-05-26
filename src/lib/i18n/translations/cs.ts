@@ -15,8 +15,6 @@ export const cs = {
     overview: 'Přehled',
     selfAssessment: 'Sebehodnocení',
     expenseHighlighter: 'Zvýrazňovač výdajů',
-    financialGPS: 'Finanční GPS',
-    selfCompassion: 'Sebesoucit',
     dailyCheckIn: 'Denní check-in',
   },
   landing: {
@@ -244,37 +242,32 @@ export const cs = {
         description: 'Nahrajte bankovní výpisy a objevte emocionální vzorce za vašimi výdaji s AI poznatky.',
         button: 'Analyzovat výdaje',
       },
-      financialGPS: {
-        title: 'Finanční GPS',
-        description: 'Získejte personalizované vedení pro vaši finanční cestu založené na vaší jedinečné situaci a cílech.',
-        button: 'Začít navigaci',
-      },
-      selfCompassion: {
-        title: 'Praktiky sebesoucitu',
-        description: 'Naučte se techniky založené na důkazech, jak se k sobě chovat laskavě během finančních výzev.',
-        button: 'Praktikovat soucit',
-      }
+
+
     }
   },
   selfCompassion: {
-    title: 'Denní praxe sebelásky',
-    subtitle: 'Okamžik pro laskavost a reflexi.',
     calmScore: {
-      label: 'Jak klidný se cítíte právě teď? (1-10)',
-      saveButton: 'Uložit Skóre & Reflektovat',
-      newPromptButton: 'Získat Nový Podnět k Sebesoucit'
+      label: 'Jak soucitní k sobě se právě teď cítíte? (1-10)',
+      saveButton: 'Uložit skóre a zamyslet se',
+      newPromptButton: 'Získat novou výzvu k sebesoucitu'
     },
     journey: {
-      title: 'Vaše Cesta ke Klidu',
-      subtitle: 'Sledujte své vlastní hodnocení klidu v čase.',
-      currentAverage: 'Aktuální průměrný klid:'
+      title: 'Vaše cesta klidu'
+    },
+    timeline: {
+      high: 'Vysoký soucit',
+      medium: 'Střední soucit',
+      low: 'Nízký soucit',
+      noData: 'Žádná data',
+      totalEntries: 'Celkem záznamů'
     },
     prompts: [
-      'Dnes se budu k sobě chovat se stejnou laskavostí, jakou bych nabídl dobrému příteli.',
-      'Chyby jsou součástí učení. Odpouštím si jakékoli finanční omyly.',
-      'Dělám to nejlepší s tím, co mám, a to stačí.',
-      'Uznávám své finanční obavy bez souzení a nabízím si útěchu.',
-      'Zaměřuji se na pokrok, ne na dokonalost, ve své finanční cestě.'
+      'Dnes se budu chovat k sobě se stejnou laskavostí, jakou bych nabídl dobrému příteli.',
+      'Chyby jsou součástí učení. Odpouštím si jakékoli finanční chyby.',
+      'Dělám, co mohu s tím, co mám, a to stačí.',
+      'Uznávám své finanční obavy bez odsuzování a nabízím si útěchu.',
+      'Rozhoduji se zaměřit na pokrok, ne na dokonalost, ve své finanční cestě.'
     ]
   },
   expenseHighlighter: {
@@ -303,29 +296,6 @@ export const cs = {
       description: 'Popis',
       category: 'Kategorie',
       date: 'Datum'
-    }
-  },
-  financialGPS: {
-    title: 'Finanční GPS',
-    subtitle: 'Mapujte svou finanční cestu: Minulost, Přítomnost a Budoucnost.',
-    timeline: {
-      title: 'Vaše Finanční Časová Osa',
-      subtitle: 'Klíčové momenty, které formovaly vaši finanční krajinu a současný stav.',
-      empty: 'Zatím žádné události na časové ose. Přidejte první pro začátek!',
-      addEvent: 'Přidat Událost',
-      addEventDescription: 'Dokumentujte významný finanční moment nebo svůj současný stav.',
-      form: {
-        title: 'Název',
-        date: 'Datum',
-        type: 'Typ',
-        description: 'Popis',
-        save: 'Uložit Událost',
-        types: {
-          past: 'Minulý Vliv',
-          present: 'Současný Snapshot',
-          future: 'Budoucí Cíl/Vize'
-        }
-      }
     },
     visionBoard: {
       title: 'Finanční Vize',
@@ -344,13 +314,9 @@ export const cs = {
           image: 'Obrázek (URL)'
         }
       }
-    },
-    youAreHere: {
-      title: 'Zpomalte a zamyslite se',
-      description: "Zamyslete se nad svou aktuální finanční pozicí na základě vaší časové osy.",
-      content: "Na základě událostí na časové ose, zejména vašich záznamů 'Současný stav', si udělejte chvilku na zamyšlení, kde se právě nacházíte na své finanční cestě. Toto je váš bod 'Jste zde'. Jasné pochopení této pozice je prvním krokem k dosažení vaší vysněné budoucnosti."
     }
   },
+
   ifsDialogue: {
     title: 'IFS Dialog: Pochopte své finanční části',
     subtitle: 'Použijte AI k identifikaci a pochopení vašich vnitřních finančních "hasicích" částí pomocí 6F rámce.',
@@ -426,7 +392,6 @@ export const cs = {
           title: 'Finanční informace',
           items: [
             'Data o výdajích, která kategorizujete jako "Životní" vs "Životní styl" prostřednictvím našeho nástroje Zvýrazňovač výdajů',
-            'Informace o finanční časové ose včetně minulých vlivů, současného snímku a budoucích cílů prostřednictvím Finančního GPS',
             'Data o nouzových fondech a finančním plánování',
             'Samy hlášené finanční chování a vzorce'
           ]

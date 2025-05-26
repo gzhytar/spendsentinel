@@ -15,8 +15,6 @@ export const en = {
     overview: 'Overview',
     selfAssessment: 'Self-assessment',
     expenseHighlighter: 'Expense Highlighter',
-    financialGPS: 'Financial GPS',
-    selfCompassion: 'Self-compassion',
     dailyCheckIn: 'Daily Check-in',
   },
   landing: {
@@ -243,16 +241,8 @@ export const en = {
         description: 'Upload bank statements and discover the emotional patterns behind your spending with AI-powered insights.',
         button: 'Analyze Expenses',
       },
-      financialGPS: {
-        title: 'Financial GPS',
-        description: 'Get personalized guidance for your financial journey based on your unique situation and goals.',
-        button: 'Start Navigation',
-      },
-      selfCompassion: {
-        title: 'Self-Compassion Practices',
-        description: 'Learn evidence-based techniques to treat yourself with kindness during financial challenges.',
-        button: 'Practice Compassion',
-      },
+
+
       dailyCheckIn: {
         title: 'Daily Check-in',
         description: 'Build a daily habit of reflection, expense tracking, and compassionate self-awareness with your financial parts.',
@@ -365,17 +355,20 @@ export const en = {
     }
   },
   selfCompassion: {
-    title: 'Daily Self-Compassion',
-    subtitle: 'A moment for kindness and reflection.',
     calmScore: {
-      label: 'How calm do you feel right now? (1-10)',
+      label: 'How self-compassionate do you feel right now? (1-10)',
       saveButton: 'Save Score & Reflect',
       newPromptButton: 'Get a New Self-Compassion Prompt'
     },
     journey: {
-      title: 'Your Calm Journey',
-      subtitle: 'Track your self-reported calm scores over time.',
-      currentAverage: 'Current average calm:'
+      title: 'Your Calm Journey'
+    },
+    timeline: {
+      high: 'High compassion',
+      medium: 'Medium compassion',
+      low: 'Low compassion',
+      noData: 'No data',
+      totalEntries: 'Total entries'
     },
     prompts: [
       'Today, I will treat myself with the same kindness I would offer a good friend.',
@@ -411,32 +404,9 @@ export const en = {
       description: 'Description',
       category: 'Category',
       date: 'Date'
-    }
-  },
-  financialGPS: {
-    title: 'Financial GPS',
-    subtitle: 'Map your financial journey: Past, Present, and Future.',
-    timeline: {
-      title: 'Your Financial Timeline',
-      subtitle: 'Key moments that shaped your financial landscape and your current standing.',
-      empty: 'No timeline events yet. Add one to get started!',
-      addEvent: 'Add Timeline Event',
-      addEventDescription: 'Document a significant financial moment or your current status.',
-      form: {
-        title: 'Title',
-        date: 'Date',
-        type: 'Type',
-        description: 'Description',
-        save: 'Save Event',
-        types: {
-          past: 'Past Influence',
-          present: 'Present Snapshot',
-          future: 'Future Goal/Vision'
-        }
-      }
     },
     visionBoard: {
-      title: 'Financial Vision Board',
+      title: 'My Vision Board',
       subtitle: 'Visualize your financial goals and aspirations.',
       empty: 'Your vision board is empty. Add items to visualize your goals!',
       addItem: 'Add to Vision Board',
@@ -452,13 +422,9 @@ export const en = {
           image: 'Image (URL)'
         }
       }
-    },
-    youAreHere: {
-      title: 'Slow down and reflect',
-      description: "Reflect on your current financial position based on your timeline.",
-      content: "Based on the timeline events you've added, particularly your 'Present Snapshot' entries, take a moment to consider where you currently stand in your financial journey. This is your 'You Are Here' point. Understanding this clearly is the first step towards navigating to your desired future."
     }
   },
+
   ifsDialogue: {
     title: 'IFS Dialogue: Understand Your Financial Parts',
     subtitle: 'Use AI to identify and understand your inner financial "firefighter" parts using the 6F framework.',
@@ -534,7 +500,6 @@ export const en = {
           title: 'Financial Information',
           items: [
             'Expense data you categorize as "Living" vs "Lifestyle" expenses through our Expense Highlighter tool',
-            'Financial timeline information including past influences, present snapshot, and future goals via Financial GPS',
             'Emergency fund and financial planning data',
             'Self-reported financial behaviors and patterns'
           ]

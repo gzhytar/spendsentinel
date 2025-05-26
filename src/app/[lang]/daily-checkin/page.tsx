@@ -16,6 +16,7 @@ import { ExpenseList } from '@/components/ui/expense-list';
 import { SelfCompassionScore } from '@/components/ui/self-compassion-score';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { expenseStorage } from '@/lib/expense-storage';
+import { useIdentifiedParts } from '@/lib/assessment-utils';
 import { use } from 'react';
 
 interface DailyCheckInProps {
@@ -34,22 +35,10 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
     expenses: [] as Expense[],
     triggeredParts: {} as Record<string, string>,
   });
-  const [userParts, setUserParts] = useState<string[]>([]);
   const [selectedParts, setSelectedParts] = useState<string[]>([]);
-
-  // Load user's identified parts from localStorage (from self-assessment)
-  useEffect(() => {
-    const assessmentResults = localStorage.getItem('assessmentResults');
-    if (assessmentResults) {
-      const results = JSON.parse(assessmentResults);
-      // Extract parts from assessment results
-      const parts = results.parts || ['Spender', 'Hoarder', 'Avoider', 'Indulger'];
-      setUserParts(parts);
-    } else {
-      // Default parts if no assessment done
-      setUserParts(['Spender', 'Hoarder', 'Avoider', 'Indulger']);
-    }
-  }, []);
+  
+  // Get user's identified parts from self-assessment results
+  const userParts = useIdentifiedParts();
 
   // Auto-save progress to localStorage
   useEffect(() => {
@@ -229,7 +218,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
           </span>
           {t('dailyCheckIn.panicButtonReminder')}
         </AlertDescription>
-      </Alert>
+      </Alert>  
 
       {/* Panic Button */}
       <PanicButton />

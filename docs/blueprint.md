@@ -112,73 +112,83 @@ Use "invite" not "warn", "notice" not "fail", "parts" language sparingly outside
 
 #### Purpose and Impact
 - **User Need**: Users need a structured daily practice to reflect on their financial behaviors, identify triggered parts, and build awareness of the connection between emotions and spending patterns
-- **Expected Outcome**: Users develop consistent self-reflection habits, gain insight into which parts influence their financial decisions, and track their progress over time through visual feedback
+- **Expected Outcome**: Users develop consistent self-reflection habits, gain insight into which parts influence their financial decisions, and track their progress over time through visual feedback and streak tracking
 - **Emotional Impact**: Should create a safe, non-judgmental space for reflection that feels supportive and encouraging, making users feel understood and empowered to explore their relationship with money
 
 #### Functional Requirements
-- **Core Functionality**: Guided 6-step daily check-in process that includes grounding breath exercise, day reflection, expense logging with part identification, visual progress tracking, relationship building prompts, and self-compassion scoring
+- **Core Functionality**: Guided 6-step daily check-in process that includes grounding breath exercise, mindful day reflection, expense logging with part identification and journaling, visual progress tracking with streak calculation, relationship building prompts (coming soon), and self-compassion scoring
 - **User Interactions**: 
-  - Navigate through 6 sequential steps with next/previous controls
-  - Complete 30-second breathing exercise (text-based guidance)
-  - Free-text reflection on daily events, emotions, and decisions
-  - Log expenses with part tagging and journal notes
-  - View 30-day visual timeline of check-in completion
-  - Access panic button throughout the process
-  - Rate daily self-compassion score
+  - Navigate through 6 sequential steps with next/previous controls and progress indicator
+  - Complete guided breathing exercise with detailed IFS-informed instructions
+  - Reflect on daily events, emotions, and financial decisions (contemplative, no input required)
+  - Log expenses using integrated AddExpenseForm with part selection and journal notes for each triggered part
+  - View 30-day calendar-style timeline with completion indicators, streak tracking, and statistics
+  - Access persistent panic button throughout the process with prominent reminder alert
+  - Rate daily self-compassion score (1-10) with integration to calm history tracking
 - **Data Requirements**: 
-  - User's self-assessment results (identified parts)
-  - Daily check-in completion status
-  - Expense entries with associated parts and journal notes
-  - Self-compassion scores
-  - 30-day history of check-ins
+  - User's identified parts from self-assessment results (via `useIdentifiedParts()` hook)
+  - Daily check-in completion status stored in localStorage and future database
+  - Expense entries with associated triggered parts and journal notes (shared with Expense Highlighter)
+  - Self-compassion scores integrated with existing calm history system
+  - 30-day completion history with streak calculation
 
 #### UI/UX Specifications
 - **Component Placement**: 
-  - Dedicated page accessible via side navigation menu as "Daily Check-in"
-  - Progress indicator showing current step (1-6)
-  - Persistent panic button in corner with gentle reminder text
+  - Dedicated page at `/[lang]/daily-checkin` accessible via side navigation menu
+  - Progress indicator showing current step (1-6) with percentage completion
+  - Prominent panic button reminder alert at top of page with red styling
+  - Persistent PanicButton component available throughout
 - **Visual Elements**:
-  - Step 1: Text-based breathing instructions with calming background
-  - Step 2: Text area for day reflection with prompts
-  - Step 3: Expense logging interface integrated from Expense Highlighter with:
-    - Part selection checkboxes/tags based on user's assessment results
-    - Journal note field for each triggered part
-    - Visual reminder about panic button availability
-  - Step 4: Calendar-style timeline showing last 30 days with visual indicators (filled/empty circles) for completed check-ins
-  - Step 5: Placeholder button "Deepen Part Relationships" with coming soon badge
-  - Step 6: Self-compassion score slider (1-10) with submit button
+  - **Step 1 (Breathing)**: Detailed IFS-informed breathing instructions in highlighted card with calming background styling
+  - **Step 2 (Reflection)**: Contemplative prompts with inspirational quote from Ram Dass and calming reflection image
+  - **Step 3 (Expense Logging)**: 
+    - Integrated AddExpenseForm with triggered parts functionality
+    - Part selection based on user's assessment results only (no default parts)
+    - ExpenseList showing today's expenses with journal notes display
+    - Helpful message with link to Self-Assessment if no parts identified
+  - **Step 4 (Timeline)**: 
+    - CheckinTimeline component with 30-day calendar grid view
+    - Visual indicators (CheckCircle2/Circle icons) for completed/missed days
+    - Current streak counter and total completion statistics
+    - Month labels and today highlighting
+  - **Step 5 (Deepen Relationships)**: Placeholder button with "Coming Soon" badge (disabled state)
+  - **Step 6 (Self-Compassion)**: SelfCompassionScore component with compact styling and calm history integration
 - **Interactive Behavior**: 
-  - Smooth transitions between steps
-  - Auto-save progress if user exits mid-session
-  - Gentle animations for completed steps
-  - Non-intrusive panic button that expands on hover
+  - Smooth step transitions with scroll-to-top navigation
+  - Auto-save progress to localStorage with session persistence
+  - Expense data shared with Expense Highlighter feature
+  - Completion triggers localStorage update and success message
+  - Reset to step 1 after completion for new check-in
 - **States**:
-  - In-progress (current step highlighted)
-  - Partially completed (can resume)
-  - Completed for today
-  - Historical view (reviewing past check-ins)
+  - In-progress (current step highlighted with progress bar)
+  - Session persistence (can resume from saved progress)
+  - Completed for today (marked in timeline)
+  - Historical view (30-day timeline with streak tracking)
 
 #### Technical Implementation Guidelines
 - **Suggested Approach**: 
-  - React component with step-based navigation using `useState` for current step
-  - Integration with existing Expense Highlighter components
-  - Local storage for session persistence
-  - Database storage for completed check-ins
+  - React component (`src/app/[lang]/daily-checkin/page.tsx`) with step-based navigation using `useState`
+  - Integration with existing components: AddExpenseForm, ExpenseList, SelfCompassionScore, CheckinTimeline
+  - localStorage for session persistence (`dailyCheckInProgress`) and completion tracking (`completedCheckIns`)
+  - Shared expense storage with Expense Highlighter via `expenseStorage` utility
 - **Integration Points**: 
-  - Expense Highlighter feature for step 3
-  - Self-assessment results for available parts list
-  - User authentication for data persistence
-  - Panic button component (shared across app)
+  - `useIdentifiedParts()` hook from `assessment-utils.ts` for available parts list
+  - Shared expense storage system for consistency across features
+  - Self-compassion scoring integrated with existing calm history system
+  - PanicButton component (shared across app)
+  - Internationalization via `useI18n()` hook with comprehensive translation support
 - **Performance Considerations**: 
-  - Lazy load timeline visualization
-  - Cache user's parts list
-  - Optimistic UI updates for smooth experience
+  - Lazy loading of timeline data (30-day calculation on mount)
+  - Efficient localStorage operations with error handling
+  - Optimistic UI updates for smooth user experience
+  - Scroll management for step transitions
 
 #### Examples
-- **Sample Content**:
-  - Step 1: "Let's begin with a grounding breath. Breathe in slowly for 4 counts... Hold for 4... Exhale for 6... Repeat this cycle for 30 seconds."
-  - Step 2 Prompt: "Take a moment to recall your day. What events stood out? What emotions did you experience? What financial decisions did you make?"
-  - Panic Button Reminder: "Remember, the panic button is always here for you - no judgment, just support when you need it."
-  - Step 4 Caption: "Your check-in journey over the last 30 days"
-  - Step 6: "Rate your self-compassion today (1 = very critical, 10 = very compassionate)"
+- **Sample Content (from translation files)**:
+  - **Step 1**: "Sit or stand tall with relaxed shoulders and grounded feet, inviting any tense or busy part of you to simply watch. Place one hand on your heart, one on your belly, and quietly set an intention like 'May this breath give all my parts ease.' Breathe in through your nose to fill your chest, then sigh the air out an open mouth without pausing, keeping a connected 5-second in / 5-second out flow for about six waves while letting tension ride out on each exhale."
+  - **Step 2**: "Take a moment to recall your day. What events stood out? What emotions did you experience? What financial decisions did you make? This silent practice helps build mindfulness and self-awareness over time."
+  - **Panic Button Reminder**: "Remember, the panic button is always here for you - no judgment, just support when you need it."
+  - **Step 4**: "Your check-in journey over the last 30 days" with streak tracking and completion statistics
+  - **Step 6**: "Rate your self-compassion today (1 = very critical, 10 = very compassionate)"
+  - **No Parts Message**: "No financial parts identified yet. Complete the [Self-Assessment] to identify your financial parts and track which ones are triggered by your expenses."
 

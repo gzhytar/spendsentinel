@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useI18n } from '@/contexts/i18n-context';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card } from '@/components/ui/card';
 import { AddExpenseForm, type Expense } from '@/components/ui/add-expense-form';
 import { ExpenseList } from '@/components/ui/expense-list';
+import { useIdentifiedParts } from '@/lib/assessment-utils';
 
 interface ExpenseLoggingStepProps {
   lang: string;
@@ -22,22 +23,10 @@ export function ExpenseLoggingStep({
   onUpdate,
 }: ExpenseLoggingStepProps) {
   const { t } = useI18n();
-  const [userParts, setUserParts] = useState<string[]>([]);
   const [selectedParts, setSelectedParts] = useState<string[]>([]);
-
-  // Load user's identified parts from localStorage (from self-assessment)
-  useEffect(() => {
-    const assessmentResults = localStorage.getItem('assessmentResults');
-    if (assessmentResults) {
-      const results = JSON.parse(assessmentResults);
-      // Extract parts from assessment results
-      const parts = results.parts || ['Spender', 'Hoarder', 'Avoider', 'Indulger'];
-      setUserParts(parts);
-    } else {
-      // Default parts if no assessment done
-      setUserParts(['Spender', 'Hoarder', 'Avoider', 'Indulger']);
-    }
-  }, []);
+  
+  // Get user's identified parts from self-assessment results
+  const userParts = useIdentifiedParts();
 
   const handleAddExpense = (expenseData: Omit<Expense, 'id'>) => {
     const expense: Expense = {

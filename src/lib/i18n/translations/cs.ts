@@ -669,7 +669,9 @@ export const cs = {
         triggeredParts: 'Které části byly spuštěny?',
         journalNotes: 'Poznámky z deníku pro spuštěné části:',
         partNote: 'poznámka:',
-        journalPlaceholder: 'Jak se tato část projevila? Co se snažila chránit nebo poskytnout?'
+        journalPlaceholder: 'Jak se tato část projevila? Co se snažila chránit nebo poskytnout?',
+        noPartsMessage: 'Zatím nebyly identifikovány žádné finanční části. Dokončete',
+        noPartsMessageAfter: 'pro identifikaci vašich finančních částí a sledování, které jsou spuštěny vašimi výdaji.'
       },
       timeline: {
         title: 'Vaše cesta check-inu',

@@ -717,7 +717,9 @@ export const en = {
         triggeredParts: 'Which parts were triggered?',
         journalNotes: 'Journal notes for triggered parts:',
         partNote: 'note:',
-        journalPlaceholder: 'How did this part show up? What was it trying to protect or provide?'
+        journalPlaceholder: 'How did this part show up? What was it trying to protect or provide?',
+        noPartsMessage: 'No financial parts identified yet. Complete the',
+        noPartsMessageAfter: 'to identify your financial parts and track which ones are triggered by your expenses.'
       },
       timeline: {
         title: 'Your Check-in Journey',

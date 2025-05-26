@@ -35,7 +35,7 @@ export function AddExpenseForm({
   onPartToggle,
   selectedParts = []
 }: AddExpenseFormProps) {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const [formData, setFormData] = useState<Omit<Expense, 'id'>>({
     amount: 0,
     description: '',
@@ -177,20 +177,32 @@ export function AddExpenseForm({
           />
         </div>
         
-        {showTriggeredParts && availableParts.length > 0 && (
+        {showTriggeredParts && (
           <div>
             <Label>{t('dailyCheckIn.steps.expenseLogging.triggeredParts')}</Label>
-            <div className="flex flex-wrap gap-2 mt-2">
-              {availableParts.map((part) => (
-                <label key={part} className="flex items-center space-x-2 cursor-pointer">
-                  <Checkbox
-                    checked={selectedParts.includes(part)}
-                    onCheckedChange={(checked) => onPartToggle?.(part, !!checked)}
-                  />
-                  <span className="text-sm">{part}</span>
-                </label>
-              ))}
-            </div>
+            {availableParts.length > 0 ? (
+              <div className="flex flex-wrap gap-2 mt-2">
+                {availableParts.map((part) => (
+                  <label key={part} className="flex items-center space-x-2 cursor-pointer">
+                    <Checkbox
+                      checked={selectedParts.includes(part)}
+                      onCheckedChange={(checked) => onPartToggle?.(part, !!checked)}
+                    />
+                    <span className="text-sm">{part}</span>
+                  </label>
+                ))}
+              </div>
+            ) : (
+              <div className="mt-2 p-3 bg-muted/50 rounded-md">
+                <p className="text-sm text-muted-foreground">
+                  {t('dailyCheckIn.steps.expenseLogging.noPartsMessage')}{' '}
+                  <a href={`/${locale}/self-assessment`} className="text-primary hover:underline">
+                    {t('selfAssessment.title')}
+                  </a>
+                  {t('dailyCheckIn.steps.expenseLogging.noPartsMessageAfter')}
+                </p>
+              </div>
+            )}
           </div>
         )}
 

@@ -381,110 +381,127 @@ export default function ExpenseHighlighterPage() {
         </CardFooter>
       </Card>
 
-      {expenses.length > 0 && (
-        <Card>
-          <CardHeader>
-            <div className="flex items-center space-x-3">
-                <TrendingUp className="w-7 h-7 text-accent" />
-                <CardTitle className="text-xl">{t('expenseHighlighter.overview')}</CardTitle>
-            </div>
-          </CardHeader>
-          <CardContent className="grid md:grid-cols-2 gap-8 items-center">
-            <div className="space-y-3">
-              <div className="flex items-center">
-                <DollarSign className="mr-2 h-5 w-5 text-primary" />
-                <p>{t('expenseHighlighter.total')}: <span className="font-bold text-primary">${expenseSummary.total.toFixed(0)}</span></p>
-              </div>
-              <div className="flex items-center">
-                {getCategoryIconForSummary('living')}
-                <p>{t('expenseHighlighter.categories.living')}: <span className="font-bold" style={{color: COLORS.living}}>${expenseSummary.living.toFixed(0)}</span></p>
-              </div>
-              <div className="flex items-center">
-                {getCategoryIconForSummary('lifestyle')}
-                <p>{t('expenseHighlighter.categories.lifestyle')}: <span className="font-bold" style={{color: COLORS.lifestyle}}>${expenseSummary.lifestyle.toFixed(0)}</span></p>
-              </div>
-              <div className="flex items-center">
-                {getCategoryIconForSummary('unassigned')}
-                <p>{t('expenseHighlighter.unassigned')}: <span className="font-bold" style={{color: COLORS.unassigned}}>${expenseSummary.unassigned.toFixed(0)}</span></p>
-              </div>
-            </div>
-            <div className="h-[300px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={chartData}
-                    cx="50%"
-                    cy="50%"
-                    labelLine={false}
-                    outerRadius={100}
-                    fill="#8884d8"
-                    dataKey="value"
-                    label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
-                  >
-                    {chartData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[entry.category.toLowerCase() as keyof typeof COLORS]} />
-                    ))}
-                  </Pie>
-                  <Tooltip formatter={(value: number) => `$${value.toFixed(0)}`} />
-                  <Legend />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
-      )}
+      {/* Overview Cards - Side by Side Layout */}
+      {(expenses.length > 0 || expenses.filter(exp => exp.type === 'saving').length > 0) && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Spend Overview */}
+          {expenses.length > 0 && (
+            <Card>
+              <CardHeader>
+                <div className="flex items-center space-x-3">
+                    <TrendingUp className="w-7 h-7 text-accent" />
+                    <CardTitle className="text-xl">{t('expenseHighlighter.overview')}</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent className="grid md:grid-cols-2 gap-8 items-center">
+                <div className="space-y-3">
+                  <div className="flex items-center">
+                    <DollarSign className="mr-2 h-5 w-5 text-primary" />
+                    <p>{t('expenseHighlighter.total')}: <span className="font-bold text-primary">${expenseSummary.total.toFixed(0)}</span></p>
+                  </div>
+                  <div className="flex items-center">
+                    {getCategoryIconForSummary('living')}
+                    <p>{t('expenseHighlighter.categories.living')}: <span className="font-bold" style={{color: COLORS.living}}>${expenseSummary.living.toFixed(0)}</span></p>
+                  </div>
+                  <div className="flex items-center">
+                    {getCategoryIconForSummary('lifestyle')}
+                    <p>{t('expenseHighlighter.categories.lifestyle')}: <span className="font-bold" style={{color: COLORS.lifestyle}}>${expenseSummary.lifestyle.toFixed(0)}</span></p>
+                  </div>
+                  <div className="flex items-center">
+                    {getCategoryIconForSummary('unassigned')}
+                    <p>{t('expenseHighlighter.unassigned')}: <span className="font-bold" style={{color: COLORS.unassigned}}>${expenseSummary.unassigned.toFixed(0)}</span></p>
+                  </div>
+                </div>
+                <div className="h-[300px] w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={chartData}
+                        cx="50%"
+                        cy="50%"
+                        labelLine={false}
+                        outerRadius={100}
+                        fill="#8884d8"
+                        dataKey="value"
+                        label={false}
+                      >
+                        {chartData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={COLORS[entry.category.toLowerCase() as keyof typeof COLORS]} />
+                        ))}
+                      </Pie>
+                      <Legend 
+                        formatter={(value, entry) => {
+                          const total = chartData.reduce((sum, item) => sum + item.value, 0);
+                          const percentage = entry?.payload ? ((entry.payload.value / total) * 100).toFixed(0) : '0';
+                          return `${value} (${percentage}%)`;
+                        }}
+                      />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+              </CardContent>
+            </Card>
+          )}
 
-      {expenses.filter(exp => exp.type === 'saving').length > 0 && (
-        <Card>
-          <CardHeader>
-            <div className="flex items-center space-x-3">
-                <PiggyBank className="w-7 h-7 text-accent" />
-                <CardTitle className="text-xl">{t('expenseHighlighter.totalSavings')}</CardTitle>
-            </div>
-          </CardHeader>
-          <CardContent className="grid md:grid-cols-2 gap-8 items-center">
-            <div className="space-y-3">
-              <div className="flex items-center">
-                <DollarSign className="mr-2 h-5 w-5 text-primary" />
-                <p>{t('expenseHighlighter.totalSavings')}: <span className="font-bold text-primary">${savingsSummary.total.toFixed(0)}</span></p>
-              </div>
-              <div className="flex items-center">
-                {getCategoryIconForSummary('emergency')}
-                <p>{t('expenseHighlighter.savingCategories.emergency')}: <span className="font-bold" style={{color: COLORS.emergency}}>${savingsSummary.emergency.toFixed(0)}</span></p>
-              </div>
-              <div className="flex items-center">
-                {getCategoryIconForSummary('goals')}
-                <p>{t('expenseHighlighter.savingCategories.goals')}: <span className="font-bold" style={{color: COLORS.goals}}>${savingsSummary.goals.toFixed(0)}</span></p>
-              </div>
-              <div className="flex items-center">
-                {getCategoryIconForSummary('investment')}
-                <p>{t('expenseHighlighter.savingCategories.investment')}: <span className="font-bold" style={{color: COLORS.investment}}>${savingsSummary.investment.toFixed(0)}</span></p>
-              </div>
-            </div>
-            <div className="h-[300px] w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={savingsChartData}
-                    cx="50%"
-                    cy="50%"
-                    labelLine={false}
-                    outerRadius={100}
-                    fill="#8884d8"
-                    dataKey="value"
-                    label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
-                  >
-                    {savingsChartData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[entry.category.toLowerCase() as keyof typeof COLORS]} />
-                    ))}
-                  </Pie>
-                  <Tooltip formatter={(value: number) => `$${value.toFixed(0)}`} />
-                  <Legend />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-          </CardContent>
-        </Card>
+          {/* Total Savings */}
+          {expenses.filter(exp => exp.type === 'saving').length > 0 && (
+            <Card>
+              <CardHeader>
+                <div className="flex items-center space-x-3">
+                    <PiggyBank className="w-7 h-7 text-accent" />
+                    <CardTitle className="text-xl">{t('expenseHighlighter.totalSavings')}</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent className="grid md:grid-cols-2 gap-8 items-center">
+                <div className="space-y-3">
+                  <div className="flex items-center">
+                    <DollarSign className="mr-2 h-5 w-5 text-primary" />
+                    <p>{t('expenseHighlighter.totalSavings')}: <span className="font-bold text-primary">${savingsSummary.total.toFixed(0)}</span></p>
+                  </div>
+                  <div className="flex items-center">
+                    {getCategoryIconForSummary('emergency')}
+                    <p>{t('expenseHighlighter.savingCategories.emergency')}: <span className="font-bold" style={{color: COLORS.emergency}}>${savingsSummary.emergency.toFixed(0)}</span></p>
+                  </div>
+                  <div className="flex items-center">
+                    {getCategoryIconForSummary('goals')}
+                    <p>{t('expenseHighlighter.savingCategories.goals')}: <span className="font-bold" style={{color: COLORS.goals}}>${savingsSummary.goals.toFixed(0)}</span></p>
+                  </div>
+                  <div className="flex items-center">
+                    {getCategoryIconForSummary('investment')}
+                    <p>{t('expenseHighlighter.savingCategories.investment')}: <span className="font-bold" style={{color: COLORS.investment}}>${savingsSummary.investment.toFixed(0)}</span></p>
+                  </div>
+                </div>
+                <div className="h-[300px] w-full">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={savingsChartData}
+                        cx="50%"
+                        cy="50%"
+                        labelLine={false}
+                        outerRadius={100}
+                        fill="#8884d8"
+                        dataKey="value"
+                        label={false}
+                      >
+                        {savingsChartData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={COLORS[entry.category.toLowerCase() as keyof typeof COLORS]} />
+                        ))}
+                      </Pie>
+                      <Legend 
+                        formatter={(value, entry) => {
+                          const total = savingsChartData.reduce((sum, item) => sum + item.value, 0);
+                          const percentage = entry?.payload ? ((entry.payload.value / total) * 100).toFixed(0) : '0';
+                          return `${value} (${percentage}%)`;
+                        }}
+                      />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+        </div>
       )}
 
       <Card>

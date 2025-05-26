@@ -244,6 +244,11 @@ export const cs = {
       },
 
 
+      dailyCheckIn: {
+        title: 'Denní check-in',
+        description: 'Budujte denní návyk reflexe, sledování výdajů a soucitného sebeuvědomění se svými finančními částmi.',
+        button: 'Začít check-in',
+      },
     }
   },
   selfCompassion: {

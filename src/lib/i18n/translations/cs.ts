@@ -14,7 +14,7 @@ export const cs = {
     home: 'Domů',
     overview: 'Přehled',
     selfAssessment: 'Sebehodnocení',
-    expenseHighlighter: 'Zvýrazňovač výdajů',
+    myFinancialDecisions: 'Moje finanční rozhodnutí',
     dailyCheckIn: 'Denní check-in',
   },
   landing: {
@@ -237,10 +237,10 @@ export const cs = {
         description: 'Objevte, které finanční "hasičské" části jsou ve vašem životě nejaktivnější a dozvíte se o jejich ochranných záměrech.',
         button: 'Provést hodnocení',
       },
-      expenseHighlighter: {
-        title: 'Zvýrazňovač výdajů',
-        description: 'Nahrajte bankovní výpisy a objevte emocionální vzorce za vašimi výdaji s AI poznatky.',
-        button: 'Analyzovat výdaje',
+      myFinancialDecisions: {
+        title: 'Moje finanční rozhodnutí',
+        description: 'Sledujte a pochopte emocionální vzorce za vašimi výdaji s AI poznatky.',
+        button: 'Sledovat rozhodnutí',
       },
 
 
@@ -271,7 +271,7 @@ export const cs = {
     ]
   },
   expenseHighlighter: {
-    title: 'Zvýraznění Výdajů',
+    title: 'Moje finanční rozhodnutí',
     subtitle: 'Sledujte a kategorizujte své výdaje pro lepší pochopení vzorců utrácení.',
     addExpense: 'Přidat Výdaj',
     editExpense: 'Upravit',
@@ -391,7 +391,7 @@ export const cs = {
         financialInfo: {
           title: 'Finanční informace',
           items: [
-            'Data o výdajích, která kategorizujete jako "Životní" vs "Životní styl" prostřednictvím našeho nástroje Zvýrazňovač výdajů',
+            'Data o výdajích, která kategorizujete jako "Životní" vs "Životní styl" prostřednictvím našeho nástroje Moje finanční rozhodnutí',
             'Data o nouzových fondech a finančním plánování',
             'Samy hlášené finanční chování a vzorce'
           ]

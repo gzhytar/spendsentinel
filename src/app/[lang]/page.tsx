@@ -110,15 +110,15 @@ export default function LandingPage() {
               <div>
                 <div className="flex items-center space-x-3 mb-2">
                   <Lightbulb className="w-6 h-6 text-primary flex-shrink-0" />
-                  <h3 className="font-semibold">{t('landing.features.expenseHighlighter.title')}</h3>
+                  <h3 className="font-semibold">{t('landing.features.myFinancialDecisions.title')}</h3>
                 </div>
                 <p className="text-muted-foreground">
-                  {t('landing.features.expenseHighlighter.description')}
+                  {t('landing.features.myFinancialDecisions.description')}
                 </p>
                 <div className="mt-4">
                   <Button className="w-full sm:w-auto" wrap={true} asChild>
                       <Link href={`${localePrefix}/expense-highlighter`}>
-                        <span>{t('landing.features.expenseHighlighter.button')} <ArrowRight className="ml-2 h-4 w-4 inline" /></span>
+                        <span>{t('landing.features.myFinancialDecisions.button')} <ArrowRight className="ml-2 h-4 w-4 inline" /></span>
                       </Link>
                   </Button>
                 </div>

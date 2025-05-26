@@ -14,7 +14,7 @@ export const en = {
     home: 'Home',
     overview: 'Overview',
     selfAssessment: 'Self-assessment',
-    expenseHighlighter: 'Expense Highlighter',
+    myFinancialDecisions: 'My Financial Decisions',
     dailyCheckIn: 'Daily Check-in',
   },
   landing: {
@@ -236,10 +236,10 @@ export const en = {
         description: 'Discover which financial "firefighter" parts are most active in your life and learn about their protective intentions.',
         button: 'Take Assessment',
       },
-      expenseHighlighter: {
-        title: 'Expense Highlighter',
-        description: 'Upload bank statements and discover the emotional patterns behind your spending with AI-powered insights.',
-        button: 'Analyze Expenses',
+      myFinancialDecisions: {
+        title: 'My Financial Decisions',
+        description: 'Track and understand the emotional patterns behind your spending with AI-powered insights.',
+        button: 'Track Decisions',
       },
 
 
@@ -379,7 +379,7 @@ export const en = {
     ]
   },
   expenseHighlighter: {
-    title: 'Expense Highlighter',
+    title: 'My Financial Decisions',
     subtitle: 'Track and categorize your expenses to understand your spending patterns.',
     addExpense: 'Add Expense',
     editExpense: 'Edit',
@@ -499,7 +499,7 @@ export const en = {
         financialInfo: {
           title: 'Financial Information',
           items: [
-            'Expense data you categorize as "Living" vs "Lifestyle" expenses through our Expense Highlighter tool',
+            'Expense data you categorize as "Living" vs "Lifestyle" expenses through our My Financial Decisions tool',
             'Emergency fund and financial planning data',
             'Self-reported financial behaviors and patterns'
           ]

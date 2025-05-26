@@ -172,7 +172,7 @@ Use "invite" not "warn", "notice" not "fail", "parts" language sparingly outside
   - **Prompts**: "Today, I will treat myself with the same kindness I would offer a good friend."
   - **Timeline Labels**: "High compassion (8-10)", "Medium compassion (4-7)", "Low compassion (1-3)", "No data"
   - **Statistics**: "Average score: 7.2", "Total entries: 15 / 30"
-  - **Score Interface**: "How self-compassionate do you feel right now? (1-10)" with "Save Score & Reflect" button
+  - **Score Interface**: "How self-compassionate do you feel right now? (1-10)" with "Reflect & Save Score" button
 
 ---
 

@@ -37,6 +37,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
     triggeredParts: {} as Record<string, string>,
   });
   const [selectedParts, setSelectedParts] = useState<string[]>([]);
+  const [isScoreSaved, setIsScoreSaved] = useState(false);
   
   // Get user's identified parts from self-assessment results
   const userParts = useIdentifiedParts();
@@ -48,6 +49,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
       const parsed = JSON.parse(savedProgress);
       setCurrentStep(parsed.currentStep);
       setCheckInData(parsed.checkInData);
+      setIsScoreSaved(parsed.isScoreSaved || false);
     }
     
     // Load existing expenses from shared storage (same as Expense Highlighter)
@@ -64,8 +66,9 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
     localStorage.setItem('dailyCheckInProgress', JSON.stringify({
       currentStep,
       checkInData,
+      isScoreSaved,
     }));
-  }, [currentStep, checkInData]);
+  }, [currentStep, checkInData, isScoreSaved]);
 
   const handleNextStep = () => {
     if (currentStep < 6) {
@@ -181,6 +184,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
       triggeredParts: {},
     });
     setSelectedParts([]);
+    setIsScoreSaved(false);
     
     // Scroll to top after reset for better UX
     containerRef.current?.scrollIntoView({ 
@@ -211,6 +215,15 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
         </div>
       </div>
 
+      {/* Check-in Timeline */}
+      <div className="mb-8">
+        <div className="flex items-center gap-2 mb-4">
+          <Calendar className="h-5 w-5 text-primary" />
+          <h2 className="text-xl font-semibold">{t('dailyCheckIn.steps.timeline.title')}</h2>
+        </div>
+        <CheckinTimeline lang={lang} />
+      </div>
+
       {/* Panic Button Reminder Alert */}
       <Alert className="mb-6 bg-red-50 border-red-200 dark:bg-red-950/20 dark:border-red-900">
         <AlertDescription className="text-red-800 dark:text-red-200 flex items-center gap-3">
@@ -238,7 +251,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
           </div>
         )}
 
-                {/* Step 2: Day Reflection */}
+        {/* Step 2: Day Reflection */}
         {currentStep === 2 && (
           <div className="space-y-6">
             <h2 className="text-2xl font-semibold">{t('dailyCheckIn.steps.reflection.title')}</h2>
@@ -324,17 +337,8 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
           </div>
         )}
 
-        {/* Step 4: Timeline */}
+        {/* Step 4: Deepen Relationships */}
         {currentStep === 4 && (
-          <div className="space-y-6">
-            <h2 className="text-2xl font-semibold">{t('dailyCheckIn.steps.timeline.title')}</h2>
-            <p className="text-muted-foreground">{t('dailyCheckIn.steps.timeline.caption')}</p>
-            <CheckinTimeline lang={lang} />
-          </div>
-        )}
-
-        {/* Step 5: Deepen Relationships */}
-        {currentStep === 5 && (
           <div className="space-y-6">
             <h2 className="text-2xl font-semibold">{t('dailyCheckIn.steps.deepenRelationships.title')}</h2>
             <p className="text-muted-foreground">
@@ -351,8 +355,8 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
           </div>
         )}
 
-        {/* Step 6: Self-Compassion Score */}
-        {currentStep === 6 && (
+        {/* Step 5: Self-Compassion Score */}
+        {currentStep === 5 && (
           <div className="space-y-6 overflow-hidden">
             <h2 className="text-2xl font-semibold">{t('dailyCheckIn.steps.selfCompassion.title')}</h2>
             <p className="text-muted-foreground">
@@ -364,6 +368,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
                 initialScore={checkInData.selfCompassionScore}
                 onScoreSave={(score) => {
                   setCheckInData({ ...checkInData, selfCompassionScore: score });
+                  setIsScoreSaved(true);
                   
                   // Save to calm history for consistency with self-compassion page
                   const newEntry = { date: new Date().toISOString().split('T')[0], score };
@@ -388,20 +393,37 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
                 }}
                 showPrompt={true}
                 compact={true}
-                showActions={false}
+                showActions={true}
               />
             </div>
             
-            {/* Self-Compassion Timeline */}
-            <div className="mt-8 w-full overflow-hidden">
-              <div className="flex items-center gap-2 mb-4">
-                <Calendar className="h-5 w-5 text-primary" />
-                <h3 className="text-lg font-semibold">{t('selfCompassion.journey.title')}</h3>
+            {/* Score save status indicator */}
+            {!isScoreSaved && (
+              <div className="mt-6 p-3 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900 rounded-lg">
+                <p className="text-sm text-amber-800 dark:text-amber-200">
+                  💡 {t('dailyCheckIn.steps.selfCompassion.savePrompt')}
+                </p>
               </div>
-              <div className="w-full overflow-x-auto">
-                <CompassionTimeline lang={lang} />
+            )}
+            
+            {/* Self-Compassion Timeline - Only show after score is saved */}
+            {isScoreSaved && (
+              <div className="mt-8 w-full overflow-hidden">
+                <div className="flex items-center gap-2 mb-4">
+                  <Calendar className="h-5 w-5 text-primary" />
+                  <h3 className="text-lg font-semibold">{t('selfCompassion.journey.title')}</h3>
+                </div>
+                <div className="w-full overflow-x-auto">
+                  <CompassionTimeline lang={lang} />
+                </div>
+                
+                <div className="mt-4 p-3 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-900 rounded-lg">
+                  <p className="text-sm text-green-800 dark:text-green-200">
+                    ✅ {t('dailyCheckIn.steps.selfCompassion.scoreSaved')}
+                  </p>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         )}
 
@@ -415,12 +437,12 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
             {t('dailyCheckIn.navigation.previous')}
           </Button>
           
-          {currentStep < 6 ? (
+          {currentStep < 5 ? (
             <Button onClick={handleNextStep}>
               {t('dailyCheckIn.navigation.next')}
             </Button>
           ) : (
-            <Button onClick={handleCompleteCheckIn}>
+            <Button onClick={handleCompleteCheckIn} disabled={!isScoreSaved}>
               {t('dailyCheckIn.navigation.complete')}
             </Button>
           )}

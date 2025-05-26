@@ -357,7 +357,7 @@ export const en = {
   selfCompassion: {
     calmScore: {
       label: 'How self-compassionate do you feel right now? (1-10)',
-      saveButton: 'Save Score & Reflect',
+      saveButton: 'Reflect & Save Score',
       newPromptButton: 'Get a New Self-Compassion Prompt'
     },
     journey: {
@@ -721,7 +721,9 @@ export const en = {
         title: 'Self-Compassion Score',
         prompt: 'Rate your self-compassion today (1 = very critical, 10 = very compassionate)',
         veryCritical: 'very critical',
-        veryCompassionate: 'very compassionate'
+        veryCompassionate: 'very compassionate',
+        savePrompt: 'Please save your self-compassion score to view your calm journey and complete the check-in.',
+        scoreSaved: 'Your self-compassion score has been saved! You can now complete your check-in.'
       }
     },
     timeline: {

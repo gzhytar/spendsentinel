@@ -673,7 +673,9 @@ export const cs = {
         title: 'Skóre sebelásky',
         prompt: 'Ohodnoťte svou sebelásku dnes (1 = velmi kritický, 10 = velmi soucitný)',
         veryCritical: 'velmi kritický',
-        veryCompassionate: 'velmi soucitný'
+        veryCompassionate: 'velmi soucitný',
+        savePrompt: 'Prosím uložte své skóre sebelásky, abyste mohli zobrazit svou cestu klidu a dokončit check-in.',
+        scoreSaved: 'Vaše skóre sebelásky bylo uloženo! Nyní můžete dokončit svůj check-in.'
       }
     },
     timeline: {

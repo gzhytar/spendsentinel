@@ -1,0 +1,144 @@
+'use client';
+
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Edit3, Trash2, Home, ShoppingBag, HelpCircle, PiggyBank } from 'lucide-react';
+import { useI18n } from '@/contexts/i18n-context';
+import { cn } from '@/lib/utils';
+import type { Expense } from './add-expense-form';
+
+interface ExpenseListProps {
+  expenses: Expense[];
+  onEdit?: (expense: Expense) => void;
+  onDelete: (id: string) => void;
+  showEditActions?: boolean;
+}
+
+export function ExpenseList({ 
+  expenses, 
+  onEdit, 
+  onDelete, 
+  showEditActions = true 
+}: ExpenseListProps) {
+  const { t } = useI18n();
+
+  const getCategoryIcon = (category: Expense['category'], size: 'sm' | 'md' | 'lg' = 'sm') => {
+    const dimensions = {
+      sm: "h-4 w-4",
+      md: "h-5 w-5",
+      lg: "h-6 w-6"
+    };
+    
+    switch (category) {
+      case 'living':
+        return <Home className={cn(dimensions[size], "text-chart-1")} />;
+      case 'lifestyle':
+        return <ShoppingBag className={cn(dimensions[size], "text-chart-2")} />;
+      default:
+        return <HelpCircle className={cn(dimensions[size], "text-muted-foreground")} />;
+    }
+  };
+
+  if (expenses.length === 0) {
+    return (
+      <div className="flex flex-col items-center justify-center py-6 text-center">
+        <PiggyBank className="w-12 h-12 text-muted mb-2" />
+        <p className="text-muted-foreground">{t('expenseHighlighter.noExpenses')}</p>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {/* Mobile view - Card layout for small screens */}
+      <div className="block sm:hidden space-y-4">
+        {expenses.sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map(expense => (
+          <Card key={expense.id} className="overflow-hidden border">
+            <CardContent className="p-4 space-y-3">
+              <div className="border-b pb-2">
+                <p className="text-xs text-muted-foreground">{t('expenseHighlighter.form.description')}</p>
+                <p className="font-medium">{expense.description}</p>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-xs text-muted-foreground">{t('expenseHighlighter.form.amount')}</p>
+                  <p className="font-medium">${expense.amount.toFixed(0)}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-muted-foreground">{t('expenseHighlighter.form.date')}</p>
+                  <p className="font-medium">{new Date(expense.date).toLocaleDateString()}</p>
+                </div>
+              </div>
+              <div>
+                <p className="text-xs text-muted-foreground">{t('expenseHighlighter.form.category')}</p>
+                <div className="flex items-center space-x-2 mt-1">
+                  {getCategoryIcon(expense.category)}
+                  <span className="capitalize">{expense.category === 'living' ? t('expenseHighlighter.categories.living') : 
+                    expense.category === 'lifestyle' ? t('expenseHighlighter.categories.lifestyle') : t('expenseHighlighter.unassigned')}</span>
+                </div>
+              </div>
+              {showEditActions && (
+                <div className="flex justify-end space-x-2 pt-1">
+                  {onEdit && (
+                    <Button variant="ghost" size="sm" onClick={() => onEdit(expense)}>
+                      <Edit3 className="h-4 w-4 mr-1" />
+                      {t('expenseHighlighter.editExpense')}
+                    </Button>
+                  )}
+                  <Button variant="ghost" size="sm" onClick={() => onDelete(expense.id)} className="text-destructive">
+                    <Trash2 className="h-4 w-4 mr-1" />
+                    {t('expenseHighlighter.deleteExpense')}
+                  </Button>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+
+      {/* Desktop view - Table layout for larger screens */}
+      <div className="hidden sm:block overflow-x-auto">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>{t('expenseHighlighter.form.description')}</TableHead>
+              <TableHead>{t('expenseHighlighter.form.amount')}</TableHead>
+              <TableHead>{t('expenseHighlighter.form.date')}</TableHead>
+              <TableHead>{t('expenseHighlighter.form.category')}</TableHead>
+              {showEditActions && <TableHead className="text-right">{t('expenseHighlighter.actions')}</TableHead>}
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {expenses.sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map(expense => (
+              <TableRow key={expense.id}>
+                <TableCell className="font-medium">{expense.description}</TableCell>
+                <TableCell>${expense.amount.toFixed(0)}</TableCell>
+                <TableCell>{new Date(expense.date).toLocaleDateString()}</TableCell>
+                <TableCell>
+                  <div className="flex items-center space-x-2">
+                    {getCategoryIcon(expense.category)}
+                    <span className="capitalize">{expense.category === 'living' ? t('expenseHighlighter.categories.living') :
+                      expense.category === 'lifestyle' ? t('expenseHighlighter.categories.lifestyle') : t('expenseHighlighter.unassigned')}</span>
+                  </div>
+                </TableCell>
+                {showEditActions && (
+                  <TableCell className="text-right">
+                    {onEdit && (
+                      <Button variant="ghost" size="icon" onClick={() => onEdit(expense)} className="mr-2">
+                        <Edit3 className="h-4 w-4" />
+                      </Button>
+                    )}
+                    <Button variant="ghost" size="icon" onClick={() => onDelete(expense.id)} className="text-destructive">
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </TableCell>
+                )}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+    </>
+  );
+} 

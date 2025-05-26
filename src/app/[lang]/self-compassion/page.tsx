@@ -1,13 +1,12 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Slider } from "@/components/ui/slider";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Lightbulb, TrendingUp, Heart } from 'lucide-react';
+import { TrendingUp, Heart } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LabelList } from 'recharts';
 import { useI18n } from '@/contexts/i18n-context';
+import { SelfCompassionScore } from '@/components/ui/self-compassion-score';
 
 interface CalmScoreData {
   date: string;
@@ -16,18 +15,7 @@ interface CalmScoreData {
 
 export default function DashboardPage() {
   const { t } = useI18n();
-  const [currentPrompt, setCurrentPrompt] = useState("");
-  const [calmScore, setCalmScore] = useState<number>(5);
   const [calmHistory, setCalmHistory] = useState<CalmScoreData[]>([]);
-  const [showPrompt, setShowPrompt] = useState(true);
-
-  useEffect(() => {
-    if (showPrompt) {
-      const prompts = t<string[]>('selfCompassion.prompts');
-      const randomIndex = Math.floor(Math.random() * prompts.length);
-      setCurrentPrompt(prompts[randomIndex]);
-    }
-  }, [showPrompt, t]);
 
   useEffect(() => {
     // Load calm history from localStorage
@@ -37,69 +25,30 @@ export default function DashboardPage() {
     }
   }, []);
 
-  const handleSaveCalmScore = () => {
-    const newEntry: CalmScoreData = { date: new Date().toLocaleDateString(), score: calmScore };
+  const handleSaveCalmScore = (score: number) => {
+    const newEntry: CalmScoreData = { date: new Date().toLocaleDateString(), score };
     const updatedHistory = [...calmHistory, newEntry].slice(-7); // Keep last 7 entries
     setCalmHistory(updatedHistory);
     localStorage.setItem('calmHistory', JSON.stringify(updatedHistory));
-    setShowPrompt(false); // Hide prompt after saving score
   };
-
-  const handleNewPrompt = () => {
-    setShowPrompt(true)
-    };
   
   const chartData = calmHistory.map((entry, index) => ({ name: `Day ${index + 1}`, score: entry.score }));
 
   return (
     <div className="container mx-auto py-8 space-y-8 px-4">
-      <Card className="shadow-lg">
-        <CardHeader>
-          <div className="flex items-center space-x-3">
-            <Heart className="w-8 h-8 text-primary" />
-            <CardTitle className="text-2xl">{t('selfCompassion.title')}</CardTitle>
-          </div>
-          <CardDescription>{t('selfCompassion.subtitle')}</CardDescription>
-        </CardHeader>
-        {showPrompt && currentPrompt && (
-          <CardContent>
-            <div className="p-6 bg-primary/10 rounded-lg flex items-start space-x-3">
-              <Lightbulb className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
-              <p className="text-lg text-primary-foreground leading-relaxed">{currentPrompt}</p>
-            </div>
-          </CardContent>
-        )}
-        <CardFooter className="flex flex-col sm:flex-row items-center gap-4 pt-4">
-          {showPrompt && currentPrompt ? (
-            <>
-              <div className="flex-1 w-full sm:w-auto">
-                <label htmlFor="calm-score" className="block text-sm font-medium text-muted-foreground mb-2">
-                  {t('selfCompassion.calmScore.label')}
-                </label>
-                <div className="flex items-center space-x-3">
-                  <Slider
-                    id="calm-score"
-                    min={1}
-                    max={10}
-                    step={1}
-                    value={[calmScore]}
-                    onValueChange={(value) => setCalmScore(value[0])}
-                    className="flex-grow"
-                  />
-                  <span className="font-semibold text-primary w-8 text-center">{calmScore}</span>
-                </div>
-              </div>
-              <Button onClick={handleSaveCalmScore} size="lg" wrap={true}>
-                {t('selfCompassion.calmScore.saveButton')}
-              </Button>
-            </>
-          ) : (
-            <Button onClick={handleNewPrompt} size="lg" variant="outline" className="w-full" wrap={true}>
-              {t('selfCompassion.calmScore.newPromptButton')}
-            </Button>
-          )}
-        </CardFooter>
-      </Card>
+      <div>
+        <div className="flex items-center space-x-3 mb-4">
+          <Heart className="w-8 h-8 text-primary" />
+          <h1 className="text-2xl font-bold">{t('selfCompassion.title')}</h1>
+        </div>
+        <p className="text-muted-foreground mb-6">{t('selfCompassion.subtitle')}</p>
+        
+        <SelfCompassionScore
+          onScoreSave={handleSaveCalmScore}
+          showPrompt={true}
+          compact={false}
+        />
+      </div>
 
       {calmHistory.length > 0 && (
         <Card className="shadow-lg">

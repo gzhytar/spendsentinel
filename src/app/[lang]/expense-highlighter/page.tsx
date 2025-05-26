@@ -23,14 +23,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
 import { useI18n } from '@/contexts/i18n-context';
 import { cn } from '@/lib/utils';
-
-interface Expense {
-  id: string;
-  description: string;
-  amount: number;
-  date: string;
-  category: 'living' | 'lifestyle' | 'unassigned';
-}
+import { AddExpenseForm, type Expense } from '@/components/ui/add-expense-form';
+import { ExpenseList } from '@/components/ui/expense-list';
+import { expenseStorage } from '@/lib/expense-storage';
 
 const COLORS = {
   living: '#e76e50', // Red
@@ -42,18 +37,27 @@ export default function ExpenseHighlighterPage() {
   const { t } = useI18n();
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddFormOpen, setIsAddFormOpen] = useState(false);
   const [currentExpense, setCurrentExpense] = useState<Partial<Expense> & { id?: string }>({});
 
   useEffect(() => {
-    const storedExpenses = localStorage.getItem('expenses');
-    if (storedExpenses) {
-      setExpenses(JSON.parse(storedExpenses));
-    }
+    const storedExpenses = expenseStorage.getAll();
+    setExpenses(storedExpenses);
   }, []);
 
   const saveExpenses = (updatedExpenses: Expense[]) => {
     setExpenses(updatedExpenses);
-    localStorage.setItem('expenses', JSON.stringify(updatedExpenses));
+    expenseStorage.saveAll(updatedExpenses);
+  };
+
+  const handleAddExpense = (expenseData: Omit<Expense, 'id'>, journalNotes?: Record<string, string>) => {
+    const expense: Expense = {
+      ...expenseData,
+      id: Date.now().toString(),
+    };
+    saveExpenses([...expenses, expense]);
+    setIsAddFormOpen(false);
+    // Note: journalNotes are not used in expense highlighter, only in daily check-in
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -70,8 +74,6 @@ export default function ExpenseHighlighterPage() {
 
     if (currentExpense.id) { // Editing existing expense
       saveExpenses(expenses.map(exp => exp.id === currentExpense.id ? { ...exp, ...currentExpense } as Expense : exp));
-    } else { // Adding new expense
-      saveExpenses([...expenses, { ...currentExpense, id: Date.now().toString(), category: currentExpense.category || 'unassigned' } as Expense]);
     }
     setIsModalOpen(false);
     setCurrentExpense({});
@@ -87,8 +89,7 @@ export default function ExpenseHighlighterPage() {
   };
 
   const openNewExpenseModal = () => {
-    setCurrentExpense({ date: new Date().toISOString().split('T')[0], category: 'unassigned' });
-    setIsModalOpen(true);
+    setIsAddFormOpen(true);
   };
   
   const expenseSummary = useMemo(() => {
@@ -236,107 +237,38 @@ export default function ExpenseHighlighterPage() {
           </div>
         </CardHeader>
         <CardContent>
-          {expenses.length === 0 ? (
-            <div className="flex flex-col items-center justify-center py-6 text-center">
-              <PiggyBank className="w-12 h-12 text-muted mb-2" />
-              <p className="text-muted-foreground">{t('expenseHighlighter.noExpenses')}</p>
-              <Button onClick={openNewExpenseModal} variant="outline" className="mt-4" wrap={true}>
-                <PlusCircle className="mr-2 h-4 w-4" /> {t('expenseHighlighter.addExpense')}
-              </Button>
-            </div>
-          ) : (
-            <>
-              {/* Mobile view - Card layout for small screens */}
-              <div className="block sm:hidden space-y-4">
-                {expenses.sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map(expense => (
-                  <Card key={expense.id} className="overflow-hidden border">
-                    <CardContent className="p-4 space-y-3">
-                      <div className="border-b pb-2">
-                        <p className="text-xs text-muted-foreground">{t('expenseHighlighter.form.description')}</p>
-                        <p className="font-medium">{expense.description}</p>
-                      </div>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <p className="text-xs text-muted-foreground">{t('expenseHighlighter.form.amount')}</p>
-                          <p className="font-medium">${expense.amount.toFixed(0)}</p>
-                        </div>
-                        <div>
-                          <p className="text-xs text-muted-foreground">{t('expenseHighlighter.form.date')}</p>
-                          <p className="font-medium">{new Date(expense.date).toLocaleDateString()}</p>
-                        </div>
-                      </div>
-                      <div>
-                        <p className="text-xs text-muted-foreground">{t('expenseHighlighter.form.category')}</p>
-                        <div className="flex items-center space-x-2 mt-1">
-                          {getCategoryIcon(expense.category)}
-                          <span className="capitalize">{expense.category === 'living' ? t('expenseHighlighter.categories.living') : 
-                            expense.category === 'lifestyle' ? t('expenseHighlighter.categories.lifestyle') : t('expenseHighlighter.unassigned')}</span>
-                        </div>
-                      </div>
-                      <div className="flex justify-end space-x-2 pt-1">
-                        <Button variant="ghost" size="sm" onClick={() => handleEdit(expense)} wrap={true}>
-                          <Edit3 className="h-4 w-4 mr-1" />
-                          {t('expenseHighlighter.editExpense')}
-                        </Button>
-                        <Button variant="ghost" size="sm" onClick={() => handleDelete(expense.id)} className="text-destructive" wrap={true}>
-                          <Trash2 className="h-4 w-4 mr-1" />
-                          {t('expenseHighlighter.deleteExpense')}
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-
-              {/* Desktop view - Table layout for larger screens */}
-              <div className="hidden sm:block overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>{t('expenseHighlighter.form.description')}</TableHead>
-                      <TableHead>{t('expenseHighlighter.form.amount')}</TableHead>
-                      <TableHead>{t('expenseHighlighter.form.date')}</TableHead>
-                      <TableHead>{t('expenseHighlighter.form.category')}</TableHead>
-                      <TableHead className="text-right">{t('expenseHighlighter.actions')}</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {expenses.sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map(expense => (
-                      <TableRow key={expense.id}>
-                        <TableCell className="font-medium">{expense.description}</TableCell>
-                        <TableCell>${expense.amount.toFixed(0)}</TableCell>
-                        <TableCell>{new Date(expense.date).toLocaleDateString()}</TableCell>
-                        <TableCell>
-                          <div className="flex items-center space-x-2">
-                            {getCategoryIcon(expense.category)}
-                            <span className="capitalize">{expense.category === 'living' ? t('expenseHighlighter.categories.living') :
-                              expense.category === 'lifestyle' ? t('expenseHighlighter.categories.lifestyle') : t('expenseHighlighter.unassigned')}</span>
-                          </div>
-                        </TableCell>
-                        <TableCell className="text-right">
-                          <Button variant="ghost" size="icon" onClick={() => handleEdit(expense)} className="mr-2">
-                            <Edit3 className="h-4 w-4" />
-                          </Button>
-                          <Button variant="ghost" size="icon" onClick={() => handleDelete(expense.id)} className="text-destructive">
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
-            </>
-          )}
+          <ExpenseList
+            expenses={expenses}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
+            showEditActions={true}
+          />
         </CardContent>
       </Card>
 
+      {/* Add Expense Dialog */}
+      <Dialog open={isAddFormOpen} onOpenChange={setIsAddFormOpen}>
+        <DialogContent className="sm:max-w-[500px]">
+          <DialogHeader>
+            <DialogTitle>{t('expenseHighlighter.addExpense')}</DialogTitle>
+            <DialogDescription>
+              {t('expenseHighlighter.addDescription')}
+            </DialogDescription>
+          </DialogHeader>
+          <AddExpenseForm
+            onAddExpense={handleAddExpense}
+            showTriggeredParts={false}
+          />
+        </DialogContent>
+      </Dialog>
+
+      {/* Edit Expense Dialog */}
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
-            <DialogTitle>{currentExpense.id ? t('expenseHighlighter.editExpense') : t('expenseHighlighter.addExpense')}</DialogTitle>
+            <DialogTitle>{t('expenseHighlighter.editExpense')}</DialogTitle>
             <DialogDescription>
-              {currentExpense.id ? t('expenseHighlighter.editDescription') : t('expenseHighlighter.addDescription')}
+              {t('expenseHighlighter.editDescription')}
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
@@ -382,7 +314,7 @@ export default function ExpenseHighlighterPage() {
             </div>
           </div>
           <DialogFooter>
-            <Button onClick={handleSubmit} wrap={true}>{currentExpense.id ? t('expenseHighlighter.editExpense') : t('expenseHighlighter.addExpense')}</Button>
+            <Button onClick={handleSubmit}>{t('expenseHighlighter.editExpense')}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

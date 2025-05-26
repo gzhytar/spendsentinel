@@ -17,6 +17,7 @@ export const en = {
     expenseHighlighter: 'Expense Highlighter',
     financialGPS: 'Financial GPS',
     selfCompassion: 'Self-compassion',
+    dailyCheckIn: 'Daily Check-in',
   },
   landing: {
     hero: {
@@ -251,6 +252,11 @@ export const en = {
         title: 'Self-Compassion Practices',
         description: 'Learn evidence-based techniques to treat yourself with kindness during financial challenges.',
         button: 'Practice Compassion',
+      },
+      dailyCheckIn: {
+        title: 'Daily Check-in',
+        description: 'Build a daily habit of reflection, expense tracking, and compassionate self-awareness with your financial parts.',
+        button: 'Start Check-in',
       },
     },
   },
@@ -682,6 +688,59 @@ export const en = {
         privacyConcerns: 'privacy@spendsentinel.app'
       },
       commitment: 'We are dedicated to supporting your financial wellness journey with compassion, respect, and the highest ethical standards. These terms exist to protect both you and our ability to provide this important service.'
+    }
+  },
+  dailyCheckIn: {
+    title: 'Daily Check-in',
+    subtitle: 'Build a habit of reflection and understanding with your financial parts',
+    progress: 'Step {current} of {total}',
+    panicButtonReminder: 'Remember, the panic button is always here for you - no judgment, just support when you need it.',
+    comingSoon: 'Coming Soon',
+    completionMessage: 'Great job completing your daily check-in! Your progress has been saved.',
+    navigation: {
+      previous: 'Previous',
+      next: 'Next',
+      complete: 'Complete Check-in'
+    },
+    steps: {
+      breathing: {
+        title: 'Grounding Breath Exercise',
+        instruction: 'Sit or stand tall with relaxed shoulders and grounded feet, inviting any tense or busy part of you to simply watch. Place one hand on your heart, one on your belly, and quietly set an intention like \“May this breath give all my parts ease.\” \n\n Breathe in through your nose to fill your chest, then sigh the air out an open mouth without pausing, keeping a connected 5-second in / 5-second out flow for about six waves while letting tension ride out on each exhale. \n\n After the minute, allow your breathing to settle back into its natural rhythm.'
+      },
+      reflection: {
+        title: 'Reflect on Your Day',
+        prompt: 'Take a moment to recall your day. What events stood out? What emotions did you experience? What financial decisions did you make? \n This silent practice helps build mindfulness and self-awareness over time.',
+      },
+      expenseLogging: {
+        title: 'Log Today\'s Expenses',
+        description: 'Record any expenses or financial decisions from today. Mark which parts were triggered by each expense.',
+        triggeredParts: 'Which parts were triggered?',
+        journalNotes: 'Journal notes for triggered parts:',
+        partNote: 'note:',
+        journalPlaceholder: 'How did this part show up? What was it trying to protect or provide?'
+      },
+      timeline: {
+        title: 'Your Check-in Journey',
+        caption: 'Your check-in journey over the last 30 days'
+      },
+      deepenRelationships: {
+        title: 'Deepen Part Relationships',
+        description: 'Explore and build a deeper understanding with the parts that were triggered today.',
+        button: 'Deepen Part Relationships'
+      },
+      selfCompassion: {
+        title: 'Self-Compassion Score',
+        prompt: 'Rate your self-compassion today (1 = very critical, 10 = very compassionate)',
+        veryCritical: 'very critical',
+        veryCompassionate: 'very compassionate'
+      }
+    },
+    timeline: {
+      completed: 'Completed',
+      missed: 'Missed',
+      streak: 'Current streak',
+      days: 'days',
+      totalCompleted: 'Total completed'
     }
   }
 } as const; 

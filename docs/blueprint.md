@@ -1,6 +1,6 @@
 # **App Name**: SpendSentinel
 
-## Tagline: “Pause · Notice · Choose.”
+## Tagline: "Pause · Notice · Choose."
 
 ## App purpose: Transform Your Relationship with Money Through Compassionate Self-Discovery. Understand the different parts of yourself that influence your financial decisions and learn to work with them, not against them
 
@@ -17,7 +17,7 @@
 - Subtle animations that provide gentle feedback and guide the user through the app. Radix-UI animations will be used as a base.
 
 ## Tone guidelines:
-Use “invite” not “warn”, “notice” not “fail”, “parts” language sparingly outside psycho-education screens. Example: “A part noticed extra coffee runs ( +€24 this week ). Breathe, then decide.”	
+Use "invite" not "warn", "notice" not "fail", "parts" language sparingly outside psycho-education screens. Example: "A part noticed extra coffee runs ( +€24 this week ). Breathe, then decide."	
 
 ## Feature Specifications
 
@@ -105,4 +105,80 @@ Use “invite” not “warn”, “notice” not “fail”, “parts” langua
     - Identify Button: "Identify My Financial Parts"
     - Result Title Example: "Meet Your Protector Part" (or specific firefighter like "The Spender")
     - Result Fields: Role, Burden, Concern, Suggested Engagement (with descriptions).
+
+---
+
+### Feature: Daily Check-in
+
+#### Purpose and Impact
+- **User Need**: Users need a structured daily practice to reflect on their financial behaviors, identify triggered parts, and build awareness of the connection between emotions and spending patterns
+- **Expected Outcome**: Users develop consistent self-reflection habits, gain insight into which parts influence their financial decisions, and track their progress over time through visual feedback
+- **Emotional Impact**: Should create a safe, non-judgmental space for reflection that feels supportive and encouraging, making users feel understood and empowered to explore their relationship with money
+
+#### Functional Requirements
+- **Core Functionality**: Guided 6-step daily check-in process that includes grounding breath exercise, day reflection, expense logging with part identification, visual progress tracking, relationship building prompts, and self-compassion scoring
+- **User Interactions**: 
+  - Navigate through 6 sequential steps with next/previous controls
+  - Complete 30-second breathing exercise (text-based guidance)
+  - Free-text reflection on daily events, emotions, and decisions
+  - Log expenses with part tagging and journal notes
+  - View 30-day visual timeline of check-in completion
+  - Access panic button throughout the process
+  - Rate daily self-compassion score
+- **Data Requirements**: 
+  - User's self-assessment results (identified parts)
+  - Daily check-in completion status
+  - Expense entries with associated parts and journal notes
+  - Self-compassion scores
+  - 30-day history of check-ins
+
+#### UI/UX Specifications
+- **Component Placement**: 
+  - Dedicated page accessible via side navigation menu as "Daily Check-in"
+  - Progress indicator showing current step (1-6)
+  - Persistent panic button in corner with gentle reminder text
+- **Visual Elements**:
+  - Step 1: Text-based breathing instructions with calming background
+  - Step 2: Text area for day reflection with prompts
+  - Step 3: Expense logging interface integrated from Expense Highlighter with:
+    - Part selection checkboxes/tags based on user's assessment results
+    - Journal note field for each triggered part
+    - Visual reminder about panic button availability
+  - Step 4: Calendar-style timeline showing last 30 days with visual indicators (filled/empty circles) for completed check-ins
+  - Step 5: Placeholder button "Deepen Part Relationships" with coming soon badge
+  - Step 6: Self-compassion score slider (1-10) with submit button
+- **Interactive Behavior**: 
+  - Smooth transitions between steps
+  - Auto-save progress if user exits mid-session
+  - Gentle animations for completed steps
+  - Non-intrusive panic button that expands on hover
+- **States**:
+  - In-progress (current step highlighted)
+  - Partially completed (can resume)
+  - Completed for today
+  - Historical view (reviewing past check-ins)
+
+#### Technical Implementation Guidelines
+- **Suggested Approach**: 
+  - React component with step-based navigation using `useState` for current step
+  - Integration with existing Expense Highlighter components
+  - Local storage for session persistence
+  - Database storage for completed check-ins
+- **Integration Points**: 
+  - Expense Highlighter feature for step 3
+  - Self-assessment results for available parts list
+  - User authentication for data persistence
+  - Panic button component (shared across app)
+- **Performance Considerations**: 
+  - Lazy load timeline visualization
+  - Cache user's parts list
+  - Optimistic UI updates for smooth experience
+
+#### Examples
+- **Sample Content**:
+  - Step 1: "Let's begin with a grounding breath. Breathe in slowly for 4 counts... Hold for 4... Exhale for 6... Repeat this cycle for 30 seconds."
+  - Step 2 Prompt: "Take a moment to recall your day. What events stood out? What emotions did you experience? What financial decisions did you make?"
+  - Panic Button Reminder: "Remember, the panic button is always here for you - no judgment, just support when you need it."
+  - Step 4 Caption: "Your check-in journey over the last 30 days"
+  - Step 6: "Rate your self-compassion today (1 = very critical, 10 = very compassionate)"
 

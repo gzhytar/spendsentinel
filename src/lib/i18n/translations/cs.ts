@@ -272,30 +272,52 @@ export const cs = {
   },
   expenseHighlighter: {
     title: 'Moje finanční rozhodnutí',
-    subtitle: 'Sledujte a kategorizujte své výdaje pro lepší pochopení vzorců utrácení.',
+    subtitle: 'Sledujte a kategorizujte své výdaje a úspory pro pochopení vzorců finančních rozhodnutí.',
     addExpense: 'Přidat Výdaj',
+    addSaving: 'Přidat Úsporu',
+    addTransaction: 'Přidat Výdaj nebo Úsporu',
     editExpense: 'Upravit',
     deleteExpense: 'Smazat',
-    overview: 'Přehled',
+    overview: 'Přehled Výdajů',
     total: 'Celkové Výdaje',
-    yourExpenses: 'Vaše Výdaje',
+    totalSavings: 'Celkové Úspory',
+    yourExpenses: 'Historie Finančních Rozhodnutí',
+    yourSavings: 'Vaše Úspory',
+    yourTransactions: 'Vaše Transakce',
     noExpenses: 'Zatím jste nepřidali žádné výdaje. Klikněte na "Přidat Výdaj" pro začátek.',
+    noSavings: 'Zatím jste nepřidali žádné úspory. Klikněte na "Přidat Úsporu" pro začátek.',
+    noTransactions: 'Zatím jste nepřidali žádné transakce. Klikněte na "Přidat Transakci" pro začátek.',
     actions: 'Akce',
     selectCategory: 'Vyberte kategorii',
     addDescription: 'Vyplňte níže uvedené údaje pro přidání nového výdaje.',
+    addSavingDescription: 'Vyplňte níže uvedené údaje pro přidání nové úspory.',
     editDescription: 'Aktualizujte údaje tohoto výdaje.',
+    editSavingDescription: 'Aktualizujte údaje této úspory.',
     livingDescription: 'Nezbytné náklady jako nájem/hypotéka, služby, potraviny, doprava do práce, pojištění.',
     lifestyleDescription: 'Volitelné výdaje jako stravování venku, zábava, koníčky, cestování, luxusní předměty.',
+    emergencyDescription: 'Peníze, které jste se rozhodli neutratit za impulzivní nákupy nebo nepotřebné věci, přesměrované na budování finanční bezpečnosti.',
+    goalsDescription: 'Úspory specificky alokované na dosažení snů a aspirací vizualizovaných na vaší vizi.',
+    investmentDescription: 'Obecné úspory pro budoucí příležitosti, důchod nebo jiný dlouhodobý finanční růst.',
     unassigned: 'Nezařazené',
     categories: {
       living: 'Životní Výdaje',
       lifestyle: 'Výdaje na Životní Styl'
     },
+    savingCategories: {
+      emergency: 'Peníze ušetřené tím, že jsem neutratil',
+      goals: 'Cíle z Vize',
+      investment: 'Ostatní Úspory'
+    },
     form: {
       amount: 'Částka',
       description: 'Popis',
       category: 'Kategorie',
-      date: 'Datum'
+      date: 'Datum',
+      type: 'Typ',
+      types: {
+        expense: 'Výdaj',
+        saving: 'Úspora'
+      }
     },
     visionBoard: {
       title: 'Finanční Vize',

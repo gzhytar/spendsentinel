@@ -380,30 +380,52 @@ export const en = {
   },
   expenseHighlighter: {
     title: 'My Financial Decisions',
-    subtitle: 'Track and categorize your expenses to understand your spending patterns.',
-    addExpense: 'Add Expense',
+    subtitle: 'Track and categorize your expenses and savings to understand patterns of financial decisions.',
+    addExpense: 'Add Spend',
+    addSaving: 'Add Saving',
+    addTransaction: 'Add Spend or Saving',
     editExpense: 'Edit',
     deleteExpense: 'Delete',
-    overview: 'Overview',
+    overview: 'Spend Overview',
     total: 'Total Expenses',
-    yourExpenses: 'Your Expenses',
+    totalSavings: 'Total Savings',
+    yourExpenses: 'Financial Decisions History',
+    yourSavings: 'Your Savings',
+    yourTransactions: 'Your Transactions',
     noExpenses: 'You haven\'t added any expenses yet. Click "Add Expense" to get started.',
+    noSavings: 'You haven\'t added any savings yet. Click "Add Saving" to get started.',
+    noTransactions: 'You haven\'t added any transactions yet. Click "Add Transaction" to get started.',
     actions: 'Actions',
     selectCategory: 'Select a category',
     addDescription: 'Fill in the details below to add a new expense.',
+    addSavingDescription: 'Fill in the details below to add a new saving.',
     editDescription: 'Update the details of this expense.',
+    editSavingDescription: 'Update the details of this saving.',
     livingDescription: 'Essential costs like rent/mortgage, utilities, groceries, transportation for work, insurance.',
     lifestyleDescription: 'Discretionary spending like dining out, entertainment, hobbies, travel, luxury items.',
+    emergencyDescription: 'Money you chose not to spend on impulse purchases or unnecessary items, redirected to build financial security.',
+    goalsDescription: 'Savings specifically allocated toward achieving the dreams and aspirations visualized on your vision board.',
+    investmentDescription: 'General savings for future opportunities, retirement, or other long-term financial growth.',
     unassigned: 'Unassigned',
     categories: {
       living: 'Living Expenses',
       lifestyle: 'Lifestyle Expenses'
     },
+    savingCategories: {
+      emergency: 'Money spared because I didn\'t spend',
+      goals: 'Vision Board Goals',
+      investment: 'Other Savings'
+    },
     form: {
       amount: 'Amount',
       description: 'Description',
       category: 'Category',
-      date: 'Date'
+      date: 'Date',
+      type: 'Type',
+      types: {
+        expense: 'Spend',
+        saving: 'Saving'
+      }
     },
     visionBoard: {
       title: 'My Vision Board',

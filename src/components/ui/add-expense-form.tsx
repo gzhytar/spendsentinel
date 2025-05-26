@@ -5,9 +5,10 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Card } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
-import { Plus, Home, ShoppingBag, HelpCircle } from 'lucide-react';
+import { Plus, Home, ShoppingBag, HelpCircle, Shield, Target, TrendingUp } from 'lucide-react';
 import { useI18n } from '@/contexts/i18n-context';
 import { Checkbox } from '@/components/ui/checkbox';
 
@@ -15,8 +16,9 @@ export interface Expense {
   id: string;
   amount: number;
   description: string;
-  category: 'living' | 'lifestyle' | 'unassigned';
+  category: 'living' | 'lifestyle' | 'unassigned' | 'emergency' | 'goals' | 'investment';
   date: string;
+  type: 'expense' | 'saving';
   triggeredParts?: string[];
 }
 
@@ -41,6 +43,7 @@ export function AddExpenseForm({
     description: '',
     category: 'living',
     date: new Date().toISOString().split('T')[0],
+    type: 'expense',
     triggeredParts: [],
   });
   const [journalNotes, setJournalNotes] = useState<Record<string, string>>({});
@@ -53,8 +56,17 @@ export function AddExpenseForm({
     }));
   };
 
-  const handleCategoryChange = (value: 'living' | 'lifestyle' | 'unassigned') => {
+  const handleCategoryChange = (value: 'living' | 'lifestyle' | 'unassigned' | 'emergency' | 'goals' | 'investment') => {
     setFormData(prev => ({ ...prev, category: value }));
+  };
+
+  const handleTypeChange = (value: 'expense' | 'saving') => {
+    setFormData(prev => ({ 
+      ...prev, 
+      type: value,
+      // Reset category when type changes
+      category: value === 'expense' ? 'living' : 'emergency'
+    }));
   };
 
   const handleJournalNoteChange = (part: string, note: string) => {
@@ -88,6 +100,7 @@ export function AddExpenseForm({
       description: '',
       category: 'living',
       date: new Date().toISOString().split('T')[0],
+      type: 'expense',
       triggeredParts: [],
     });
     setJournalNotes({});
@@ -99,6 +112,12 @@ export function AddExpenseForm({
         return <Home className="mr-2 h-4 w-4 text-chart-1" />;
       case 'lifestyle':
         return <ShoppingBag className="mr-2 h-4 w-4 text-chart-2" />;
+      case 'emergency':
+        return <Shield className="mr-2 h-4 w-4 text-green-600" />;
+      case 'goals':
+        return <Target className="mr-2 h-4 w-4 text-blue-600" />;
+      case 'investment':
+        return <TrendingUp className="mr-2 h-4 w-4 text-purple-600" />;
       default:
         return <HelpCircle className="mr-2 h-4 w-4 text-muted-foreground" />;
     }
@@ -106,9 +125,34 @@ export function AddExpenseForm({
 
   return (
     <Card className="p-4">
-      <h3 className="font-semibold mb-4">{t('expenseHighlighter.addExpense')}</h3>
+      <h3 className="font-semibold mb-4">
+        {t('expenseHighlighter.addTransaction')}
+      </h3>
       
       <div className="space-y-4">
+        {/* Type Selector */}
+        <div>
+          <Label>{t('expenseHighlighter.form.type')}</Label>
+          <RadioGroup
+            value={formData.type}
+            onValueChange={handleTypeChange}
+            className="flex gap-6 mt-2"
+          >
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="expense" id="expense" />
+              <Label htmlFor="expense" className="cursor-pointer">
+                {t('expenseHighlighter.form.types.expense')}
+              </Label>
+            </div>
+            <div className="flex items-center space-x-2">
+              <RadioGroupItem value="saving" id="saving" />
+              <Label htmlFor="saving" className="cursor-pointer">
+                {t('expenseHighlighter.form.types.saving')}
+              </Label>
+            </div>
+          </RadioGroup>
+        </div>
+
         <div className="grid grid-cols-2 gap-4">
           <div>
             <Label htmlFor="amount">{t('expenseHighlighter.form.amount')}</Label>
@@ -132,24 +176,49 @@ export function AddExpenseForm({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="living">
-                  <div className="flex items-center">
-                    {getCategoryIcon('living')}
-                    <span>{t('expenseHighlighter.categories.living')}</span>
-                  </div>
-                </SelectItem>
-                <SelectItem value="lifestyle">
-                  <div className="flex items-center">
-                    {getCategoryIcon('lifestyle')}
-                    <span>{t('expenseHighlighter.categories.lifestyle')}</span>
-                  </div>
-                </SelectItem>
-                <SelectItem value="unassigned">
-                  <div className="flex items-center">
-                    {getCategoryIcon('unassigned')}
-                    <span>{t('expenseHighlighter.unassigned')}</span>
-                  </div>
-                </SelectItem>
+                {formData.type === 'expense' ? (
+                  <>
+                    <SelectItem value="living">
+                      <div className="flex items-center">
+                        {getCategoryIcon('living')}
+                        <span>{t('expenseHighlighter.categories.living')}</span>
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="lifestyle">
+                      <div className="flex items-center">
+                        {getCategoryIcon('lifestyle')}
+                        <span>{t('expenseHighlighter.categories.lifestyle')}</span>
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="unassigned">
+                      <div className="flex items-center">
+                        {getCategoryIcon('unassigned')}
+                        <span>{t('expenseHighlighter.unassigned')}</span>
+                      </div>
+                    </SelectItem>
+                  </>
+                ) : (
+                  <>
+                    <SelectItem value="emergency">
+                      <div className="flex items-center">
+                        {getCategoryIcon('emergency')}
+                        <span>{t('expenseHighlighter.savingCategories.emergency')}</span>
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="goals">
+                      <div className="flex items-center">
+                        {getCategoryIcon('goals')}
+                        <span>{t('expenseHighlighter.savingCategories.goals')}</span>
+                      </div>
+                    </SelectItem>
+                    <SelectItem value="investment">
+                      <div className="flex items-center">
+                        {getCategoryIcon('investment')}
+                        <span>{t('expenseHighlighter.savingCategories.investment')}</span>
+                      </div>
+                    </SelectItem>
+                  </>
+                )}
               </SelectContent>
             </Select>
           </div>
@@ -226,7 +295,10 @@ export function AddExpenseForm({
         
         <Button onClick={handleSubmit} className="w-full">
           <Plus className="w-4 h-4 mr-2" />
-          {t('expenseHighlighter.addExpense')}
+          {formData.type === 'expense' 
+            ? t('expenseHighlighter.addExpense') 
+            : t('expenseHighlighter.addSaving')
+          }
         </Button>
       </div>
     </Card>

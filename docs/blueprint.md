@@ -260,3 +260,101 @@ Use "invite" not "warn", "notice" not "fail", "parts" language sparingly outside
   - **Step 6**: "Rate your self-compassion today (1 = very critical, 10 = very compassionate)"
   - **No Parts Message**: "No financial parts identified yet. Complete the [Self-Assessment] to identify your financial parts and track which ones are triggered by your expenses."
 
+---
+
+### Feature: Expense Highlighter (Financial Decisions Tracker)
+
+#### Purpose and Impact
+- **User Need**: Users need a comprehensive tool to track both spending and saving decisions, understand their financial patterns, and see visual insights into their financial behavior across different categories.
+- **Expected Outcome**: Users gain awareness of their financial patterns through detailed tracking, visual analytics, and categorized insights that help them understand both their spending habits and saving achievements. This promotes mindful financial decision-making and celebrates positive financial behaviors.
+- **Emotional Impact**: Should make users feel empowered and informed about their financial decisions, celebrating both spending awareness and saving achievements without judgment. The dual nature (spend/save) promotes a balanced view of financial health.
+
+#### Functional Requirements
+- **Core Functionality**: 
+  - Dual-purpose transaction logging for both expenses and savings with radio button selection
+  - Comprehensive categorization system with spending categories (Living, Lifestyle) and saving categories (Emergency/Money Spared, Goals from Vision Board, Other Savings)
+  - Visual analytics with separate pie chart overviews for spending and savings
+  - Complete transaction history with type distinction and category-specific icons
+  - Category education sections with descriptions and visual icons for both spending and saving types
+- **User Interactions**: 
+  - Add transactions using "Add Spend or Saving" dialog with radio button type selection
+  - Dynamic button text that changes based on selected type (Add Spend/Add Saving)
+  - View separate overview widgets for spending patterns and saving achievements
+  - Browse complete Financial Decisions History with type and category filtering
+  - Access educational content about spending and saving categories with descriptions
+- **Data Requirements**: 
+  - Transaction entries with type (expense/saving), amount, description, date, category, and optional triggered parts
+  - Category definitions and descriptions for both spending and saving types
+  - Visual chart data with category-specific colors and icons
+  - Historical transaction data with sorting and filtering capabilities
+
+#### UI/UX Specifications
+- **Component Placement**: 
+  - Dedicated page at `/[lang]/expense-highlighter` accessible via side navigation
+  - AddExpenseForm dialog component with radio button type selection
+  - Separate overview widgets for spending and saving analytics
+  - ExpenseList component showing comprehensive transaction history
+- **Visual Elements**:
+  - **Transaction Entry Dialog**: 
+    - Radio button selection for "Expense" vs "Saving" type
+    - Dynamic dialog title "Add Spend or Saving"
+    - Category dropdowns that change based on selected type
+    - Dynamic submit button text (Add Spend/Add Saving)
+  - **Overview Widgets**: 
+    - "Spend Overview" pie chart with Living (blue) and Lifestyle (orange) categories
+    - "Savings Overview" pie chart with Emergency (green), Goals (blue), Investment (purple) categories
+    - Category breakdowns with icons, amounts, and percentages
+    - Conditional display (only show when relevant transactions exist)
+  - **Financial Decisions History**: 
+    - Comprehensive table/card view with Type, Description, Amount, Date, Category columns
+    - Category-specific icons (Home, ShoppingBag for spending; Shield, Target, TrendingUp for saving)
+    - Type distinction showing "Spend" vs "Saving" for each transaction
+    - Mobile-responsive card layout and desktop table view
+    - Empty state with "no transactions" message
+  - **Category Education**: 
+    - Spending categories section with Living and Lifestyle descriptions
+    - Saving categories section with Emergency, Goals, and Investment descriptions
+    - Visual icons and explanatory text for each category type
+- **Interactive Behavior**: 
+  - Real-time chart updates when new transactions are added
+  - Smooth transitions between spending and saving modes
+  - Responsive design with mobile-optimized card layouts
+  - Sort transactions by date (newest first) automatically
+- **States**:
+  - Empty state (no transactions recorded)
+  - Spending-only view (only expense transactions)
+  - Saving-only view (only saving transactions)
+  - Mixed view (both expense and saving transactions)
+  - Loading states for chart calculations
+
+#### Technical Implementation Guidelines
+- **Suggested Approach**: 
+  - React components with localStorage persistence for offline functionality
+  - AddExpenseForm with radio button type selection using RadioGroup component
+  - Separate chart calculations for spending and saving analytics
+  - ExpenseList component enhanced with type distinction and category-specific styling
+  - Shared expense storage system with Daily Check-in feature
+- **Integration Points**: 
+  - Shared localStorage system (`expenseStorage` utility) with Daily Check-in feature
+  - I18n translation system for all category names, descriptions, and UI text
+  - Consistent styling with app's design system (Radix UI components)
+  - Chart.js or similar for pie chart visualizations with custom color schemes
+- **Performance Considerations**: 
+  - Efficient localStorage operations with error handling
+  - Optimized chart rendering with conditional display logic
+  - Responsive design considerations for mobile and desktop views
+  - Lazy loading of chart calculations for large transaction datasets
+
+#### Examples
+- **Sample Content (from translation files)**:
+  - **Dialog Title**: "Add Spend or Saving"
+  - **Type Options**: "Expense" and "Saving" radio buttons
+  - **Dynamic Buttons**: "Add Spend" (when expense selected), "Add Saving" (when saving selected)
+  - **Category Names**: 
+    - Spending: "Living" (essential needs), "Lifestyle" (discretionary spending)
+    - Saving: "Money spared because I didn't spend", "Goals from Vision Board", "Other Savings"
+  - **Overview Titles**: "Spend Overview" and "Savings Overview"
+  - **History Title**: "Financial Decisions History"
+  - **Category Descriptions**: Educational content explaining the purpose and examples for each category type
+  - **Empty State**: "No transactions recorded yet. Start by adding your first spend or saving!"
+

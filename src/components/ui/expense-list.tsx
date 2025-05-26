@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Edit3, Trash2, Home, ShoppingBag, HelpCircle, PiggyBank } from 'lucide-react';
+import { Edit3, Trash2, Home, ShoppingBag, HelpCircle, PiggyBank, Shield, Target, TrendingUp } from 'lucide-react';
 import { useI18n } from '@/contexts/i18n-context';
 import { cn } from '@/lib/utils';
 import type { Expense } from './add-expense-form';
@@ -35,8 +35,33 @@ export function ExpenseList({
         return <Home className={cn(dimensions[size], "text-chart-1")} />;
       case 'lifestyle':
         return <ShoppingBag className={cn(dimensions[size], "text-chart-2")} />;
+      case 'emergency':
+        return <Shield className={cn(dimensions[size], "text-green-600")} />;
+      case 'goals':
+        return <Target className={cn(dimensions[size], "text-blue-600")} />;
+      case 'investment':
+        return <TrendingUp className={cn(dimensions[size], "text-purple-600")} />;
       default:
         return <HelpCircle className={cn(dimensions[size], "text-muted-foreground")} />;
+    }
+  };
+
+  const getCategoryName = (category: Expense['category']) => {
+    switch (category) {
+      case 'living':
+        return t('expenseHighlighter.categories.living');
+      case 'lifestyle':
+        return t('expenseHighlighter.categories.lifestyle');
+      case 'emergency':
+        return t('expenseHighlighter.savingCategories.emergency');
+      case 'goals':
+        return t('expenseHighlighter.savingCategories.goals');
+      case 'investment':
+        return t('expenseHighlighter.savingCategories.investment');
+      case 'unassigned':
+        return t('expenseHighlighter.unassigned');
+      default:
+        return t('expenseHighlighter.unassigned');
     }
   };
 
@@ -44,7 +69,7 @@ export function ExpenseList({
     return (
       <div className="flex flex-col items-center justify-center py-6 text-center">
         <PiggyBank className="w-12 h-12 text-muted mb-2" />
-        <p className="text-muted-foreground">{t('expenseHighlighter.noExpenses')}</p>
+        <p className="text-muted-foreground">{t('expenseHighlighter.noTransactions')}</p>
       </div>
     );
   }
@@ -70,14 +95,19 @@ export function ExpenseList({
                   <p className="font-medium">{new Date(expense.date).toLocaleDateString()}</p>
                 </div>
               </div>
-              <div>
-                <p className="text-xs text-muted-foreground">{t('expenseHighlighter.form.category')}</p>
-                <div className="flex items-center space-x-2 mt-1">
-                  {getCategoryIcon(expense.category)}
-                  <span className="capitalize">{expense.category === 'living' ? t('expenseHighlighter.categories.living') : 
-                    expense.category === 'lifestyle' ? t('expenseHighlighter.categories.lifestyle') : t('expenseHighlighter.unassigned')}</span>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-xs text-muted-foreground">{t('expenseHighlighter.form.type')}</p>
+                  <p className="font-medium capitalize">{expense.type === 'expense' ? t('expenseHighlighter.form.types.expense') : t('expenseHighlighter.form.types.saving')}</p>
                 </div>
-              </div>
+                <div>
+                  <p className="text-xs text-muted-foreground">{t('expenseHighlighter.form.category')}</p>
+                  <div className="flex items-center space-x-2 mt-1">
+                    {getCategoryIcon(expense.category)}
+                    <span className="capitalize">{getCategoryName(expense.category)}</span>
+                  </div>
+                                 </div>
+               </div>
               {showEditActions && (
                 <div className="flex justify-end space-x-2 pt-1">
                   {onEdit && (
@@ -105,6 +135,7 @@ export function ExpenseList({
               <TableHead>{t('expenseHighlighter.form.description')}</TableHead>
               <TableHead>{t('expenseHighlighter.form.amount')}</TableHead>
               <TableHead>{t('expenseHighlighter.form.date')}</TableHead>
+              <TableHead>{t('expenseHighlighter.form.type')}</TableHead>
               <TableHead>{t('expenseHighlighter.form.category')}</TableHead>
               {showEditActions && <TableHead className="text-right">{t('expenseHighlighter.actions')}</TableHead>}
             </TableRow>
@@ -115,11 +146,11 @@ export function ExpenseList({
                 <TableCell className="font-medium">{expense.description}</TableCell>
                 <TableCell>${expense.amount.toFixed(0)}</TableCell>
                 <TableCell>{new Date(expense.date).toLocaleDateString()}</TableCell>
+                <TableCell className="capitalize">{expense.type === 'expense' ? t('expenseHighlighter.form.types.expense') : t('expenseHighlighter.form.types.saving')}</TableCell>
                 <TableCell>
                   <div className="flex items-center space-x-2">
                     {getCategoryIcon(expense.category)}
-                    <span className="capitalize">{expense.category === 'living' ? t('expenseHighlighter.categories.living') :
-                      expense.category === 'lifestyle' ? t('expenseHighlighter.categories.lifestyle') : t('expenseHighlighter.unassigned')}</span>
+                    <span className="capitalize">{getCategoryName(expense.category)}</span>
                   </div>
                 </TableCell>
                 {showEditActions && (

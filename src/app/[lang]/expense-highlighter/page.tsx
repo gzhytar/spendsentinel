@@ -18,7 +18,9 @@ import {
   ReceiptText, 
   PiggyBank, 
   DollarSign,
-  Eye
+  Eye,
+  Shield,
+  Target
 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
@@ -34,6 +36,9 @@ const COLORS = {
   living: '#e76e50', // Red
   lifestyle: '#10b981', // Green
   unassigned: '#9ca3af', // Gray
+  emergency: '#16a34a', // Green
+  goals: '#2563eb', // Blue
+  investment: '#9333ea', // Purple
 };
 
 export default function ExpenseHighlighterPage() {
@@ -140,8 +145,28 @@ export default function ExpenseHighlighterPage() {
       unassigned: 0,
       total: 0,
     };
-    expenses.forEach(exp => {
-      summary[exp.category] += exp.amount;
+    expenses.filter(exp => exp.type === 'expense').forEach(exp => {
+      // Only process expense categories
+      if (exp.category === 'living' || exp.category === 'lifestyle' || exp.category === 'unassigned') {
+        summary[exp.category] += exp.amount;
+      }
+      summary.total += exp.amount;
+    });
+    return summary;
+  }, [expenses]);
+
+  const savingsSummary = useMemo(() => {
+    const summary = {
+      emergency: 0,
+      goals: 0,
+      investment: 0,
+      total: 0,
+    };
+    expenses.filter(exp => exp.type === 'saving').forEach(exp => {
+      // Only process saving categories
+      if (exp.category === 'emergency' || exp.category === 'goals' || exp.category === 'investment') {
+        summary[exp.category] += exp.amount;
+      }
       summary.total += exp.amount;
     });
     return summary;
@@ -151,6 +176,12 @@ export default function ExpenseHighlighterPage() {
     { name: t('expenseHighlighter.categories.living'), value: expenseSummary.living, category: 'living' },
     { name: t('expenseHighlighter.categories.lifestyle'), value: expenseSummary.lifestyle, category: 'lifestyle' },
     { name: t('expenseHighlighter.unassigned'), value: expenseSummary.unassigned, category: 'unassigned' },
+  ].filter(d => d.value > 0);
+
+  const savingsChartData = [
+    { name: t('expenseHighlighter.savingCategories.emergency'), value: savingsSummary.emergency, category: 'emergency' },
+    { name: t('expenseHighlighter.savingCategories.goals'), value: savingsSummary.goals, category: 'goals' },
+    { name: t('expenseHighlighter.savingCategories.investment'), value: savingsSummary.investment, category: 'investment' },
   ].filter(d => d.value > 0);
 
   const getCategoryIcon = (category: Expense['category'], size: 'sm' | 'md' | 'lg' = 'sm') => {
@@ -165,6 +196,12 @@ export default function ExpenseHighlighterPage() {
         return <Home className={cn(dimensions[size], "text-chart-1")} />;
       case 'lifestyle':
         return <ShoppingBag className={cn(dimensions[size], "text-chart-2")} />;
+      case 'emergency':
+        return <Shield className={cn(dimensions[size], "text-green-600")} />;
+      case 'goals':
+        return <Target className={cn(dimensions[size], "text-blue-600")} />;
+      case 'investment':
+        return <TrendingUp className={cn(dimensions[size], "text-purple-600")} />;
       default:
         return <HelpCircle className={cn(dimensions[size], "text-muted-foreground")} />;
     }
@@ -176,6 +213,12 @@ export default function ExpenseHighlighterPage() {
         return <Home className="mr-2 h-5 w-5 text-chart-1" />;
       case 'lifestyle':
         return <ShoppingBag className="mr-2 h-5 w-5 text-chart-2" />;
+      case 'emergency':
+        return <Shield className="mr-2 h-5 w-5 text-green-600" />;
+      case 'goals':
+        return <Target className="mr-2 h-5 w-5 text-blue-600" />;
+      case 'investment':
+        return <TrendingUp className="mr-2 h-5 w-5 text-purple-600" />;
       case 'unassigned':
         return <HelpCircle className="mr-2 h-5 w-5 text-muted-foreground" />;
       default:
@@ -279,26 +322,62 @@ export default function ExpenseHighlighterPage() {
           <CardDescription>{t('expenseHighlighter.subtitle')}</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="flex items-start space-x-3">
-              {getCategoryIcon('living', 'lg')}
-              <div>
-                <strong>{t('expenseHighlighter.categories.living')}:</strong>
-                <p className="text-muted-foreground text-sm">{t('expenseHighlighter.livingDescription')}</p>
+          <div className="space-y-6">
+            {/* Spending Categories */}
+            <div>
+              <h3 className="font-semibold text-lg mb-3">{t('expenseHighlighter.form.types.expense')}</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="flex items-start space-x-3">
+                  {getCategoryIcon('living', 'lg')}
+                  <div>
+                    <strong>{t('expenseHighlighter.categories.living')}:</strong>
+                    <p className="text-muted-foreground text-sm">{t('expenseHighlighter.livingDescription')}</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-3">
+                  {getCategoryIcon('lifestyle', 'lg')}
+                  <div>
+                    <strong>{t('expenseHighlighter.categories.lifestyle')}:</strong>
+                    <p className="text-muted-foreground text-sm">{t('expenseHighlighter.lifestyleDescription')}</p>
+                  </div>
+                </div>
               </div>
             </div>
-            
-            <div className="flex items-start space-x-3">
-              {getCategoryIcon('lifestyle', 'lg')}
-              <div>
-                <strong>{t('expenseHighlighter.categories.lifestyle')}:</strong>
-                <p className="text-muted-foreground text-sm">{t('expenseHighlighter.lifestyleDescription')}</p>
+
+            {/* Savings Categories */}
+            <div>
+              <h3 className="font-semibold text-lg mb-3">{t('expenseHighlighter.form.types.saving')}</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="flex items-start space-x-3">
+                  {getCategoryIcon('emergency', 'lg')}
+                  <div>
+                    <strong>{t('expenseHighlighter.savingCategories.emergency')}:</strong>
+                    <p className="text-muted-foreground text-sm">{t('expenseHighlighter.emergencyDescription')}</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-3">
+                  {getCategoryIcon('goals', 'lg')}
+                  <div>
+                    <strong>{t('expenseHighlighter.savingCategories.goals')}:</strong>
+                    <p className="text-muted-foreground text-sm">{t('expenseHighlighter.goalsDescription')}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3">
+                  {getCategoryIcon('investment', 'lg')}
+                  <div>
+                    <strong>{t('expenseHighlighter.savingCategories.investment')}:</strong>
+                    <p className="text-muted-foreground text-sm">{t('expenseHighlighter.investmentDescription')}</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </CardContent>
          <CardFooter>
-          <Button onClick={openNewExpenseModal}><PlusCircle className="mr-2 h-4 w-4" /> {t('expenseHighlighter.addExpense')}</Button>
+          <Button onClick={openNewExpenseModal}><PlusCircle className="mr-2 h-4 w-4" /> {t('expenseHighlighter.addTransaction')}</Button>
         </CardFooter>
       </Card>
 
@@ -355,6 +434,59 @@ export default function ExpenseHighlighterPage() {
         </Card>
       )}
 
+      {expenses.filter(exp => exp.type === 'saving').length > 0 && (
+        <Card>
+          <CardHeader>
+            <div className="flex items-center space-x-3">
+                <PiggyBank className="w-7 h-7 text-accent" />
+                <CardTitle className="text-xl">{t('expenseHighlighter.totalSavings')}</CardTitle>
+            </div>
+          </CardHeader>
+          <CardContent className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="space-y-3">
+              <div className="flex items-center">
+                <DollarSign className="mr-2 h-5 w-5 text-primary" />
+                <p>{t('expenseHighlighter.totalSavings')}: <span className="font-bold text-primary">${savingsSummary.total.toFixed(0)}</span></p>
+              </div>
+              <div className="flex items-center">
+                {getCategoryIconForSummary('emergency')}
+                <p>{t('expenseHighlighter.savingCategories.emergency')}: <span className="font-bold" style={{color: COLORS.emergency}}>${savingsSummary.emergency.toFixed(0)}</span></p>
+              </div>
+              <div className="flex items-center">
+                {getCategoryIconForSummary('goals')}
+                <p>{t('expenseHighlighter.savingCategories.goals')}: <span className="font-bold" style={{color: COLORS.goals}}>${savingsSummary.goals.toFixed(0)}</span></p>
+              </div>
+              <div className="flex items-center">
+                {getCategoryIconForSummary('investment')}
+                <p>{t('expenseHighlighter.savingCategories.investment')}: <span className="font-bold" style={{color: COLORS.investment}}>${savingsSummary.investment.toFixed(0)}</span></p>
+              </div>
+            </div>
+            <div className="h-[300px] w-full">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={savingsChartData}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    outerRadius={100}
+                    fill="#8884d8"
+                    dataKey="value"
+                    label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
+                  >
+                    {savingsChartData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[entry.category.toLowerCase() as keyof typeof COLORS]} />
+                    ))}
+                  </Pie>
+                  <Tooltip formatter={(value: number) => `$${value.toFixed(0)}`} />
+                  <Legend />
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       <Card>
         <CardHeader>
           <div className="flex items-center space-x-3">
@@ -376,7 +508,7 @@ export default function ExpenseHighlighterPage() {
       <Dialog open={isAddFormOpen} onOpenChange={setIsAddFormOpen}>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
-            <DialogTitle>{t('expenseHighlighter.addExpense')}</DialogTitle>
+            <DialogTitle>{t('expenseHighlighter.addTransaction')}</DialogTitle>
             <DialogDescription>
               {t('expenseHighlighter.addDescription')}
             </DialogDescription>

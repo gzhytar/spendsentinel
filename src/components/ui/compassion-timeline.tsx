@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useI18n } from '@/contexts/i18n-context';
 import { Card } from '@/components/ui/card';
-import { Frown, Meh, Smile } from 'lucide-react';
+import { Heart, Calendar } from 'lucide-react';
 
 interface CompassionTimelineProps {
   lang: string;
@@ -87,137 +87,162 @@ export function CompassionTimeline({ lang }: CompassionTimelineProps) {
     };
   }, []);
 
-  const formatDate = (dateStr: string) => {
-    const date = new Date(dateStr);
-    return date.getDate().toString();
-  };
-
-  const getMonthName = (dateStr: string) => {
-    const date = new Date(dateStr);
-    return date.toLocaleDateString(lang, { month: 'short' });
-  };
-
   const isToday = (dateStr: string) => {
     const today = new Date().toISOString().split('T')[0];
     return dateStr === today;
   };
 
-  const getScoreIcon = (score: number | null) => {
-    if (score === null) {
-      return <div className="w-4 h-4 rounded-full bg-muted border-2 border-muted-foreground/20" />;
-    }
-    
-    if (score < 4) {
-      return <Frown className="w-4 h-4 text-red-500" />;
-    } else if (score <= 7) {
-      return <Meh className="w-4 h-4 text-yellow-500" />;
-    } else {
-      return <Smile className="w-4 h-4 text-green-500" />;
-    }
-  };
-
   const getScoreColor = (score: number | null) => {
-    if (score === null) return 'bg-muted/50';
+    if (score === null) return 'bg-muted border border-muted-foreground/20';
     
     if (score < 4) {
-      return 'bg-red-50 dark:bg-red-950/20';
+      return 'bg-red-500 shadow-sm';
     } else if (score <= 7) {
-      return 'bg-yellow-50 dark:bg-yellow-950/20';
+      return 'bg-yellow-500 shadow-sm';
     } else {
-      return 'bg-green-50 dark:bg-green-950/20';
+      return 'bg-green-500 shadow-sm';
     }
   };
 
-  // Group days by week for display
-  const weeks: CompassionDay[][] = [];
-  for (let i = 0; i < compassionHistory.length; i += 7) {
-    weeks.push(compassionHistory.slice(i, i + 7));
-  }
+  const getScoreEmoji = (score: number | null) => {
+    if (score === null) return '○';
+    if (score < 4) return '😔';
+    if (score <= 7) return '😐';
+    return '😊';
+  };
 
   // Calculate statistics
   const scoresWithData = compassionHistory.filter(d => d.score !== null);
+  const totalEntries = scoresWithData.length;
+  const totalDays = compassionHistory.length;
+  const completionPercentage = Math.round((totalEntries / totalDays) * 100);
+
+  // Calculate current streak of entries (not score-based)
+  const calculateEntryStreak = () => {
+    let streak = 0;
+    for (let i = compassionHistory.length - 1; i >= 0; i--) {
+      if (compassionHistory[i].score !== null) {
+        streak++;
+      } else {
+        break;
+      }
+    }
+    return streak;
+  };
+
+  const currentStreak = calculateEntryStreak();
 
   return (
-    <Card className="p-4 sm:p-6 w-full overflow-hidden">
-      <div className="space-y-4 min-w-0">
-        {/* Legend */}
-        <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-sm text-muted-foreground">
-          <div className="flex items-center gap-2 whitespace-nowrap">
-            <Smile className="w-4 h-4 text-green-500 flex-shrink-0" />
-            <span>{t('selfCompassion.timeline.high')} (8-10)</span>
+    <Card className="p-4">
+      <div className="space-y-4">
+        {/* Header with icon and title */}
+        <div className="flex items-center gap-2">
+          <Heart className="w-4 h-4 text-primary" />
+          <span className="font-medium text-sm">Self-Compassion Journey</span>
+          <span className="text-xs text-muted-foreground">
+            {totalEntries}/{totalDays} days ({completionPercentage}%)
+          </span>
+        </div>
+        
+        {/* Progress Bar with Score-Colored Dots */}
+        <div className="space-y-3">
+          <div className="flex gap-1">
+            {compassionHistory.map((day, index) => {
+              const today = isToday(day.date);
+              
+              return (
+                <div
+                  key={day.date}
+                  className={`flex-1 h-3 rounded-full transition-all duration-300 relative group
+                    ${getScoreColor(day.score)}
+                    ${today ? 'ring-2 ring-primary ring-offset-1 scale-110' : ''}
+                    hover:scale-105
+                  `}
+                  title={`${new Date(day.date).toLocaleDateString(lang)} - ${
+                    day.score !== null 
+                      ? `Score: ${day.score}/10 ${getScoreEmoji(day.score)}`
+                      : t('selfCompassion.timeline.noData')
+                  }`}
+                >
+                  {/* Today indicator dot */}
+                  {today && (
+                    <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-primary rounded-full" />
+                  )}
+                </div>
+              );
+            })}
           </div>
-          <div className="flex items-center gap-2 whitespace-nowrap">
-            <Meh className="w-4 h-4 text-yellow-500 flex-shrink-0" />
-            <span>{t('selfCompassion.timeline.medium')} (4-7)</span>
-          </div>
-          <div className="flex items-center gap-2 whitespace-nowrap">
-            <Frown className="w-4 h-4 text-red-500 flex-shrink-0" />
-            <span>{t('selfCompassion.timeline.low')} (1-3)</span>
-          </div>
-          <div className="flex items-center gap-2 whitespace-nowrap">
-            <div className="w-4 h-4 rounded-full bg-muted border-2 border-muted-foreground/20 flex-shrink-0" />
-            <span>{t('selfCompassion.timeline.noData')}</span>
+          
+          {/* Week markers */}
+          <div className="flex justify-between text-xs text-muted-foreground">
+            <span>4 weeks ago</span>
+            <span>3 weeks ago</span>
+            <span>2 weeks ago</span>
+            <span>1 week ago</span>
+            <span>Today</span>
           </div>
         </div>
 
-        {/* Calendar Grid */}
-        <div className="space-y-2 min-w-0">
-          {/* Day headers */}
-          <div className="grid grid-cols-7 gap-1 sm:gap-2 text-xs text-muted-foreground text-center">
-            {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((day, i) => (
-              <div key={i} className="min-w-0">{day}</div>
-            ))}
-          </div>
-
-          {/* Weeks */}
-          {weeks.map((week, weekIndex) => (
-            <div key={weekIndex} className="grid grid-cols-7 gap-1 sm:gap-2">
-              {week.map((day, dayIndex) => {
-                const isFirstOfMonth = formatDate(day.date) === '1';
-                const today = isToday(day.date);
-                
-                return (
-                  <div
-                    key={day.date}
-                    className={`relative flex flex-col items-center justify-center p-1 sm:p-2 rounded-lg transition-colors min-w-0
-                      ${today ? 'ring-2 ring-primary' : ''}
-                      ${getScoreColor(day.score)}
-                      hover:bg-muted
-                    `}
-                    title={day.score !== null ? `Score: ${day.score}` : 'No data'}
-                  >
-                    {/* Month label for first day of month */}
-                    {isFirstOfMonth && (
-                      <span className="absolute -top-5 text-xs text-muted-foreground whitespace-nowrap">
-                        {getMonthName(day.date)}
-                      </span>
-                    )}
-                    
-                    {/* Day number */}
-                    <span className="text-xs sm:text-sm font-medium">
-                      {formatDate(day.date)}
-                    </span>
-                    
-                    {/* Score indicator */}
-                    <div className="mt-1">
-                      {getScoreIcon(day.score)}
-                    </div>
-                  </div>
-                );
-              })}
+        {/* Stats Row */}
+        <div className="space-y-3 pt-3 border-t">
+          {/* Entry Streak */}
+          <div className="flex items-center gap-2">
+            <div className={`w-8 h-8 rounded-full flex items-center justify-center
+              ${currentStreak > 0 ? 'bg-green-500 text-white' : 'bg-muted'}
+            `}>
+              <span className="text-sm font-bold">
+                {currentStreak > 0 ? '📅' : '○'}
+              </span>
             </div>
-          ))}
+            <div className="text-sm">
+              <div className="font-medium">
+                {currentStreak > 0 
+                  ? `${currentStreak} ${t('dailyCheckIn.timeline.days')}` 
+                  : 'No streak'
+                }
+              </div>
+              <div className="text-xs text-muted-foreground">
+                Entry streak
+              </div>
+            </div>
+          </div>
+
+          {/* Legend */}
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2 text-xs text-muted-foreground">
+            <div className="flex items-center gap-1">
+              <div className="w-3 h-3 rounded-full bg-green-500" />
+              <span>{t('selfCompassion.timeline.high')} (8-10)</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <div className="w-3 h-3 rounded-full bg-yellow-500" />
+              <span>{t('selfCompassion.timeline.medium')} (4-7)</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <div className="w-3 h-3 rounded-full bg-red-500" />
+              <span>{t('selfCompassion.timeline.low')} (1-3)</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <div className="w-3 h-3 rounded-full bg-muted border border-muted-foreground/20" />
+              <span>{t('selfCompassion.timeline.noData')}</span>
+            </div>
+          </div>
         </div>
 
-        {/* Stats */}
-        <div className="pt-4 border-t">
-          <div className="flex justify-between text-sm">
-            <span className="text-muted-foreground">{t('selfCompassion.timeline.totalEntries')}</span>
-            <span className="font-medium">
-              {scoresWithData.length} / {compassionHistory.length}
+        {/* Motivational Message */}
+        {currentStreak > 0 && (
+          <div className="text-center py-2">
+            <span className="text-sm text-primary font-medium">
+              {currentStreak === 1 
+                ? "Great start! Keep tracking your self-compassion journey! 🌟"
+                : currentStreak < 7
+                ? `${currentStreak} days of mindful tracking! You're building a healthy habit! 💪`
+                : currentStreak < 14
+                ? `Amazing ${currentStreak}-day streak! Your self-awareness is growing! 🌱`
+                : `Incredible ${currentStreak}-day streak! You're truly committed to self-compassion! 💚`
+              }
             </span>
           </div>
-        </div>
+        )}
       </div>
     </Card>
   );

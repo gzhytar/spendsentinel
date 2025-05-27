@@ -298,6 +298,7 @@ export const cs = {
     addSavingDescription: 'Vyplňte níže uvedené údaje pro přidání nové úspory.',
     editDescription: 'Aktualizujte údaje tohoto výdaje.',
     editSavingDescription: 'Aktualizujte údaje této úspory.',
+    editTransactionDescription: 'Aktualizujte údaje tohoto výdaje nebo úspory.',
     livingDescription: 'Nezbytné náklady jako nájem/hypotéka, služby, potraviny, doprava do práce, pojištění.',
     lifestyleDescription: 'Volitelné výdaje jako stravování venku, zábava, koníčky, cestování, luxusní předměty.',
     emergencyDescription: 'Peníze, které jste se rozhodli neutratit za impulzivní nákupy nebo nepotřebné věci, přesměrované na budování finanční bezpečnosti.',

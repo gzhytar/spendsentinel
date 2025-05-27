@@ -28,6 +28,8 @@ interface AddExpenseFormProps {
   availableParts?: string[];
   onPartToggle?: (part: string, isSelected: boolean) => void;
   selectedParts?: string[];
+  editingExpense?: Expense | null;
+  isEditMode?: boolean;
 }
 
 export function AddExpenseForm({ 
@@ -35,16 +37,30 @@ export function AddExpenseForm({
   showTriggeredParts = false,
   availableParts = [],
   onPartToggle,
-  selectedParts = []
+  selectedParts = [],
+  editingExpense = null,
+  isEditMode = false
 }: AddExpenseFormProps) {
   const { t, locale } = useI18n();
-  const [formData, setFormData] = useState<Omit<Expense, 'id'>>({
-    amount: 0,
-    description: '',
-    category: 'living',
-    date: new Date().toISOString().split('T')[0],
-    type: 'expense',
-    triggeredParts: [],
+  const [formData, setFormData] = useState<Omit<Expense, 'id'>>(() => {
+    if (isEditMode && editingExpense) {
+      return {
+        amount: editingExpense.amount,
+        description: editingExpense.description,
+        category: editingExpense.category,
+        date: editingExpense.date,
+        type: editingExpense.type,
+        triggeredParts: editingExpense.triggeredParts || [],
+      };
+    }
+    return {
+      amount: 0,
+      description: '',
+      category: 'living',
+      date: new Date().toISOString().split('T')[0],
+      type: 'expense',
+      triggeredParts: [],
+    };
   });
   const [journalNotes, setJournalNotes] = useState<Record<string, string>>({});
 
@@ -94,16 +110,18 @@ export function AddExpenseForm({
 
     onAddExpense(expenseToAdd, relevantJournalNotes);
     
-    // Reset form
-    setFormData({
-      amount: 0,
-      description: '',
-      category: 'living',
-      date: new Date().toISOString().split('T')[0],
-      type: 'expense',
-      triggeredParts: [],
-    });
-    setJournalNotes({});
+    // Reset form only if not in edit mode
+    if (!isEditMode) {
+      setFormData({
+        amount: 0,
+        description: '',
+        category: 'living',
+        date: new Date().toISOString().split('T')[0],
+        type: 'expense',
+        triggeredParts: [],
+      });
+      setJournalNotes({});
+    }
   };
 
   const getCategoryIcon = (category: string) => {
@@ -126,7 +144,7 @@ export function AddExpenseForm({
   return (
     <Card className="p-4">
       <h3 className="font-semibold mb-4">
-        {t('expenseHighlighter.addTransaction')}
+        {isEditMode ? t('expenseHighlighter.editExpense') : t('expenseHighlighter.addTransaction')}
       </h3>
       
       <div className="space-y-4">
@@ -294,10 +312,12 @@ export function AddExpenseForm({
         )}
         
         <Button onClick={handleSubmit} className="w-full">
-          <Plus className="w-4 h-4 mr-2" />
-          {formData.type === 'expense' 
-            ? t('expenseHighlighter.addExpense') 
-            : t('expenseHighlighter.addSaving')
+          {!isEditMode && <Plus className="w-4 h-4 mr-2" />}
+          {isEditMode 
+            ? t('common.save')
+            : (formData.type === 'expense' 
+                ? t('expenseHighlighter.addExpense') 
+                : t('expenseHighlighter.addSaving'))
           }
         </Button>
       </div>

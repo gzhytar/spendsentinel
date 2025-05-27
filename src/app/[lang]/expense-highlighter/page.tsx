@@ -5,7 +5,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter }
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { 
   PlusCircle, 
@@ -30,6 +29,7 @@ import { AddExpenseForm, type Expense } from '@/components/ui/add-expense-form';
 import { ExpenseList } from '@/components/ui/expense-list';
 import { expenseStorage } from '@/lib/expense-storage';
 import { VisionBoardItem } from '@/types';
+import { useIdentifiedParts } from '@/lib/assessment-utils';
 import Image from 'next/image';
 
 const COLORS = {
@@ -48,6 +48,11 @@ export default function ExpenseHighlighterPage() {
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
   const [currentExpense, setCurrentExpense] = useState<Partial<Expense> & { id?: string }>({});
   const [visionBoardItems, setVisionBoardItems] = useState<VisionBoardItem[]>([]);
+  const [selectedParts, setSelectedParts] = useState<string[]>([]);
+  const [editingSelectedParts, setEditingSelectedParts] = useState<string[]>([]);
+  
+  // Get user's identified parts from self-assessment results
+  const userParts = useIdentifiedParts();
   
   // Form state for adding new vision board item
   const [newVisionItemType, setNewVisionItemType] = useState<'text' | 'image'>('text');
@@ -73,33 +78,39 @@ export default function ExpenseHighlighterPage() {
     const expense: Expense = {
       ...expenseData,
       id: Date.now().toString(),
+      triggeredParts: selectedParts,
     };
     saveExpenses([...expenses, expense]);
     setIsAddFormOpen(false);
+    
+    // Reset selected parts after adding expense
+    setSelectedParts([]);
+    
     // Note: journalNotes are not used in expense highlighter, only in daily check-in
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setCurrentExpense(prev => ({ ...prev, [name]: name === 'amount' ? parseFloat(value) || 0 : value }));
-  };
-
-  const handleSelectChange = (value: 'living' | 'lifestyle' | 'unassigned') => {
-    setCurrentExpense(prev => ({ ...prev, category: value }));
-  };
-
-  const handleSubmit = () => {
-    if (!currentExpense.description || !currentExpense.amount || !currentExpense.date) return;
-
-    if (currentExpense.id) { // Editing existing expense
-      saveExpenses(expenses.map(exp => exp.id === currentExpense.id ? { ...exp, ...currentExpense } as Expense : exp));
-    }
+  const handleEditExpense = (expenseData: Omit<Expense, 'id'>, journalNotes?: Record<string, string>) => {
+    if (!currentExpense.id) return;
+    
+    const updatedExpense: Expense = {
+      ...expenseData,
+      id: currentExpense.id,
+      triggeredParts: editingSelectedParts,
+    };
+    
+    saveExpenses(expenses.map(exp => exp.id === currentExpense.id ? updatedExpense : exp));
     setIsModalOpen(false);
     setCurrentExpense({});
+    setEditingSelectedParts([]);
+    
+    // Note: journalNotes are not used in expense highlighter, only in daily check-in
   };
+
+
 
   const handleEdit = (expense: Expense) => {
     setCurrentExpense(expense);
+    setEditingSelectedParts(expense.triggeredParts || []);
     setIsModalOpen(true);
   };
 
@@ -136,6 +147,22 @@ export default function ExpenseHighlighterPage() {
 
   const handleRemoveVisionBoardItem = (id: string) => {
     saveVisionBoardItems(visionBoardItems.filter(item => item.id !== id));
+  };
+
+  const handlePartToggle = (part: string, isSelected: boolean) => {
+    setSelectedParts(prev => 
+      isSelected 
+        ? [...prev, part]
+        : prev.filter(p => p !== part)
+    );
+  };
+
+  const handleEditPartToggle = (part: string, isSelected: boolean) => {
+    setEditingSelectedParts(prev => 
+      isSelected 
+        ? [...prev, part]
+        : prev.filter(p => p !== part)
+    );
   };
   
   const expenseSummary = useMemo(() => {
@@ -532,65 +559,32 @@ export default function ExpenseHighlighterPage() {
           </DialogHeader>
           <AddExpenseForm
             onAddExpense={handleAddExpense}
-            showTriggeredParts={false}
+            showTriggeredParts={true}
+            availableParts={userParts}
+            selectedParts={selectedParts}
+            onPartToggle={handlePartToggle}
           />
         </DialogContent>
       </Dialog>
 
       {/* Edit Expense Dialog */}
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
             <DialogTitle>{t('expenseHighlighter.editExpense')}</DialogTitle>
             <DialogDescription>
-              {t('expenseHighlighter.editDescription')}
+              {t('expenseHighlighter.editTransactionDescription')}
             </DialogDescription>
           </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="space-y-1">
-              <Label htmlFor="description">{t('expenseHighlighter.form.description')}</Label>
-              <Input id="description" name="description" value={currentExpense.description || ''} onChange={handleInputChange} />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="amount">{t('expenseHighlighter.form.amount')}</Label>
-              <Input id="amount" name="amount" type="number" value={currentExpense.amount || ''} onChange={handleInputChange} />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="date">{t('expenseHighlighter.form.date')}</Label>
-              <Input id="date" name="date" type="date" value={currentExpense.date || ''} onChange={handleInputChange} />
-            </div>
-            <div className="space-y-1">
-              <Label htmlFor="category">{t('expenseHighlighter.form.category')}</Label>
-              <Select value={currentExpense.category || 'unassigned'} onValueChange={handleSelectChange}>
-                <SelectTrigger id="category">
-                  <SelectValue placeholder={t('expenseHighlighter.selectCategory')} />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="unassigned">
-                    <div className="flex items-center">
-                      <HelpCircle className="mr-2 h-4 w-4 text-muted-foreground" />
-                      <span>{t('expenseHighlighter.unassigned')}</span>
-                    </div>
-                  </SelectItem>
-                  <SelectItem value="living">
-                    <div className="flex items-center">
-                      <Home className="mr-2 h-4 w-4 text-chart-1" />
-                      <span>{t('expenseHighlighter.categories.living')}</span>
-                    </div>
-                  </SelectItem>
-                  <SelectItem value="lifestyle">
-                    <div className="flex items-center">
-                      <ShoppingBag className="mr-2 h-4 w-4 text-chart-2" />
-                      <span>{t('expenseHighlighter.categories.lifestyle')}</span>
-                    </div>
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button onClick={handleSubmit}>{t('expenseHighlighter.editExpense')}</Button>
-          </DialogFooter>
+          <AddExpenseForm
+            onAddExpense={handleEditExpense}
+            showTriggeredParts={true}
+            availableParts={userParts}
+            selectedParts={editingSelectedParts}
+            onPartToggle={handleEditPartToggle}
+            editingExpense={currentExpense as Expense}
+            isEditMode={true}
+          />
         </DialogContent>
       </Dialog>
     </div>

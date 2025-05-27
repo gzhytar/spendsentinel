@@ -401,6 +401,7 @@ export const en = {
     addSavingDescription: 'Fill in the details below to add a new saving.',
     editDescription: 'Update the details of this expense.',
     editSavingDescription: 'Update the details of this saving.',
+    editTransactionDescription: 'Update the details of this spend or saving.',
     livingDescription: 'Essential costs like rent/mortgage, utilities, groceries, transportation for work, insurance.',
     lifestyleDescription: 'Discretionary spending like dining out, entertainment, hobbies, travel, luxury items.',
     emergencyDescription: 'Money you chose not to spend on impulse purchases or unnecessary items, redirected to build financial security.',

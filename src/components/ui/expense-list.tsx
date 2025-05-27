@@ -108,6 +108,18 @@ export function ExpenseList({
                   </div>
                                  </div>
                </div>
+               {expense.triggeredParts && expense.triggeredParts.length > 0 && (
+                 <div>
+                   <p className="text-xs text-muted-foreground">{t('dailyCheckIn.steps.expenseLogging.triggeredParts')}</p>
+                   <div className="flex flex-wrap gap-1 mt-1">
+                     {expense.triggeredParts.map((part, index) => (
+                       <span key={index} className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-primary/10 text-primary">
+                         {part}
+                       </span>
+                     ))}
+                   </div>
+                 </div>
+               )}
               {showEditActions && (
                 <div className="flex justify-end space-x-2 pt-1">
                   {onEdit && (
@@ -137,6 +149,7 @@ export function ExpenseList({
               <TableHead>{t('expenseHighlighter.form.date')}</TableHead>
               <TableHead>{t('expenseHighlighter.form.type')}</TableHead>
               <TableHead>{t('expenseHighlighter.form.category')}</TableHead>
+              <TableHead>{t('dailyCheckIn.steps.expenseLogging.triggeredParts')}</TableHead>
               {showEditActions && <TableHead className="text-right">{t('expenseHighlighter.actions')}</TableHead>}
             </TableRow>
           </TableHeader>
@@ -152,6 +165,19 @@ export function ExpenseList({
                     {getCategoryIcon(expense.category)}
                     <span className="capitalize">{getCategoryName(expense.category)}</span>
                   </div>
+                </TableCell>
+                <TableCell>
+                  {expense.triggeredParts && expense.triggeredParts.length > 0 ? (
+                    <div className="flex flex-wrap gap-1">
+                      {expense.triggeredParts.map((part, index) => (
+                        <span key={index} className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-primary/10 text-primary">
+                          {part}
+                        </span>
+                      ))}
+                    </div>
+                  ) : (
+                    <span className="text-muted-foreground text-sm">-</span>
+                  )}
                 </TableCell>
                 {showEditActions && (
                   <TableCell className="text-right">

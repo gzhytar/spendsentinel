@@ -14,6 +14,7 @@ export const en = {
     home: 'Home',
     overview: 'Overview',
     selfAssessment: 'Self-assessment',
+    partsJournal: 'Parts Journal',
     myFinancialDecisions: 'My Financial Decisions',
     dailyCheckIn: 'Daily Check-in',
   },
@@ -225,7 +226,8 @@ export const en = {
         innerDialogue: 'Inner Dialogue',
         digitalFootprints: 'Digital Footprints'
       },
-      assessmentButton: 'Take Self-Assessment',
+      assessmentButton: 'Explore my financial parts',
+      workWithPartButton: 'Work with this part',
       compassionButton: 'Learn Self-Compassion'
     },
     features: {
@@ -339,6 +341,7 @@ export const en = {
     identifyButton: 'Identify My Financial Parts',
     repeatAssessmentButton: 'Start New Assessment',
     explorePartButton: 'Explore This Part Deeper',
+    startPartJournalButton: 'Start Part Journal',
     premiumFeatureTooltip: 'This deep exploration is a premium feature. Subscribe to enable premium features.',
     result: {
       title: 'Meet Your {partName}',
@@ -691,7 +694,7 @@ export const en = {
     steps: {
       breathing: {
         title: 'Grounding Breath Exercise',
-        instruction: 'Sit or stand tall with relaxed shoulders and grounded feet, inviting any tense or busy part of you to simply watch. Place one hand on your heart, one on your belly, and quietly set an intention like \“May this breath give all my parts ease.\” \n\n Breathe in through your nose to fill your chest, then sigh the air out an open mouth without pausing, keeping a connected 5-second in / 5-second out flow for about six waves while letting tension ride out on each exhale. \n\n After the minute, allow your breathing to settle back into its natural rhythm.'
+        instruction: 'Sit or stand tall with relaxed shoulders and grounded feet, inviting any tense or busy part of you to simply watch. Place one hand on your heart, one on your belly, and quietly set an intention like \“May this breath give all my parts ease.\" \n\n Breathe in through your nose to fill your chest, then sigh the air out an open mouth without pausing, keeping a connected 5-second in / 5-second out flow for about six waves while letting tension ride out on each exhale. \n\n After the minute, allow your breathing to settle back into its natural rhythm.'
       },
       reflection: {
         title: 'Reflect on Your Day',
@@ -731,6 +734,143 @@ export const en = {
       streak: 'Current streak',
       days: 'days',
       totalCompleted: 'Total completed'
+    }
+  },
+  partsJournal: {
+    title: 'Parts Journal',
+    subtitle: 'Engage in structured dialogue with your financial parts',
+    sessionTitle: 'Dialogue with {partName}',
+    sessionSubtitle: 'This is a safe space for inner exploration and understanding',
+    progress: 'Step {current} of {total}',
+    viewHistory: 'View History',
+    startNewSession: 'Start New Session',
+    journalHistory: 'Journal History',
+    noPartsTitle: 'No Parts Identified',
+    noPartsMessage: 'Complete the self-assessment first to identify your financial parts before starting a journal session.',
+    goToAssessment: 'Go to Self-Assessment',
+    selectPartTitle: 'Select a Part',
+    selectPartMessage: 'Choose which financial part you\'d like to dialogue with today.',
+    noSessionsTitle: 'No Journal Sessions Yet',
+    noSessionsMessage: 'Start your first dialogue session with one of your identified parts.',
+    completed: 'Completed',
+    inProgress: 'In Progress',
+    stepProgress: 'Step {step} of {total}',
+    view: 'View',
+    continue: 'Continue',
+    confirmDelete: 'Are you sure you want to delete this journal session? This action cannot be undone.',
+    completionMessage: 'Congratulations! You\'ve completed a meaningful dialogue with your part. Your insights have been saved.',
+    navigation: {
+      previous: 'Previous',
+      next: 'Next',
+      complete: 'Complete Session'
+    },
+    formatting: {
+      bold: 'Bold',
+      italic: 'Italic',
+      heading: 'Heading',
+      list: 'List',
+      emoji: 'Emoji'
+    },
+    characters: 'characters',
+    lastSaved: 'Last saved',
+    recording: 'Recording...',
+    startRecording: 'Start voice input',
+    stopRecording: 'Stop recording',
+    voiceNotSupported: 'Voice input not supported',
+    voiceNotAvailable: 'Voice input not available in this browser',
+    steps: {
+      safeEnvironment: {
+        title: 'Create a Safe Inner Environment',
+        subtitle: 'Begin your dialogue with {partName}',
+        affirmation: 'I welcome all parts of me, just as they are right now.',
+        breathingTitle: 'Grounding Breath',
+        breathingStep1: 'Take a few slow, deep breaths to center yourself.',
+        breathingStep2: 'Place one hand on your heart and one on your belly.',
+        breathingStep3: 'Set an intention of curiosity and compassion for this dialogue.',
+        journalTitle: 'Set Your Intention',
+        journalPrompt: 'Begin by writing the affirmation above, then add any thoughts about creating safety for this inner dialogue.',
+        placeholder: 'I welcome all parts of me, just as they are right now...',
+        reminder: 'Remember: This is a judgment-free space. All parts are welcome here.'
+      },
+      findFocus: {
+        title: 'Find, Focus & Flesh Out',
+        subtitle: 'Locate and understand {partName}',
+        locationTitle: 'Where do you notice this part?',
+        locationPrompt: 'When this part is triggered, where do you notice it in or around your body?',
+        experienceTitle: 'How do you experience this part?',
+        experiencePrompt: 'Turn your attention inside and notice how you experience this part:',
+        experienceTypes: {
+          visual: 'Visual images',
+          voice: 'Inner voice',
+          thoughts: 'Thoughts',
+          emotions: 'Emotions',
+          sensations: 'Body sensations',
+          other: 'Something else'
+        },
+        journalTitle: 'Your Observations',
+        journalPrompt: 'Log your observations about how and where you experience this part.',
+        placeholder: 'When {partName} is triggered, I notice it in/as...',
+        encouragement: 'There\'s no right or wrong way to experience your parts. Trust what you notice.'
+      },
+      curiousDialogue: {
+        title: 'Curious Dialogue',
+        subtitle: 'Have an open-hearted conversation with {partName}',
+        introTitle: 'Approaching with Curiosity',
+        introText: 'Let {partName} know you\'re aware of its positive intention, even if its approach doesn\'t always feel right.',
+        approach: 'Ask the following questions with genuine curiosity and openness:',
+        questions: {
+          positiveIntention: {
+            title: 'What is your positive intention for me?',
+            prompt: 'Ask this part what it\'s trying to do for you or protect you from.',
+            placeholder: 'This part wants to help me by...'
+          },
+          fears: {
+            title: 'What are you afraid would happen if you stopped protecting me?',
+            prompt: 'Explore what this part fears might happen if it wasn\'t there to help.',
+            placeholder: 'This part is afraid that if it stopped...'
+          },
+          protectionOrigins: {
+            title: 'How did you learn to protect me this way?',
+            prompt: 'Ask about the origins of this part\'s protective strategies.',
+            placeholder: 'This part learned to protect me by...'
+          },
+          agePerception: {
+            title: 'How old do you think I am?',
+            prompt: 'Sometimes parts see us as younger than we are. If so, offer an update about your current age and capabilities.',
+            placeholder: 'This part sees me as...'
+          },
+          trustNeeds: {
+            title: 'What do you need from me so you can trust me more?',
+            prompt: 'Ask what this part needs to feel more confident in your ability to handle things.',
+            placeholder: 'This part needs me to...'
+          },
+          additionalInsights: {
+            title: 'What else do you need me to know?',
+            prompt: 'Give the part space to share anything else important.',
+            placeholder: 'This part also wants me to know...'
+          }
+        },
+        appreciationReminder: 'Remember to thank {partName} for its work, even if its approach sometimes feels challenging.'
+      },
+      appreciateLog: {
+        title: 'Appreciate & Log',
+        subtitle: 'Honor {partName} and capture your insights',
+        sessionSummary: 'Session Summary',
+        appreciationTitle: 'Express Appreciation',
+        appreciationPrompt: 'Thank {partName} for its work and express your understanding of its positive intention.',
+        placeholder: 'Thank you, {partName}, for...',
+        defaultAppreciation: 'Thank you, {partName}, for the work you\'re doing to protect me. I see your positive intention and I\'m grateful for your care.',
+        keyInsights: 'Key Insights',
+        positiveIntention: 'Positive Intention',
+        trustNeeds: 'Trust Needs',
+        completionTitle: 'Session Complete!',
+        completionMessage: 'You\'ve successfully completed a dialogue with {partName}. These insights can help you build a more compassionate relationship with this part.',
+        insights: {
+          safeSpace: 'Safe Space Creation',
+          awareness: 'Part Awareness',
+          dialogue: 'Dialogue Insights'
+        }
+      }
     }
   }
 } as const; 

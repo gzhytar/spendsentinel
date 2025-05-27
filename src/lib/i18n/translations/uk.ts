@@ -14,8 +14,8 @@ export const uk = {
     home: 'Головна',
     overview: 'Огляд',
     selfAssessment: 'Самооцінка',
+    partsJournal: 'Щоденник частин',
     myFinancialDecisions: 'Мої фінансові рішення',
-
     dailyCheckIn: 'Щоденна перевірка',
   },
   landing: {
@@ -221,14 +221,15 @@ export const uk = {
         }
       },
       tabs: {
-        triggers: 'Тригери',
         behaviors: 'Поведінка',
-        emotions: 'Емоції',
-        innerDialogue: 'Внутрішній Діалог',
-        digitalFootprints: 'Цифрові Сліди'
+        triggers: 'Тригери',
+        emotions: 'Емоції з часом',
+        innerDialogue: 'Внутрішній діалог',
+        digitalFootprints: 'Цифрові сліди'
       },
-      assessmentButton: 'Пройти самооцінку',
-      compassionButton: 'Практикувати самоспівчуття'
+      assessmentButton: 'Дослідити мої фінансові частини',
+      workWithPartButton: 'Працювати з цією частиною',
+      compassionButton: 'Вивчити самоспівчуття'
     },
     features: {
       title: 'Відкрийте своє фінансове я',
@@ -432,6 +433,7 @@ export const uk = {
     identifyButton: 'Визначити мої фінансові частини',
     repeatAssessmentButton: 'Почати нову оцінку',
     explorePartButton: 'Дослідити цю частину глибше',
+    startPartJournalButton: 'Почати щоденник частин',
     premiumFeatureTooltip: 'Це глибоке дослідження є преміум-функцією. Підпишіться для активації преміум-функцій.',
     result: {
       title: 'Познайомтеся з вашим {partName}',

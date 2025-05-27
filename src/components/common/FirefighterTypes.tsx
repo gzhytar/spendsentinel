@@ -14,12 +14,14 @@ import {
   Brain,
   Heart,
   Shield,
-  Smartphone
+  Smartphone,
+  BookOpen
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useI18n } from '@/contexts/i18n-context';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { useIdentifiedParts } from '@/lib/assessment-utils';
 
 interface FirefighterType {
   id: string;
@@ -34,7 +36,6 @@ interface FirefighterType {
 
 interface FirefighterTypesProps {
   highlightedType?: string; // If provided, only this type will be enabled, others grayed out
-  showActions?: boolean; // Whether to show the action buttons at the bottom
   title?: string; // Custom title override
   subtitle?: string; // Custom subtitle override
   showIntroduction?: boolean; // Whether to show the introduction alert
@@ -42,7 +43,6 @@ interface FirefighterTypesProps {
 
 export function FirefighterTypes({ 
   highlightedType, 
-  showActions = true, 
   title, 
   subtitle, 
   showIntroduction = true 
@@ -50,6 +50,7 @@ export function FirefighterTypes({
   const { t, locale } = useI18n();
   const localePrefix = `/${locale}`;
   const [selectedType, setSelectedType] = useState<string>(highlightedType || 'spender');
+  const identifiedParts = useIdentifiedParts();
 
   const firefighterTypes: FirefighterType[] = [
     {
@@ -289,16 +290,25 @@ export function FirefighterTypes({
         </div>
 
         {/* Call to Action */}
-        {showActions && (
-          <div className="flex flex-col sm:flex-row gap-4 pt-4">
-            <Button size="lg" className="flex-1 sm:flex-initial" asChild>
-              <Link href={`${localePrefix}/self-assessment`}>
-                {t('landing.firefighters.assessmentButton')}
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Link>
-            </Button>
+        {<div className="flex flex-col sm:flex-row gap-4 pt-4">
+            {!highlightedType && (
+              <Button size="lg" className="flex-1 sm:flex-initial" asChild>
+                <Link href={`${localePrefix}/self-assessment`}>
+                  {t('landing.firefighters.assessmentButton')}
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Link>
+              </Button>
+            )}
+            {highlightedType && identifiedParts.length > 0 && (
+              <Button size="lg" className="flex-1 sm:flex-initial" asChild>
+                <Link href={`${localePrefix}/parts-journal?part=${encodeURIComponent(currentType.title)}`}>
+                  <BookOpen className="w-4 h-4 mr-2" />
+                  {t('landing.firefighters.workWithPartButton')}
+                </Link>
+              </Button>
+            )}
           </div>
-        )}
+        }
       </CardContent>
     </Card>
   );

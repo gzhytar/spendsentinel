@@ -17,7 +17,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Loader2, Wand2, MessageSquareHeart, UserCheck, AlertTriangle, BrainCircuit, RefreshCw, ArrowRight, Lightbulb, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Loader2, Wand2, MessageSquareHeart, UserCheck, AlertTriangle, BrainCircuit, RefreshCw, ArrowRight, Lightbulb, CheckCircle2, AlertCircle, BookOpen } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import type { IdentifyIFSPartInput, IdentifyIFSPartOutput } from '@/ai/flows/ifs-part-identification';
@@ -335,7 +335,6 @@ export default function SelfAssessmentPage() {
           {/* Detailed Firefighter Information */}
           <FirefighterTypes 
             highlightedType={quizResult}
-            showActions={false}
             title={t('selfAssessment.quiz.detailedResult.title')}
             subtitle={t('selfAssessment.quiz.detailedResult.subtitle')}
             showIntroduction={false}
@@ -463,17 +462,27 @@ export default function SelfAssessmentPage() {
             </div>
           </CardContent>
           <CardFooter>
-            <PremiumButton 
-              onClick={handleResolvePart} 
-              disabled={isLoadingResolve}
-              size="lg"
-              className="w-full sm:w-auto"
-              tooltipText={t('selfAssessment.premiumFeatureTooltip')}
-              wrap={true}
-            >
-              {isLoadingResolve && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              <MessageSquareHeart className="mr-2 h-4 w-4" /> {t('selfAssessment.explorePartButton')}
-            </PremiumButton>
+            <div className="flex flex-col sm:flex-row gap-3 w-full">
+              <Button 
+                onClick={() => window.location.href = `/${locale}/parts-journal?part=${encodeURIComponent(identificationResult.identifiedPart.partName)}`}
+                size="lg"
+                className="w-full sm:flex-1"
+                variant="default"
+              >
+                <BookOpen className="mr-2 h-4 w-4" /> {t('selfAssessment.startPartJournalButton')}
+              </Button>
+              <PremiumButton 
+                onClick={handleResolvePart} 
+                disabled={isLoadingResolve}
+                size="lg"
+                className="w-full sm:flex-1"
+                tooltipText={t('selfAssessment.premiumFeatureTooltip')}
+                wrap={true}
+              >
+                {isLoadingResolve && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                <MessageSquareHeart className="mr-2 h-4 w-4" /> {t('selfAssessment.explorePartButton')}
+              </PremiumButton>
+            </div>
           </CardFooter>
         </Card>
       )}

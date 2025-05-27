@@ -3,6 +3,7 @@ import { en } from './i18n/translations/en';
 import { cs } from './i18n/translations/cs';
 import { ru } from './i18n/translations/ru';
 import { uk } from './i18n/translations/uk';
+import { useState, useEffect } from 'react';
 
 interface QuizResult {
   result: string;
@@ -106,6 +107,13 @@ export function getIdentifiedParts(locale: string): string[] {
  * Hook to get identified parts for the current locale
  */
 export function useIdentifiedParts(): string[] {
+  const [parts, setParts] = useState<string[]>([]);
   const { locale } = useI18n();
-  return getIdentifiedParts(locale);
+
+  useEffect(() => {
+    const identifiedParts = getIdentifiedParts(locale);
+    setParts(identifiedParts);
+  }, [locale]);
+
+  return parts;
 } 

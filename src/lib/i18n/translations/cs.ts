@@ -14,6 +14,7 @@ export const cs = {
     home: 'Domů',
     overview: 'Přehled',
     selfAssessment: 'Sebehodnocení',
+    partsJournal: 'Deník částí',
     myFinancialDecisions: 'Moje finanční rozhodnutí',
     dailyCheckIn: 'Denní check-in',
   },
@@ -220,14 +221,15 @@ export const cs = {
         }
       },
       tabs: {
-        triggers: 'Spouštěče',
         behaviors: 'Chování',
-        emotions: 'Emoce',
-        innerDialogue: 'Vnitřní Dialog',
-        digitalFootprints: 'Digitální Stopy'
+        triggers: 'Spouštěče',
+        emotions: 'Emoce v čase',
+        innerDialogue: 'Vnitřní dialog',
+        digitalFootprints: 'Digitální stopy'
       },
-      assessmentButton: 'Provést sebehodnocení',
-      compassionButton: 'Praktikovat sebesoucit'
+      assessmentButton: 'Prozkoumat moje finanční části',
+      workWithPartButton: 'Pracovat s touto částí',
+      compassionButton: 'Naučit se sebeúctě'
     },
     features: {
       title: 'Hlavní funkce',
@@ -361,6 +363,7 @@ export const cs = {
     identifyButton: 'Identifikovat Finanční Část',
     repeatAssessmentButton: 'Opakovat hodnocení hasičských částí',
     explorePartButton: 'Prozkoumat tuto část hlouběji',
+    startPartJournalButton: 'Začít deník částí',
     premiumFeatureTooltip: 'Toto hluboké prozkoumání je prémiová funkce. Pro aktivaci prémiových funkcí se přihlaste k odběru.',
     error: {
       title: 'Chyba',
@@ -614,10 +617,11 @@ export const cs = {
         error: 'Prosím popište své nedávné finanční chování podrobněji.'
       }
     },
-    identifyButton: 'Identifikovat mé finanční části',
+    identifyButton: 'Identifikovat moje finanční části',
     repeatAssessmentButton: 'Začít nové hodnocení',
     explorePartButton: 'Prozkoumat tuto část hlouběji',
-    premiumFeatureTooltip: 'Tento hluboký průzkum je prémiová funkce. Přihlaste se k odběru pro aktivaci prémiových funkcí.',
+    startPartJournalButton: 'Začít deník částí',
+    premiumFeatureTooltip: 'Toto hlubší zkoumání je prémiová funkce. Přihlaste se k odběru pro povolení prémiových funkcí.',
     result: {
       title: 'Seznamte se s vaším {partName}',
       role: 'Role',

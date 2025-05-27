@@ -14,6 +14,7 @@ export const ru = {
     home: 'Главная',
     overview: 'Обзор',
     selfAssessment: 'Самооценка',
+    partsJournal: 'Дневник частей',
     myFinancialDecisions: 'Мои финансовые решения',
     dailyCheckIn: 'Ежедневная проверка',
   },
@@ -220,14 +221,15 @@ export const ru = {
         }
       },
       tabs: {
-        triggers: 'Триггеры',
         behaviors: 'Поведение',
-        emotions: 'Эмоции',
-        innerDialogue: 'Внутренний Диалог',
-        digitalFootprints: 'Цифровые Следы'
+        triggers: 'Триггеры',
+        emotions: 'Эмоции со временем',
+        innerDialogue: 'Внутренний диалог',
+        digitalFootprints: 'Цифровые следы'
       },
-      assessmentButton: 'Пройти самооценку',
-      compassionButton: 'Практиковать самосострадание'
+      assessmentButton: 'Исследовать мои финансовые части',
+      workWithPartButton: 'Работать с этой частью',
+      compassionButton: 'Изучить самосострадание'
     },
     features: {
       title: 'Откройте свое финансовое я',
@@ -662,6 +664,7 @@ export const ru = {
     identifyButton: 'Определить мои финансовые части',
     repeatAssessmentButton: 'Начать новую оценку',
     explorePartButton: 'Исследовать эту часть глубже',
+    startPartJournalButton: 'Начать дневник частей',
     premiumFeatureTooltip: 'Это глубокое исследование является премиум-функцией. Подпишитесь для активации премиум-функций.',
     result: {
       title: 'Познакомьтесь с вашим {partName}',

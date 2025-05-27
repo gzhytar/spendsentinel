@@ -315,7 +315,7 @@ export const en = {
         seeResults: 'See Results',
         progress: 'Question {current} of {total}'
       },
-      interpretationGuide: "Use the detailed section below to understand your result. This doesn't define you completely—we all have multiple parts. If you feel this isn't your primary pattern, you can retake the quiz using the 'Repeat Quiz' button.",
+      interpretationGuide: "Use the detailed section below to understand your result. This doesn't define you completely—we all have multiple parts. If you feel this isn't your primary pattern, you can retake the quiz.",
       retakeHint: "If this doesn't feel like your main part, click 'Repeat Quiz' to try again.",
     },
     deepAssessment: {

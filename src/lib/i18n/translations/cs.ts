@@ -549,8 +549,7 @@ export const cs = {
         title: 'Máte potíže s výběrem?',
         description: 'Protože si nejste jisti několika odpověďmi, doporučujeme personalizované hodnocení níže pro přesnější poznatky o vašich finančních vzorcích.'
       },
-      interpretationGuide: "Použijte podrobnou sekci níže k pochopení svého výsledku. Tento výsledek vás zcela nedefinuje—všichni máme více částí. Pokud cítíte, že to není váš hlavní vzorec, můžete kvíz zopakovat pomocí tlačítka 'Opakovat kvíz'.",
-      retakeHint: "Pokud to necítíte jako svou hlavní část, klikněte na 'Opakovat kvíz' a zkuste to znovu.",
+      interpretationGuide: "Použijte podrobnou sekci níže k pochopení svého výsledku. Tento výsledek vás zcela nedefinuje—všichni máme více částí. Pokud cítíte, že to není váš hlavní vzorec, můžete kvíz zopakovat.",
       questions: {
         stressResponse: {
           question: 'Když se cítíte ve stresu kvůli penězům, jaký je váš první instinkt?',

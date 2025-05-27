@@ -314,22 +314,23 @@ export default function SelfAssessmentPage() {
       {/* Quiz Results Display */}
       {showQuizResult && quizResult && (
         <div className="space-y-6">
-          <div className="flex items-center justify-between">
-            <Alert className="flex-1 bg-green-50 border-green-200 dark:bg-green-950/20 dark:border-green-900">
-              <CheckCircle2 className="h-4 w-4 text-green-600 dark:text-green-400" />
-              <AlertDescription className="text-green-800 dark:text-green-200">
-                {t('selfAssessment.quiz.interpretationGuide', {
-                  retakeHint: t('selfAssessment.quiz.retakeHint')
-                })}
+          <Alert className="bg-green-50 border-green-200 dark:bg-green-950/20 dark:border-green-900">
+            <CheckCircle2 className="h-4 w-4 text-green-600 dark:text-green-400" />
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <AlertDescription className="text-green-800 dark:text-green-200 flex-1">
+                {t('selfAssessment.quiz.interpretationGuide')}
               </AlertDescription>
-            </Alert>
-            <div className="ml-4">
-              <Button onClick={handleRetakeQuiz} variant="outline" size="sm">
+              <Button 
+                onClick={handleRetakeQuiz} 
+                variant="outline" 
+                size="sm"
+                className="self-start sm:self-center shrink-0"
+              >
                 <RefreshCw className="mr-2 h-4 w-4" /> 
                 {t('selfAssessment.quiz.repeatQuizButton')}
               </Button>
             </div>
-          </div>
+          </Alert>
 
           {/* Detailed Firefighter Information */}
           <FirefighterTypes 

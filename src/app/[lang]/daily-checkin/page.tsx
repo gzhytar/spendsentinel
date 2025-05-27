@@ -71,7 +71,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
   }, [currentStep, checkInData, isScoreSaved]);
 
   const handleNextStep = () => {
-    if (currentStep < 6) {
+    if (currentStep < 5) {
       setCurrentStep(currentStep + 1);
       // Scroll to top of the container for better navigation
       containerRef.current?.scrollIntoView({ 
@@ -196,7 +196,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
   const progressPercentage = (currentStep / 6) * 100;
 
   return (
-    <div ref={containerRef} className="container mx-auto px-4 py-8 max-w-4xl">
+    <div className="container mx-auto px-4 py-8 max-w-4xl">
       {/* Header with Progress */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">{t('dailyCheckIn.title')}</h1>
@@ -205,7 +205,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
         <div className="mb-4">
           <div className="flex justify-between items-center mb-2">
             <span className="text-sm text-muted-foreground">
-              {t('dailyCheckIn.progress', { current: currentStep, total: 6 })}
+              {t('dailyCheckIn.progress', { current: currentStep, total: 5 })}
             </span>
             <span className="text-sm text-muted-foreground">
               {Math.round(progressPercentage)}%
@@ -238,7 +238,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
       <PanicButton />
 
       {/* Step Content */}
-      <Card className="p-6">
+      <Card ref={containerRef} className="p-6">
         {/* Step 1: Breathing Exercise */}
         {currentStep === 1 && (
           <div className="space-y-6">
@@ -259,7 +259,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
               {t('dailyCheckIn.steps.reflection.prompt')}
             </p>
             
-            <blockquote className="italic text-lg text-center text-primary-foreground max-w-md mx-auto my-8 px-8 py-6 border-l-4 border-primary/40 bg-primary/5 rounded-r-lg shadow-sm">
+            <blockquote className="italic text-md text-center text-primary-foreground max-w-md mx-auto my-8 px-8 py-6 border-l-4 border-primary/40 bg-primary/5 rounded-r-lg shadow-sm">
               "The quieter you become, the more you can hear."
               <footer className="text-sm mt-3 text-muted-foreground">— Ram Dass</footer>
             </blockquote>

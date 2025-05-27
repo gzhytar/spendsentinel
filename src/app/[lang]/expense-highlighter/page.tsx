@@ -36,9 +36,8 @@ const COLORS = {
   living: '#e76e50', // Red
   lifestyle: '#10b981', // Green
   unassigned: '#9ca3af', // Gray
-  emergency: '#16a34a', // Green
+  avoided: '#16a34a', // Green
   goals: '#2563eb', // Blue
-  investment: '#9333ea', // Purple
 };
 
 export default function ExpenseHighlighterPage() {
@@ -184,14 +183,14 @@ export default function ExpenseHighlighterPage() {
 
   const savingsSummary = useMemo(() => {
     const summary = {
-      emergency: 0,
+      avoided: 0,
       goals: 0,
-      investment: 0,
+      unassigned: 0,
       total: 0,
     };
     expenses.filter(exp => exp.type === 'saving').forEach(exp => {
       // Only process saving categories
-      if (exp.category === 'emergency' || exp.category === 'goals' || exp.category === 'investment') {
+      if (exp.category === 'avoided' || exp.category === 'goals' || exp.category === 'unassigned') {
         summary[exp.category] += exp.amount;
       }
       summary.total += exp.amount;
@@ -206,9 +205,9 @@ export default function ExpenseHighlighterPage() {
   ].filter(d => d.value > 0);
 
   const savingsChartData = [
-    { name: t('expenseHighlighter.savingCategories.emergency'), value: savingsSummary.emergency, category: 'emergency' },
+    { name: t('expenseHighlighter.savingCategories.avoided'), value: savingsSummary.avoided, category: 'avoided' },
     { name: t('expenseHighlighter.savingCategories.goals'), value: savingsSummary.goals, category: 'goals' },
-    { name: t('expenseHighlighter.savingCategories.investment'), value: savingsSummary.investment, category: 'investment' },
+    { name: t('expenseHighlighter.unassigned'), value: savingsSummary.unassigned, category: 'unassigned' },
   ].filter(d => d.value > 0);
 
   const getCategoryIcon = (category: Expense['category'], size: 'sm' | 'md' | 'lg' = 'sm') => {
@@ -223,12 +222,10 @@ export default function ExpenseHighlighterPage() {
         return <Home className={cn(dimensions[size], "text-chart-1")} />;
       case 'lifestyle':
         return <ShoppingBag className={cn(dimensions[size], "text-chart-2")} />;
-      case 'emergency':
+      case 'avoided':
         return <Shield className={cn(dimensions[size], "text-green-600")} />;
       case 'goals':
         return <Target className={cn(dimensions[size], "text-blue-600")} />;
-      case 'investment':
-        return <TrendingUp className={cn(dimensions[size], "text-purple-600")} />;
       default:
         return <HelpCircle className={cn(dimensions[size], "text-muted-foreground")} />;
     }
@@ -240,12 +237,10 @@ export default function ExpenseHighlighterPage() {
         return <Home className="mr-2 h-5 w-5 text-chart-1" />;
       case 'lifestyle':
         return <ShoppingBag className="mr-2 h-5 w-5 text-chart-2" />;
-      case 'emergency':
+      case 'avoided':
         return <Shield className="mr-2 h-5 w-5 text-green-600" />;
       case 'goals':
         return <Target className="mr-2 h-5 w-5 text-blue-600" />;
-      case 'investment':
-        return <TrendingUp className="mr-2 h-5 w-5 text-purple-600" />;
       case 'unassigned':
         return <HelpCircle className="mr-2 h-5 w-5 text-muted-foreground" />;
       default:
@@ -350,53 +345,48 @@ export default function ExpenseHighlighterPage() {
         </CardHeader>
         <CardContent>
           <div className="space-y-6">
-            {/* Spending Categories */}
-            <div>
-              <h3 className="font-semibold text-lg mb-3">{t('expenseHighlighter.form.types.expense')}</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="flex items-start space-x-3">
-                  {getCategoryIcon('living', 'lg')}
-                  <div>
-                    <strong>{t('expenseHighlighter.categories.living')}:</strong>
-                    <p className="text-muted-foreground text-sm">{t('expenseHighlighter.livingDescription')}</p>
+            {/* Categories Layout - Side by Side */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              {/* Spending Categories - Left Side */}
+              <div>
+                <h3 className="font-semibold text-lg mb-3">{t('expenseHighlighter.form.types.expense')}</h3>
+                <div className="space-y-4">
+                  <div className="flex items-start space-x-3">
+                    {getCategoryIcon('living', 'lg')}
+                    <div>
+                      <strong>{t('expenseHighlighter.categories.living')}:</strong>
+                      <p className="text-muted-foreground text-sm">{t('expenseHighlighter.livingDescription')}</p>
+                    </div>
                   </div>
-                </div>
-                
-                <div className="flex items-start space-x-3">
-                  {getCategoryIcon('lifestyle', 'lg')}
-                  <div>
-                    <strong>{t('expenseHighlighter.categories.lifestyle')}:</strong>
-                    <p className="text-muted-foreground text-sm">{t('expenseHighlighter.lifestyleDescription')}</p>
+                  
+                  <div className="flex items-start space-x-3">
+                    {getCategoryIcon('lifestyle', 'lg')}
+                    <div>
+                      <strong>{t('expenseHighlighter.categories.lifestyle')}:</strong>
+                      <p className="text-muted-foreground text-sm">{t('expenseHighlighter.lifestyleDescription')}</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Savings Categories */}
-            <div>
-              <h3 className="font-semibold text-lg mb-3">{t('expenseHighlighter.form.types.saving')}</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="flex items-start space-x-3">
-                  {getCategoryIcon('emergency', 'lg')}
-                  <div>
-                    <strong>{t('expenseHighlighter.savingCategories.emergency')}:</strong>
-                    <p className="text-muted-foreground text-sm">{t('expenseHighlighter.emergencyDescription')}</p>
+              {/* Savings Categories - Right Side */}
+              <div>
+                <h3 className="font-semibold text-lg mb-3">{t('expenseHighlighter.form.types.saving')}</h3>
+                <div className="space-y-4">
+                  <div className="flex items-start space-x-3">
+                    {getCategoryIcon('avoided', 'lg')}
+                    <div>
+                      <strong>{t('expenseHighlighter.savingCategories.avoided')}:</strong>
+                      <p className="text-muted-foreground text-sm">{t('expenseHighlighter.avoidedDescription')}</p>
+                    </div>
                   </div>
-                </div>
-                
-                <div className="flex items-start space-x-3">
-                  {getCategoryIcon('goals', 'lg')}
-                  <div>
-                    <strong>{t('expenseHighlighter.savingCategories.goals')}:</strong>
-                    <p className="text-muted-foreground text-sm">{t('expenseHighlighter.goalsDescription')}</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-3">
-                  {getCategoryIcon('investment', 'lg')}
-                  <div>
-                    <strong>{t('expenseHighlighter.savingCategories.investment')}:</strong>
-                    <p className="text-muted-foreground text-sm">{t('expenseHighlighter.investmentDescription')}</p>
+                  
+                  <div className="flex items-start space-x-3">
+                    {getCategoryIcon('goals', 'lg')}
+                    <div>
+                      <strong>{t('expenseHighlighter.savingCategories.goals')}:</strong>
+                      <p className="text-muted-foreground text-sm">{t('expenseHighlighter.goalsDescription')}</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -486,17 +476,19 @@ export default function ExpenseHighlighterPage() {
                     <p>{t('expenseHighlighter.totalSavings')}: <span className="font-bold text-primary">${savingsSummary.total.toFixed(0)}</span></p>
                   </div>
                   <div className="flex items-center">
-                    {getCategoryIconForSummary('emergency')}
-                    <p>{t('expenseHighlighter.savingCategories.emergency')}: <span className="font-bold" style={{color: COLORS.emergency}}>${savingsSummary.emergency.toFixed(0)}</span></p>
+                    {getCategoryIconForSummary('avoided')}
+                    <p>{t('expenseHighlighter.savingCategories.avoided')}: <span className="font-bold" style={{color: COLORS.avoided}}>${savingsSummary.avoided.toFixed(0)}</span></p>
                   </div>
                   <div className="flex items-center">
                     {getCategoryIconForSummary('goals')}
                     <p>{t('expenseHighlighter.savingCategories.goals')}: <span className="font-bold" style={{color: COLORS.goals}}>${savingsSummary.goals.toFixed(0)}</span></p>
                   </div>
-                  <div className="flex items-center">
-                    {getCategoryIconForSummary('investment')}
-                    <p>{t('expenseHighlighter.savingCategories.investment')}: <span className="font-bold" style={{color: COLORS.investment}}>${savingsSummary.investment.toFixed(0)}</span></p>
-                  </div>
+                  {savingsSummary.unassigned > 0 && (
+                    <div className="flex items-center">
+                      {getCategoryIconForSummary('unassigned')}
+                      <p>{t('expenseHighlighter.unassigned')}: <span className="font-bold" style={{color: COLORS.unassigned}}>${savingsSummary.unassigned.toFixed(0)}</span></p>
+                    </div>
+                  )}
                 </div>
                 <div className="h-[300px] w-full">
                   <ResponsiveContainer width="100%" height="100%">

@@ -16,7 +16,7 @@ export interface Expense {
   id: string;
   amount: number;
   description: string;
-  category: 'living' | 'lifestyle' | 'unassigned' | 'emergency' | 'goals' | 'investment';
+  category: 'living' | 'lifestyle' | 'unassigned' | 'avoided' | 'goals';
   date: string;
   type: 'expense' | 'saving';
   triggeredParts?: string[];
@@ -72,7 +72,7 @@ export function AddExpenseForm({
     }));
   };
 
-  const handleCategoryChange = (value: 'living' | 'lifestyle' | 'unassigned' | 'emergency' | 'goals' | 'investment') => {
+  const handleCategoryChange = (value: 'living' | 'lifestyle' | 'unassigned' | 'avoided' | 'goals') => {
     setFormData(prev => ({ ...prev, category: value }));
   };
 
@@ -81,7 +81,7 @@ export function AddExpenseForm({
       ...prev, 
       type: value,
       // Reset category when type changes
-      category: value === 'expense' ? 'living' : 'emergency'
+      category: value === 'expense' ? 'living' : 'unassigned'
     }));
   };
 
@@ -130,12 +130,10 @@ export function AddExpenseForm({
         return <Home className="mr-2 h-4 w-4 text-chart-1" />;
       case 'lifestyle':
         return <ShoppingBag className="mr-2 h-4 w-4 text-chart-2" />;
-      case 'emergency':
+      case 'avoided':
         return <Shield className="mr-2 h-4 w-4 text-green-600" />;
       case 'goals':
         return <Target className="mr-2 h-4 w-4 text-blue-600" />;
-      case 'investment':
-        return <TrendingUp className="mr-2 h-4 w-4 text-purple-600" />;
       default:
         return <HelpCircle className="mr-2 h-4 w-4 text-muted-foreground" />;
     }
@@ -217,10 +215,10 @@ export function AddExpenseForm({
                   </>
                 ) : (
                   <>
-                    <SelectItem value="emergency">
+                    <SelectItem value="avoided">
                       <div className="flex items-center">
-                        {getCategoryIcon('emergency')}
-                        <span>{t('expenseHighlighter.savingCategories.emergency')}</span>
+                        {getCategoryIcon('avoided')}
+                        <span>{t('expenseHighlighter.savingCategories.avoided')}</span>
                       </div>
                     </SelectItem>
                     <SelectItem value="goals">
@@ -229,10 +227,10 @@ export function AddExpenseForm({
                         <span>{t('expenseHighlighter.savingCategories.goals')}</span>
                       </div>
                     </SelectItem>
-                    <SelectItem value="investment">
+                    <SelectItem value="unassigned">
                       <div className="flex items-center">
-                        {getCategoryIcon('investment')}
-                        <span>{t('expenseHighlighter.savingCategories.investment')}</span>
+                        {getCategoryIcon('unassigned')}
+                        <span>{t('expenseHighlighter.unassigned')}</span>
                       </div>
                     </SelectItem>
                   </>

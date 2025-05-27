@@ -301,18 +301,16 @@ export const cs = {
     editTransactionDescription: 'Aktualizujte údaje tohoto výdaje nebo úspory.',
     livingDescription: 'Nezbytné náklady jako nájem/hypotéka, služby, potraviny, doprava do práce, pojištění.',
     lifestyleDescription: 'Volitelné výdaje jako stravování venku, zábava, koníčky, cestování, luxusní předměty.',
-    emergencyDescription: 'Peníze, které jste se rozhodli neutratit za impulzivní nákupy nebo nepotřebné věci, přesměrované na budování finanční bezpečnosti.',
+    avoidedDescription: 'Peníze, které jste se rozhodli neutratit za impulzivní nákupy nebo nepotřebné věci, přesměrované na budování finanční bezpečnosti.',
     goalsDescription: 'Úspory specificky alokované na dosažení snů a aspirací vizualizovaných na vaší vizi.',
-    investmentDescription: 'Obecné úspory pro budoucí příležitosti, důchod nebo jiný dlouhodobý finanční růst.',
     unassigned: 'Nezařazené',
     categories: {
       living: 'Životní Výdaje',
       lifestyle: 'Výdaje na Životní Styl'
     },
     savingCategories: {
-      emergency: 'Peníze ušetřené tím, že jsem neutratil',
-      goals: 'Cíle z Vize',
-      investment: 'Ostatní Úspory'
+      avoided: 'Zamezené výdaje',
+      goals: 'Cíle z Vize'
     },
     form: {
       amount: 'Částka',

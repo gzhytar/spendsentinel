@@ -404,18 +404,16 @@ export const en = {
     editTransactionDescription: 'Update the details of this spend or saving.',
     livingDescription: 'Essential costs like rent/mortgage, utilities, groceries, transportation for work, insurance.',
     lifestyleDescription: 'Discretionary spending like dining out, entertainment, hobbies, travel, luxury items.',
-    emergencyDescription: 'Money you chose not to spend on impulse purchases or unnecessary items, redirected to build financial security.',
+    avoidedDescription: 'Money you chose not to spend on impulse purchases or unnecessary items, redirected to build financial security.',
     goalsDescription: 'Savings specifically allocated toward achieving the dreams and aspirations visualized on your vision board.',
-    investmentDescription: 'General savings for future opportunities, retirement, or other long-term financial growth.',
     unassigned: 'Unassigned',
     categories: {
       living: 'Living Expenses',
       lifestyle: 'Lifestyle Expenses'
     },
     savingCategories: {
-      emergency: 'Money spared because I didn\'t spend',
-      goals: 'Vision Board Goals',
-      investment: 'Other Savings'
+      avoided: 'Avoided spend',
+      goals: 'Vision Board Goals'
     },
     form: {
       amount: 'Amount',

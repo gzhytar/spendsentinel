@@ -18,7 +18,9 @@ export interface Expense {
   description: string;
   amount: number;
   date: string; // Store as YYYY-MM-DD
-  category: 'living' | 'lifestyle' | 'unassigned';
+  category: 'living' | 'lifestyle' | 'unassigned' | 'avoided' | 'goals';
+  type: 'expense' | 'saving';
+  triggeredParts?: string[];
 }
 
 export interface CalmScoreEntry {

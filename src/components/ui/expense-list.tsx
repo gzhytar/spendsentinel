@@ -35,12 +35,10 @@ export function ExpenseList({
         return <Home className={cn(dimensions[size], "text-chart-1")} />;
       case 'lifestyle':
         return <ShoppingBag className={cn(dimensions[size], "text-chart-2")} />;
-      case 'emergency':
+      case 'avoided':
         return <Shield className={cn(dimensions[size], "text-green-600")} />;
       case 'goals':
         return <Target className={cn(dimensions[size], "text-blue-600")} />;
-      case 'investment':
-        return <TrendingUp className={cn(dimensions[size], "text-purple-600")} />;
       default:
         return <HelpCircle className={cn(dimensions[size], "text-muted-foreground")} />;
     }
@@ -52,12 +50,10 @@ export function ExpenseList({
         return t('expenseHighlighter.categories.living');
       case 'lifestyle':
         return t('expenseHighlighter.categories.lifestyle');
-      case 'emergency':
-        return t('expenseHighlighter.savingCategories.emergency');
+      case 'avoided':
+        return t('expenseHighlighter.savingCategories.avoided');
       case 'goals':
         return t('expenseHighlighter.savingCategories.goals');
-      case 'investment':
-        return t('expenseHighlighter.savingCategories.investment');
       case 'unassigned':
         return t('expenseHighlighter.unassigned');
       default:

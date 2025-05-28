@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useI18n } from '@/contexts/i18n-context';
 import { Card } from '@/components/ui/card';
-import { CheckCircle2, Circle, Calendar } from 'lucide-react';
+import { CheckCircle2, Circle, Calendar, AlertTriangle } from 'lucide-react';
 
 interface CheckinTimelineProps {
   lang: string;
@@ -12,6 +12,12 @@ interface CheckinTimelineProps {
 interface CheckinDay {
   date: string;
   completed: boolean;
+}
+
+interface StreakResult {
+  streak: number;
+  todayCompleted: boolean;
+  streakAtRisk: boolean;
 }
 
 export function CheckinTimeline({ lang }: CheckinTimelineProps) {
@@ -43,7 +49,7 @@ export function CheckinTimeline({ lang }: CheckinTimelineProps) {
     return dateStr === today;
   };
 
-  const currentStreak = calculateStreak(checkinHistory);
+  const streakResult = calculateStreak(checkinHistory);
   const completedCount = checkinHistory.filter(d => d.completed).length;
   const totalDays = checkinHistory.length;
   const completionPercentage = Math.round((completedCount / totalDays) * 100);
@@ -81,10 +87,6 @@ export function CheckinTimeline({ lang }: CheckinTimelineProps) {
                     day.completed ? t('dailyCheckIn.timeline.completed') : t('dailyCheckIn.timeline.missed')
                   }`}
                 >
-                  {/* Today indicator dot */}
-                  {today && (
-                    <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-2 h-2 bg-primary rounded-full" />
-                  )}
                 </div>
               );
             })}
@@ -106,16 +108,16 @@ export function CheckinTimeline({ lang }: CheckinTimelineProps) {
             {/* Current Streak */}
             <div className="flex items-center gap-2">
               <div className={`w-8 h-8 rounded-full flex items-center justify-center
-                ${currentStreak > 0 ? 'bg-primary text-white' : 'bg-muted'}
+                ${streakResult.streak > 0 ? 'bg-primary text-white' : 'bg-muted'}
               `}>
                 <span className="text-sm font-bold">
-                  {currentStreak > 0 ? '🔥' : '○'}
+                  {streakResult.streak > 0 ? '🔥' : '○'}
                 </span>
               </div>
               <div className="text-sm">
                 <div className="font-medium">
-                  {currentStreak > 0 
-                    ? `${currentStreak} ${t('dailyCheckIn.timeline.days')}` 
+                  {streakResult.streak > 0 
+                    ? `${streakResult.streak} ${t('dailyCheckIn.timeline.days')}` 
                     : 'No streak'
                   }
                 </div>
@@ -131,25 +133,38 @@ export function CheckinTimeline({ lang }: CheckinTimelineProps) {
             <div className="flex items-center gap-1">
               <div className="w-3 h-3 rounded-full bg-primary" />
               <span>{t('dailyCheckIn.timeline.completed')}</span>
-            </div>
-            <div className="flex items-center gap-1">
+            
               <div className="w-3 h-3 rounded-full bg-muted border border-muted-foreground/20" />
               <span>{t('dailyCheckIn.timeline.missed')}</span>
             </div>
+
+            
           </div>
         </div>
 
+        {/* Streak at risk warning */}
+        {streakResult.streakAtRisk && (
+          <div className="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900 rounded-lg p-3">
+            <div className="flex items-center gap-2 text-amber-800 dark:text-amber-200">
+              <AlertTriangle className="h-4 w-4 flex-shrink-0" />
+              <span className="text-sm font-medium">
+                Streak at risk! Complete today's check-in to maintain your {streakResult.streak}-day streak.
+              </span>
+            </div>
+          </div>
+        )}
+
         {/* Motivational Message */}
-        {currentStreak > 0 && (
+        {streakResult.streak > 0 && streakResult.todayCompleted && (
           <div className="text-center py-2">
             <span className="text-sm text-primary font-medium">
-              {currentStreak === 1 
+              {streakResult.streak === 1 
                 ? "Great start! Keep it going! 🌟"
-                : currentStreak < 7
-                ? `${currentStreak} days strong! You're building momentum! 💪`
-                : currentStreak < 14
-                ? `Amazing ${currentStreak}-day streak! You're on fire! 🔥`
-                : `Incredible ${currentStreak}-day streak! You're a champion! 🏆`
+                : streakResult.streak < 7
+                ? `${streakResult.streak} days strong! You're building momentum! 💪`
+                : streakResult.streak < 14
+                ? `Amazing ${streakResult.streak}-day streak! You're on fire! 🔥`
+                : `Incredible ${streakResult.streak}-day streak! You're a champion! 🏆`
               }
             </span>
           </div>
@@ -159,11 +174,16 @@ export function CheckinTimeline({ lang }: CheckinTimelineProps) {
   );
 }
 
-function calculateStreak(history: CheckinDay[]): number {
+function calculateStreak(history: CheckinDay[]): StreakResult {
   let streak = 0;
+  const todayIndex = history.length - 1;
+  const todayCompleted = history[todayIndex]?.completed || false;
   
-  // Start from today and go backwards
-  for (let i = history.length - 1; i >= 0; i--) {
+  // If today is not completed, start counting from yesterday
+  const startIndex = todayCompleted ? todayIndex : todayIndex - 1;
+  
+  // Count consecutive completed days starting from the appropriate day
+  for (let i = startIndex; i >= 0; i--) {
     if (history[i].completed) {
       streak++;
     } else {
@@ -171,5 +191,12 @@ function calculateStreak(history: CheckinDay[]): number {
     }
   }
   
-  return streak;
+  // Streak is at risk if today is not completed but there's an active streak
+  const streakAtRisk = !todayCompleted && streak > 0;
+  
+  return {
+    streak,
+    todayCompleted,
+    streakAtRisk
+  };
 } 

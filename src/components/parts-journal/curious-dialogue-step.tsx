@@ -107,28 +107,22 @@ export function CuriousDialogueStep({
           const IconComponent = question.icon;
           return (
             <div key={question.key} className="space-y-4">
-              <div className="flex items-start gap-3">
-                <div className="flex items-center justify-center w-8 h-8 bg-primary/10 rounded-full mt-1">
-                  <IconComponent className="h-4 w-4 text-primary" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-semibold text-lg mb-2">
-                    {index + 1}. {question.title}
-                  </h3>
-                  <p className="text-muted-foreground mb-4">
-                    {question.prompt}
-                  </p>
-                  
-                  <Textarea
-                    value={content[question.key]}
-                    onChange={(e) => 
-                      onContentChange({ [question.key]: e.target.value })
-                    }
-                    placeholder={question.placeholder}
-                    className="min-h-[150px] resize-none text-base leading-relaxed mt-2"
-                  />
-                </div>
-              </div>
+              <h3 className="font-semibold flex items-center gap-2">
+                <IconComponent className="h-5 w-5 text-primary" />
+                {index + 1}. {question.title}
+              </h3>
+              <p className="text-muted-foreground">
+                {question.prompt}
+              </p>
+              
+              <Textarea
+                value={content[question.key]}
+                onChange={(e) => 
+                  onContentChange({ [question.key]: e.target.value })
+                }
+                placeholder={question.placeholder}
+                className="min-h-[150px] resize-none text-base leading-relaxed mt-4"
+              />
             </div>
           );
         })}

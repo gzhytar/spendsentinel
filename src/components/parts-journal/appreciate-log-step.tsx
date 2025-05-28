@@ -73,7 +73,7 @@ export function AppreciateLogStep({
       {/* Session Summary */}
       {insights.length > 0 && (
         <Card className="p-6 bg-primary/5 border-primary/20">
-          <h3 className="font-semibold text-lg mb-4 flex items-center gap-2">
+          <h3 className="font-semibold flex items-center gap-2 mb-4">
             <BookOpen className="h-5 w-5 text-primary" />
             {t('partsJournal.steps.appreciateLog.sessionSummary')}
           </h3>
@@ -121,8 +121,8 @@ export function AppreciateLogStep({
       {/* Key Insights from Dialogue */}
       {sessionContent.step3.positiveIntention && (
         <Card className="p-4 bg-accent/5 border-accent/20">
-          <h4 className="font-semibold text-sm mb-3 flex items-center gap-2">
-            <Sparkles className="h-4 w-4 text-accent" />
+          <h4 className="font-semibold flex items-center gap-2 mb-3">
+            <Sparkles className="h-5 w-5 text-accent" />
             {t('partsJournal.steps.appreciateLog.keyInsights')}
           </h4>
           <div className="space-y-3 text-sm">

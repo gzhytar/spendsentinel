@@ -760,6 +760,30 @@ export const en = {
     continue: 'Continue',
     confirmDelete: 'Are you sure you want to delete this journal session? This action cannot be undone.',
     completionMessage: 'Congratulations! You\'ve completed a meaningful dialogue with your part. Your insights have been saved.',
+    introduction: {
+      title: 'Engage in structured dialogue with your financial parts',
+      description: 'This journal provides a safe, structured space to understand and dialogue with the different parts of yourself that influence your financial decisions. Through compassionate inquiry, you\'ll discover the positive intentions behind your financial behaviors.',
+      whatYouExplore: {
+        title: 'What you\'ll explore:',
+        items: [
+          'Create a safe inner environment for dialogue',
+          'Locate and understand your financial parts',
+          'Discover their positive intentions and fears',
+          'Build trust and appreciation with these parts'
+        ]
+      },
+      fourStepProcess: {
+        title: 'The 4-step process:',
+        steps: [
+          'Safe Environment - Ground yourself and set intentions',
+          'Find & Focus - Locate and observe your part',
+          'Curious Dialogue - Ask open-hearted questions',
+          'Appreciate & Log - Honor insights and express gratitude'
+        ]
+      },
+      noPartsMessage: 'Complete the self-assessment first to identify your financial parts.',
+      choosePartTitle: 'Choose a part to work with:'
+    },
     navigation: {
       previous: 'Previous',
       next: 'Next',

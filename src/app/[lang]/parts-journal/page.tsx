@@ -236,56 +236,36 @@ export default function PartsJournal({ params }: PartsJournalProps) {
         <Card className="p-8 mb-8">
           <div className="text-center space-y-6">
             <div className="space-y-4 flex flex-col items-center justify-center">
-              <h2 className="text-2xl font-semibold">Engage in structured dialogue with your financial parts</h2>
+              <h2 className="text-2xl font-semibold">{t('partsJournal.introduction.title')}</h2>
               <div className="flex flex-col gap-4">
                 <p className="text-lg text-muted-foreground max-w-2xl text-center">
-                  This journal provides a safe, structured space to understand and dialogue with the different parts of yourself that influence your financial decisions. Through compassionate inquiry, you'll discover the positive intentions behind your financial behaviors.
+                  {t('partsJournal.introduction.description')}
                 </p>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
               <div className="text-left space-y-3">
-                <h3 className="font-semibold text-lg">What you'll explore:</h3>
+                <h3 className="font-semibold text-lg">{t('partsJournal.introduction.whatYouExplore.title')}</h3>
                 <ul className="space-y-2 text-muted-foreground">
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary mt-1">•</span>
-                    <span>Create a safe inner environment for dialogue</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary mt-1">•</span>
-                    <span>Locate and understand your financial parts</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary mt-1">•</span>
-                    <span>Discover their positive intentions and fears</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-primary mt-1">•</span>
-                    <span>Build trust and appreciation with these parts</span>
-                  </li>
+                  {(t('partsJournal.introduction.whatYouExplore.items') as string[]).map((item: string, index: number) => (
+                    <li key={index} className="flex items-start gap-2">
+                      <span className="text-primary mt-1">•</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
               
               <div className="text-left space-y-3">
-                <h3 className="font-semibold text-lg">The 4-step process:</h3>
+                <h3 className="font-semibold text-lg">{t('partsJournal.introduction.fourStepProcess.title')}</h3>
                 <ul className="space-y-2 text-muted-foreground">
-                  <li className="flex items-start gap-2">
-                    <Badge variant="outline" className="mt-0.5">1</Badge>
-                    <span>Safe Environment - Ground yourself and set intentions</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Badge variant="outline" className="mt-0.5">2</Badge>
-                    <span>Find & Focus - Locate and observe your part</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Badge variant="outline" className="mt-0.5">3</Badge>
-                    <span>Curious Dialogue - Ask open-hearted questions</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <Badge variant="outline" className="mt-0.5">4</Badge>
-                    <span>Appreciate & Log - Honor insights and express gratitude</span>
-                  </li>
+                  {(t('partsJournal.introduction.fourStepProcess.steps') as string[]).map((step: string, index: number) => (
+                    <li key={index} className="flex items-start gap-2">
+                      <Badge variant="outline" className="mt-0.5">{index + 1}</Badge>
+                      <span>{step}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>
@@ -293,14 +273,14 @@ export default function PartsJournal({ params }: PartsJournalProps) {
             {/* Start New Session Section with Part Images */}
             {userParts.length === 0 ? (
               <div className="text-center space-y-4 mt-8">
-                <p className="text-muted-foreground">Complete the self-assessment first to identify your financial parts.</p>
+                <p className="text-muted-foreground">{t('partsJournal.introduction.noPartsMessage')}</p>
                 <Button onClick={() => window.location.href = '/self-assessment'}>
                   {t('partsJournal.goToAssessment')}
                 </Button>
               </div>
             ) : (
               <div className="mt-8 space-y-6">
-                <h3 className="text-xl font-semibold text-center">Choose a part to work with:</h3>
+                <h3 className="text-xl font-semibold text-center">{t('partsJournal.introduction.choosePartTitle')}</h3>
                 <div className="flex justify-center">
                   <div className="grid gap-6 max-w-4xl">
                     {userParts.map((part) => {
@@ -326,7 +306,7 @@ export default function PartsJournal({ params }: PartsJournalProps) {
                               className="w-full"
                               size="default"
                             >
-                              Start New Session
+                              {t('partsJournal.startNewSession')}
                             </Button>
                           </div>
                         </Card>

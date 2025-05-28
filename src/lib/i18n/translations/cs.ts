@@ -692,5 +692,167 @@ export const cs = {
       days: 'dní',
       totalCompleted: 'Celkem dokončeno'
     }
+  },
+  partsJournal: {
+    title: 'Deník částí',
+    subtitle: 'Zapojte se do strukturovaného dialogu se svými finančními částmi',
+    sessionTitle: 'Dialog s {partName}',
+    sessionSubtitle: 'Toto je bezpečný prostor pro vnitřní zkoumání a porozumění',
+    progress: 'Krok {current} z {total}',
+    viewHistory: 'Zobrazit historii',
+    startNewSession: 'Začít novou relaci',
+    journalHistory: 'Historie deníku',
+    showSummary: 'Zobrazit shrnutí',
+    noPartsTitle: 'Nebyly identifikovány žádné části',
+    noPartsMessage: 'Nejprve dokončete sebehodnocení pro identifikaci vašich finančních částí před začátkem relace deníku.',
+    goToAssessment: 'Přejít na sebehodnocení',
+    selectPartTitle: 'Vyberte část',
+    selectPartMessage: 'Vyberte, se kterou finanční částí byste si dnes rádi popovídali.',
+    noSessionsTitle: 'Zatím žádné relace deníku',
+    noSessionsMessage: 'Začněte svou první relaci dialogu s jednou ze svých identifikovaných částí.',
+    completed: 'Dokončeno',
+    inProgress: 'Probíhá',
+    stepProgress: 'Krok {step} z {total}',
+    view: 'Zobrazit',
+    continue: 'Pokračovat',
+    confirmDelete: 'Jste si jisti, že chcete smazat tuto relaci deníku? Tuto akci nelze vrátit zpět.',
+    completionMessage: 'Gratulujeme! Dokončili jste smysluplný dialog se svou částí. Vaše poznatky byly uloženy.',
+    introduction: {
+      title: 'Zapojte se do strukturovaného dialogu se svými finančními částmi',
+      description: 'Tento deník poskytuje bezpečný, strukturovaný prostor pro porozumění a dialog s různými částmi sebe, které ovlivňují vaše finanční rozhodnutí. Prostřednictvím soucitného zkoumání objevíte pozitivní záměry za vašimi finančními chováními.',
+      whatYouExplore: {
+        title: 'Co budete zkoumat:',
+        items: [
+          'Vytvořit bezpečné vnitřní prostředí pro dialog',
+          'Najít a pochopit své finanční části',
+          'Objevit jejich pozitivní záměry a strachy',
+          'Budovat důvěru a uznání s těmito částmi'
+        ]
+      },
+      fourStepProcess: {
+        title: '4-krokový proces:',
+        steps: [
+          'Bezpečné prostředí - Uzemněte se a nastavte záměry',
+          'Najít a zaměřit - Najděte a pozorujte svou část',
+          'Zvědavý dialog - Ptejte se otevřeně',
+          'Ocenit a zaznamenat - Uctěte poznatky a vyjádřete vděčnost'
+        ]
+      },
+      noPartsMessage: 'Nejprve dokončete sebehodnocení pro identifikaci vašich finančních částí.',
+      choosePartTitle: 'Vyberte část, se kterou chcete pracovat:'
+    },
+    navigation: {
+      previous: 'Předchozí',
+      next: 'Další',
+      complete: 'Dokončit relaci'
+    },
+    formatting: {
+      bold: 'Tučné',
+      italic: 'Kurzíva',
+      heading: 'Nadpis',
+      list: 'Seznam',
+      emoji: 'Emoji'
+    },
+    characters: 'znaky',
+    lastSaved: 'Naposledy uloženo',
+    recording: 'Nahrávání...',
+    startRecording: 'Začít hlasový vstup',
+    stopRecording: 'Zastavit nahrávání',
+    voiceNotSupported: 'Hlasový vstup není podporován',
+    voiceNotAvailable: 'Hlasový vstup není dostupný v tomto prohlížeči',
+    steps: {
+      safeEnvironment: {
+        title: 'Vytvořte bezpečné vnitřní prostředí',
+        subtitle: 'Začněte svůj dialog s {partName}',
+        affirmation: 'Vítám všechny části sebe, přesně takové, jaké jsou právě teď.',
+        breathingTitle: 'Uzemňující dech',
+        breathingStep1: 'Udělejte několik pomalých, hlubokých nádechů, abyste se soustředili.',
+        breathingStep2: 'Položte jednu ruku na srdce a druhou na břicho.',
+        breathingStep3: 'Nastavte záměr zvědavosti a soucitu pro tento dialog.',
+        journalTitle: 'Nastavte svůj záměr',
+        journalPrompt: 'Začněte napsáním výše uvedeného potvrzení, pak přidejte jakékoli myšlenky o vytváření bezpečnosti pro tento vnitřní dialog.',
+        placeholder: 'Vítám všechny části sebe, přesně takové, jaké jsou právě teď...',
+        reminder: 'Pamatujte: Toto je prostor bez odsuzování. Všechny části jsou zde vítány.'
+      },
+      findFocus: {
+        title: 'Najít, zaměřit a rozvinout',
+        subtitle: 'Najděte a pochopte {partName}',
+        locationTitle: 'Kde si této části všímáte?',
+        locationPrompt: 'Když je tato část spuštěna, kde si jí všímáte v nebo kolem svého těla?',
+        experienceTitle: 'Jak tuto část zažíváte?',
+        experiencePrompt: 'Obraťte svou pozornost dovnitř a všimnete si, jak tuto část zažíváte:',
+        experienceTypes: {
+          visual: 'Vizuální obrazy',
+          voice: 'Vnitřní hlas',
+          thoughts: 'Myšlenky',
+          emotions: 'Emoce',
+          sensations: 'Tělesné pocity',
+          other: 'Něco jiného'
+        },
+        journalTitle: 'Vaše pozorování',
+        journalPrompt: 'Zaznamenejte svá pozorování o tom, jak a kde tuto část zažíváte.',
+        placeholder: 'Když je {partName} spuštěn, všímám si toho v/jako...',
+        encouragement: 'Neexistuje správný nebo špatný způsob, jak zažívat své části. Důvěřujte tomu, čeho si všimnete.'
+      },
+      curiousDialogue: {
+        title: 'Zvědavý dialog',
+        subtitle: 'Veďte otevřený rozhovor s {partName}',
+        introTitle: 'Přístup se zvědavostí',
+        introText: 'Dejte {partName} vědět, že jste si vědomi jeho pozitivního záměru, i když jeho přístup ne vždy připadá správný.',
+        approach: 'Ptejte se následujících otázek s opravdovou zvědavostí a otevřeností:',
+        questions: {
+          positiveIntention: {
+            title: 'Jaký je váš pozitivní záměr pro mě?',
+            prompt: 'Zeptejte se této části, co se pro vás snaží udělat nebo před čím vás chránit.',
+            placeholder: 'Tato část mi chce pomoci tím, že...'
+          },
+          fears: {
+            title: 'Čeho se bojíte, že by se stalo, kdybyste mě přestala chránit?',
+            prompt: 'Prozkoumejte, čeho se tato část bojí, že by se mohlo stát, kdyby tam nebyla, aby pomohla.',
+            placeholder: 'Tato část se bojí, že kdyby přestala...'
+          },
+          protectionOrigins: {
+            title: 'Jak jste se naučila mě tímto způsobem chránit?',
+            prompt: 'Zeptejte se na původ ochranných strategií této části.',
+            placeholder: 'Tato část se naučila mě chránit tím, že...'
+          },
+          agePerception: {
+            title: 'Za jak starého mě považujete?',
+            prompt: 'Někdy nás části vidí mladší, než ve skutečnosti jsme. Pokud ano, nabídněte aktualizaci o svém současném věku a schopnostech.',
+            placeholder: 'Tato část mě vidí jako...'
+          },
+          trustNeeds: {
+            title: 'Co ode mě potřebujete, abyste mi mohla více důvěřovat?',
+            prompt: 'Zeptejte se, co tato část potřebuje, aby měla větší důvěru ve vaši schopnost zvládnout věci.',
+            placeholder: 'Tato část potřebuje, abych...'
+          },
+          additionalInsights: {
+            title: 'Co dalšího potřebujete, abych věděl?',
+            prompt: 'Dejte části prostor sdílet cokoli dalšího důležitého.',
+            placeholder: 'Tato část také chce, abych věděl...'
+          }
+        },
+        appreciationReminder: 'Nezapomeňte poděkovat {partName} za její práci, i když její přístup někdy připadá náročný.'
+      },
+      appreciateLog: {
+        title: 'Ocenit a zaznamenat',
+        subtitle: 'Uctěte {partName} a zachyťte své poznatky',
+        sessionSummary: 'Shrnutí relace',
+        appreciationTitle: 'Vyjádřete uznání',
+        appreciationPrompt: 'Poděkujte {partName} za její práci a vyjádřete své porozumění jejímu pozitivnímu záměru. Dejte jí vědět, že se k ní brzy vrátíte',
+        placeholder: 'Děkuji ti, {partName}, za...',
+        defaultAppreciation: 'Děkuji ti, {partName}, za práci, kterou děláš, abys mě chránila. Vidím tvůj pozitivní záměr a jsem vděčný za tvou péči.',
+        keyInsights: 'Klíčové poznatky',
+        positiveIntention: 'Pozitivní záměr',
+        trustNeeds: 'Potřeby důvěry',
+        completionTitle: 'Relace dokončena!',
+        completionMessage: 'Úspěšně jste dokončili dialog s {partName}. Tyto poznatky vám mohou pomoci budovat soucitný vztah s touto částí.',
+        insights: {
+          safeSpace: 'Vytvoření bezpečného prostoru',
+          awareness: 'Uvědomění si části',
+          dialogue: 'Poznatky z dialogu'
+        }
+      }
+    }
   }
 } as const; 

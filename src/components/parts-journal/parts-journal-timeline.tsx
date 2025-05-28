@@ -137,7 +137,6 @@ export function PartsJournalTimeline({ lang }: PartsJournalTimelineProps) {
               {/* Header with part name and date */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3 min-w-0 flex-1">
-                  {/* Part image instead of Heart icon */}
                   <div className="w-10 h-10 flex-shrink-0 relative rounded-lg overflow-hidden bg-primary/10">
                     <Image
                       src={`/images/${firefighterTypeId}.jpg`}

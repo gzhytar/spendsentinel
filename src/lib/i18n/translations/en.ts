@@ -858,7 +858,7 @@ export const en = {
         subtitle: 'Honor {partName} and capture your insights',
         sessionSummary: 'Session Summary',
         appreciationTitle: 'Express Appreciation',
-        appreciationPrompt: 'Thank {partName} for its work and express your understanding of its positive intention.',
+        appreciationPrompt: 'Thank {partName} for its work and express your understanding of its positive intention. Let it know you\'ll get back to it soon',
         placeholder: 'Thank you, {partName}, for...',
         defaultAppreciation: 'Thank you, {partName}, for the work you\'re doing to protect me. I see your positive intention and I\'m grateful for your care.',
         keyInsights: 'Key Insights',

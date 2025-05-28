@@ -8,7 +8,7 @@ import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Label } from '@/components/ui/label';
 import { PanicButton } from '@/components/common/panic-button';
-import { Calendar, ShieldAlert } from 'lucide-react';
+import { Calendar, ShieldAlert, Heart } from 'lucide-react';
 import Image from 'next/image';
 import { CheckinTimeline } from '@/components/daily-checkin';
 import { AddExpenseForm, type Expense } from '@/components/ui/add-expense-form';
@@ -44,6 +44,29 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
 
   // Auto-save progress to localStorage
   useEffect(() => {
+    // Check if returning from Parts Journal
+    const returnContext = localStorage.getItem('dailyCheckInReturnContext');
+    if (returnContext) {
+      const parsed = JSON.parse(returnContext);
+      if (parsed.fromDailyCheckIn) {
+        // Restore state and go to step 5 (self-compassion)
+        setCurrentStep(parsed.currentStep);
+        setCheckInData(parsed.checkInData);
+        setIsScoreSaved(parsed.isScoreSaved || false);
+        
+        // Clean up return context
+        localStorage.removeItem('dailyCheckInReturnContext');
+        
+        // Show welcome back message
+        setTimeout(() => {
+          window.alert('Welcome back! Your parts journal session has been completed. Please continue with your self-compassion check-in.');
+        }, 500);
+        
+        return; // Don't load saved progress, use return context instead
+      }
+    }
+    
+    // Normal flow - load saved progress
     const savedProgress = localStorage.getItem('dailyCheckInProgress');
     if (savedProgress) {
       const parsed = JSON.parse(savedProgress);
@@ -155,8 +178,6 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
     });
   };
 
-
-
   const handleCompleteCheckIn = async () => {
     // Save completed check-in to database
     // For now, just clear the progress and mark today as completed
@@ -193,7 +214,115 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
     });
   };
 
-  const progressPercentage = (currentStep / 6) * 100;
+  const progressPercentage = (currentStep / 5) * 100;
+
+  // Function to get triggered parts from today's expenses
+  const getTriggeredPartsDisplay = () => {
+    const triggeredParts = [...new Set(
+      checkInData.expenses
+        .filter(expense => expense.triggeredParts && expense.triggeredParts.length > 0)
+        .flatMap(expense => expense.triggeredParts || [])
+    )];
+
+    // Utility function to map part names to firefighter type IDs for image display
+    const getFirefighterTypeId = (partName: string): string => {
+      // Get the firefighter type names from translations
+      const firefighterTypeNames = {
+        spender: t('landing.firefighters.spender.title'),
+        hoarder: t('landing.firefighters.hoarder.title'),
+        avoider: t('landing.firefighters.avoider.title'),
+        indulger: t('landing.firefighters.indulger.title')
+      };
+      
+      // Find the type ID that matches the part name
+      for (const [typeId, typeName] of Object.entries(firefighterTypeNames)) {
+        if (typeName === partName) {
+          return typeId;
+        }
+      }
+      
+      // Default fallback
+      return 'spender';
+    };
+
+    const handleStartPartSession = (partName: string) => {
+      // Store current daily check-in state before navigating
+      localStorage.setItem('dailyCheckInReturnContext', JSON.stringify({
+        currentStep: 5, // Return to self-compassion step
+        checkInData,
+        isScoreSaved,
+        fromDailyCheckIn: true
+      }));
+      
+      // Navigate to parts journal with the selected part
+      window.location.href = `/${lang}/parts-journal?part=${encodeURIComponent(partName)}&returnToDailyCheckIn=true`;
+    };
+
+    if (triggeredParts.length === 0) {
+      return (
+        <div className="text-center space-y-4">
+          <div className="flex justify-center">
+            <Heart className="h-12 w-12 text-muted-foreground" />
+          </div>
+          <h3 className="text-lg font-semibold">No parts were triggered today</h3>
+          <p className="text-muted-foreground">
+            You haven't logged any expenses with triggered parts today. Continue with your self-compassion check-in.
+          </p>
+        </div>
+      );
+    }
+
+    return (
+      <div className="space-y-6">
+        <div className="text-center space-y-2">
+          <h3 className="text-lg font-semibold">Parts triggered in today's spending:</h3>
+          <p className="text-muted-foreground">
+            Deepen your relationship with the parts that showed up in your financial decisions today.
+          </p>
+        </div>
+        
+        <div className="flex justify-center">
+          <div className="grid gap-6 max-w-4xl">
+            {triggeredParts.map((part) => {
+              const firefighterTypeId = getFirefighterTypeId(part);
+              return (
+                <Card key={part} className="overflow-hidden hover:shadow-md transition-shadow w-full max-w-sm mx-auto">
+                  <div className="relative h-40 w-full">
+                    <Image
+                      src={`/images/${firefighterTypeId}.jpg`}
+                      alt={part}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
+                  </div>
+                  <div className="p-6 space-y-4 text-center">
+                    <div className="flex items-center justify-center gap-3">
+                      <Heart className="h-5 w-5 text-primary flex-shrink-0" />
+                      <span className="font-semibold text-lg">{part}</span>
+                    </div>
+                    <Button 
+                      onClick={() => handleStartPartSession(part)}
+                      className="w-full"
+                      size="default"
+                    >
+                      Start New Session
+                    </Button>
+                  </div>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+        
+        <div className="text-center">
+          <p className="text-sm text-muted-foreground">
+            After completing a parts journal session, you'll return to finish your daily check-in.
+          </p>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
@@ -344,14 +473,8 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
             <p className="text-muted-foreground">
               {t('dailyCheckIn.steps.deepenRelationships.description')}
             </p>
-            <div className="flex justify-center">
-              <Button variant="outline" disabled className="relative">
-                {t('dailyCheckIn.steps.deepenRelationships.button')}
-                <Badge className="absolute -top-2 -right-2" variant="secondary">
-                  {t('dailyCheckIn.comingSoon')}
-                </Badge>
-              </Button>
-            </div>
+            
+            {getTriggeredPartsDisplay()}
           </div>
         )}
 

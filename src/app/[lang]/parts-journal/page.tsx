@@ -258,15 +258,9 @@ export default function PartsJournal({ params }: PartsJournalProps) {
                   </Button>
                 </div>
               ) : (
-                <>
-                  <Button onClick={() => setShowIntroduction(false)} size="lg">
-                    Start New Session
-                  </Button>
-                  <Button variant="outline" onClick={() => { setShowIntroduction(false); setShowHistory(true); }} size="lg">
-                    <Calendar className="h-4 w-4 mr-2" />
-                    View History
-                  </Button>
-                </>
+                <Button onClick={() => setShowIntroduction(false)} size="lg">
+                  Start New Session
+                </Button>
               )}
             </div>
           </div>
@@ -367,10 +361,6 @@ export default function PartsJournal({ params }: PartsJournalProps) {
             </h1>
             <p className="text-muted-foreground">{t('partsJournal.sessionSubtitle')}</p>
           </div>
-          <Button variant="outline" onClick={() => setShowIntroduction(true)}>
-            <Calendar className="h-4 w-4 mr-2" />
-            {t('partsJournal.viewHistory')}
-          </Button>
         </div>
         
         <div className="mb-4">

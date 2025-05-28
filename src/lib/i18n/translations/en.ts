@@ -745,6 +745,7 @@ export const en = {
     viewHistory: 'View History',
     startNewSession: 'Start New Session',
     journalHistory: 'Journal History',
+    showSummary: 'Show Summary',
     noPartsTitle: 'No Parts Identified',
     noPartsMessage: 'Complete the self-assessment first to identify your financial parts before starting a journal session.',
     goToAssessment: 'Go to Self-Assessment',

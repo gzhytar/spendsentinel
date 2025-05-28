@@ -3,26 +3,35 @@
 import { useState, useEffect } from 'react';
 import { useI18n } from '@/contexts/i18n-context';
 import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Calendar, Clock, Heart, Edit, Trash2 } from 'lucide-react';
+import { Calendar, Clock, Heart, Trash2 } from 'lucide-react';
 
 interface PartsJournalTimelineProps {
   lang: string;
 }
 
-interface JournalSessionSummary {
+interface CompletedJournalSession {
   id: string;
   partName: string;
-  startTime: string;
-  lastSaved: string;
-  completed: boolean;
-  currentStep: number;
+  completionTime: string;
+  content: {
+    step1: string;
+    step2: string;
+    step3: {
+      positiveIntention: string;
+      fears: string;
+      protectionOrigins: string;
+      agePerception: string;
+      trustNeeds: string;
+      additionalInsights: string;
+    };
+    step4: string;
+  };
 }
 
 export function PartsJournalTimeline({ lang }: PartsJournalTimelineProps) {
   const { t } = useI18n();
-  const [sessions, setSessions] = useState<JournalSessionSummary[]>([]);
+  const [sessions, setSessions] = useState<CompletedJournalSession[]>([]);
 
   useEffect(() => {
     loadSessions();
@@ -37,10 +46,10 @@ export function PartsJournalTimeline({ lang }: PartsJournalTimelineProps) {
   }, []);
 
   const loadSessions = () => {
-    const sessionList = JSON.parse(localStorage.getItem('partsJournalSessions') || '[]');
-    // Sort by start time, newest first
-    const sortedSessions = sessionList.sort((a: JournalSessionSummary, b: JournalSessionSummary) => 
-      new Date(b.startTime).getTime() - new Date(a.startTime).getTime()
+    const completedSessions = JSON.parse(localStorage.getItem('completedPartsJournalSessions') || '[]');
+    // Sort by completion time, newest first
+    const sortedSessions = completedSessions.sort((a: CompletedJournalSession, b: CompletedJournalSession) => 
+      new Date(b.completionTime).getTime() - new Date(a.completionTime).getTime()
     );
     setSessions(sortedSessions);
   };
@@ -62,19 +71,18 @@ export function PartsJournalTimeline({ lang }: PartsJournalTimelineProps) {
     });
   };
 
-  const handleContinueSession = (session: JournalSessionSummary) => {
-    window.location.href = `/parts-journal?part=${session.partName}&session=${session.id}`;
+  const handleViewSession = (session: CompletedJournalSession) => {
+    // Store session details for viewing (optional - could show a modal or detailed view)
+    console.log('Viewing session:', session);
+    // For now, just log - you could implement a detailed view modal here
   };
 
   const handleDeleteSession = (sessionId: string) => {
     if (window.confirm(t('partsJournal.confirmDelete'))) {
-      // Remove from localStorage
-      localStorage.removeItem(`partsJournal_${sessionId}`);
-      
-      // Update session list
-      const sessionList = JSON.parse(localStorage.getItem('partsJournalSessions') || '[]');
-      const updatedList = sessionList.filter((s: JournalSessionSummary) => s.id !== sessionId);
-      localStorage.setItem('partsJournalSessions', JSON.stringify(updatedList));
+      // Remove from completed sessions
+      const completedSessions = JSON.parse(localStorage.getItem('completedPartsJournalSessions') || '[]');
+      const updatedSessions = completedSessions.filter((s: CompletedJournalSession) => s.id !== sessionId);
+      localStorage.setItem('completedPartsJournalSessions', JSON.stringify(updatedSessions));
       
       // Reload sessions
       loadSessions();
@@ -100,35 +108,22 @@ export function PartsJournalTimeline({ lang }: PartsJournalTimelineProps) {
               <div className="flex items-center gap-3 mb-2">
                 <Heart className="h-5 w-5 text-primary" />
                 <h3 className="font-semibold">{session.partName}</h3>
-                <Badge variant={session.completed ? "default" : "secondary"}>
-                  {session.completed ? t('partsJournal.completed') : t('partsJournal.inProgress')}
-                </Badge>
               </div>
               
               <div className="flex items-center gap-4 text-sm text-muted-foreground">
                 <div className="flex items-center gap-1">
                   <Calendar className="h-4 w-4" />
-                  <span>{formatDate(session.startTime)}</span>
+                  <span>{formatDate(session.completionTime)}</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <Clock className="h-4 w-4" />
-                  <span>{formatTime(session.startTime)}</span>
+                  <span>{formatTime(session.completionTime)}</span>
                 </div>
-                {!session.completed && (
-                  <span>{t('partsJournal.stepProgress', { step: session.currentStep, total: 4 })}</span>
-                )}
+                <span className="text-green-600">{t('partsJournal.completed')}</span>
               </div>
             </div>
             
             <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => handleContinueSession(session)}
-              >
-                <Edit className="h-4 w-4 mr-1" />
-                {session.completed ? t('partsJournal.view') : t('partsJournal.continue')}
-              </Button>
               <Button
                 variant="outline"
                 size="sm"

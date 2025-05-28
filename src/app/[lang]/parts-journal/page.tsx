@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useI18n } from '@/contexts/i18n-context';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -23,26 +23,18 @@ interface PartsJournalProps {
   }>;
 }
 
-interface JournalSession {
-  id: string;
-  partName: string;
-  currentStep: number;
-  startTime: string;
-  lastSaved: string;
-  completed: boolean;
-  content: {
-    step1: string;
-    step2: string;
-    step3: {
-      positiveIntention: string;
-      fears: string;
-      protectionOrigins: string;
-      agePerception: string;
-      trustNeeds: string;
-      additionalInsights: string;
-    };
-    step4: string;
+interface JournalContent {
+  step1: string;
+  step2: string;
+  step3: {
+    positiveIntention: string;
+    fears: string;
+    protectionOrigins: string;
+    agePerception: string;
+    trustNeeds: string;
+    additionalInsights: string;
   };
+  step4: string;
 }
 
 // Utility function to map part names to firefighter type IDs for image display
@@ -71,21 +63,34 @@ export default function PartsJournal({ params }: PartsJournalProps) {
   const { t } = useI18n();
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedPart, setSelectedPart] = useState<string>('');
-  const [sessionId, setSessionId] = useState<string>('');
   const [showHistory, setShowHistory] = useState(false);
   const [showIntroduction, setShowIntroduction] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   
   const userParts = useIdentifiedParts();
   
-  const [journalSession, setJournalSession] = useState<JournalSession>({
-    id: '',
-    partName: '',
-    currentStep: 1,
-    startTime: '',
-    lastSaved: '',
-    completed: false,
-    content: {
+  const [journalContent, setJournalContent] = useState<JournalContent>({
+    step1: '',
+    step2: '',
+    step3: {
+      positiveIntention: '',
+      fears: '',
+      protectionOrigins: '',
+      agePerception: '',
+      trustNeeds: '',
+      additionalInsights: '',
+    },
+    step4: '',
+  });
+
+  const startNewSession = (partName: string) => {
+    setSelectedPart(partName);
+    setCurrentStep(1);
+    setShowHistory(false);
+    setShowIntroduction(false);
+    
+    // Reset content for new session
+    setJournalContent({
       step1: '',
       step2: '',
       step3: {
@@ -97,123 +102,25 @@ export default function PartsJournal({ params }: PartsJournalProps) {
         additionalInsights: '',
       },
       step4: '',
-    },
-  });
-
-  // Load existing session or create new one
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const partParam = urlParams.get('part');
-    const sessionParam = urlParams.get('session');
-    
-    if (sessionParam) {
-      // Load existing session
-      const savedSession = localStorage.getItem(`partsJournal_${sessionParam}`);
-      if (savedSession) {
-        const session = JSON.parse(savedSession);
-        setJournalSession(session);
-        setCurrentStep(session.currentStep);
-        setSelectedPart(session.partName);
-        setSessionId(session.id);
-        setShowIntroduction(false);
-      }
-    } else if (partParam && userParts.includes(partParam)) {
-      // Start new session for specific part
-      startNewSession(partParam);
-      setShowIntroduction(false);
-    }
-  }, [userParts]);
-
-  const startNewSession = (partName: string) => {
-    const newSessionId = `${Date.now()}_${partName}`;
-    const newSession: JournalSession = {
-      id: newSessionId,
-      partName,
-      currentStep: 1,
-      startTime: new Date().toISOString(),
-      lastSaved: new Date().toISOString(),
-      completed: false,
-      content: {
-        step1: '',
-        step2: '',
-        step3: {
-          positiveIntention: '',
-          fears: '',
-          protectionOrigins: '',
-          agePerception: '',
-          trustNeeds: '',
-          additionalInsights: '',
-        },
-        step4: '',
-      },
-    };
-    
-    setJournalSession(newSession);
-    setSelectedPart(partName);
-    setSessionId(newSessionId);
-    setCurrentStep(1);
-    setShowHistory(false);
-    setShowIntroduction(false);
-    
-    // Update URL
-    window.history.pushState({}, '', `?part=${partName}&session=${newSessionId}`);
-    
-    saveSession(newSession);
-  };
-
-  const saveSession = (session: JournalSession) => {
-    const updatedSession = {
-      ...session,
-      lastSaved: new Date().toISOString(),
-    };
-    localStorage.setItem(`partsJournal_${session.id}`, JSON.stringify(updatedSession));
-    
-    // Update session list
-    const sessionList = JSON.parse(localStorage.getItem('partsJournalSessions') || '[]');
-    const existingIndex = sessionList.findIndex((s: any) => s.id === session.id);
-    const sessionSummary = {
-      id: session.id,
-      partName: session.partName,
-      startTime: session.startTime,
-      lastSaved: updatedSession.lastSaved,
-      completed: session.completed,
-      currentStep: session.currentStep,
-    };
-    
-    if (existingIndex >= 0) {
-      sessionList[existingIndex] = sessionSummary;
-    } else {
-      sessionList.push(sessionSummary);
-    }
-    
-    localStorage.setItem('partsJournalSessions', JSON.stringify(sessionList));
+    });
   };
 
   const handleStepContent = (stepNumber: number, content: any) => {
-    const updatedSession = { ...journalSession };
-    
     if (stepNumber === 1) {
-      updatedSession.content.step1 = content;
+      setJournalContent(prev => ({ ...prev, step1: content }));
     } else if (stepNumber === 2) {
-      updatedSession.content.step2 = content;
+      setJournalContent(prev => ({ ...prev, step2: content }));
     } else if (stepNumber === 3) {
-      updatedSession.content.step3 = { ...updatedSession.content.step3, ...content };
+      setJournalContent(prev => ({ ...prev, step3: { ...prev.step3, ...content } }));
     } else if (stepNumber === 4) {
-      updatedSession.content.step4 = content;
+      setJournalContent(prev => ({ ...prev, step4: content }));
     }
-    
-    updatedSession.currentStep = stepNumber;
-    setJournalSession(updatedSession);
-    saveSession(updatedSession);
   };
 
   const handleNextStep = () => {
     if (currentStep < 4) {
       const nextStep = currentStep + 1;
       setCurrentStep(nextStep);
-      const updatedSession = { ...journalSession, currentStep: nextStep };
-      setJournalSession(updatedSession);
-      saveSession(updatedSession);
       
       containerRef.current?.scrollIntoView({ 
         behavior: 'smooth', 
@@ -226,9 +133,6 @@ export default function PartsJournal({ params }: PartsJournalProps) {
     if (currentStep > 1) {
       const prevStep = currentStep - 1;
       setCurrentStep(prevStep);
-      const updatedSession = { ...journalSession, currentStep: prevStep };
-      setJournalSession(updatedSession);
-      saveSession(updatedSession);
       
       containerRef.current?.scrollIntoView({ 
         behavior: 'smooth', 
@@ -238,14 +142,18 @@ export default function PartsJournal({ params }: PartsJournalProps) {
   };
 
   const handleCompleteSession = () => {
+    // Save completed session
     const completedSession = {
-      ...journalSession,
-      completed: true,
-      currentStep: 4,
+      id: `${Date.now()}_${selectedPart}`,
+      partName: selectedPart,
+      completionTime: new Date().toISOString(),
+      content: journalContent,
     };
     
-    setJournalSession(completedSession);
-    saveSession(completedSession);
+    // Store in completed sessions
+    const completedSessions = JSON.parse(localStorage.getItem('completedPartsJournalSessions') || '[]');
+    completedSessions.push(completedSession);
+    localStorage.setItem('completedPartsJournalSessions', JSON.stringify(completedSessions));
     
     // Show completion message
     window.alert(t('partsJournal.completionMessage'));
@@ -253,8 +161,22 @@ export default function PartsJournal({ params }: PartsJournalProps) {
     // Navigate back to introduction screen
     setShowIntroduction(true);
     setSelectedPart('');
-    setSessionId('');
-    window.history.pushState({}, '', '/parts-journal');
+    setCurrentStep(1);
+    
+    // Reset content
+    setJournalContent({
+      step1: '',
+      step2: '',
+      step3: {
+        positiveIntention: '',
+        fears: '',
+        protectionOrigins: '',
+        agePerception: '',
+        trustNeeds: '',
+        additionalInsights: '',
+      },
+      step4: '',
+    });
   };
 
   const progressPercentage = (currentStep / 4) * 100;
@@ -349,6 +271,15 @@ export default function PartsJournal({ params }: PartsJournalProps) {
             </div>
           </div>
         </Card>
+
+        {/* Recent Journal Sessions Timeline */}
+        <div className="mb-8">
+          <div className="flex items-center gap-2 mb-4">
+            <Calendar className="h-5 w-5 text-primary" />
+            <h2 className="text-xl font-semibold">{t('partsJournal.journalHistory')}</h2>
+          </div>
+          <PartsJournalTimeline lang={lang} />
+        </div>
 
         <PanicButton />
       </div>
@@ -462,7 +393,7 @@ export default function PartsJournal({ params }: PartsJournalProps) {
         {currentStep === 1 && (
           <SafeEnvironmentStep
             partName={selectedPart}
-            content={journalSession.content.step1}
+            content={journalContent.step1}
             onContentChange={(content) => handleStepContent(1, content)}
           />
         )}
@@ -470,7 +401,7 @@ export default function PartsJournal({ params }: PartsJournalProps) {
         {currentStep === 2 && (
           <FindFocusStep
             partName={selectedPart}
-            content={journalSession.content.step2}
+            content={journalContent.step2}
             onContentChange={(content: string) => handleStepContent(2, content)}
           />
         )}
@@ -478,16 +409,16 @@ export default function PartsJournal({ params }: PartsJournalProps) {
         {currentStep === 3 && (
           <CuriousDialogueStep
             partName={selectedPart}
-            content={journalSession.content.step3}
-            onContentChange={(content: Partial<typeof journalSession.content.step3>) => handleStepContent(3, content)}
+            content={journalContent.step3}
+            onContentChange={(content: Partial<typeof journalContent.step3>) => handleStepContent(3, content)}
           />
         )}
 
         {currentStep === 4 && (
           <AppreciateLogStep
             partName={selectedPart}
-            content={journalSession.content.step4}
-            sessionContent={journalSession.content}
+            content={journalContent.step4}
+            sessionContent={journalContent}
             onContentChange={(content) => handleStepContent(4, content)}
           />
         )}

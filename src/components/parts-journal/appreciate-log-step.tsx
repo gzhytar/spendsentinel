@@ -1,7 +1,7 @@
 'use client';
 
 import { useI18n } from '@/contexts/i18n-context';
-import { RichTextEditor } from './rich-text-editor';
+import { Textarea } from '@/components/ui/textarea';
 import { Card } from '@/components/ui/card';
 import { Sparkles, Heart, BookOpen, CheckCircle } from 'lucide-react';
 
@@ -110,12 +110,11 @@ export function AppreciateLogStep({
           {t('partsJournal.steps.appreciateLog.appreciationPrompt', { partName })}
         </p>
         
-        <RichTextEditor
-          content={initialContent}
-          onChange={onContentChange}
+        <Textarea
+          value={content}
+          onChange={(e) => onContentChange(e.target.value)}
           placeholder={t('partsJournal.steps.appreciateLog.placeholder', { partName })}
-          className="mt-4"
-          showVoiceInput={true}
+          className="min-h-[150px] resize-none text-base leading-relaxed mt-4"
         />
       </div>
 

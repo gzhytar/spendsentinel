@@ -1,9 +1,9 @@
 'use client';
 
 import { useI18n } from '@/contexts/i18n-context';
-import { RichTextEditor } from './rich-text-editor';
+import { Textarea } from '@/components/ui/textarea';
 import { Card } from '@/components/ui/card';
-import { Leaf, Heart } from 'lucide-react';
+import { Shield, Heart, Lightbulb } from 'lucide-react';
 
 interface SafeEnvironmentStepProps {
   partName: string;
@@ -27,7 +27,7 @@ export function SafeEnvironmentStep({
     <div className="space-y-6">
       <div className="flex items-center gap-3 mb-4">
         <div className="flex items-center justify-center w-10 h-10 bg-primary/10 rounded-full">
-          <Leaf className="h-5 w-5 text-primary" />
+          <Shield className="h-5 w-5 text-primary" />
         </div>
         <div>
           <h2 className="text-2xl font-semibold">
@@ -63,11 +63,11 @@ export function SafeEnvironmentStep({
           {t('partsJournal.steps.safeEnvironment.journalPrompt')}
         </p>
         
-        <RichTextEditor
-          content={initialContent}
-          onChange={onContentChange}
+        <Textarea
+          value={initialContent}
+          onChange={(e) => onContentChange(e.target.value)}
           placeholder={t('partsJournal.steps.safeEnvironment.placeholder')}
-          className="mt-4"
+          className="min-h-[150px] resize-none text-base leading-relaxed mt-4"
         />
       </div>
 

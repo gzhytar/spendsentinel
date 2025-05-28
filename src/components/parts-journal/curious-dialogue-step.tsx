@@ -1,7 +1,7 @@
 'use client';
 
 import { useI18n } from '@/contexts/i18n-context';
-import { RichTextEditor } from './rich-text-editor';
+import { Textarea } from '@/components/ui/textarea';
 import { Card } from '@/components/ui/card';
 import { MessageCircle, Heart, Shield, Clock, Users, Lightbulb } from 'lucide-react';
 
@@ -119,14 +119,13 @@ export function CuriousDialogueStep({
                     {question.prompt}
                   </p>
                   
-                  <RichTextEditor
-                    content={content[question.key]}
-                    onChange={(newContent) => 
-                      onContentChange({ [question.key]: newContent })
+                  <Textarea
+                    value={content[question.key]}
+                    onChange={(e) => 
+                      onContentChange({ [question.key]: e.target.value })
                     }
                     placeholder={question.placeholder}
-                    className="mt-2"
-                    showVoiceInput={true}
+                    className="min-h-[150px] resize-none text-base leading-relaxed mt-2"
                   />
                 </div>
               </div>

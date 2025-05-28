@@ -1,7 +1,7 @@
 'use client';
 
 import { useI18n } from '@/contexts/i18n-context';
-import { RichTextEditor } from './rich-text-editor';
+import { Textarea } from '@/components/ui/textarea';
 import { Card } from '@/components/ui/card';
 import { Search, Eye, Brain } from 'lucide-react';
 
@@ -34,7 +34,7 @@ export function FindFocusStep({
         </div>
       </div>
 
-      {/* Guided Questions */}
+      {/* Instructions */}
       <Card className="p-6 bg-primary/5 border-primary/20">
         <div className="space-y-6">
           <div className="flex items-start gap-4">
@@ -79,18 +79,19 @@ export function FindFocusStep({
 
       {/* Journal Section */}
       <div className="space-y-4">
-        <h3 className="font-semibold">
+        <h3 className="font-semibold flex items-center gap-2">
+          <Brain className="h-5 w-5 text-primary" />
           {t('partsJournal.steps.findFocus.journalTitle')}
         </h3>
         <p className="text-muted-foreground">
-          {t('partsJournal.steps.findFocus.journalPrompt')}
+          {t('partsJournal.steps.findFocus.journalPrompt', { partName })}
         </p>
         
-        <RichTextEditor
-          content={content}
-          onChange={onContentChange}
+        <Textarea
+          value={content}
+          onChange={(e) => onContentChange(e.target.value)}
           placeholder={t('partsJournal.steps.findFocus.placeholder', { partName })}
-          className="mt-4"
+          className="min-h-[150px] resize-none text-base leading-relaxed mt-4"
         />
       </div>
 

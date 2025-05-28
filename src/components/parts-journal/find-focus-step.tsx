@@ -67,7 +67,7 @@ export function FindFocusStep({
                   t('partsJournal.steps.findFocus.experienceTypes.sensations'),
                   t('partsJournal.steps.findFocus.experienceTypes.other'),
                 ].map((type) => (
-                  <div key={type} className="text-xs bg-white/50 rounded px-2 py-1 text-center">
+                  <div key={type} className="text-xs bg-muted/50 text-muted-foreground rounded px-2 py-1 text-center border">
                     {type}
                   </div>
                 ))}
@@ -96,7 +96,7 @@ export function FindFocusStep({
 
       {/* Encouragement */}
       <Card className="p-4 bg-accent/5 border-accent/20">
-        <p className="text-sm text-accent-foreground/80 italic text-center">
+        <p className="text-sm text-muted-foreground italic text-center">
           {t('partsJournal.steps.findFocus.encouragement')}
         </p>
       </Card>

@@ -137,7 +137,7 @@ export function CuriousDialogueStep({
 
       {/* Appreciation Reminder */}
       <Card className="p-4 bg-accent/5 border-accent/20">
-        <p className="text-sm text-accent-foreground/80 italic text-center">
+        <p className="text-sm text-muted-foreground italic text-center">
           {t('partsJournal.steps.curiousDialogue.appreciationReminder', { partName })}
         </p>
       </Card>

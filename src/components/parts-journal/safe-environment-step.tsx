@@ -45,12 +45,10 @@ export function SafeEnvironmentStep({
           <Heart className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
           <div className="space-y-4">
             <h3 className="font-semibold text-lg">
-              {t('partsJournal.steps.safeEnvironment.breathingTitle')}
+              {t('dailyCheckIn.steps.breathing.title')}
             </h3>
-            <div className="space-y-3 text-sm leading-relaxed">
-              <p>{t('partsJournal.steps.safeEnvironment.breathingStep1')}</p>
-              <p>{t('partsJournal.steps.safeEnvironment.breathingStep2')}</p>
-              <p>{t('partsJournal.steps.safeEnvironment.breathingStep3')}</p>
+            <div className="text-sm leading-relaxed whitespace-pre-line">
+              {t('dailyCheckIn.steps.breathing.instruction')}
             </div>
           </div>
         </div>
@@ -75,7 +73,7 @@ export function SafeEnvironmentStep({
 
       {/* Gentle Reminder */}
       <Card className="p-4 bg-accent/5 border-accent/20">
-        <p className="text-sm text-accent-foreground/80 italic text-center">
+        <p className="text-sm text-muted-foreground italic text-center">
           {t('partsJournal.steps.safeEnvironment.reminder')}
         </p>
       </Card>

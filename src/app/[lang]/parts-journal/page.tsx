@@ -15,6 +15,7 @@ import { CuriousDialogueStep } from '@/components/parts-journal/curious-dialogue
 import { AppreciateLogStep } from '@/components/parts-journal/appreciate-log-step';
 import { useIdentifiedParts } from '@/lib/assessment-utils';
 import { use } from 'react';
+import Image from 'next/image';
 
 interface PartsJournalProps {
   params: Promise<{
@@ -44,6 +45,27 @@ interface JournalSession {
   };
 }
 
+// Utility function to map part names to firefighter type IDs for image display
+const getFirefighterTypeId = (partName: string, t: any): string => {
+  // Get the firefighter type names from translations
+  const firefighterTypeNames = {
+    spender: t('landing.firefighters.spender.title'),
+    hoarder: t('landing.firefighters.hoarder.title'),
+    avoider: t('landing.firefighters.avoider.title'),
+    indulger: t('landing.firefighters.indulger.title')
+  };
+  
+  // Find the type ID that matches the part name
+  for (const [typeId, typeName] of Object.entries(firefighterTypeNames)) {
+    if (typeName === partName) {
+      return typeId;
+    }
+  }
+  
+  // Default fallback
+  return 'spender';
+};
+
 export default function PartsJournal({ params }: PartsJournalProps) {
   const { lang } = use(params);
   const { t } = useI18n();
@@ -51,6 +73,7 @@ export default function PartsJournal({ params }: PartsJournalProps) {
   const [selectedPart, setSelectedPart] = useState<string>('');
   const [sessionId, setSessionId] = useState<string>('');
   const [showHistory, setShowHistory] = useState(false);
+  const [showIntroduction, setShowIntroduction] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   
   const userParts = useIdentifiedParts();
@@ -92,10 +115,12 @@ export default function PartsJournal({ params }: PartsJournalProps) {
         setCurrentStep(session.currentStep);
         setSelectedPart(session.partName);
         setSessionId(session.id);
+        setShowIntroduction(false);
       }
     } else if (partParam && userParts.includes(partParam)) {
       // Start new session for specific part
       startNewSession(partParam);
+      setShowIntroduction(false);
     }
   }, [userParts]);
 
@@ -128,6 +153,7 @@ export default function PartsJournal({ params }: PartsJournalProps) {
     setSessionId(newSessionId);
     setCurrentStep(1);
     setShowHistory(false);
+    setShowIntroduction(false);
     
     // Update URL
     window.history.pushState({}, '', `?part=${partName}&session=${newSessionId}`);
@@ -224,19 +250,125 @@ export default function PartsJournal({ params }: PartsJournalProps) {
     // Show completion message
     window.alert(t('partsJournal.completionMessage'));
     
-    // Navigate to history view
-    setShowHistory(true);
+    // Navigate back to introduction screen
+    setShowIntroduction(true);
+    setSelectedPart('');
+    setSessionId('');
     window.history.pushState({}, '', '/parts-journal');
   };
 
   const progressPercentage = (currentStep / 4) * 100;
 
-  if (showHistory || (!selectedPart && userParts.length === 0)) {
+  // Show introduction screen first
+  if (showIntroduction) {
     return (
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2">{t('partsJournal.title')}</h1>
           <p className="text-muted-foreground mb-6">{t('partsJournal.subtitle')}</p>
+        </div>
+
+        <Card className="p-8 mb-8">
+          <div className="text-center space-y-6">
+            <div className="flex justify-center">
+              <MessageCircle className="h-16 w-16 text-primary" />
+            </div>
+            
+            <div className="space-y-4">
+              <h2 className="text-2xl font-semibold">Engage in structured dialogue with your financial parts</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                This journal provides a safe, structured space to understand and dialogue with the different parts of yourself that influence your financial decisions. Through compassionate inquiry, you'll discover the positive intentions behind your financial behaviors.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+              <div className="text-left space-y-3">
+                <h3 className="font-semibold text-lg">What you'll explore:</h3>
+                <ul className="space-y-2 text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span>Create a safe inner environment for dialogue</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span>Locate and understand your financial parts</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span>Discover their positive intentions and fears</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-primary mt-1">•</span>
+                    <span>Build trust and appreciation with these parts</span>
+                  </li>
+                </ul>
+              </div>
+              
+              <div className="text-left space-y-3">
+                <h3 className="font-semibold text-lg">The 4-step process:</h3>
+                <ul className="space-y-2 text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <Badge variant="outline" className="mt-0.5">1</Badge>
+                    <span>Safe Environment - Ground yourself and set intentions</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Badge variant="outline" className="mt-0.5">2</Badge>
+                    <span>Find & Focus - Locate and observe your part</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Badge variant="outline" className="mt-0.5">3</Badge>
+                    <span>Curious Dialogue - Ask open-hearted questions</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <Badge variant="outline" className="mt-0.5">4</Badge>
+                    <span>Appreciate & Log - Honor insights and express gratitude</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-8">
+              {userParts.length === 0 ? (
+                <div className="text-center space-y-4">
+                  <p className="text-muted-foreground">Complete the self-assessment first to identify your financial parts.</p>
+                  <Button onClick={() => window.location.href = '/self-assessment'}>
+                    {t('partsJournal.goToAssessment')}
+                  </Button>
+                </div>
+              ) : (
+                <>
+                  <Button onClick={() => setShowIntroduction(false)} size="lg">
+                    Start New Session
+                  </Button>
+                  <Button variant="outline" onClick={() => { setShowIntroduction(false); setShowHistory(true); }} size="lg">
+                    <Calendar className="h-4 w-4 mr-2" />
+                    View History
+                  </Button>
+                </>
+              )}
+            </div>
+          </div>
+        </Card>
+
+        <PanicButton />
+      </div>
+    );
+  }
+
+  // Show history and part selection screen
+  if (showHistory || !selectedPart) {
+    return (
+      <div className="container mx-auto px-4 py-8 max-w-4xl">
+        <div className="mb-8">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-bold mb-2">{t('partsJournal.title')}</h1>
+              <p className="text-muted-foreground mb-6">{t('partsJournal.subtitle')}</p>
+            </div>
+            <Button variant="outline" onClick={() => setShowIntroduction(true)}>
+              Back to Overview
+            </Button>
+          </div>
         </div>
 
         {userParts.length === 0 ? (
@@ -252,15 +384,28 @@ export default function PartsJournal({ params }: PartsJournalProps) {
             <div className="mb-8">
               <h2 className="text-xl font-semibold mb-4">{t('partsJournal.startNewSession')}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {userParts.map((part) => (
-                  <Card key={part} className="p-4 hover:shadow-md transition-shadow cursor-pointer" 
-                        onClick={() => startNewSession(part)}>
-                    <div className="flex items-center gap-3">
-                      <Heart className="h-5 w-5 text-primary" />
-                      <span className="font-medium">{part}</span>
-                    </div>
-                  </Card>
-                ))}
+                {userParts.map((part) => {
+                  const firefighterTypeId = getFirefighterTypeId(part, t);
+                  return (
+                    <Card key={part} className="overflow-hidden hover:shadow-md transition-shadow cursor-pointer" 
+                          onClick={() => startNewSession(part)}>
+                      <div className="relative h-32 w-full">
+                        <Image
+                          src={`/images/${firefighterTypeId}.jpg`}
+                          alt={part}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="p-4">
+                        <div className="flex items-center gap-3">
+                          <Heart className="h-5 w-5 text-primary flex-shrink-0" />
+                          <span className="font-medium">{part}</span>
+                        </div>
+                      </div>
+                    </Card>
+                  );
+                })}
               </div>
             </div>
 
@@ -279,20 +424,7 @@ export default function PartsJournal({ params }: PartsJournalProps) {
     );
   }
 
-  if (!selectedPart) {
-    return (
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
-        <Card className="p-6 text-center">
-          <h2 className="text-xl font-semibold mb-4">{t('partsJournal.selectPartTitle')}</h2>
-          <p className="text-muted-foreground mb-6">{t('partsJournal.selectPartMessage')}</p>
-          <Button onClick={() => setShowHistory(true)}>
-            {t('partsJournal.viewHistory')}
-          </Button>
-        </Card>
-      </div>
-    );
-  }
-
+  // Show active session
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       {/* Header with Progress */}
@@ -304,7 +436,7 @@ export default function PartsJournal({ params }: PartsJournalProps) {
             </h1>
             <p className="text-muted-foreground">{t('partsJournal.sessionSubtitle')}</p>
           </div>
-          <Button variant="outline" onClick={() => setShowHistory(true)}>
+          <Button variant="outline" onClick={() => setShowIntroduction(true)}>
             <Calendar className="h-4 w-4 mr-2" />
             {t('partsJournal.viewHistory')}
           </Button>

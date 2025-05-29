@@ -17,7 +17,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Loader2, Wand2, MessageSquareHeart, UserCheck, AlertTriangle, BrainCircuit, RefreshCw, ArrowRight, Lightbulb, CheckCircle2, AlertCircle, BookOpen } from 'lucide-react';
+import { Loader2, Wand2, MessageSquareHeart, UserCheck, AlertTriangle, BrainCircuit, RefreshCw, ArrowRight, Lightbulb, CheckCircle2, AlertCircle, BookOpen, Calendar } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import type { IdentifyIFSPartInput, IdentifyIFSPartOutput } from '@/ai/flows/ifs-part-identification';
@@ -462,26 +462,38 @@ export default function SelfAssessmentPage() {
             </div>
           </CardContent>
           <CardFooter>
-            <div className="flex flex-col sm:flex-row gap-3 w-full">
+            <div className="flex flex-col gap-3 w-full">
               <Button 
-                onClick={() => window.location.href = `/${locale}/parts-journal?part=${encodeURIComponent(identificationResult.identifiedPart.partName)}`}
-                size="lg"
-                className="w-full sm:flex-1"
-                variant="default"
-              >
-                <BookOpen className="mr-2 h-4 w-4" /> {t('selfAssessment.startPartJournalButton')}
+                  onClick={() => window.location.href = `/${locale}/daily-checkin`}
+                  size="lg"
+                  className="w-full"
+                  variant="default"
+                >
+                  <Calendar className="mr-2 h-4 w-4" /> {t('selfAssessment.dailyCheckInButton')}
               </Button>
-              <PremiumButton 
-                onClick={handleResolvePart} 
-                disabled={isLoadingResolve}
-                size="lg"
-                className="w-full sm:flex-1"
-                tooltipText={t('selfAssessment.premiumFeatureTooltip')}
-                wrap={true}
-              >
-                {isLoadingResolve && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                <MessageSquareHeart className="mr-2 h-4 w-4" /> {t('selfAssessment.explorePartButton')}
-              </PremiumButton>
+              {/* Secondary Actions - Work with Part */}
+              <div className="flex flex-col sm:flex-row gap-3 w-full">
+                <Button 
+                  onClick={() => window.location.href = `/${locale}/parts-journal?part=${encodeURIComponent(identificationResult.identifiedPart.partName)}`}
+                  size="lg"
+                  className="w-full sm:flex-1"
+                  variant="outline"
+                >
+                  <BookOpen className="mr-2 h-4 w-4" /> {t('selfAssessment.startPartJournalButton')}
+                </Button>
+
+                <PremiumButton 
+                  onClick={handleResolvePart} 
+                  disabled={isLoadingResolve}
+                  size="lg"
+                  className="w-full sm:flex-1"
+                  tooltipText={t('selfAssessment.premiumFeatureTooltip')}
+                  wrap={true}
+                >
+                  {isLoadingResolve && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                  <MessageSquareHeart className="mr-2 h-4 w-4" /> {t('selfAssessment.explorePartButton')}
+                </PremiumButton>
+              </div>
             </div>
           </CardFooter>
         </Card>

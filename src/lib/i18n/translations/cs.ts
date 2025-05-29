@@ -228,7 +228,7 @@ export const cs = {
         digitalFootprints: 'Digitální stopy'
       },
       assessmentButton: 'Prozkoumat moje finanční části',
-      workWithPartButton: 'Pracovat s touto částí',
+      workWithPartButton: 'Prohloubit vztah s touto částí',
       compassionButton: 'Naučit se sebeúctě'
     },
     features: {
@@ -364,6 +364,7 @@ export const cs = {
     repeatAssessmentButton: 'Opakovat hodnocení hasičských částí',
     explorePartButton: 'Prozkoumat tuto část hlouběji',
     startPartJournalButton: 'Začít deník částí',
+    dailyCheckInButton: 'Provést denní check-in',
     premiumFeatureTooltip: 'Toto hluboké prozkoumání je prémiová funkce. Pro aktivaci prémiových funkcí se přihlaste k odběru.',
     error: {
       title: 'Chyba',
@@ -621,6 +622,7 @@ export const cs = {
     repeatAssessmentButton: 'Začít nové prozkoumání',
     explorePartButton: 'Prozkoumat tuto část hlouběji',
     startPartJournalButton: 'Začít deník částí',
+    dailyCheckInButton: 'Provést denní check-in',
     premiumFeatureTooltip: 'Toto hlubší zkoumání je prémiová funkce. Přihlaste se k odběru pro povolení prémiových funkcí.',
     result: {
       title: 'Seznamte se s vaším {partName}',

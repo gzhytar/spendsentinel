@@ -227,7 +227,7 @@ export const en = {
         digitalFootprints: 'Digital Footprints'
       },
       assessmentButton: 'Explore my financial parts',
-      workWithPartButton: 'Work with this part',
+      workWithPartButton: 'Deepen relationship with this part',
       compassionButton: 'Learn Self-Compassion'
     },
     features: {
@@ -342,6 +342,7 @@ export const en = {
     repeatAssessmentButton: 'Start New Exploration',
     explorePartButton: 'Explore This Part Deeper',
     startPartJournalButton: 'Start Part Journal',
+    dailyCheckInButton: 'Perform a Daily Check-In',
     premiumFeatureTooltip: 'This deep exploration is a premium feature. Subscribe to enable premium features.',
     result: {
       title: 'Meet Your {partName}',

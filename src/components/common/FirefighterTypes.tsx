@@ -15,7 +15,8 @@ import {
   Heart,
   Shield,
   Smartphone,
-  BookOpen
+  BookOpen,
+  Calendar
 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -300,12 +301,23 @@ export function FirefighterTypes({
               </Button>
             )}
             {highlightedType && identifiedParts.length > 0 && (
-              <Button size="lg" className="flex-1 sm:flex-initial" asChild>
-                <Link href={`${localePrefix}/parts-journal?part=${encodeURIComponent(currentType.title)}`}>
-                  <BookOpen className="w-4 h-4 mr-2" />
-                  {t('landing.firefighters.workWithPartButton')}
-                </Link>
-              </Button>
+              <div className="flex flex-col gap-3 w-full">
+                <Button 
+                    onClick={() => window.location.href = `/${locale}/daily-checkin`}
+                    size="lg"
+                    className="w-full"
+                    variant="default"
+                  >
+                    <Calendar className="mr-2 h-4 w-4" /> {t('selfAssessment.dailyCheckInButton')}
+                </Button>
+
+                <Button size="lg" className="flex-1 sm:flex-initial" variant="outline" asChild>
+                  <Link href={`${localePrefix}/parts-journal?part=${encodeURIComponent(currentType.title)}`}>
+                    <BookOpen className="w-4 h-4 mr-2" />
+                    {t('landing.firefighters.workWithPartButton')}
+                  </Link>
+                </Button>
+              </div>
             )}
           </div>
         }

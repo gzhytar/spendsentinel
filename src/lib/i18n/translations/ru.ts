@@ -228,7 +228,7 @@ export const ru = {
         digitalFootprints: 'Цифровые следы'
       },
       assessmentButton: 'Исследовать мои финансовые части',
-      workWithPartButton: 'Работать с этой частью',
+      workWithPartButton: 'Углубить отношения с этой частью',
       compassionButton: 'Изучить самосострадание'
     },
     features: {
@@ -665,6 +665,7 @@ export const ru = {
     repeatAssessmentButton: 'Начать новое исследование',
     explorePartButton: 'Исследовать эту часть глубже',
     startPartJournalButton: 'Начать дневник частей',
+    dailyCheckInButton: 'Выполнить ежедневную проверку',
     premiumFeatureTooltip: 'Это глубокое исследование является премиум-функцией. Подпишитесь для активации премиум-функций.',
     result: {
       title: 'Познакомьтесь с вашим {partName}',

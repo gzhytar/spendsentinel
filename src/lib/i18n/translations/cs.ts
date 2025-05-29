@@ -13,7 +13,7 @@ export const cs = {
   navigation: {
     home: 'Domů',
     overview: 'Přehled',
-    selfAssessment: 'Sebehodnocení',
+    selfAssessment: 'Mé části',
     partsJournal: 'Deník částí',
     myFinancialDecisions: 'Moje finanční rozhodnutí',
     dailyCheckIn: 'Denní check-in',
@@ -235,9 +235,9 @@ export const cs = {
       title: 'Hlavní funkce',
       subtitle: 'Nástroje navržené k transformaci vašeho finančního vztahu',
       selfAssessment: {
-        title: 'Sebehodnocení',
+        title: 'Mé části',
         description: 'Objevte, které finanční "hasičské" části jsou ve vašem životě nejaktivnější a dozvíte se o jejich ochranných záměrech.',
-        button: 'Provést hodnocení',
+        button: 'Prozkoumat mé části',
       },
       myFinancialDecisions: {
         title: 'Moje finanční rozhodnutí',
@@ -533,26 +533,26 @@ export const cs = {
     }
   },
   selfAssessment: {
-    title: 'Sebehodnocení',
-    subtitle: 'Objevte své finanční vzorce a naučte se s nimi pracovat soucitně',
+    title: 'Mé části',
+    subtitle: 'Objevte své finanční části a naučte se s nimi pracovat soucitně',
     quiz: {
-      title: 'Rychlé hodnocení hasičů',
+      title: 'Rychlé objevování částí',
       description: 'Proveďte tento krátký kvíz k identifikaci vašeho primárního typu finančního hasiče',
       instruction: 'Odpovězte na 4 rychlé otázky a objevte, která finanční "hasičská" část je ve vašem životě nejaktivnější.',
-      startButton: 'Začít hodnocení',
+      startButton: 'Začít objevování',
       unsureOption: 'Nejsem si jistý / Nic z toho mi neodpovídá',
-      result: 'Váš primární typ hasiče je:',
-      resultDescription: 'Toto vás úplně nedefinuje—všichni máme více částí. Porozumění vašemu dominantnímu vzorci je prvním krokem k finančnímu sebesoucitu.',
-      repeatQuizButton: 'Opakovat kvíz',
+      result: 'Vaše primární hasičská část je:',
+      resultDescription: 'Toto vás úplně nedefinuje—všichni máme více částí. Porozumění vaší dominantní části je prvním krokem k finančnímu sebesoucitu.',
+      repeatQuizButton: 'Opakovat objevování',
       detailedResult: {
-        title: 'Váš typ finančního hasiče',
-        subtitle: 'Porozumění vašemu primárnímu vzorci a jak s ním pracovat soucitně'
+        title: 'Vaše finanční hasičská část',
+        subtitle: 'Porozumění vaší primární části a jak s ní pracovat soucitně'
       },
       uncertaintyNotice: {
         title: 'Máte potíže s výběrem?',
-        description: 'Protože si nejste jisti několika odpověďmi, doporučujeme personalizované hodnocení níže pro přesnější poznatky o vašich finančních vzorcích.'
+        description: 'Protože si nejste jisti několika odpověďmi, doporučujeme personalizované prozkoumání níže pro přesnější poznatky o vašich finančních částech.'
       },
-      interpretationGuide: "Použijte podrobnou sekci níže k pochopení svého výsledku. Tento výsledek vás zcela nedefinuje—všichni máme více částí. Pokud cítíte, že to není váš hlavní vzorec, můžete kvíz zopakovat.",
+      interpretationGuide: "Použijte podrobnou sekci níže k pochopení svého výsledku. Tento výsledek vás zcela nedefinuje—všichni máme více částí. Pokud cítíte, že to není vaše hlavní část, můžete kvíz zopakovat.",
       questions: {
         stressResponse: {
           question: 'Když se cítíte ve stresu kvůli penězům, jaký je váš první instinkt?',
@@ -600,7 +600,7 @@ export const cs = {
       }
     },
     deepAssessment: {
-      title: 'Hluboké hodnocení',
+      title: 'Hluboké prozkoumání částí',
       description: 'Pro podrobnější analýzu popište svou konkrétní finanční situaci a vzorce.',
       formTitle: 'Personalizovaná identifikace finanční části',
       formDescription: 'Sdílejte své finanční zkušenosti a pomůžeme vám pochopit části sebe, které ovlivňují vaše rozhodnutí o penězích.'
@@ -618,7 +618,7 @@ export const cs = {
       }
     },
     identifyButton: 'Identifikovat moje finanční části',
-    repeatAssessmentButton: 'Začít nové hodnocení',
+    repeatAssessmentButton: 'Začít nové prozkoumání',
     explorePartButton: 'Prozkoumat tuto část hlouběji',
     startPartJournalButton: 'Začít deník částí',
     premiumFeatureTooltip: 'Toto hlubší zkoumání je prémiová funkce. Přihlaste se k odběru pro povolení prémiových funkcí.',
@@ -664,7 +664,7 @@ export const cs = {
         journalNotes: 'Poznámky z deníku pro spuštěné části:',
         partNote: 'poznámka:',
         journalPlaceholder: 'Jak se tato část projevila? Co se snažila chránit nebo poskytnout?',
-        noPartsMessage: 'Zatím nebyly identifikovány žádné finanční části. Dokončete',
+        noPartsMessage: 'Nejprve dokončete prozkoumání částí k identifikaci vašich finančních částí před zahájením relace v deníku.',
         noPartsMessageAfter: 'pro identifikaci vašich finančních částí a sledování, které jsou spuštěny vašimi výdaji.'
       },
       timeline: {
@@ -704,8 +704,8 @@ export const cs = {
     journalHistory: 'Historie deníku',
     showSummary: 'Zobrazit shrnutí',
     noPartsTitle: 'Nebyly identifikovány žádné části',
-    noPartsMessage: 'Nejprve dokončete sebehodnocení pro identifikaci vašich finančních částí před začátkem relace deníku.',
-    goToAssessment: 'Přejít na sebehodnocení',
+    noPartsMessage: 'Nejprve dokončete prozkoumání částí k identifikaci vašich finančních částí před zahájením relace v deníku.',
+    goToAssessment: 'Přejít na Mé části',
     selectPartTitle: 'Vyberte část',
     selectPartMessage: 'Vyberte, se kterou finanční částí byste si dnes rádi popovídali.',
     noSessionsTitle: 'Zatím žádné relace deníku',
@@ -738,7 +738,7 @@ export const cs = {
           'Ocenit a zaznamenat - Uctěte poznatky a vyjádřete vděčnost'
         ]
       },
-      noPartsMessage: 'Nejprve dokončete sebehodnocení pro identifikaci vašich finančních částí.',
+      noPartsMessage: 'Nejprve dokončete prozkoumání částí k identifikaci vašich finančních částí.',
       choosePartTitle: 'Vyberte část, se kterou chcete pracovat:'
     },
     navigation: {

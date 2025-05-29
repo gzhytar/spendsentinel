@@ -13,7 +13,7 @@ export const en = {
   navigation: {
     home: 'Home',
     overview: 'Overview',
-    selfAssessment: 'Self-assessment',
+    selfAssessment: 'My parts',
     partsJournal: 'Parts Journal',
     myFinancialDecisions: 'My Financial Decisions',
     dailyCheckIn: 'Daily Check-in',
@@ -232,11 +232,11 @@ export const en = {
     },
     features: {
       title: 'Discover Your Financial Self',
-      subtitle: 'Tools designed to help you understand and work with your financial patterns',
+      subtitle: 'Tools designed to help you understand and work with your financial parts',
       selfAssessment: {
-        title: 'Self-Assessment',
+        title: 'My Parts',
         description: 'Discover which financial "firefighter" parts are most active in your life and learn about their protective intentions.',
-        button: 'Take Assessment',
+        button: 'Explore My Parts',
       },
       myFinancialDecisions: {
         title: 'My Financial Decisions',
@@ -253,24 +253,24 @@ export const en = {
     },
   },
   selfAssessment: {
-    title: 'Self-Assessment',
-    subtitle: 'Discover your financial patterns and learn to work with them compassionately',
+    title: 'My Parts',
+    subtitle: 'Discover your financial parts and learn to work with them compassionately',
     quiz: {
-      title: 'Quick Firefighter Assessment',
-      description: 'Take this brief quiz to identify your primary financial firefighter type',
+      title: 'Quick Part Discovery',
+      description: 'Take this brief quiz to identify your primary financial firefighter part',
       instruction: 'Answer 4 quick questions to discover which financial "firefighter" part is most active in your life.',
-      startButton: 'Start Assessment',
+      startButton: 'Start Discovery',
       unsureOption: 'I\'m not sure / None of these match me',
-      result: 'Your primary firefighter type is:',
-      resultDescription: 'This doesn\'t define you completely—we all have multiple parts. Understanding your dominant pattern is the first step toward financial self-compassion.',
-      repeatQuizButton: 'Repeat Quiz',
+      result: 'Your primary firefighter part is:',
+      resultDescription: 'This doesn\'t define you completely—we all have multiple parts. Understanding your dominant part is the first step toward financial self-compassion.',
+      repeatQuizButton: 'Repeat Discovery',
       detailedResult: {
-        title: 'Your Financial Firefighter Type',
-        subtitle: 'Understanding your primary pattern and how to work with it compassionately'
+        title: 'Your Financial Firefighter Part',
+        subtitle: 'Understanding your primary part and how to work with it compassionately'
       },
       uncertaintyNotice: {
         title: 'Having trouble choosing?',
-        description: 'Since you\'re uncertain about several answers, we recommend the personalized assessment below for more accurate insights into your financial patterns.'
+        description: 'Since you\'re uncertain about several answers, we recommend the personalized exploration below for more accurate insights into your financial parts.'
       },
       questions: {
         stressResponse: {
@@ -317,11 +317,11 @@ export const en = {
         seeResults: 'See Results',
         progress: 'Question {current} of {total}'
       },
-      interpretationGuide: "Use the detailed section below to understand your result. This doesn't define you completely—we all have multiple parts. If you feel this isn't your primary pattern, you can retake the quiz.",
-      retakeHint: "If this doesn't feel like your main part, click 'Repeat Quiz' to try again.",
+      interpretationGuide: "Use the detailed section below to understand your result. This doesn't define you completely—we all have multiple parts. If you feel this isn't your primary part, you can retake the quiz.",
+      retakeHint: "If this doesn't feel like your main part, click 'Repeat Discovery' to try again.",
     },
     deepAssessment: {
-      title: 'Deep Assessment',
+      title: 'Deep Part Exploration',
       description: 'For a more personalized analysis, describe your specific financial situation and patterns.',
       formTitle: 'Personalized Financial Part Identification',
       formDescription: 'Share your financial experiences and we\'ll help you understand the parts of yourself that influence your money decisions.'
@@ -339,7 +339,7 @@ export const en = {
       }
     },
     identifyButton: 'Identify My Financial Parts',
-    repeatAssessmentButton: 'Start New Assessment',
+    repeatAssessmentButton: 'Start New Exploration',
     explorePartButton: 'Explore This Part Deeper',
     startPartJournalButton: 'Start Part Journal',
     premiumFeatureTooltip: 'This deep exploration is a premium feature. Subscribe to enable premium features.',
@@ -747,8 +747,8 @@ export const en = {
     journalHistory: 'Journal History',
     showSummary: 'Show Summary',
     noPartsTitle: 'No Parts Identified',
-    noPartsMessage: 'Complete the self-assessment first to identify your financial parts before starting a journal session.',
-    goToAssessment: 'Go to Self-Assessment',
+    noPartsMessage: 'Complete the parts exploration first to identify your financial parts before starting a journal session.',
+    goToAssessment: 'Go to My Parts',
     selectPartTitle: 'Select a Part',
     selectPartMessage: 'Choose which financial part you\'d like to dialogue with today.',
     noSessionsTitle: 'No Journal Sessions Yet',
@@ -781,7 +781,7 @@ export const en = {
           'Appreciate & Log - Honor insights and express gratitude'
         ]
       },
-      noPartsMessage: 'Complete the self-assessment first to identify your financial parts.',
+      noPartsMessage: 'Complete the parts exploration first to identify your financial parts.',
       choosePartTitle: 'Choose a part to work with:'
     },
     navigation: {

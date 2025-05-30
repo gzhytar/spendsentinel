@@ -10,6 +10,8 @@
 
 > **🎨 Primary Design Reference**: For comprehensive visual design decisions, component patterns, and UX guidelines, refer to [`docs/design-guidelines.md`](./design-guidelines.md). This document serves as the authoritative source for maintaining design consistency across all features and should be consulted by AI/LLM when making any visual or interaction design decisions.
 
+> **🧠 Trauma-Informed Design Reference**: For psychological safety, compassionate messaging, and trauma-informed interaction patterns, refer to [`docs/trauma-informed-guidelines.md`](./trauma-informed-guidelines.md). This document establishes principles for creating emotionally safe user experiences and should be consulted by AI/LLM when making any feature design decisions that involve user emotions, financial stress, or sensitive interactions.
+
 ### Core Visual Identity
 - Primary color: A calming lavender #B5B7E8, selected to instill a sense of peace and balance, drawing inspiration from mindfulness practices. Its versatility makes it adaptable to various UI components without overwhelming the user.
 - Background color: Soft sand #EADDCB (warmth), providing a soft, neutral backdrop that ensures readability and reduces eye strain, in keeping with a light color scheme.
@@ -28,10 +30,13 @@
 ### AI/LLM Design Decision Framework
 When implementing new features or modifying existing ones:
 1. **Always consult** [`docs/design-guidelines.md`](./design-guidelines.md) for visual and interaction patterns
-2. **Prioritize consistency** with established component structures and color usage
-3. **Apply state-driven design** principles for dynamic user experiences
-4. **Follow accessibility guidelines** as outlined in the design guide
-5. **Maintain responsive design** patterns for all screen sizes
+2. **Always consult** [`docs/trauma-informed-guidelines.md`](./trauma-informed-guidelines.md) for psychological safety and messaging guidelines
+3. **Prioritize consistency** with established component structures and color usage
+4. **Apply state-driven design** principles for dynamic user experiences
+5. **Follow trauma-informed principles** for language, colors, and interaction patterns that support emotional safety
+6. **Follow accessibility guidelines** as outlined in both design guides
+7. **Maintain responsive design** patterns for all screen sizes
+8. **Consider emotional impact** of every design decision, especially for financial stress and sensitive topics
 
 ## Tone guidelines:
 Use "invite" not "warn", "notice" not "fail", "parts" language sparingly outside psycho-education screens. Example: "A part noticed extra coffee runs ( +€24 this week ). Breathe, then decide."	

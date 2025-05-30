@@ -7,13 +7,23 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useI18n } from '@/contexts/i18n-context';
 import { FirefighterTypes } from '@/components/common/FirefighterTypes';
+import { VersionInfo } from '@/components/ui/version-info';
 
 export default function LandingPage() {
   const { t, locale } = useI18n();
   const localePrefix = `/${locale}`;
 
+  // Show debug info in development or if URL has debug param
+  const showDebugInfo = process.env.NODE_ENV === 'development' || 
+    (typeof window !== 'undefined' && window.location.search.includes('debug=true'));
+
   return (
     <div className="container mx-auto py-8 space-y-12 px-4">
+      {/* Version Info (only in debug mode) */}
+      {showDebugInfo && (
+        <VersionInfo showDebugInfo={true} className="mb-8" />
+      )}
+
       {/* Hero Section */}
       <section className="text-center space-y-4">
         <h1 className="text-3xl md:text-4xl font-bold tracking-tight sm:text-5xl">

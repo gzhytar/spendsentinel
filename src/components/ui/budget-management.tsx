@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Card } from '@/components/ui/card';
 import { Calculator, Home, PiggyBank, Banknote } from 'lucide-react';
-import { BUDGET_EXPLANATION_CATEGORIES } from '@/lib/constants/categories';
+import { useI18n } from '@/contexts/i18n-context';
 import { useBudget, type Budget } from '@/hooks/use-budget';
 
 interface BudgetManagementProps {
@@ -21,10 +21,43 @@ interface BudgetDialogProps {
   onSave: (budget: Budget) => void;
 }
 
+// Helper function to format translated messages with variables
+const formatMessage = (template: string, variables: Record<string, string | number>): string => {
+  return template.replace(/\$\{(\w+)\}/g, (match, key) => {
+    return String(variables[key] || match);
+  });
+};
+
 export function BudgetManagement({ budget }: BudgetManagementProps) {
+  const { t } = useI18n();
+  
+  const budgetCategories = [
+    {
+      id: 'income',
+      title: t('expenseHighlighter.budgetPlanner.categories.income.title'),
+      description: t('expenseHighlighter.budgetPlanner.categories.income.description'),
+      icon: Banknote,
+      iconColor: 'text-blue-600'
+    },
+    {
+      id: 'spend',
+      title: t('expenseHighlighter.budgetPlanner.categories.spend.title'),
+      description: t('expenseHighlighter.budgetPlanner.categories.spend.description'),
+      icon: Home,
+      iconColor: 'text-chart-1'
+    },
+    {
+      id: 'saving',
+      title: t('expenseHighlighter.budgetPlanner.categories.saving.title'),
+      description: t('expenseHighlighter.budgetPlanner.categories.saving.description'),
+      icon: PiggyBank,
+      iconColor: 'text-green-600'
+    }
+  ];
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-      {BUDGET_EXPLANATION_CATEGORIES.map((category) => {
+      {budgetCategories.map((category) => {
         const Icon = category.icon;
         let value: number | undefined;
         
@@ -60,6 +93,7 @@ export function BudgetManagement({ budget }: BudgetManagementProps) {
 }
 
 function BudgetDialog({ isOpen, onClose, initialBudget, onSave }: BudgetDialogProps) {
+  const { t } = useI18n();
   const { calculateRecommended, adjustSpendBudget, adjustSavingTarget } = useBudget();
   const [budgetInput, setBudgetInput] = useState<Budget>(initialBudget);
 
@@ -96,7 +130,7 @@ function BudgetDialog({ isOpen, onClose, initialBudget, onSave }: BudgetDialogPr
           <DialogTitle asChild>
             <h3 className="font-semibold mb-4 flex items-center gap-2">
               <Calculator className="w-5 h-5" />
-              Set Your Monthly Budget
+              {t('expenseHighlighter.budgetPlanner.dialog.title')}
             </h3>
           </DialogTitle>
           
@@ -105,14 +139,14 @@ function BudgetDialog({ isOpen, onClose, initialBudget, onSave }: BudgetDialogPr
             <div>
               <Label htmlFor="monthly-income" className="flex items-center gap-2">
                 <Banknote className="w-4 h-4 text-blue-600" />
-                Monthly Income
+                {t('expenseHighlighter.budgetPlanner.dialog.monthlyIncome.label')}
               </Label>
               <Input
                 id="monthly-income"
                 type="number"
                 value={budgetInput.monthlyIncome || ''}
                 onChange={(e) => handleIncomeChange(Number(e.target.value) || 0)}
-                placeholder="Enter your monthly income"
+                placeholder={t('expenseHighlighter.budgetPlanner.dialog.monthlyIncome.placeholder')}
                 className="mt-2"
               />
             </div>
@@ -123,7 +157,7 @@ function BudgetDialog({ isOpen, onClose, initialBudget, onSave }: BudgetDialogPr
                 <div>
                   <Label htmlFor="spend-budget" className="flex items-center gap-2">
                     <Home className="w-4 h-4 text-chart-1" />
-                    Spend Budget
+                    {t('expenseHighlighter.budgetPlanner.dialog.spendBudget.label')}
                   </Label>
                   <div className="space-y-2 mt-2">
                     <Input
@@ -133,10 +167,12 @@ function BudgetDialog({ isOpen, onClose, initialBudget, onSave }: BudgetDialogPr
                       onChange={(e) => handleSpendBudgetChange(Number(e.target.value) || 0)}
                     />
                     <p className="text-xs text-muted-foreground">
-                      Recommended: ${Math.round(budgetInput.monthlyIncome * 0.6)} (60% of income)
+                      {formatMessage(t('expenseHighlighter.budgetPlanner.dialog.spendBudget.recommended'), {
+                        amount: Math.round(budgetInput.monthlyIncome * 0.6).toString()
+                      })}
                     </p>
                     <div className="text-xs text-muted-foreground bg-muted/50 p-2 rounded">
-                      Covers living essentials and lifestyle choices
+                      {t('expenseHighlighter.budgetPlanner.dialog.spendBudget.description')}
                     </div>
                   </div>
                 </div>
@@ -145,7 +181,7 @@ function BudgetDialog({ isOpen, onClose, initialBudget, onSave }: BudgetDialogPr
                 <div>
                   <Label htmlFor="saving-target" className="flex items-center gap-2">
                     <PiggyBank className="w-4 h-4 text-green-600" />
-                    Saving Target
+                    {t('expenseHighlighter.budgetPlanner.dialog.savingTarget.label')}
                   </Label>
                   <div className="space-y-2 mt-2">
                     <Input
@@ -155,10 +191,12 @@ function BudgetDialog({ isOpen, onClose, initialBudget, onSave }: BudgetDialogPr
                       onChange={(e) => handleSavingTargetChange(Number(e.target.value) || 0)}
                     />
                     <p className="text-xs text-muted-foreground">
-                      Automatic: ${budgetInput.monthlyIncome - budgetInput.spendBudget} (Income - Spend Budget)
+                      {formatMessage(t('expenseHighlighter.budgetPlanner.dialog.savingTarget.automatic'), {
+                        amount: (budgetInput.monthlyIncome - budgetInput.spendBudget).toString()
+                      })}
                     </p>
                     <div className="text-xs text-muted-foreground bg-muted/50 p-2 rounded">
-                      For emergency fund, goals, and avoiding impulse purchases
+                      {t('expenseHighlighter.budgetPlanner.dialog.savingTarget.description')}
                     </div>
                   </div>
                 </div>
@@ -168,21 +206,21 @@ function BudgetDialog({ isOpen, onClose, initialBudget, onSave }: BudgetDialogPr
             {/* Budget Summary */}
             {budgetInput.monthlyIncome > 0 && (
               <div className="bg-muted/50 p-3 rounded-md space-y-2">
-                <h4 className="font-medium">Budget Summary:</h4>
+                <h4 className="font-medium">{t('expenseHighlighter.budgetPlanner.dialog.summary.title')}</h4>
                 <div className="grid grid-cols-3 gap-4 text-sm">
                   <div>
-                    <p className="text-muted-foreground">Income</p>
+                    <p className="text-muted-foreground">{t('expenseHighlighter.budgetPlanner.dialog.summary.income')}</p>
                     <p className="font-medium text-blue-600">${budgetInput.monthlyIncome}</p>
                   </div>
                   <div>
-                    <p className="text-muted-foreground">Spend Budget</p>
+                    <p className="text-muted-foreground">{t('expenseHighlighter.budgetPlanner.dialog.summary.spendBudget')}</p>
                     <p className="font-medium text-chart-1">${budgetInput.spendBudget}</p>
                     <p className="text-xs text-muted-foreground">
                       {budgetInput.monthlyIncome > 0 ? Math.round((budgetInput.spendBudget / budgetInput.monthlyIncome) * 100) : 0}%
                     </p>
                   </div>
                   <div>
-                    <p className="text-muted-foreground">Saving Target</p>
+                    <p className="text-muted-foreground">{t('expenseHighlighter.budgetPlanner.dialog.summary.savingTarget')}</p>
                     <p className="font-medium text-green-600">${budgetInput.savingTarget}</p>
                     <p className="text-xs text-muted-foreground">
                       {budgetInput.monthlyIncome > 0 ? Math.round((budgetInput.savingTarget / budgetInput.monthlyIncome) * 100) : 0}%
@@ -194,13 +232,13 @@ function BudgetDialog({ isOpen, onClose, initialBudget, onSave }: BudgetDialogPr
             
             <div className="flex gap-2 justify-end">
               <Button variant="outline" onClick={onClose}>
-                Cancel
+                {t('expenseHighlighter.budgetPlanner.dialog.buttons.cancel')}
               </Button>
               <Button 
                 onClick={handleSave} 
                 disabled={budgetInput.monthlyIncome <= 0}
               >
-                Save Budget
+                {t('expenseHighlighter.budgetPlanner.dialog.buttons.save')}
               </Button>
             </div>
           </div>

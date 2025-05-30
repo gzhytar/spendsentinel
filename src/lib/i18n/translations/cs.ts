@@ -306,6 +306,67 @@ export const cs = {
     avoidedDescription: 'Peníze, které jste se rozhodli neutratit za impulzivní nákupy nebo nepotřebné věci, přesměrované na budování finanční bezpečnosti.',
     goalsDescription: 'Úspory specificky alokované na dosažení snů a aspirací vizualizovaných na vaší vizi.',
     unassigned: 'Nezařazené',
+    budgetProgress: {
+      title: 'Pokrok rozpočtu',
+      excellent: 'Skvělá práce! Jste výrazně pod svým rozpočtem s ${remaining} zbývajícími.',
+      good: 'Děláte to dobře! ${remaining} zbývá ve vašem rozpočtu.',
+      warning: 'Blížíte se k vašemu limitu. ${remaining} zbývá ve vašem rozpočtu.',
+      over: 'Překročili jste svůj rozpočet o ${overAmount}. Zvažte přezkoumání svých výdajů nebo úpravu rozpočtu.'
+    },
+    savingProgress: {
+      title: 'Pokrok cíle úspor',
+      building: 'Každé úsilí o spoření se počítá! Budujete něco důležitého pro svou budoucnost.',
+      progressing: 'Skvělý pokrok! Postupně budujete své finanční základy. ${remaining} k dosažení vašeho cíle.',
+      approaching: 'Výborná práce! Jste tak blízko k vašemu cíli úspor. Jen ${remaining} zbývá!',
+      achieved: 'Úžasné! Překročili jste svůj cíl úspor o ${extraAmount}. Vaše finanční bezpečnost sílí!'
+    },
+    budgetPlanner: {
+      title: 'Plánování rozpočtu',
+      description: 'Nastavte svůj měsíční rozpočet pro efektivní sledování příjmů, výdajů a cílů spoření.',
+      setBudgetButton: 'Nastavit můj rozpočet',
+      editBudgetButton: 'Upravit můj rozpočet',
+      dialog: {
+        title: 'Nastavte svůj měsíční rozpočet',
+        monthlyIncome: {
+          label: 'Měsíční příjem',
+          placeholder: 'Zadejte svůj měsíční příjem'
+        },
+        spendBudget: {
+          label: 'Rozpočet na výdaje',
+          recommended: 'Doporučeno: ${amount} (60% příjmu)',
+          description: 'Pokrývá základní životní potřeby a volby životního stylu'
+        },
+        savingTarget: {
+          label: 'Cíl úspor',
+          automatic: 'Automaticky: ${amount} (Příjem - Rozpočet na výdaje)',
+          description: 'Pro nouzový fond, cíle a vyhýbání se impulzivním nákupům'
+        },
+        summary: {
+          title: 'Souhrn rozpočtu:',
+          income: 'Příjem',
+          spendBudget: 'Rozpočet na výdaje',
+          savingTarget: 'Cíl úspor'
+        },
+        buttons: {
+          cancel: 'Zrušit',
+          save: 'Uložit rozpočet'
+        }
+      },
+      categories: {
+        income: {
+          title: 'Měsíční příjem',
+          description: 'Váš celkový měsíční příjem ze všech zdrojů včetně platu, freelance, investic a dalších pravidelných příjmů.'
+        },
+        spend: {
+          title: 'Rozpočet na výdaje',
+          description: 'Částka alokovaná pro životní výdaje (nájem, služby, potraviny) i volby životního stylu (stravování venku, zábava, koníčky).'
+        },
+        saving: {
+          title: 'Cíl úspor',
+          description: 'Měsíční částka, kterou si stanovíte ušetřit pro nouzový fond, budoucí cíle a vyhýbání se impulzivním nákupům, které neodpovídají vašim hodnotám.'
+        }
+      }
+    },
     categories: {
       living: 'Životní Výdaje',
       lifestyle: 'Výdaje na Životní Styl'

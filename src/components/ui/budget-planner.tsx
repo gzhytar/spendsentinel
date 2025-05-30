@@ -25,7 +25,7 @@ export function MyBudgetPlanner() {
   // Check if budget is already set
   const hasBudget = budget.monthlyIncome > 0;
   const buttonVariant = hasBudget ? "outline" : "default";
-  const buttonText = hasBudget ? "Edit My Budget" : "Set My Budget";
+  const buttonText = hasBudget ? t('expenseHighlighter.budgetPlanner.editBudgetButton') : t('expenseHighlighter.budgetPlanner.setBudgetButton');
 
   return (
     <>
@@ -33,10 +33,10 @@ export function MyBudgetPlanner() {
         <CardHeader>
           <div className="flex items-center space-x-3">
             <Calculator className="w-8 h-8 text-primary" />
-            <CardTitle className="text-2xl">Budget Planning</CardTitle>
+            <CardTitle className="text-2xl">{t('expenseHighlighter.budgetPlanner.title')}</CardTitle>
           </div>
           <CardDescription>
-            Set up your monthly budget to track your income, spending, and saving goals effectively.
+            {t('expenseHighlighter.budgetPlanner.description')}
           </CardDescription>
         </CardHeader>
         <CardContent>

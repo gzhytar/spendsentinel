@@ -411,6 +411,67 @@ export const en = {
     avoidedDescription: 'Money you chose not to spend on impulse purchases or unnecessary items, redirected to build financial security.',
     goalsDescription: 'Savings specifically allocated toward achieving the dreams and aspirations visualized on your vision board.',
     unassigned: 'Unassigned',
+    budgetProgress: {
+      title: 'Budget Progress',
+      excellent: 'Great job! You\'re well within your budget with ${remaining} remaining.',
+      good: 'You\'re doing well! ${remaining} left in your budget.',
+      warning: 'Getting close to your limit. ${remaining} remaining in your budget.',
+      over: 'You\'ve exceeded your budget by ${overAmount}. Consider reviewing your spending or adjusting your budget.'
+    },
+    savingProgress: {
+      title: 'Saving Target Progress',
+      building: 'Every saving effort counts! You\'re building something important for your future.',
+      progressing: 'Great progress! You\'re steadily building your financial foundation. ${remaining} to reach your target.',
+      approaching: 'Excellent work! You\'re so close to your saving target. Just ${remaining} to go!',
+      achieved: 'Amazing! You\'ve exceeded your saving target by ${extraAmount}. Your financial security is growing stronger!'
+    },
+    budgetPlanner: {
+      title: 'Budget Planning',
+      description: 'Set up your monthly budget to track your income, spending, and saving goals effectively.',
+      setBudgetButton: 'Set My Budget',
+      editBudgetButton: 'Edit My Budget',
+      dialog: {
+        title: 'Set Your Monthly Budget',
+        monthlyIncome: {
+          label: 'Monthly Income',
+          placeholder: 'Enter your monthly income'
+        },
+        spendBudget: {
+          label: 'Spend Budget',
+          recommended: 'Recommended: ${amount} (60% of income)',
+          description: 'Covers living essentials and lifestyle choices'
+        },
+        savingTarget: {
+          label: 'Saving Target',
+          automatic: 'Automatic: ${amount} (Income - Spend Budget)',
+          description: 'For emergency fund, goals, and avoiding impulse purchases'
+        },
+        summary: {
+          title: 'Budget Summary:',
+          income: 'Income',
+          spendBudget: 'Spend Budget',
+          savingTarget: 'Saving Target'
+        },
+        buttons: {
+          cancel: 'Cancel',
+          save: 'Save Budget'
+        }
+      },
+      categories: {
+        income: {
+          title: 'Monthly Income',
+          description: 'Your total monthly income from all sources including salary, freelance, investments, and other regular income.'
+        },
+        spend: {
+          title: 'Spend Budget',
+          description: 'Amount allocated for both living expenses (rent, utilities, groceries) and lifestyle choices (dining out, entertainment, hobbies).'
+        },
+        saving: {
+          title: 'Saving Target',
+          description: 'Monthly amount you aim to save for emergency fund, future goals, and avoiding impulse purchases that don\'t align with your values.'
+        }
+      }
+    },
     categories: {
       living: 'Living Expenses',
       lifestyle: 'Lifestyle Expenses'

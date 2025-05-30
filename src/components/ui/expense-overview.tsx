@@ -28,64 +28,113 @@ interface SavingsSummaryData {
   total: number;
 }
 
+// Helper function to format translated messages with variables
+const formatMessage = (template: string, variables: Record<string, string | number>): string => {
+  return template.replace(/\$\{(\w+)\}/g, (match, key) => {
+    return String(variables[key] || match);
+  });
+};
+
 export function ExpenseOverview({ expenses }: ExpenseOverviewProps) {
   const { t } = useI18n();
   const { budget } = useBudget();
 
+  // Calculate expense summary
   const expenseSummary = useMemo((): SummaryData => {
-    const summary = {
-      living: 0,
-      lifestyle: 0,
-      unassigned: 0,
-      total: 0,
-    };
+    const expenseData = expenses.filter(exp => exp.type === 'expense');
     
-    expenses.filter(exp => exp.type === 'expense').forEach(exp => {
-      if (exp.category === 'living' || exp.category === 'lifestyle' || exp.category === 'unassigned') {
-        summary[exp.category] += exp.amount;
+    return expenseData.reduce((acc, expense) => {
+      const amount = expense.amount;
+      if (expense.category === 'living') {
+        acc.living += amount;
+      } else if (expense.category === 'lifestyle') {
+        acc.lifestyle += amount;
+      } else {
+        acc.unassigned += amount;
       }
-      summary.total += exp.amount;
-    });
-    
-    return summary;
+      acc.total += amount;
+      return acc;
+    }, { living: 0, lifestyle: 0, unassigned: 0, total: 0 });
   }, [expenses]);
 
+  // Calculate savings summary
   const savingsSummary = useMemo((): SavingsSummaryData => {
-    const summary = {
-      avoided: 0,
-      goals: 0,
-      unassigned: 0,
-      total: 0,
-    };
+    const savingsData = expenses.filter(exp => exp.type === 'saving');
     
-    expenses.filter(exp => exp.type === 'saving').forEach(exp => {
-      if (exp.category === 'avoided' || exp.category === 'goals' || exp.category === 'unassigned') {
-        summary[exp.category] += exp.amount;
+    return savingsData.reduce((acc, saving) => {
+      const amount = saving.amount;
+      if (saving.category === 'avoided') {
+        acc.avoided += amount;
+      } else if (saving.category === 'goals') {
+        acc.goals += amount;
+      } else {
+        acc.unassigned += amount;
       }
-      summary.total += exp.amount;
-    });
-    
-    return summary;
+      acc.total += amount;
+      return acc;
+    }, { avoided: 0, goals: 0, unassigned: 0, total: 0 });
   }, [expenses]);
 
-  const chartData = [
-    { name: t('expenseHighlighter.categories.living'), value: expenseSummary.living, category: 'living' },
-    { name: t('expenseHighlighter.categories.lifestyle'), value: expenseSummary.lifestyle, category: 'lifestyle' },
-    { name: t('expenseHighlighter.unassigned'), value: expenseSummary.unassigned, category: 'unassigned' },
-  ].filter(d => d.value > 0);
+  // Prepare chart data for expenses
+  const chartData = useMemo(() => {
+    const data = [];
+    if (expenseSummary.living > 0) {
+      data.push({ 
+        name: t('expenseHighlighter.categories.living'),
+        value: expenseSummary.living, 
+        category: 'living' 
+      });
+    }
+    if (expenseSummary.lifestyle > 0) {
+      data.push({ 
+        name: t('expenseHighlighter.categories.lifestyle'),
+        value: expenseSummary.lifestyle, 
+        category: 'lifestyle' 
+      });
+    }
+    if (expenseSummary.unassigned > 0) {
+      data.push({ 
+        name: t('expenseHighlighter.unassigned'),
+        value: expenseSummary.unassigned, 
+        category: 'unassigned' 
+      });
+    }
+    return data;
+  }, [expenseSummary, t]);
 
-  const savingsChartData = [
-    { name: t('expenseHighlighter.savingCategories.avoided'), value: savingsSummary.avoided, category: 'avoided' },
-    { name: t('expenseHighlighter.savingCategories.goals'), value: savingsSummary.goals, category: 'goals' },
-    { name: t('expenseHighlighter.unassigned'), value: savingsSummary.unassigned, category: 'unassigned' },
-  ].filter(d => d.value > 0);
+  // Prepare chart data for savings
+  const savingsChartData = useMemo(() => {
+    const data = [];
+    if (savingsSummary.avoided > 0) {
+      data.push({ 
+        name: t('expenseHighlighter.savingCategories.avoided'),
+        value: savingsSummary.avoided, 
+        category: 'avoided' 
+      });
+    }
+    if (savingsSummary.goals > 0) {
+      data.push({ 
+        name: t('expenseHighlighter.savingCategories.goals'),
+        value: savingsSummary.goals, 
+        category: 'goals' 
+      });
+    }
+    if (savingsSummary.unassigned > 0) {
+      data.push({ 
+        name: t('expenseHighlighter.unassigned'),
+        value: savingsSummary.unassigned, 
+        category: 'unassigned' 
+      });
+    }
+    return data;
+  }, [savingsSummary, t]);
 
   const getCategoryIconForSummary = (categoryId: string) => {
     const config = getCategoryConfig(categoryId as any);
     if (!config) return <DollarSign className="mr-2 h-5 w-5 text-primary" />;
     
-    const Icon = config.icon;
-    return <Icon className={`mr-2 h-5 w-5 ${config.iconColor}`} />;
+    const IconComponent = config.icon;
+    return <IconComponent className="mr-2 h-5 w-5" style={{color: config.color}} />;
   };
 
   // Budget consumption calculations
@@ -95,36 +144,49 @@ export function ExpenseOverview({ expenses }: ExpenseOverviewProps) {
     const percentage = (expenseSummary.total / budget.spendBudget) * 100;
     const remaining = budget.spendBudget - expenseSummary.total;
     
-    // Determine status and styling based on consumption percentage
+    // Trauma-informed messaging: encouraging and supportive at all levels
     let status: 'excellent' | 'good' | 'warning' | 'over' = 'excellent';
     let IconComponent = CheckCircle;
     let iconColor = 'text-green-600';
     let progressColor = 'bg-green-500';
-    let message = '';
+    let messageKey = '';
     let messageStyle = 'text-green-700 bg-green-50';
 
-    if (percentage <= 50) {
+    if (percentage <= 60) {
       status = 'excellent';
-      message = `Great job! You're well within your budget with $${remaining.toFixed(0)} remaining.`;
-    } else if (percentage <= 75) {
+      IconComponent = CheckCircle;
+      iconColor = 'text-green-600';
+      progressColor = 'bg-green-500';
+      messageStyle = 'text-green-700 bg-green-50';
+      messageKey = 'excellent';
+    } else if (percentage <= 85) {
       status = 'good';
-      message = `You're doing well! $${remaining.toFixed(0)} left in your budget.`;
+      IconComponent = Info;
+      iconColor = 'text-blue-600';
+      progressColor = 'bg-blue-500';
+      messageStyle = 'text-blue-700 bg-blue-50';
+      messageKey = 'good';
     } else if (percentage < 100) {
       status = 'warning';
       IconComponent = AlertTriangle;
       iconColor = 'text-yellow-600';
       progressColor = 'bg-yellow-500';
       messageStyle = 'text-yellow-700 bg-yellow-50';
-      message = `Getting close to your limit. $${remaining.toFixed(0)} remaining in your budget.`;
+      messageKey = 'warning';
     } else {
       status = 'over';
-      IconComponent = Info;
-      iconColor = 'text-blue-600';
-      progressColor = 'bg-blue-500';
-      messageStyle = 'text-blue-700 bg-blue-50';
-      const overAmount = Math.abs(remaining);
-      message = `You've exceeded your budget by $${overAmount.toFixed(0)}. Consider reviewing your spending or adjusting your budget.`;
+      IconComponent = AlertTriangle;
+      iconColor = 'text-red-600';
+      progressColor = 'bg-red-500';
+      messageStyle = 'text-red-700 bg-red-50';
+      messageKey = 'over';
     }
+
+    const variables: Record<string, string | number> = status === 'over' 
+      ? { overAmount: Math.abs(remaining).toFixed(0) }
+      : { remaining: remaining.toFixed(0) };
+
+    const message = formatMessage(t(`expenseHighlighter.budgetProgress.${messageKey}`), variables);
 
     return {
       percentage: Math.min(percentage, 100),
@@ -136,7 +198,7 @@ export function ExpenseOverview({ expenses }: ExpenseOverviewProps) {
       message,
       messageStyle,
     };
-  }, [expenseSummary.total, budget.spendBudget]);
+  }, [expenseSummary.total, budget.spendBudget, t]);
 
   // Saving target progress calculations
   const savingProgress = useMemo(() => {
@@ -150,7 +212,7 @@ export function ExpenseOverview({ expenses }: ExpenseOverviewProps) {
     let IconComponent = Heart;
     let iconColor = 'text-blue-600';
     let progressColor = 'bg-blue-500';
-    let message = '';
+    let messageKey = '';
     let messageStyle = 'text-blue-700 bg-blue-50';
 
     if (percentage <= 25) {
@@ -159,30 +221,35 @@ export function ExpenseOverview({ expenses }: ExpenseOverviewProps) {
       iconColor = 'text-blue-600';
       progressColor = 'bg-blue-500';
       messageStyle = 'text-blue-700 bg-blue-50';
-      message = `Every saving effort counts! You're building something important for your future.`;
+      messageKey = 'building';
     } else if (percentage <= 60) {
       status = 'progressing';
       IconComponent = TrendingUp;
       iconColor = 'text-yellow-600';
       progressColor = 'bg-yellow-500';
       messageStyle = 'text-yellow-700 bg-yellow-50';
-      message = `Great progress! You're steadily building your financial foundation. $${remaining.toFixed(0)} to reach your target.`;
+      messageKey = 'progressing';
     } else if (percentage < 100) {
       status = 'approaching';
       IconComponent = CheckCircle;
       iconColor = 'text-green-600';
       progressColor = 'bg-green-500';
       messageStyle = 'text-green-700 bg-green-50';
-      message = `Excellent work! You're so close to your saving target. Just $${remaining.toFixed(0)} to go!`;
+      messageKey = 'approaching';
     } else {
       status = 'achieved';
       IconComponent = CheckCircle;
       iconColor = 'text-green-600';
       progressColor = 'bg-green-500';
       messageStyle = 'text-green-700 bg-green-50';
-      const extraAmount = Math.abs(remaining);
-      message = `Amazing! You've exceeded your saving target by $${extraAmount.toFixed(0)}. Your financial security is growing stronger!`;
+      messageKey = 'achieved';
     }
+
+    const variables: Record<string, string | number> = status === 'achieved' 
+      ? { extraAmount: Math.abs(remaining).toFixed(0) }
+      : { remaining: remaining.toFixed(0) };
+
+    const message = formatMessage(t(`expenseHighlighter.savingProgress.${messageKey}`), variables);
 
     return {
       percentage: Math.min(percentage, 100),
@@ -194,7 +261,7 @@ export function ExpenseOverview({ expenses }: ExpenseOverviewProps) {
       message,
       messageStyle,
     };
-  }, [savingsSummary.total, budget.savingTarget]);
+  }, [savingsSummary.total, budget.savingTarget, t]);
 
   // Don't render if no expenses
   if (expenses.length === 0 && expenses.filter(exp => exp.type === 'saving').length === 0) {
@@ -223,7 +290,7 @@ export function ExpenseOverview({ expenses }: ExpenseOverviewProps) {
               {budgetConsumption && (
                 <div className="space-y-3 pt-2 border-t border-muted">
                   <div className="flex items-center justify-between">
-                    <p className="text-sm font-medium">Budget Progress</p>
+                    <p className="text-sm font-medium">{t('expenseHighlighter.budgetProgress.title')}</p>
                     <p className="text-sm text-muted-foreground">
                       ${expenseSummary.total.toFixed(0)} / ${budget.spendBudget.toFixed(0)}
                     </p>
@@ -241,9 +308,9 @@ export function ExpenseOverview({ expenses }: ExpenseOverviewProps) {
                         style={{ width: `${budgetConsumption.percentage}%` }}
                       />
                     </div>
-                    <div className="flex items-start space-x-2">
-                      <budgetConsumption.IconComponent className={`w-4 h-4 mt-0.5 flex-shrink-0 ${budgetConsumption.iconColor}`} />
-                      <p className={`text-xs p-2 rounded-md ${budgetConsumption.messageStyle}`}>
+                    <div className={`flex items-center space-x-2 ${budgetConsumption.messageStyle}`}>
+                      <budgetConsumption.IconComponent className={`w-4 h-4 flex-shrink-0 ${budgetConsumption.iconColor}`} />
+                      <p className={`text-xs p-2 rounded-md `}>
                         {budgetConsumption.message}
                       </p>
                     </div>
@@ -287,7 +354,8 @@ export function ExpenseOverview({ expenses }: ExpenseOverviewProps) {
                     formatter={(value, entry) => {
                       const total = chartData.reduce((sum, item) => sum + item.value, 0);
                       const percentage = entry?.payload ? ((entry.payload.value / total) * 100).toFixed(0) : '0';
-                      return `${value} (${percentage}%)`;
+                      const name = (entry?.payload as any)?.name || value;
+                      return `${name} (${percentage}%)`;
                     }}
                   />
                 </PieChart>
@@ -317,7 +385,7 @@ export function ExpenseOverview({ expenses }: ExpenseOverviewProps) {
               {savingProgress && (
                 <div className="space-y-3 pt-2 border-t border-muted">
                   <div className="flex items-center justify-between">
-                    <p className="text-sm font-medium">Saving Target Progress</p>
+                    <p className="text-sm font-medium">{t('expenseHighlighter.savingProgress.title')}</p>
                     <p className="text-sm text-muted-foreground">
                       ${savingsSummary.total.toFixed(0)} / ${budget.savingTarget.toFixed(0)}
                     </p>
@@ -335,9 +403,9 @@ export function ExpenseOverview({ expenses }: ExpenseOverviewProps) {
                         style={{ width: `${savingProgress.percentage}%` }}
                       />
                     </div>
-                    <div className="flex items-start space-x-2">
-                      <savingProgress.IconComponent className={`w-4 h-4 mt-0.5 flex-shrink-0 ${savingProgress.iconColor}`} />
-                      <p className={`text-xs p-2 rounded-md ${savingProgress.messageStyle}`}>
+                    <div className={`flex items-center space-x-2 ${savingProgress.messageStyle}`}>
+                      <savingProgress.IconComponent className={`w-4 h-4 flex-shrink-0 ${savingProgress.iconColor}`} />
+                      <p className={`text-xs p-2 rounded-md`}>
                         {savingProgress.message}
                       </p>
                     </div>
@@ -381,7 +449,8 @@ export function ExpenseOverview({ expenses }: ExpenseOverviewProps) {
                     formatter={(value, entry) => {
                       const total = savingsChartData.reduce((sum, item) => sum + item.value, 0);
                       const percentage = entry?.payload ? ((entry.payload.value / total) * 100).toFixed(0) : '0';
-                      return `${value} (${percentage}%)`;
+                      const name = (entry?.payload as any)?.name || value;
+                      return `${name} (${percentage}%)`;
                     }}
                   />
                 </PieChart>

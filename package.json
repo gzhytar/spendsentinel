@@ -1,6 +1,6 @@
 {
   "name": "spendsentinel",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack -p 9002",
@@ -13,7 +13,7 @@
     "typecheck": "tsc --noEmit",
     "update-version": "node scripts/update-version.js",
     "version:major": "npm version major && npm run update-version",
-    "version:minor": "npm version minor && npm run update-version", 
+    "version:minor": "npm version minor && npm run update-version",
     "version:patch": "npm version patch && npm run update-version",
     "deploy:with-cleanup": "echo 'Setting cleanup flag...' && NEXT_PUBLIC_FORCE_CLEANUP=true npm run build",
     "deploy:major": "npm run version:major && npm run build",

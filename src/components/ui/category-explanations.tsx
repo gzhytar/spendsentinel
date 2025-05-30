@@ -8,12 +8,12 @@ export function CategoryExplanations() {
   const expenseCategories = getCategoriesByType('expense');
   const savingCategories = getCategoriesByType('saving');
 
-  const getCategoryIcon = (IconComponent: any, size: 'lg' = 'lg') => {
+  const getCategoryIcon = (IconComponent: any, iconColor: string, size: 'lg' = 'lg') => {
     const dimensions = {
       lg: "h-6 w-6"
     };
     
-    return <IconComponent className={`${dimensions[size]} flex-shrink-0`} />;
+    return <IconComponent className={`${dimensions[size]} ${iconColor} flex-shrink-0`} />;
   };
 
   return (
@@ -27,7 +27,7 @@ export function CategoryExplanations() {
             
             return (
               <div key={category.id} className="flex items-start space-x-3">
-                {getCategoryIcon(category.icon)}
+                {getCategoryIcon(category.icon, category.iconColor)}
                 <div>
                   <strong>{t(category.translationKey)}:</strong>
                   <p className="text-muted-foreground text-sm">{t(category.descriptionKey)}</p>
@@ -47,7 +47,7 @@ export function CategoryExplanations() {
             
             return (
               <div key={category.id} className="flex items-start space-x-3">
-                {getCategoryIcon(category.icon)}
+                {getCategoryIcon(category.icon, category.iconColor)}
                 <div>
                   <strong>{t(category.translationKey)}:</strong>
                   <p className="text-muted-foreground text-sm">{t(category.descriptionKey)}</p>

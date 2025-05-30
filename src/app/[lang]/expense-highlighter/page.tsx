@@ -177,12 +177,9 @@ export default function ExpenseHighlighterPage() {
       {/* Add Expense Dialog */}
       <Dialog open={isAddFormOpen} onOpenChange={setIsAddFormOpen}>
         <DialogContent className="sm:max-w-[500px]">
-          <DialogHeader>
-            <DialogTitle>{t('expenseHighlighter.addTransaction')}</DialogTitle>
-            <DialogDescription>
-              {t('expenseHighlighter.addDescription')}
-            </DialogDescription>
-          </DialogHeader>
+          <DialogTitle className="sr-only">
+            {t('expenseHighlighter.addTransaction')}
+          </DialogTitle>
           <AddExpenseForm
             onAddExpense={handleAddExpense}
             showTriggeredParts={true}

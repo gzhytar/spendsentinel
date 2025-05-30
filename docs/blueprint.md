@@ -8,13 +8,30 @@
 
 ## Style Guidelines:
 
+> **🎨 Primary Design Reference**: For comprehensive visual design decisions, component patterns, and UX guidelines, refer to [`docs/design-guidelines.md`](./design-guidelines.md). This document serves as the authoritative source for maintaining design consistency across all features and should be consulted by AI/LLM when making any visual or interaction design decisions.
+
+### Core Visual Identity
 - Primary color: A calming lavender #B5B7E8, selected to instill a sense of peace and balance, drawing inspiration from mindfulness practices. Its versatility makes it adaptable to various UI components without overwhelming the user.
 - Background color: Soft sand #EADDCB (warmth), providing a soft, neutral backdrop that ensures readability and reduces eye strain, in keeping with a light color scheme.
 - Accent color: Deep teal #0F5850 (vigilant presence), ideal for highlighting interactive elements and CTAs. The brightness and saturation is offset from the primary.
 - Clean and easily legible font to ensure the content is easily readable. Radix-UI font choices will be used as a base.
-- App icon: minimal eye-within-circle (watchful Self) whose negative space hints at a heart—protection and compassion..
+- App icon: minimal eye-within-circle (watchful Self) whose negative space hints at a heart—protection and compassion.
+
+### Design System Foundation
+- **Component Structure**: Follow shadcn/ui patterns with consistent Card → CardHeader → CardContent → CardFooter structure
+- **Button Hierarchy**: State-driven design with primary (lavender) for main actions, secondary (outline) for supporting actions
+- **Layout Principles**: Responsive grid layouts, consistent spacing (`space-y-8`), and mobile-first approach
+- **Visual Hierarchy**: Contextual emphasis based on user progress and application state
 - Simple and intuitive layouts with ample spacing to reduce clutter and promote a sense of calm. Radix-UI layouts will be used as a base.
 - Subtle animations that provide gentle feedback and guide the user through the app. Radix-UI animations will be used as a base.
+
+### AI/LLM Design Decision Framework
+When implementing new features or modifying existing ones:
+1. **Always consult** [`docs/design-guidelines.md`](./design-guidelines.md) for visual and interaction patterns
+2. **Prioritize consistency** with established component structures and color usage
+3. **Apply state-driven design** principles for dynamic user experiences
+4. **Follow accessibility guidelines** as outlined in the design guide
+5. **Maintain responsive design** patterns for all screen sizes
 
 ## Tone guidelines:
 Use "invite" not "warn", "notice" not "fail", "parts" language sparingly outside psycho-education screens. Example: "A part noticed extra coffee runs ( +€24 this week ). Breathe, then decide."	

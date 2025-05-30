@@ -182,11 +182,24 @@ export class CleanupManager {
     const allKeys = Object.keys(localStorage);
     let repairedCount = 0;
 
+    // Keys that are expected to be simple strings, not JSON
+    const stringKeys = ['app_version', 'last_cleanup_date'];
+
     allKeys.forEach(key => {
       try {
         const item = localStorage.getItem(key);
         if (item) {
-          JSON.parse(item);
+          // Skip validation for keys that are expected to be simple strings
+          if (stringKeys.includes(key)) {
+            return;
+          }
+          
+          // Only try to parse as JSON if it looks like JSON (starts with { or [)
+          const trimmedItem = item.trim();
+          if (trimmedItem.startsWith('{') || trimmedItem.startsWith('[')) {
+            JSON.parse(item);
+          }
+          // For other values, we don't consider them corrupted unless they're clearly malformed
         }
       } catch {
         localStorage.removeItem(key);

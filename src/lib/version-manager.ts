@@ -112,17 +112,17 @@ export class VersionManager {
     // Version-specific cleanup rules
     if (this.isVersionLower(oldVersion, '2.1.0')) {
       // Clear daily check-in progress as structure may have changed
-      keysToCheck.push('dailyCheckInProgress', 'dailyCheckInReturnContext');
+      //keysToCheck.push('dailyCheckInProgress', 'dailyCheckInReturnContext');
     }
     
     if (this.isVersionLower(oldVersion, '2.0.0')) {
       // Clear old expense format
-      keysToCheck.push('expenses');
+      //keysToCheck.push('expenses');
     }
     
     if (keysToCheck.length > 0) {
-      this.clearSpecificKeys(keysToCheck);
-      console.log(`Cleared problematic keys for version transition ${oldVersion} -> ${newVersion}`);
+      //this.clearSpecificKeys(keysToCheck);
+      //console.log(`Cleared problematic keys for version transition ${oldVersion} -> ${newVersion}`);
     }
   }
 
@@ -132,24 +132,24 @@ export class VersionManager {
     try {
       // Migrate to v2.0.0 - New expense format
       if (this.isVersionLower(oldVersion, '2.0.0')) {
-        this.migrateExpensesToV2();
+        //this.migrateExpensesToV2();
       }
       
       // Migrate to v2.1.0 - New daily check-in format
       if (this.isVersionLower(oldVersion, '2.1.0')) {
-        this.migrateDailyCheckInToV2_1();
+        //this.migrateDailyCheckInToV2_1();
       }
       
       // Migrate assessment results format
       if (this.isVersionLower(oldVersion, '2.2.0')) {
-        this.migrateAssessmentResultsToV2_2();
+        //this.migrateAssessmentResultsToV2_2();
       }
       
       console.log(`Data migration completed successfully`);
     } catch (error) {
       console.error('Data migration failed:', error);
       // If migration fails, clear the data to prevent issues
-      this.clearSpecificKeys(['expenses', 'dailyCheckInProgress', 'selfAssessmentResults']);
+      //this.clearSpecificKeys(['expenses', 'dailyCheckInProgress', 'selfAssessmentResults']);
     }
   }
 

@@ -28,7 +28,7 @@ export function useStorageCleanup(options: UseStorageCleanupOptions) {
           VersionManager.initializeVersion({
             currentVersion,
             clearAllOnMajorUpdate: true,
-            clearSpecificKeys: ['dailyCheckInProgress', 'completedCheckIns'],
+            clearSpecificKeys: ['dailyCheckInProgress', 'completedCheckIns', 'firefighterQuizResults', 'expenses', 'completedPartsJournalSessions', 'calmHistory'],
             migrateData: true
           });
         }

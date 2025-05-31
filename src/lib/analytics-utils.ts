@@ -81,4 +81,59 @@ export const trackPartsJournalSession = (partName: string, sessionStep: number, 
   session_step: sessionStep,
   completed,
   timestamp: new Date().toISOString(),
-}); 
+});
+
+// Onboarding Funnel Tracking
+export const ONBOARDING_FUNNEL_STEPS = {
+  LANDING_EXPLORE_CLICK: 'onboarding_landing_explore_click',
+  ASSESSMENT_START: 'onboarding_assessment_start',
+  ASSESSMENT_QUIZ_COMPLETE: 'onboarding_quiz_complete',
+  ASSESSMENT_DEEP_COMPLETE: 'onboarding_deep_assessment_complete',
+  DAILY_CHECKIN_START: 'onboarding_daily_checkin_start',
+  DAILY_CHECKIN_STEP_COMPLETE: 'onboarding_daily_checkin_step',
+  EXPENSE_ADD_CLICK: 'onboarding_expense_add_click',
+  PARTS_SESSION_START: 'onboarding_parts_session_start',
+  PARTS_SESSION_COMPLETE: 'onboarding_parts_session_complete',
+  COMPASSION_SCORE_SAVE: 'onboarding_compassion_score_save',
+  ONBOARDING_COMPLETE: 'onboarding_flow_complete'
+} as const;
+
+export const trackOnboardingStep = (
+  step: keyof typeof ONBOARDING_FUNNEL_STEPS,
+  additionalData?: Record<string, any>
+) => ({
+  event_name: ONBOARDING_FUNNEL_STEPS[step],
+  event_category: ANALYTICS_CATEGORIES.NAVIGATION,
+  funnel_step: step,
+  session_id: typeof window !== 'undefined' ? sessionStorage.getItem('onboarding_session_id') || 'unknown' : 'unknown',
+  timestamp: new Date().toISOString(),
+  ...additionalData,
+});
+
+export const initializeOnboardingSession = () => {
+  if (typeof window === 'undefined') return null;
+  
+  const sessionId = Date.now().toString();
+  sessionStorage.setItem('onboarding_session_id', sessionId);
+  sessionStorage.setItem('onboarding_start_time', new Date().toISOString());
+  return sessionId;
+};
+
+export const getOnboardingSessionData = () => {
+  if (typeof window === 'undefined') return {};
+  
+  return {
+    session_id: sessionStorage.getItem('onboarding_session_id'),
+    start_time: sessionStorage.getItem('onboarding_start_time'),
+    current_time: new Date().toISOString(),
+  };
+};
+
+export const completeOnboardingSession = () => {
+  if (typeof window === 'undefined') return;
+  
+  const sessionData = getOnboardingSessionData();
+  sessionStorage.removeItem('onboarding_session_id');
+  sessionStorage.removeItem('onboarding_start_time');
+  return sessionData;
+}; 

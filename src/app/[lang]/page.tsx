@@ -7,14 +7,27 @@ import Link from 'next/link';
 import { useI18n } from '@/contexts/i18n-context';
 import { FirefighterTypes } from '@/components/common/FirefighterTypes';
 import { VersionInfo } from '@/components/ui/version-info';
+import { useAnalyticsContext } from '@/contexts/analytics-context';
+import { trackOnboardingStep, initializeOnboardingSession } from '@/lib/analytics-utils';
 
 export default function LandingPage() {
   const { t, locale } = useI18n();
+  const { trackEvent } = useAnalyticsContext();
   const localePrefix = `/${locale}`;
 
   // Show debug info in development or if URL has debug param
   const showDebugInfo = process.env.NODE_ENV === 'development' || 
     (typeof window !== 'undefined' && window.location.search.includes('debug=true'));
+
+  const handleExplorePartsClick = () => {
+    // Initialize onboarding session and track first step
+    initializeOnboardingSession();
+    const eventData = trackOnboardingStep('LANDING_EXPLORE_CLICK', {
+      source_page: 'landing',
+      button_location: 'self_assessment_feature_card',
+    });
+    trackEvent(eventData.event_name, eventData);
+  };
 
   return (
     <div className="container mx-auto py-8 space-y-12 px-4">
@@ -94,7 +107,7 @@ export default function LandingPage() {
                 </p>
                 <div className="mt-4">
                   <Button className="w-full sm:w-auto" wrap={true} asChild>
-                      <Link href={`${localePrefix}/self-assessment`}>
+                      <Link href={`${localePrefix}/self-assessment`} onClick={handleExplorePartsClick}>
                         <span>{t('landing.features.selfAssessment.button')} <ArrowRight className="ml-2 h-4 w-4 inline" /></span>
                       </Link>
                   </Button>

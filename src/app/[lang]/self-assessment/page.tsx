@@ -24,6 +24,8 @@ import { useI18n } from '@/contexts/i18n-context';
 import { PremiumButton } from '@/components/ui/premium-button';
 import { FirefighterQuiz } from '@/components/common/FirefighterQuiz';
 import { FirefighterTypes } from '@/components/common/FirefighterTypes';
+import { useAnalyticsContext } from '@/contexts/analytics-context';
+import { trackOnboardingStep, getOnboardingSessionData } from '@/lib/analytics-utils';
 
 const identifySchema = z.object({
   financialSituation: z.string().min(10, "Please describe your financial situation in more detail."),
@@ -49,6 +51,7 @@ const QUIZ_RESULTS_KEY = 'firefighterQuizResults';
 
 export default function SelfAssessmentPage() {
   const { t, locale } = useI18n();
+  const { trackEvent } = useAnalyticsContext();
   const [isLoadingIdentify, setIsLoadingIdentify] = useState(false);
   const [isLoadingResolve, setIsLoadingResolve] = useState(false);
   const [identificationResult, setIdentificationResult] = useState<IdentifyIFSPartOutput | null>(null);
@@ -64,6 +67,18 @@ export default function SelfAssessmentPage() {
   
   // Deep assessment visibility state
   const [showDeepAssessment, setShowDeepAssessment] = useState(false);
+
+  // Track page visit for users coming from onboarding flow
+  useEffect(() => {
+    const sessionData = getOnboardingSessionData();
+    if (sessionData.session_id) {
+      const eventData = trackOnboardingStep('ASSESSMENT_START', {
+        source_page: 'self_assessment',
+        has_existing_results: false,
+      });
+      trackEvent(eventData.event_name, eventData);
+    }
+  }, [trackEvent]);
 
   // Load saved quiz results from local storage on initial render
   useEffect(() => {
@@ -139,6 +154,16 @@ export default function SelfAssessmentPage() {
       setShowIdentifyForm(false); // Hide form after successful identification
       setShowQuizSection(false); // Hide quiz section after successful deep assessment identification
       
+      // Track deep assessment completion in onboarding flow
+      const sessionData = getOnboardingSessionData();
+      if (sessionData.session_id) {
+        const eventData = trackOnboardingStep('ASSESSMENT_DEEP_COMPLETE', {
+          identified_part: result.identifiedPart.partName,
+          assessment_type: 'deep_assessment',
+        });
+        trackEvent(eventData.event_name, eventData);
+      }
+      
       // Save to local storage with timestamp and locale
       if (typeof window !== 'undefined') {
         try {
@@ -195,6 +220,16 @@ export default function SelfAssessmentPage() {
     setQuizStarted(false);
     setShowQuizResult(true);
     setShowQuizSection(false); // Hide quiz section after completion
+    
+    // Track quiz completion in onboarding flow
+    const sessionData = getOnboardingSessionData();
+    if (sessionData.session_id) {
+      const eventData = trackOnboardingStep('ASSESSMENT_QUIZ_COMPLETE', {
+        quiz_result: result,
+        assessment_type: 'quick_discovery',
+      });
+      trackEvent(eventData.event_name, eventData);
+    }
     
     // Save quiz result to localStorage
     if (typeof window !== 'undefined') {
@@ -467,7 +502,18 @@ export default function SelfAssessmentPage() {
           <CardFooter>
             <div className="flex flex-col gap-3 w-full">
               <Button 
-                  onClick={() => window.location.href = `/${locale}/daily-checkin`}
+                  onClick={() => {
+                    // Track daily check-in start in onboarding flow
+                    const sessionData = getOnboardingSessionData();
+                    if (sessionData.session_id) {
+                      const eventData = trackOnboardingStep('DAILY_CHECKIN_START', {
+                        source_page: 'self_assessment_results',
+                        assessment_completed: true,
+                      });
+                      trackEvent(eventData.event_name, eventData);
+                    }
+                    window.location.href = `/${locale}/daily-checkin`;
+                  }}
                   size="lg"
                   className="w-full"
                   variant="default"

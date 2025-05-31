@@ -32,7 +32,7 @@ interface CompletedJournalSession {
 }
 
 // Utility function to map part names to firefighter type IDs for image display
-const getFirefighterTypeId = (partName: string, t: any): string => {
+const getFirefighterTypeId = (partName: string, t: (key: string) => string): string => {
   // Get the firefighter type names from translations
   const firefighterTypeNames = {
     spender: t('landing.firefighters.spender.title'),
@@ -87,11 +87,11 @@ export function PartsJournalTimeline({ lang }: PartsJournalTimelineProps) {
     });
   };
 
-  const handleViewSession = (session: CompletedJournalSession) => {
-    // Store session details for viewing (optional - could show a modal or detailed view)
-    console.log('Viewing session:', session);
-    // For now, just log - you could implement a detailed view modal here
-  };
+  // const handleViewSession = (session: CompletedJournalSession) => {
+  //   // Store session details for viewing (optional - could show a modal or detailed view)
+  //   console.log('Viewing session:', session);
+  //   // For now, just log - you could implement a detailed view modal here
+  // };
 
   const handleToggleSummary = (sessionId: string) => {
     setExpandedSummaryId(expandedSummaryId === sessionId ? null : sessionId);

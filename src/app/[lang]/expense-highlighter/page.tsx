@@ -63,7 +63,7 @@ export default function ExpenseHighlighterPage() {
   };
 
   // Expense handlers
-  const handleAddExpense = (expenseData: Omit<Expense, 'id'>, journalNotes?: Record<string, string>) => {
+  const handleAddExpense = (expenseData: Omit<Expense, 'id'>) => {
     const expense: Expense = {
       ...expenseData,
       id: Date.now().toString(),
@@ -76,7 +76,7 @@ export default function ExpenseHighlighterPage() {
     // Note: journalNotes are not used in expense highlighter, only in daily check-in
   };
 
-  const handleEditExpense = (expenseData: Omit<Expense, 'id'>, journalNotes?: Record<string, string>) => {
+  const handleEditExpense = (expenseData: Omit<Expense, 'id'>) => {
     if (!currentExpense.id) return;
     
     const updatedExpense: Expense = {

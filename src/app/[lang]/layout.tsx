@@ -19,7 +19,7 @@ export default function MainAppLayout({
   children: ReactNode;
   params: Promise<{ lang: string }>;
 }) {
-  const { lang } = use(params);
+  use(params);
 
   // Initialize version-based cleanup
   useStorageCleanup({

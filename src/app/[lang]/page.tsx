@@ -2,9 +2,8 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Flame, Brain, Shield, ArrowRight, Lightbulb, TrendingUp, MessageSquare, CalendarCheck } from 'lucide-react';
+import { Brain, Shield, ArrowRight, Lightbulb, MessageSquare, CalendarCheck } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useI18n } from '@/contexts/i18n-context';
 import { FirefighterTypes } from '@/components/common/FirefighterTypes';
 import { VersionInfo } from '@/components/ui/version-info';

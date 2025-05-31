@@ -13,14 +13,12 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Loader2, Wand2, MessageSquareHeart, UserCheck, AlertTriangle, BrainCircuit, RefreshCw, ArrowRight, Lightbulb, CheckCircle2, AlertCircle, BookOpen, Calendar } from 'lucide-react';
+import { Loader2, Wand2, MessageSquareHeart, UserCheck, AlertTriangle, BrainCircuit, RefreshCw, ArrowRight, Lightbulb, CheckCircle2, BookOpen, Calendar } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import type { IdentifyIFSPartInput, IdentifyIFSPartOutput } from '@/ai/flows/ifs-part-identification';
+import type { IdentifyIFSPartOutput } from '@/ai/flows/ifs-part-identification';
 import type { IFSPartResolutionInput, IFSPartResolutionOutput } from '@/ai/flows/ifs-part-resolution';
 import { useI18n } from '@/contexts/i18n-context';
 import { PremiumButton } from '@/components/ui/premium-button';
@@ -33,6 +31,18 @@ const identifySchema = z.object({
 });
 
 type IdentifyFormValues = z.infer<typeof identifySchema>;
+
+interface SavedResult {
+  result: IdentifyIFSPartOutput;
+  timestamp: string;
+  locale: string;
+}
+
+interface SavedQuizResult {
+  result: string;
+  timestamp: string;
+  locale: string;
+}
 
 const LOCAL_STORAGE_KEY = 'identifiedFinancialParts';
 const QUIZ_RESULTS_KEY = 'firefighterQuizResults';
@@ -64,10 +74,10 @@ export default function SelfAssessmentPage() {
         if (savedQuizResults) {
           const parsedQuizResults = JSON.parse(savedQuizResults);
           // Find the most recent result for the current locale
-          const localeQuizResults = parsedQuizResults.filter((item: any) => item.locale === locale);
+          const localeQuizResults = parsedQuizResults.filter((item: SavedQuizResult) => item.locale === locale);
           if (localeQuizResults.length > 0) {
             // Get the most recent quiz result
-            const mostRecentQuiz = localeQuizResults.sort((a: any, b: any) => 
+            const mostRecentQuiz = localeQuizResults.sort((a: SavedQuizResult, b: SavedQuizResult) => 
               new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
             )[0];
             setQuizResult(mostRecentQuiz.result);
@@ -81,10 +91,10 @@ export default function SelfAssessmentPage() {
         if (savedResults) {
           const parsedResults = JSON.parse(savedResults);
           // Find the most recent result for the current locale
-          const localeResults = parsedResults.filter((item: any) => item.locale === locale);
+          const localeResults = parsedResults.filter((item: SavedResult) => item.locale === locale);
           if (localeResults.length > 0) {
             // Get the most recent result
-            const mostRecent = localeResults.sort((a: any, b: any) => 
+            const mostRecent = localeResults.sort((a: SavedResult, b: SavedResult) => 
               new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
             )[0];
             setIdentificationResult(mostRecent.result);
@@ -141,8 +151,8 @@ export default function SelfAssessmentPage() {
           };
           
           // Keep maximum 10 results per locale
-          const otherLocaleResults = existingResults.filter((item: any) => item.locale !== locale);
-          const currentLocaleResults = existingResults.filter((item: any) => item.locale === locale);
+          const otherLocaleResults = existingResults.filter((item: SavedResult) => item.locale !== locale);
+          const currentLocaleResults = existingResults.filter((item: SavedResult) => item.locale === locale);
           
           // Add new result and limit to 10 most recent per locale
           const updatedLocaleResults = [newSavedResult, ...currentLocaleResults]
@@ -198,8 +208,8 @@ export default function SelfAssessmentPage() {
         };
         
         // Keep maximum 10 results per locale
-        const otherLocaleResults = existingResults.filter((item: any) => item.locale !== locale);
-        const currentLocaleResults = existingResults.filter((item: any) => item.locale === locale);
+        const otherLocaleResults = existingResults.filter((item: SavedQuizResult) => item.locale !== locale);
+        const currentLocaleResults = existingResults.filter((item: SavedQuizResult) => item.locale === locale);
         
         // Add new result and limit to 10 most recent per locale
         const updatedLocaleResults = [newQuizResult, ...currentLocaleResults]
@@ -248,13 +258,6 @@ export default function SelfAssessmentPage() {
     } finally {
       setIsLoadingResolve(false);
     }
-  };
-
-  const firefighterTypeNames = {
-    spender: t('landing.firefighters.spender.title'),
-    hoarder: t('landing.firefighters.hoarder.title'),
-    avoider: t('landing.firefighters.avoider.title'),
-    indulger: t('landing.firefighters.indulger.title')
   };
 
   return (

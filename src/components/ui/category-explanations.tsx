@@ -8,7 +8,7 @@ export function CategoryExplanations() {
   const expenseCategories = getCategoriesByType('expense');
   const savingCategories = getCategoriesByType('saving');
 
-  const getCategoryIcon = (IconComponent: any, iconColor: string, size: 'lg' = 'lg') => {
+  const getCategoryIcon = (IconComponent: React.ComponentType<{ className?: string }>, iconColor: string, size: 'lg' = 'lg') => {
     const dimensions = {
       lg: "h-6 w-6"
     };

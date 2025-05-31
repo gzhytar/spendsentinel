@@ -2,7 +2,6 @@
 
 import { useI18n } from '@/contexts/i18n-context';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
 import { FileText, AlertTriangle, Users, Heart, Shield, Mail } from 'lucide-react';
 
 export default function TermsOfServicePage() {

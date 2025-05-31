@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useI18n } from '@/contexts/i18n-context';
 import { Card } from '@/components/ui/card';
-import { Heart, Calendar } from 'lucide-react';
+import { Heart } from 'lucide-react';
 
 interface CompassionTimelineProps {
   lang: string;
@@ -147,7 +147,7 @@ export function CompassionTimeline({ lang }: CompassionTimelineProps) {
         {/* Progress Bar with Score-Colored Dots */}
         <div className="space-y-3">
           <div className="flex gap-1">
-            {compassionHistory.map((day, index) => {
+            {compassionHistory.map((day) => {
               const today = isToday(day.date);
               
               return (

@@ -38,7 +38,7 @@ interface JournalContent {
 }
 
 // Utility function to map part names to firefighter type IDs for image display
-const getFirefighterTypeId = (partName: string, t: any): string => {
+const getFirefighterTypeId = (partName: string, t: (key: string) => string): string => {
   // Get the firefighter type names from translations
   const firefighterTypeNames = {
     spender: t('landing.firefighters.spender.title'),
@@ -117,14 +117,14 @@ export default function PartsJournal({ params }: PartsJournalProps) {
     });
   };
 
-  const handleStepContent = (stepNumber: number, content: any) => {
-    if (stepNumber === 1) {
+  const handleStepContent = (stepNumber: number, content: string | Partial<JournalContent['step3']>) => {
+    if (stepNumber === 1 && typeof content === 'string') {
       setJournalContent(prev => ({ ...prev, step1: content }));
-    } else if (stepNumber === 2) {
+    } else if (stepNumber === 2 && typeof content === 'string') {
       setJournalContent(prev => ({ ...prev, step2: content }));
-    } else if (stepNumber === 3) {
+    } else if (stepNumber === 3 && typeof content === 'object') {
       setJournalContent(prev => ({ ...prev, step3: { ...prev.step3, ...content } }));
-    } else if (stepNumber === 4) {
+    } else if (stepNumber === 4 && typeof content === 'string') {
       setJournalContent(prev => ({ ...prev, step4: content }));
     }
   };

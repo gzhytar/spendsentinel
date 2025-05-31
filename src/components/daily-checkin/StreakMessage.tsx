@@ -127,7 +127,7 @@ export function StreakMessage({
   };
 
   const messageConfig = getMessageConfig();
-  const { streak, todayCompleted, streakAtRisk } = streakData;
+  const { streak } = streakData;
 
   // If no visual streak and no message, return null
   if (!showVisualStreak && !messageConfig) {

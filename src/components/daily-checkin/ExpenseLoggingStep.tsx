@@ -17,11 +17,10 @@ interface ExpenseLoggingStepProps {
 }
 
 export function ExpenseLoggingStep({
-  lang,
   expenses,
   triggeredParts,
   onUpdate,
-}: ExpenseLoggingStepProps) {
+}: Omit<ExpenseLoggingStepProps, 'lang'>) {
   const { t } = useI18n();
   const [selectedParts, setSelectedParts] = useState<string[]>([]);
   

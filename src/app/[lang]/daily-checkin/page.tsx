@@ -5,7 +5,6 @@ import { useI18n } from '@/contexts/i18n-context';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { Badge } from '@/components/ui/badge';
 import { Label } from '@/components/ui/label';
 import { PanicButton } from '@/components/common/panic-button';
 import { Calendar, ShieldAlert, Heart } from 'lucide-react';
@@ -227,7 +226,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
     // Utility function to map part names to firefighter type IDs for image display
     const getFirefighterTypeId = (partName: string): string => {
       // Get the firefighter type names from translations
-      const firefighterTypeNames = {
+      const firefighterTypeNames: Record<string, string> = {
         spender: t('landing.firefighters.spender.title'),
         hoarder: t('landing.firefighters.hoarder.title'),
         avoider: t('landing.firefighters.avoider.title'),
@@ -266,7 +265,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
           </div>
           <h3 className="text-lg font-semibold">No parts were triggered today</h3>
           <p className="text-muted-foreground">
-            You haven't logged any expenses with triggered parts today. Continue with your self-compassion check-in.
+            You haven&apos;t logged any expenses with triggered parts today. Continue with your self-compassion check-in.
           </p>
         </div>
       );
@@ -275,7 +274,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
     return (
       <div className="space-y-6">
         <div className="text-center space-y-2">
-          <h3 className="text-lg font-semibold">Parts triggered in today's spending:</h3>
+          <h3 className="text-lg font-semibold">Parts triggered in today&apos;s spending:</h3>
           <p className="text-muted-foreground">
             Deepen your relationship with the parts that showed up in your financial decisions today.
           </p>
@@ -317,7 +316,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
         
         <div className="text-center">
           <p className="text-sm text-muted-foreground">
-            After completing a parts journal session, you'll return to finish your daily check-in.
+            After completing a parts journal session, you&apos;ll return to finish your daily check-in.
           </p>
         </div>
       </div>
@@ -389,8 +388,8 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
             </p>
             
             <blockquote className="italic text-md text-center text-primary-foreground max-w-md mx-auto my-8 px-8 py-6 border-l-4 border-primary/40 bg-primary/5 rounded-r-lg shadow-sm">
-              "The quieter you become, the more you can hear."
-              <footer className="text-sm mt-3 text-muted-foreground">— Ram Dass</footer>
+              &quot;The quieter you become, the more you can hear.&quot;
+              <footer className="text-sm mt-3 text-muted-foreground">&mdash; Ram Dass</footer>
             </blockquote>
             
             <div className="flex flex-col items-center space-y-4">
@@ -499,7 +498,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
                   const calmHistory = storedHistory ? JSON.parse(storedHistory) : [];
                   
                   // Keep all entries instead of just last 7 for better timeline tracking
-                  const existingEntryIndex = calmHistory.findIndex((entry: any) => entry.date === newEntry.date);
+                  const existingEntryIndex = calmHistory.findIndex((entry: { date: string; score: number }) => entry.date === newEntry.date);
                   if (existingEntryIndex >= 0) {
                     calmHistory[existingEntryIndex] = newEntry;
                   } else {

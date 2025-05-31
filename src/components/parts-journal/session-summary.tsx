@@ -45,7 +45,8 @@ const truncateText = (text: string, maxLength: number = 120): string => {
 
 // Utility function to get nested content from session
 const getContentByPath = (obj: any, path: string): string => {
-  return path.split('.').reduce((current, key) => current?.[key] || '', obj);
+  const result = path.split('.').reduce((current, key) => current?.[key] || '', obj);
+  return typeof result === 'string' ? result : '';
 };
 
 // Configuration for all insights - following Open/Closed Principle

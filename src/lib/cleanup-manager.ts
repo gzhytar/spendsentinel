@@ -140,6 +140,7 @@ export class CleanupManager {
   /**
    * Get cleanup history
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static getCleanupHistory(): any[] {
     try {
       const history = localStorage.getItem(this.CLEANUP_HISTORY_KEY);

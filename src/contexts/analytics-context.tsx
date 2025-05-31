@@ -4,8 +4,10 @@ import React, { createContext, useContext, ReactNode } from 'react';
 import { useAnalytics } from '@/hooks/use-analytics';
 
 interface AnalyticsContextType {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   trackEvent: (eventName: string, parameters?: Record<string, any>) => void;
   trackUserInteraction: (action: string, category: string, label?: string, value?: number) => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   trackFeatureUsage: (featureName: string, details?: Record<string, any>) => void;
 }
 

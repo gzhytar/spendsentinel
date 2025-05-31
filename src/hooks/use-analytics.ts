@@ -28,6 +28,7 @@ export function useAnalytics() {
   }, [pathname]);
 
   // Function to track custom events
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const trackEvent = (eventName: string, parameters?: Record<string, any>) => {
     if (analytics) {
       logEvent(analytics, eventName, parameters);
@@ -59,6 +60,7 @@ export function useAnalytics() {
   };
 
   // Function to track feature usage
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const trackFeatureUsage = (featureName: string, details?: Record<string, any>) => {
     const eventData = {
       feature_name: featureName,

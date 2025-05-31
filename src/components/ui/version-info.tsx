@@ -28,6 +28,7 @@ export function VersionInfo({ showDebugInfo = false, className = '' }: VersionIn
     dataKeys: [] as string[],
     dataSize: 0
   });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [cleanupHistory, setCleanupHistory] = useState<any[]>([]);
   const [hasLegacyData, setHasLegacyData] = useState(false);
   const [isLoading, setIsLoading] = useState(false);

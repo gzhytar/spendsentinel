@@ -43,6 +43,7 @@ export const createEventData = (
   category?: string,
   label?: string,
   value?: number,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   customProperties?: Record<string, any>
 ) => ({
   event_name: eventName,

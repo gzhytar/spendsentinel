@@ -11,6 +11,7 @@ import { Locale, defaultLocale, locales, localeNames } from '@/lib/i18n/config';
  * @param data Optional request body data that might contain a locale
  * @returns The determined locale
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const extractLocale = (req: NextRequest, data: any = {}): Locale => {
   // Default locale as fallback
   let locale = defaultLocale as Locale;
@@ -49,6 +50,7 @@ export const extractLocale = (req: NextRequest, data: any = {}): Locale => {
  * @param req The Next.js request object
  * @returns Data enhanced with the appropriate locale
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const prepareLocalizedInput = async (req: NextRequest): Promise<any> => {
   // Parse request body
   const data = await req.json();

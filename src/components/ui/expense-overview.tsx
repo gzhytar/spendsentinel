@@ -130,6 +130,7 @@ export function ExpenseOverview({ expenses }: ExpenseOverviewProps) {
   }, [savingsSummary, t]);
 
   const getCategoryIconForSummary = (categoryId: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const config = getCategoryConfig(categoryId as any);
     if (!config) return <DollarSign className="mr-2 h-5 w-5 text-primary" />;
     
@@ -354,6 +355,7 @@ export function ExpenseOverview({ expenses }: ExpenseOverviewProps) {
                     formatter={(value, entry) => {
                       const total = chartData.reduce((sum, item) => sum + item.value, 0);
                       const percentage = entry?.payload ? ((entry.payload.value / total) * 100).toFixed(0) : '0';
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
                       const name = (entry?.payload as any)?.name || value;
                       return `${name} (${percentage}%)`;
                     }}
@@ -449,6 +451,7 @@ export function ExpenseOverview({ expenses }: ExpenseOverviewProps) {
                     formatter={(value, entry) => {
                       const total = savingsChartData.reduce((sum, item) => sum + item.value, 0);
                       const percentage = entry?.payload ? ((entry.payload.value / total) * 100).toFixed(0) : '0';
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
                       const name = (entry?.payload as any)?.name || value;
                       return `${name} (${percentage}%)`;
                     }}

@@ -31,7 +31,7 @@ export function AppreciateLogStep({
   onContentChange 
 }: AppreciateLogStepProps) {
   const { t } = useI18n();
-
+  
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-3 mb-4">

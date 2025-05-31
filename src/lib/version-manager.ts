@@ -162,6 +162,7 @@ export class VersionManager {
         // If it's an array, assume it's the new format already
         if (Array.isArray(parsed)) {
           // Ensure all expenses have required fields
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const migratedExpenses = parsed.map((expense: any) => ({
             id: expense.id || Date.now().toString(),
             amount: Number(expense.amount) || 0,

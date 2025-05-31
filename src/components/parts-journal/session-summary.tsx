@@ -44,6 +44,7 @@ const truncateText = (text: string, maxLength: number = 120): string => {
 };
 
 // Utility function to get nested content from session
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getContentByPath = (obj: any, path: string): string => {
   const result = path.split('.').reduce((current, key) => current?.[key] || '', obj);
   return typeof result === 'string' ? result : '';

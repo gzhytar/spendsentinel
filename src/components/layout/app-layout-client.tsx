@@ -23,12 +23,14 @@ import { GroundingExercise } from '@/components/common/grounding-exercise';
 import { AppFooter } from '@/components/layout/app-footer';
 import { Eye } from 'lucide-react';
 import { useI18n } from '@/contexts/i18n-context';
+import { useAnalyticsContext } from '@/contexts/analytics-context';
 
 export function AppLayoutClient({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const { isPanicActive } = usePanicMode();
   const { open, isMobile, setOpenMobile } = useSidebar();
   const { t, locale } = useI18n();
+  const { trackUserInteraction } = useAnalyticsContext();
   
   // Extract the current locale from the pathname
   const localePrefix = `/${locale}`;
@@ -40,11 +42,22 @@ export function AppLayoutClient({ children }: { children: ReactNode }) {
     }
   };
 
+  // Handle navigation with analytics tracking
+  const handleNavClickWithTracking = (itemLabel: string) => {
+    // Track navigation events
+    trackUserInteraction('navigate', 'sidebar', itemLabel);
+    handleNavClick();
+  };
+
   return (
     <>
       <Sidebar collapsible="icon" className="border-r">
         <SidebarHeader className="p-4">
-          <Link href={`${localePrefix}/`} className="flex items-center gap-2" onClick={handleNavClick}>
+          <Link 
+            href={`${localePrefix}/`} 
+            className="flex items-center gap-2" 
+            onClick={() => handleNavClickWithTracking(t(APP_NAME))}
+          >
             <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full bg-primary/20 hover:bg-primary/30">
                <Eye className="h-6 w-6 text-primary" />
             </Button>
@@ -75,7 +88,10 @@ export function AppLayoutClient({ children }: { children: ReactNode }) {
                       tooltip={t(item.tooltip)}
                       className="justify-start"
                     >
-                      <Link href={localizedHref} onClick={handleNavClick}>
+                      <Link 
+                        href={localizedHref} 
+                        onClick={() => handleNavClickWithTracking(t(item.label))}
+                      >
                         <item.icon className="h-5 w-5" />
                         <span>{t(item.label)}</span>
                       </Link>

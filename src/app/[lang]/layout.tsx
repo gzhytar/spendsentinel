@@ -5,6 +5,7 @@ import { use } from 'react';
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppLayoutClient } from '@/components/layout/app-layout-client';
 import { I18nProvider } from '@/contexts/i18n-context';
+import { AnalyticsProvider } from '@/contexts/analytics-context';
 import { LanguageSwitcher } from '@/components/ui/language-switcher';
 import { useStorageCleanup } from '@/hooks/use-storage-cleanup';
 
@@ -32,14 +33,16 @@ export default function MainAppLayout({
 
   return (
     <I18nProvider>
-      <div className="fixed top-4 right-4 z-50">
-        <LanguageSwitcher />
-      </div>
-      <SidebarProvider defaultOpen>
-        <AppLayoutClient>
-          {children}
-        </AppLayoutClient>
-      </SidebarProvider>
+      <AnalyticsProvider>
+        <div className="fixed top-4 right-4 z-50">
+          <LanguageSwitcher />
+        </div>
+        <SidebarProvider defaultOpen>
+          <AppLayoutClient>
+            {children}
+          </AppLayoutClient>
+        </SidebarProvider>
+      </AnalyticsProvider>
     </I18nProvider>
   );
 }

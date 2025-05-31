@@ -31,12 +31,14 @@
 When implementing new features or modifying existing ones:
 1. **Always consult** [`docs/design-guidelines.md`](./design-guidelines.md) for visual and interaction patterns
 2. **Always consult** [`docs/trauma-informed-guidelines.md`](./trauma-informed-guidelines.md) for psychological safety and messaging guidelines
-3. **Prioritize consistency** with established component structures and color usage
-4. **Apply state-driven design** principles for dynamic user experiences
-5. **Follow trauma-informed principles** for language, colors, and interaction patterns that support emotional safety
-6. **Follow accessibility guidelines** as outlined in both design guides
-7. **Maintain responsive design** patterns for all screen sizes
-8. **Consider emotional impact** of every design decision, especially for financial stress and sensitive topics
+3. **Always consult** [`docs/analytics-guidelines.md`](./analytics-guidelines.md) for privacy-conscious and trauma-informed data collection patterns
+4. **Prioritize consistency** with established component structures and color usage
+5. **Apply state-driven design** principles for dynamic user experiences
+6. **Follow trauma-informed principles** for language, colors, and interaction patterns that support emotional safety
+7. **Follow accessibility guidelines** as outlined in both design guides
+8. **Maintain responsive design** patterns for all screen sizes
+9. **Consider emotional impact** of every design decision, especially for financial stress and sensitive topics
+10. **Implement analytics thoughtfully** using established patterns that respect user privacy and emotional well-being
 
 ## Tone guidelines:
 Use "invite" not "warn", "notice" not "fail", "parts" language sparingly outside psycho-education screens. Example: "A part noticed extra coffee runs ( +€24 this week ). Breathe, then decide."	

@@ -2,7 +2,7 @@
 
 import { useI18n } from '@/contexts/i18n-context';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Shield, Heart, FileText, Lock, Users, Mail } from 'lucide-react';
+import { Shield, Heart, FileText, Lock, Users, Mail, BarChart3 } from 'lucide-react';
 
 export default function PrivacyPolicyPage() {
   const { t } = useI18n();
@@ -77,6 +77,35 @@ export default function PrivacyPolicyPage() {
                 ))}
               </ul>
             </div>
+            <div className="space-y-3">
+              <h3 className="font-semibold text-lg">Analytics and Usage Data</h3>
+              <ul className="space-y-2 ml-4">
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0"></span>
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    Anonymized user journey patterns and navigation flows (only when actively engaging with onboarding)
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0"></span>
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    Feature usage statistics (e.g., assessment type preferences, completion rates)
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0"></span>
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    Session duration and interaction timing (aggregated and anonymized)
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0"></span>
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    Temporary session identifiers for tracking complete user journeys (not linked to personal information)
+                  </span>
+                </li>
+              </ul>
+            </div>
           </CardContent>
         </Card>
 
@@ -109,6 +138,176 @@ export default function PrivacyPolicyPage() {
                     <span className="text-sm text-muted-foreground leading-relaxed">{item}</span>
                   </li>
                 ))}
+              </ul>
+            </div>
+            <div className="space-y-3">
+              <h3 className="font-semibold text-lg">Analytics and User Experience Improvement</h3>
+              <ul className="space-y-2 ml-4">
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0"></span>
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    Analyze anonymized usage patterns to identify areas where users might struggle or succeed in our onboarding process
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0"></span>
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    Optimize the user interface and experience to be more intuitive and trauma-informed
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0"></span>
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    Understand which features are most valuable for users' financial wellness journey
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0"></span>
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    Ensure our application design remains accessible and non-triggering for all users
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Analytics and Usage Tracking */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <BarChart3 className="h-5 w-5 text-primary" />
+              Analytics and Usage Tracking
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg border border-blue-200 dark:border-blue-900">
+              <p className="leading-relaxed text-blue-800 dark:text-blue-200">
+                <strong>Privacy-First Analytics:</strong> We collect anonymized usage patterns to improve your experience while protecting your personal information and maintaining trauma-informed principles.
+              </p>
+            </div>
+            
+            <div className="space-y-3">
+              <h3 className="font-semibold text-lg">What We Track</h3>
+              <ul className="space-y-2 ml-4">
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0"></span>
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    <strong>User Journey Patterns:</strong> How users navigate through our onboarding process (button clicks, page transitions, feature usage)
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0"></span>
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    <strong>Feature Engagement:</strong> Which assessment types users prefer (quick discovery vs. deep assessment)
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0"></span>
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    <strong>Completion Rates:</strong> Where users might struggle or succeed in our onboarding flow
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0"></span>
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    <strong>Session Duration:</strong> Time spent on different parts of the application (anonymized and aggregated)
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="space-y-3">
+              <h3 className="font-semibold text-lg text-green-600">What We DO NOT Track</h3>
+              <ul className="space-y-2 ml-4">
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-green-500 rounded-full mt-2 flex-shrink-0"></span>
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    <strong>Personal Content:</strong> We never track your journal entries, assessment responses, or personal financial details
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-green-500 rounded-full mt-2 flex-shrink-0"></span>
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    <strong>Individual Behavior:</strong> All analytics are aggregated and anonymized - we analyze patterns, not individuals
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-green-500 rounded-full mt-2 flex-shrink-0"></span>
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    <strong>Personal Identifiers:</strong> We use temporary session IDs, not personal information, to track user journeys
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-green-500 rounded-full mt-2 flex-shrink-0"></span>
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    <strong>Sensitive Financial Data:</strong> Only general category information (e.g., "living expenses") is tracked, never specific amounts or descriptions
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="space-y-3">
+              <h3 className="font-semibold text-lg">How We Use Analytics</h3>
+              <ul className="space-y-2 ml-4">
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0"></span>
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    <strong>Improve User Experience:</strong> Identify where users might get stuck or confused in our onboarding process
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0"></span>
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    <strong>Feature Development:</strong> Understand which features are most helpful for users' financial wellness journey
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0"></span>
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    <strong>Optimize Flow:</strong> Make the onboarding experience more intuitive and less overwhelming
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0"></span>
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    <strong>Trauma-Informed Design:</strong> Ensure our application feels safe and non-triggering for all users
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="space-y-3">
+              <h3 className="font-semibold text-lg">Your Control Over Analytics</h3>
+              <div className="p-3 bg-muted/30 rounded-lg">
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  <strong>Automatic & Consensual:</strong> Analytics tracking only begins when you actively engage with our onboarding flow by clicking "Explore my financial parts." 
+                  You can opt out of analytics through your browser settings or by contacting us directly. The application will function fully without analytics tracking.
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <h3 className="font-semibold text-lg">Third-Party Analytics</h3>
+              <ul className="space-y-2 ml-4">
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0"></span>
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    <strong>Google Analytics 4:</strong> We use GA4 for anonymized usage analytics with enhanced privacy settings enabled
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0"></span>
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    <strong>Data Processing:</strong> All analytics data is processed in accordance with GDPR and privacy-first principles
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0"></span>
+                  <span className="text-sm text-muted-foreground leading-relaxed">
+                    <strong>Data Retention:</strong> Analytics data is automatically deleted according to our retention policies and your privacy preferences
+                  </span>
+                </li>
               </ul>
             </div>
           </CardContent>

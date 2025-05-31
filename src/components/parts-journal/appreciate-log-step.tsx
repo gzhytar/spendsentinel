@@ -2,7 +2,6 @@
 
 import { useI18n } from '@/contexts/i18n-context';
 import { Textarea } from '@/components/ui/textarea';
-import { Card } from '@/components/ui/card';
 import { Sparkles, Heart } from 'lucide-react';
 import { SessionSummary } from './session-summary';
 
@@ -32,9 +31,6 @@ export function AppreciateLogStep({
   onContentChange 
 }: AppreciateLogStepProps) {
   const { t } = useI18n();
-
-  const appreciationText = t('partsJournal.steps.appreciateLog.defaultAppreciation', { partName });
-  const initialContent = content || appreciationText;
 
   return (
     <div className="space-y-6">

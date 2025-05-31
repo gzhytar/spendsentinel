@@ -11,12 +11,10 @@ import {
   Calendar, 
   AlertTriangle, 
   CheckCircle, 
-  Info,
   Trash2
 } from 'lucide-react';
 import { VersionManager } from '@/lib/version-manager';
 import { CleanupManager } from '@/lib/cleanup-manager';
-import { useI18n } from '@/contexts/i18n-context';
 
 interface VersionInfoProps {
   showDebugInfo?: boolean;
@@ -24,7 +22,6 @@ interface VersionInfoProps {
 }
 
 export function VersionInfo({ showDebugInfo = false, className = '' }: VersionInfoProps) {
-  const { t } = useI18n();
   const [versionInfo, setVersionInfo] = useState({
     currentVersion: null as string | null,
     lastCleanupDate: null as string | null,

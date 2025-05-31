@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Edit3, Trash2, Home, ShoppingBag, HelpCircle, PiggyBank, Shield, Target, TrendingUp } from 'lucide-react';
+import { Edit3, Trash2, Home, ShoppingBag, HelpCircle, PiggyBank, Shield, Target } from 'lucide-react';
 import { useI18n } from '@/contexts/i18n-context';
 import { cn } from '@/lib/utils';
 import type { Expense } from './add-expense-form';

@@ -3,7 +3,7 @@
 import { useI18n } from '@/contexts/i18n-context';
 import { Textarea } from '@/components/ui/textarea';
 import { Card } from '@/components/ui/card';
-import { Shield, Heart, Lightbulb } from 'lucide-react';
+import { Shield, Heart } from 'lucide-react';
 
 interface SafeEnvironmentStepProps {
   partName: string;

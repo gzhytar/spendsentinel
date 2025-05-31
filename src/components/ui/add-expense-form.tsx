@@ -8,7 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Card } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
-import { Plus, Home, ShoppingBag, HelpCircle, Shield, Target, TrendingUp } from 'lucide-react';
+import { Plus, Home, ShoppingBag, HelpCircle, Shield, Target } from 'lucide-react';
 import { useI18n } from '@/contexts/i18n-context';
 import { Checkbox } from '@/components/ui/checkbox';
 

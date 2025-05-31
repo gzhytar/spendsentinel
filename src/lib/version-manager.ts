@@ -107,7 +107,7 @@ export class VersionManager {
   }
 
   private static clearProblematicKeys(oldVersion: string, newVersion: string): void {
-    const keysToCheck = [];
+    const keysToCheck: string[] = [];
     
     // Version-specific cleanup rules
     if (this.isVersionLower(oldVersion, '2.1.0')) {
@@ -121,8 +121,8 @@ export class VersionManager {
     }
     
     if (keysToCheck.length > 0) {
-      //this.clearSpecificKeys(keysToCheck);
-      //console.log(`Cleared problematic keys for version transition ${oldVersion} -> ${newVersion}`);
+      this.clearSpecificKeys(keysToCheck);
+      console.log(`Cleared problematic keys for version transition ${oldVersion} -> ${newVersion}`);
     }
   }
 

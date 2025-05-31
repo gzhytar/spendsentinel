@@ -1,5 +1,4 @@
-import type { LucideIcon } from 'lucide-react';
-import { LayoutDashboard, BrainCircuit, PenLine, Sparkles, CalendarCheck, BookOpen } from 'lucide-react';
+import { LayoutDashboard, BrainCircuit, PenLine, CalendarCheck, BookOpen } from 'lucide-react';
 import { NavItem } from '../types/nav';
 
 export const NAV_ITEMS: NavItem[] = [

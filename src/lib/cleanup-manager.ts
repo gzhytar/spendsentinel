@@ -102,7 +102,7 @@ export class CleanupManager {
           }
         }
       } catch (error) {
-        // Skip items that can't be parsed
+        console.log(`Error parsing localStorage item: ${key}`, error);
       }
     });
 

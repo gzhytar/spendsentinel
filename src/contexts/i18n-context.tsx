@@ -8,8 +8,6 @@ import { ru } from '@/lib/i18n/translations/ru';
 import { uk } from '@/lib/i18n/translations/uk';
 import { Locale, defaultLocale, locales } from '@/lib/i18n/config';
 
-type Translations = typeof en;
-
 const translations = {
   en,
   cs,

@@ -7,7 +7,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { 
-  ArrowRight,
   AlertCircle,
   CheckCircle2,
   Info,
@@ -23,6 +22,7 @@ import Link from 'next/link';
 import { useI18n } from '@/contexts/i18n-context';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { useIdentifiedParts } from '@/lib/assessment-utils';
+import { ExplorePartsButton } from './explore-parts-button';
 
 interface FirefighterType {
   id: string;
@@ -49,7 +49,6 @@ export function FirefighterTypes({
   showIntroduction = true 
 }: FirefighterTypesProps) {
   const { t, locale } = useI18n();
-  const localePrefix = `/${locale}`;
   const [selectedType, setSelectedType] = useState<string>(highlightedType || 'spender');
   const identifiedParts = useIdentifiedParts();
 
@@ -293,12 +292,13 @@ export function FirefighterTypes({
         {/* Call to Action */}
         {<div className="flex flex-col sm:flex-row gap-4 pt-4">
             {!highlightedType && (
-              <Button size="lg" className="flex-1 sm:flex-initial" asChild>
-                <Link href={`${localePrefix}/self-assessment`}>
-                  {t('landing.firefighters.assessmentButton')}
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Link>
-              </Button>
+              <ExplorePartsButton 
+                size="lg"
+                className="flex-1 sm:flex-initial"
+                customText={t('landing.firefighters.assessmentButton')}
+                analyticsSource="firefighter_types"
+                analyticsLocation="assessment_button"
+              />
             )}
             {highlightedType && identifiedParts.length > 0 && (
               <div className="flex flex-col gap-3 w-full">
@@ -312,7 +312,7 @@ export function FirefighterTypes({
                 </Button>
 
                 <Button size="lg" className="flex-1 sm:flex-initial" variant="outline" asChild>
-                  <Link href={`${localePrefix}/parts-journal?part=${encodeURIComponent(currentType.title)}`}>
+                  <Link href={`/${locale}/parts-journal?part=${encodeURIComponent(currentType.title)}`}>
                     <BookOpen className="w-4 h-4 mr-2" />
                     {t('landing.firefighters.workWithPartButton')}
                   </Link>

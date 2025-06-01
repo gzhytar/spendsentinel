@@ -158,7 +158,7 @@ export default function PrivacyPolicyPage() {
                 <li className="flex items-start gap-2">
                   <span className="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0"></span>
                   <span className="text-sm text-muted-foreground leading-relaxed">
-                    Understand which features are most valuable for users' financial wellness journey
+                    Understand which features are most valuable for users&apos; financial wellness journey
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
@@ -241,7 +241,7 @@ export default function PrivacyPolicyPage() {
                 <li className="flex items-start gap-2">
                   <span className="w-1 h-1 bg-green-500 rounded-full mt-2 flex-shrink-0"></span>
                   <span className="text-sm text-muted-foreground leading-relaxed">
-                    <strong>Sensitive Financial Data:</strong> Only general category information (e.g., "living expenses") is tracked, never specific amounts or descriptions
+                    <strong>Sensitive Financial Data:</strong> Only general category information (e.g., &quot;living expenses&quot;) is tracked, never specific amounts or descriptions
                   </span>
                 </li>
               </ul>
@@ -259,7 +259,7 @@ export default function PrivacyPolicyPage() {
                 <li className="flex items-start gap-2">
                   <span className="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0"></span>
                   <span className="text-sm text-muted-foreground leading-relaxed">
-                    <strong>Feature Development:</strong> Understand which features are most helpful for users' financial wellness journey
+                    <strong>Feature Development:</strong> Understand which features are most helpful for users&apos; financial wellness journey
                   </span>
                 </li>
                 <li className="flex items-start gap-2">
@@ -281,7 +281,7 @@ export default function PrivacyPolicyPage() {
               <h3 className="font-semibold text-lg">Your Control Over Analytics</h3>
               <div className="p-3 bg-muted/30 rounded-lg">
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  <strong>Automatic & Consensual:</strong> Analytics tracking only begins when you actively engage with our onboarding flow by clicking "Explore my financial parts." 
+                  <strong>Automatic & Consensual:</strong> Analytics tracking only begins when you actively engage with our onboarding flow by clicking &quot;Explore my financial parts.&quot; 
                   You can opt out of analytics through your browser settings or by contacting us directly. The application will function fully without analytics tracking.
                 </p>
               </div>

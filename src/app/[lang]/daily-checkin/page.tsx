@@ -18,8 +18,8 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { expenseStorage } from '@/lib/expense-storage';
 import { useIdentifiedParts } from '@/lib/assessment-utils';
 import { use } from 'react';
-import { useAnalyticsContext } from '@/contexts/analytics-context';
-import { trackOnboardingStep, getOnboardingSessionData, completeOnboardingSession } from '@/lib/analytics-utils';
+import { completeOnboardingSession } from '@/lib/analytics-utils';
+import { useOnboardingTracking } from '@/hooks/use-onboarding-tracking';
 
 interface DailyCheckInProps {
   params: Promise<{
@@ -30,7 +30,7 @@ interface DailyCheckInProps {
 export default function DailyCheckIn({ params }: DailyCheckInProps) {
   const { lang } = use(params);
   const { t } = useI18n();
-  const { trackEvent } = useAnalyticsContext();
+  const trackOnboarding = useOnboardingTracking();
   const [currentStep, setCurrentStep] = useState(1);
   const containerRef = useRef<HTMLDivElement>(null);
   const [checkInData, setCheckInData] = useState({
@@ -101,15 +101,11 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
       setCurrentStep(nextStep);
       
       // Track daily check-in step completion in onboarding flow
-      const sessionData = getOnboardingSessionData();
-      if (sessionData.session_id) {
-        const eventData = trackOnboardingStep('DAILY_CHECKIN_STEP_COMPLETE', {
-          step: nextStep,
-          total_steps: 5,
-          progress_percentage: (nextStep / 5) * 100,
-        });
-        trackEvent(eventData.event_name, eventData);
-      }
+      trackOnboarding('DAILY_CHECKIN_STEP_COMPLETE', {
+        step: nextStep,
+        total_steps: 5,
+        progress_percentage: (nextStep / 5) * 100,
+      });
       
       // Scroll to top of the container for better navigation
       containerRef.current?.scrollIntoView({ 
@@ -138,15 +134,11 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
     };
     
     // Track expense add in onboarding flow
-    const sessionData = getOnboardingSessionData();
-    if (sessionData.session_id) {
-      const eventData = trackOnboardingStep('EXPENSE_ADD_CLICK', {
-        expense_category: expenseData.category,
-        has_triggered_parts: selectedParts.length > 0,
-        triggered_parts_count: selectedParts.length,
-      });
-      trackEvent(eventData.event_name, eventData);
-    }
+    trackOnboarding('EXPENSE_ADD_CLICK', {
+      expense_category: expenseData.category,
+      has_triggered_parts: selectedParts.length > 0,
+      triggered_parts_count: selectedParts.length,
+    });
     
     // Save to shared expenses storage (same as Expense Highlighter)
     expenseStorage.add(expense);
@@ -206,18 +198,13 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
 
   const handleCompleteCheckIn = async () => {
     // Track onboarding completion
-    const sessionData = getOnboardingSessionData();
-    if (sessionData.session_id) {
-      const eventData = trackOnboardingStep('ONBOARDING_COMPLETE', {
-        total_time: new Date().getTime() - new Date(sessionData.start_time!).getTime(),
-        completed_expenses: checkInData.expenses.length,
-        compassion_score: checkInData.selfCompassionScore,
-      });
-      trackEvent(eventData.event_name, eventData);
-      
-      // Complete and cleanup onboarding session
-      completeOnboardingSession();
-    }
+    trackOnboarding('ONBOARDING_COMPLETE', {
+      completed_expenses: checkInData.expenses.length,
+      compassion_score: checkInData.selfCompassionScore,
+    });
+    
+    // Complete and cleanup onboarding session
+    completeOnboardingSession();
     
     // Save completed check-in to database
     // For now, just clear the progress and mark today as completed
@@ -287,14 +274,10 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
 
     const handleStartPartSession = (partName: string) => {
       // Track parts session start in onboarding flow
-      const sessionData = getOnboardingSessionData();
-      if (sessionData.session_id) {
-        const eventData = trackOnboardingStep('PARTS_SESSION_START', {
-          part_name: partName,
-          source_page: 'daily_checkin_step_4',
-        });
-        trackEvent(eventData.event_name, eventData);
-      }
+      trackOnboarding('PARTS_SESSION_START', {
+        part_name: partName,
+        source_page: 'daily_checkin_step_4',
+      });
       
       // Store current daily check-in state before navigating
       localStorage.setItem('dailyCheckInReturnContext', JSON.stringify({
@@ -544,14 +527,10 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
                   setIsScoreSaved(true);
                   
                   // Track compassion score save in onboarding flow
-                  const sessionData = getOnboardingSessionData();
-                  if (sessionData.session_id) {
-                    const eventData = trackOnboardingStep('COMPASSION_SCORE_SAVE', {
-                      score: score,
-                      step: 5,
-                    });
-                    trackEvent(eventData.event_name, eventData);
-                  }
+                  trackOnboarding('COMPASSION_SCORE_SAVE', {
+                    score: score,
+                    step: 5,
+                  });
                   
                   // Save to calm history for consistency with self-compassion page
                   const newEntry = { date: new Date().toISOString().split('T')[0], score };

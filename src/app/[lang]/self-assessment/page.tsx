@@ -1,31 +1,23 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, type SubmitHandler } from 'react-hook-form';
-import { z } from 'zod';
-import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Loader2, Wand2, MessageSquareHeart, UserCheck, AlertTriangle, BrainCircuit, RefreshCw, ArrowRight, Lightbulb, CheckCircle2, BookOpen, Calendar } from 'lucide-react';
-import { Separator } from '@/components/ui/separator';
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import type { IdentifyIFSPartOutput } from '@/ai/flows/ifs-part-identification';
-import type { IFSPartResolutionInput, IFSPartResolutionOutput } from '@/ai/flows/ifs-part-resolution';
 import { useI18n } from '@/contexts/i18n-context';
-import { PremiumButton } from '@/components/ui/premium-button';
+import { useOnboardingTracking } from '@/hooks/use-onboarding-tracking';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+import { Loader2, Brain, MessageSquare, RefreshCw, CheckCircle, Info, ArrowRight, AlertTriangle, UserCheck, Wand2, BookOpen, Calendar } from 'lucide-react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Textarea } from '@/components/ui/textarea';
 import { FirefighterQuiz } from '@/components/common/FirefighterQuiz';
 import { FirefighterTypes } from '@/components/common/FirefighterTypes';
-import { useAnalyticsContext } from '@/contexts/analytics-context';
-import { trackOnboardingStep, getOnboardingSessionData } from '@/lib/analytics-utils';
+import type { IdentifyIFSPartOutput } from '@/ai/flows/ifs-part-identification';
+import type { IFSPartResolutionInput, IFSPartResolutionOutput } from '@/ai/flows/ifs-part-resolution';
+import { PremiumButton } from '@/components/ui/premium-button';
 
 const identifySchema = z.object({
   financialSituation: z.string().min(10, "Please describe your financial situation in more detail."),
@@ -51,7 +43,7 @@ const QUIZ_RESULTS_KEY = 'firefighterQuizResults';
 
 export default function SelfAssessmentPage() {
   const { t, locale } = useI18n();
-  const { trackEvent } = useAnalyticsContext();
+  const trackOnboarding = useOnboardingTracking();
   const [isLoadingIdentify, setIsLoadingIdentify] = useState(false);
   const [isLoadingResolve, setIsLoadingResolve] = useState(false);
   const [identificationResult, setIdentificationResult] = useState<IdentifyIFSPartOutput | null>(null);
@@ -70,15 +62,11 @@ export default function SelfAssessmentPage() {
 
   // Track page visit for users coming from onboarding flow
   useEffect(() => {
-    const sessionData = getOnboardingSessionData();
-    if (sessionData.session_id) {
-      const eventData = trackOnboardingStep('ASSESSMENT_START', {
-        source_page: 'self_assessment',
-        has_existing_results: false,
-      });
-      trackEvent(eventData.event_name, eventData);
-    }
-  }, [trackEvent]);
+    trackOnboarding('ASSESSMENT_START', {
+      source_page: 'self_assessment',
+      has_existing_results: false,
+    });
+  }, [trackOnboarding]);
 
   // Load saved quiz results from local storage on initial render
   useEffect(() => {
@@ -127,7 +115,7 @@ export default function SelfAssessmentPage() {
         setShowIdentifyForm(true); // Show the form on error
       }
     }
-  }, [locale]);
+  }, [locale, trackOnboarding]);
 
   const identifyForm = useForm<IdentifyFormValues>({
     resolver: zodResolver(identifySchema),
@@ -155,14 +143,10 @@ export default function SelfAssessmentPage() {
       setShowQuizSection(false); // Hide quiz section after successful deep assessment identification
       
       // Track deep assessment completion in onboarding flow
-      const sessionData = getOnboardingSessionData();
-      if (sessionData.session_id) {
-        const eventData = trackOnboardingStep('ASSESSMENT_DEEP_COMPLETE', {
-          identified_part: result.identifiedPart.partName,
-          assessment_type: 'deep_assessment',
-        });
-        trackEvent(eventData.event_name, eventData);
-      }
+      trackOnboarding('ASSESSMENT_DEEP_COMPLETE', {
+        identified_part: result.identifiedPart.partName,
+        assessment_type: 'deep_assessment',
+      });
       
       // Save to local storage with timestamp and locale
       if (typeof window !== 'undefined') {
@@ -222,14 +206,10 @@ export default function SelfAssessmentPage() {
     setShowQuizSection(false); // Hide quiz section after completion
     
     // Track quiz completion in onboarding flow
-    const sessionData = getOnboardingSessionData();
-    if (sessionData.session_id) {
-      const eventData = trackOnboardingStep('ASSESSMENT_QUIZ_COMPLETE', {
-        quiz_result: result,
-        assessment_type: 'quick_discovery',
-      });
-      trackEvent(eventData.event_name, eventData);
-    }
+    trackOnboarding('ASSESSMENT_QUIZ_COMPLETE', {
+      quiz_result: result,
+      assessment_type: 'quick_discovery',
+    });
     
     // Save quiz result to localStorage
     if (typeof window !== 'undefined') {
@@ -300,7 +280,7 @@ export default function SelfAssessmentPage() {
       {/* Header */}
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center space-x-3">
-          <BrainCircuit className="w-8 h-8 text-primary" />
+          <Brain className="w-8 h-8 text-primary" />
           <h1 className="text-3xl md:text-4xl font-bold">{t('selfAssessment.title')}</h1>
         </div>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
@@ -313,7 +293,7 @@ export default function SelfAssessmentPage() {
         <Card className="shadow-lg">
           <CardHeader>
             <div className="flex items-center space-x-3">
-              <Lightbulb className="w-6 h-6 text-yellow-600" />
+              <Info className="w-6 h-6 text-yellow-600" />
               <CardTitle className="text-xl md:text-2xl">{t('selfAssessment.quiz.title')}</CardTitle>
             </div>
             <CardDescription>
@@ -353,7 +333,7 @@ export default function SelfAssessmentPage() {
       {showQuizResult && quizResult && (
         <div className="space-y-6">
           <Alert className="bg-green-50 border-green-200 dark:bg-green-950/20 dark:border-green-900">
-            <CheckCircle2 className="h-4 w-4 text-green-600 dark:text-green-400" />
+            <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
               <AlertDescription className="text-green-800 dark:text-green-200 flex-1">
                 {t('selfAssessment.quiz.interpretationGuide')}
@@ -394,7 +374,7 @@ export default function SelfAssessmentPage() {
             <Card className="shadow-lg">
               <CardHeader>
                 <div className="flex items-center space-x-3">
-                  <BrainCircuit className="w-6 h-6 md:w-8 md:h-8 text-primary" />
+                  <Brain className="w-6 h-6 md:w-8 md:h-8 text-primary" />
                   <CardTitle className="text-xl md:text-2xl">{t('selfAssessment.deepAssessment.formTitle')}</CardTitle>
                 </div>
                 <CardDescription>
@@ -459,7 +439,7 @@ export default function SelfAssessmentPage() {
         <Card className="shadow-lg mt-8">
           <CardHeader>
             <div className="flex items-center space-x-3">
-                <MessageSquareHeart className="w-6 h-6 md:w-8 md:h-8 text-accent" />
+                <MessageSquare className="w-6 h-6 md:w-8 md:h-8 text-accent" />
                 <CardTitle className="text-xl md:text-2xl">{t('selfAssessment.result.title').replace('{partName}', identificationResult.identifiedPart.partName)}</CardTitle>
             </div>
           </CardHeader>
@@ -483,7 +463,7 @@ export default function SelfAssessmentPage() {
               
               <div className="space-y-2 md:col-span-2">
                 <div className="flex items-center space-x-2">
-                  <BrainCircuit className="w-4 h-4 text-blue-500" />
+                  <Brain className="w-4 h-4 text-blue-500" />
                   <h3 className="text-lg font-semibold">{t('selfAssessment.result.concern')}</h3>
                 </div>
                 <p className="text-muted-foreground">{identificationResult.identifiedPart.concern}</p>
@@ -491,7 +471,7 @@ export default function SelfAssessmentPage() {
               
               <div className="space-y-2 md:col-span-2">
                 <div className="flex items-center space-x-2">
-                  <MessageSquareHeart className="w-4 h-4 text-green-500" />
+                  <MessageSquare className="w-4 h-4 text-green-500" />
                   <h3 className="text-lg font-semibold">{t('selfAssessment.result.suggestedEngagement')}</h3>
                 </div>
                 <p className="text-muted-foreground">{identificationResult.suggestedEngagement}</p>
@@ -503,15 +483,12 @@ export default function SelfAssessmentPage() {
             <div className="flex flex-col gap-3 w-full">
               <Button 
                   onClick={() => {
-                    // Track daily check-in start in onboarding flow
-                    const sessionData = getOnboardingSessionData();
-                    if (sessionData.session_id) {
-                      const eventData = trackOnboardingStep('DAILY_CHECKIN_START', {
-                        source_page: 'self_assessment_results',
-                        assessment_completed: true,
-                      });
-                      trackEvent(eventData.event_name, eventData);
-                    }
+                    trackOnboarding('DAILY_CHECKIN_START', {
+                      source_page: 'self_assessment_results',
+                      assessment_completed: true,
+                    });
+                    
+                    // Navigate to daily check-in
                     window.location.href = `/${locale}/daily-checkin`;
                   }}
                   size="lg"
@@ -540,7 +517,7 @@ export default function SelfAssessmentPage() {
                   wrap={true}
                 >
                   {isLoadingResolve && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                  <MessageSquareHeart className="mr-2 h-4 w-4" /> {t('selfAssessment.explorePartButton')}
+                  <MessageSquare className="mr-2 h-4 w-4" /> {t('selfAssessment.explorePartButton')}
                 </PremiumButton>
               </div>
             </div>
@@ -552,7 +529,7 @@ export default function SelfAssessmentPage() {
         <Card className="shadow-lg bg-gradient-to-br from-green-50 to-blue-50 border-green-200 dark:from-green-950/20 dark:to-blue-950/20 dark:border-green-900">
           <CardHeader>
             <div className="flex items-center space-x-3">
-              <MessageSquareHeart className="w-6 h-6 md:w-8 md:h-8 text-green-600" />
+              <MessageSquare className="w-6 h-6 md:w-8 md:h-8 text-green-600" />
               <div>
                 <CardTitle className="text-xl md:text-2xl text-green-800 dark:text-green-200">
                   Compassionate Resolution
@@ -584,7 +561,7 @@ export default function SelfAssessmentPage() {
                 
                 <div className="space-y-2 md:col-span-2">
                   <div className="flex items-center space-x-2">
-                    <BrainCircuit className="w-4 h-4 text-blue-500" />
+                    <Brain className="w-4 h-4 text-blue-500" />
                     <h3 className="text-lg font-semibold">{t('selfAssessment.result.concern')}</h3>
                   </div>
                   <p className="text-green-700 dark:text-green-300">{resolutionResult.concern}</p>
@@ -592,7 +569,7 @@ export default function SelfAssessmentPage() {
                 
                 <div className="space-y-2 md:col-span-2">
                   <div className="flex items-center space-x-2">
-                    <MessageSquareHeart className="w-4 h-4 text-green-500" />
+                    <MessageSquare className="w-4 h-4 text-green-500" />
                     <h3 className="text-lg font-semibold">{t('selfAssessment.result.suggestedEngagement')}</h3>
                   </div>
                   <p className="text-green-700 dark:text-green-300 capitalize">{resolutionResult.engagementStrategy}</p>

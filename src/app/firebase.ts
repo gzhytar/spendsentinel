@@ -20,19 +20,33 @@ const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0
 //const auth = getAuth(app);
 //const db = getFirestore(app);
 
-// Initialize Analytics only on client side
+// Initialize Analytics with promise-based approach
 let analytics: Analytics | undefined;
+let analyticsPromise: Promise<Analytics | undefined>;
+
 if (typeof window !== 'undefined') {
-    isSupported().then((supported) => {
+    analyticsPromise = isSupported().then((supported) => {
         if (supported) {
           analytics = getAnalytics(app);
-          console.log('Firebase Analytics initialized');
+          console.log('Firebase Analytics initialized successfully');
+          console.log('Config check:', {
+            hasApiKey: !!firebaseConfig.apiKey,
+            hasProjectId: !!firebaseConfig.projectId,
+            hasMeasurementId: !!firebaseConfig.measurementId,
+          });
+          return analytics;
         } else {
           console.log('Firebase Analytics not supported in this environment');
+          return undefined;
         }
     }).catch((error) => {
-        console.warn('Failed to initialize Firebase Analytics:', error);
+        console.error('Failed to initialize Firebase Analytics:', error);
+        return undefined;
     });
+} else {
+    analyticsPromise = Promise.resolve(undefined);
 }
 
-export { app, analytics }; 
+// Export both the analytics instance and the promise
+export { app, analytics };
+export const getAnalyticsInstance = () => analyticsPromise; 

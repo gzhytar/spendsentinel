@@ -2,6 +2,19 @@
  * Analytics utility functions for common tracking scenarios
  */
 
+// Onboarding session data types
+export interface OnboardingSessionData {
+  session_id: string | null;
+  start_time: string | null;
+  current_time: string;
+}
+
+export interface OnboardingSessionDataEmpty {
+  // Empty object for SSR cases
+}
+
+export type OnboardingSessionResult = OnboardingSessionData | OnboardingSessionDataEmpty;
+
 // Common event types for consistency
 export const ANALYTICS_EVENTS = {
   // Navigation
@@ -101,39 +114,176 @@ export const ONBOARDING_FUNNEL_STEPS = {
 export const trackOnboardingStep = (
   step: keyof typeof ONBOARDING_FUNNEL_STEPS,
   additionalData?: Record<string, any>
-) => ({
-  event_name: ONBOARDING_FUNNEL_STEPS[step],
-  event_category: ANALYTICS_CATEGORIES.NAVIGATION,
-  funnel_step: step,
-  session_id: typeof window !== 'undefined' ? sessionStorage.getItem('onboarding_session_id') || 'unknown' : 'unknown',
-  timestamp: new Date().toISOString(),
-  ...additionalData,
-});
+) => {
+  // Get session ID safely with proper typing
+  let sessionId = 'unknown';
+  if (typeof window !== 'undefined') {
+    const storedSessionId = sessionStorage.getItem('onboarding_session_id');
+    sessionId = storedSessionId || 'unknown';
+  }
 
-export const initializeOnboardingSession = () => {
-  if (typeof window === 'undefined') return null;
-  
-  const sessionId = Date.now().toString();
-  sessionStorage.setItem('onboarding_session_id', sessionId);
-  sessionStorage.setItem('onboarding_start_time', new Date().toISOString());
-  return sessionId;
-};
-
-export const getOnboardingSessionData = () => {
-  if (typeof window === 'undefined') return {};
-  
   return {
-    session_id: sessionStorage.getItem('onboarding_session_id'),
-    start_time: sessionStorage.getItem('onboarding_start_time'),
-    current_time: new Date().toISOString(),
+    event_name: ONBOARDING_FUNNEL_STEPS[step],
+    event_category: ANALYTICS_CATEGORIES.NAVIGATION,
+    funnel_step: step,
+    session_id: sessionId,
+    timestamp: new Date().toISOString(),
+    ...additionalData,
   };
 };
 
-export const completeOnboardingSession = () => {
-  if (typeof window === 'undefined') return;
+// Helper function to check if there's an active onboarding session
+export const hasActiveOnboardingSession = (): boolean => {
+  console.log('🔍 [ONBOARDING DEBUG] hasActiveOnboardingSession() called');
+  
+  if (typeof window === 'undefined') {
+    console.log('❌ [ONBOARDING DEBUG] Cannot check session - window is undefined (SSR)');
+    return false;
+  }
+  
+  const sessionData = getOnboardingSessionData() as OnboardingSessionData;
+  const hasSession = !!sessionData.session_id;
+  
+  console.log('✅ [ONBOARDING DEBUG] Active session check result:', {
+    hasSession,
+    sessionId: sessionData.session_id,
+    location: window.location.href
+  });
+  
+  return hasSession;
+};
+
+// Type guard helper function
+export const isValidOnboardingSessionData = (data: OnboardingSessionResult): data is OnboardingSessionData => {
+  return 'session_id' in data && 'start_time' in data && 'current_time' in data;
+};
+
+export const initializeOnboardingSession = (): string | null => {
+  console.log('🔄 [ONBOARDING DEBUG] initializeOnboardingSession() called');
+  
+  if (typeof window === 'undefined') {
+    console.log('❌ [ONBOARDING DEBUG] Cannot initialize - window is undefined (SSR)');
+    return null;
+  }
+  
+  const sessionId = Date.now().toString();
+  const startTime = new Date().toISOString();
+  
+  console.log('✅ [ONBOARDING DEBUG] Initializing onboarding session:', {
+    sessionId,
+    startTime,
+    location: window.location.href
+  });
+  
+  sessionStorage.setItem('onboarding_session_id', sessionId);
+  sessionStorage.setItem('onboarding_start_time', startTime);
+  
+  console.log('💾 [ONBOARDING DEBUG] Session data stored in sessionStorage');
+  return sessionId;
+};
+
+export const getOnboardingSessionData = (): OnboardingSessionResult => {
+  console.log('📋 [ONBOARDING DEBUG] getOnboardingSessionData() called');
+  
+  if (typeof window === 'undefined') {
+    console.log('❌ [ONBOARDING DEBUG] Cannot get session data - window is undefined (SSR)');
+    return {} as OnboardingSessionDataEmpty;
+  }
+
+  const sessionId = sessionStorage.getItem('onboarding_session_id');
+  const startTime = sessionStorage.getItem('onboarding_start_time');
+  const currentTime = new Date().toISOString();
+  
+  const sessionData: OnboardingSessionData = {
+    session_id: sessionId,
+    start_time: startTime,
+    current_time: currentTime,
+  };
+  
+  console.log('📊 [ONBOARDING DEBUG] Retrieved session data:', {
+    ...sessionData,
+    hasActiveSession: !!sessionId,
+    sessionAge: sessionId ? `${Date.now() - parseInt(sessionId)}ms` : 'N/A',
+    location: window.location.href
+  });
+  
+  return sessionData;
+};
+
+export const completeOnboardingSession = (): OnboardingSessionResult | undefined => {
+  console.log('🏁 [ONBOARDING DEBUG] completeOnboardingSession() called');
+  
+  if (typeof window === 'undefined') {
+    console.log('❌ [ONBOARDING DEBUG] Cannot complete session - window is undefined (SSR)');
+    return undefined;
+  }
   
   const sessionData = getOnboardingSessionData();
+  
+  // Type guard to check if sessionData has session_id (is OnboardingSessionData)
+  const isValidSessionData = (data: OnboardingSessionResult): data is OnboardingSessionData => {
+    return 'session_id' in data && 'start_time' in data && 'current_time' in data;
+  };
+  
+  const hasActiveSession = isValidSessionData(sessionData) && sessionData.session_id;
+  
+  console.log('🧹 [ONBOARDING DEBUG] Completing onboarding session:', {
+    sessionData,
+    location: window.location.href,
+    sessionDuration: hasActiveSession && sessionData.session_id ? 
+      `${Date.now() - parseInt(sessionData.session_id)}ms` : 'N/A'
+  });
+  
   sessionStorage.removeItem('onboarding_session_id');
   sessionStorage.removeItem('onboarding_start_time');
+  
+  console.log('✨ [ONBOARDING DEBUG] Session data cleared from sessionStorage');
   return sessionData;
+};
+
+// Simplified onboarding tracking function that combines session check + tracking + analytics context
+export const trackOnboardingStepIfActive = (
+  step: keyof typeof ONBOARDING_FUNNEL_STEPS,
+  additionalData?: Record<string, any>,
+  trackEventFn?: (eventName: string, eventData: any) => void
+): boolean => {
+  console.log(`🎯 [ONBOARDING DEBUG] trackOnboardingStepIfActive() called for step: ${step}`);
+  
+  // Check if there's an active onboarding session
+  if (!hasActiveOnboardingSession()) {
+    console.log('❌ [ONBOARDING DEBUG] No active session - skipping tracking');
+    return false;
+  }
+  
+  // Track the onboarding step
+  const eventData = trackOnboardingStep(step, additionalData);
+  
+  console.log('✅ [ONBOARDING DEBUG] Event data created:', {
+    step,
+    eventName: eventData.event_name,
+    additionalData,
+    location: typeof window !== 'undefined' ? window.location.href : 'SSR'
+  });
+  
+  // If a track function is provided, use it (for analytics context)
+  if (trackEventFn) {
+    trackEventFn(eventData.event_name, eventData);
+    console.log('📊 [ONBOARDING DEBUG] Event sent via trackEventFn');
+  }
+  
+  return true;
+};
+
+// React hook helper for components using analytics context
+// Usage: const trackOnboarding = useOnboardingTracking();
+//        trackOnboarding('ASSESSMENT_QUIZ_COMPLETE', { quiz_result: result });
+export const createOnboardingTracker = (
+  trackEventFn: (eventName: string, eventData: any) => void
+) => {
+  return (
+    step: keyof typeof ONBOARDING_FUNNEL_STEPS,
+    additionalData?: Record<string, any>
+  ): boolean => {
+    return trackOnboardingStepIfActive(step, additionalData, trackEventFn);
+  };
 }; 

@@ -8,7 +8,7 @@ export interface OnboardingSessionData {
   start_time: string | null;
   current_time: string;
 }
-
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface OnboardingSessionDataEmpty {
   // Empty object for SSR cases
 }
@@ -113,6 +113,7 @@ export const ONBOARDING_FUNNEL_STEPS = {
 
 export const trackOnboardingStep = (
   step: keyof typeof ONBOARDING_FUNNEL_STEPS,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   additionalData?: Record<string, any>
 ) => {
   // Get session ID safely with proper typing
@@ -244,7 +245,9 @@ export const completeOnboardingSession = (): OnboardingSessionResult | undefined
 // Simplified onboarding tracking function that combines session check + tracking + analytics context
 export const trackOnboardingStepIfActive = (
   step: keyof typeof ONBOARDING_FUNNEL_STEPS,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   additionalData?: Record<string, any>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   trackEventFn?: (eventName: string, eventData: any) => void
 ): boolean => {
   console.log(`🎯 [ONBOARDING DEBUG] trackOnboardingStepIfActive() called for step: ${step}`);
@@ -278,10 +281,12 @@ export const trackOnboardingStepIfActive = (
 // Usage: const trackOnboarding = useOnboardingTracking();
 //        trackOnboarding('ASSESSMENT_QUIZ_COMPLETE', { quiz_result: result });
 export const createOnboardingTracker = (
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   trackEventFn: (eventName: string, eventData: any) => void
 ) => {
   return (
     step: keyof typeof ONBOARDING_FUNNEL_STEPS,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     additionalData?: Record<string, any>
   ): boolean => {
     return trackOnboardingStepIfActive(step, additionalData, trackEventFn);

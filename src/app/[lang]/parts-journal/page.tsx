@@ -16,8 +16,7 @@ import { AppreciateLogStep } from '@/components/parts-journal/appreciate-log-ste
 import { useIdentifiedParts } from '@/lib/assessment-utils';
 import { use } from 'react';
 import Image from 'next/image';
-import { useAnalyticsContext } from '@/contexts/analytics-context';
-import { trackOnboardingStep, getOnboardingSessionData } from '@/lib/analytics-utils';
+import { useOnboardingTracking } from '@/hooks/use-onboarding-tracking';
 
 interface PartsJournalProps {
   params: Promise<{
@@ -63,7 +62,7 @@ const getFirefighterTypeId = (partName: string, t: (key: string) => string): str
 export default function PartsJournal({ params }: PartsJournalProps) {
   const { lang } = use(params);
   const { t } = useI18n();
-  const { trackEvent } = useAnalyticsContext();
+  const trackOnboarding = useOnboardingTracking();
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedPart, setSelectedPart] = useState<string>('');
   const [showIntroduction, setShowIntroduction] = useState(true);
@@ -158,15 +157,11 @@ export default function PartsJournal({ params }: PartsJournalProps) {
 
   const handleCompleteSession = () => {
     // Track parts session completion in onboarding flow
-    const sessionData = getOnboardingSessionData();
-    if (sessionData.session_id) {
-      const eventData = trackOnboardingStep('PARTS_SESSION_COMPLETE', {
-        part_name: selectedPart,
-        session_steps_completed: 4,
-        total_content_length: JSON.stringify(journalContent).length,
-      });
-      trackEvent(eventData.event_name, eventData);
-    }
+    trackOnboarding('PARTS_SESSION_COMPLETE', {
+      part_name: selectedPart,
+      session_steps_completed: 4,
+      total_content_length: JSON.stringify(journalContent).length,
+    });
     
     // Check if we came from daily check-in
     const urlParams = new URLSearchParams(window.location.search);

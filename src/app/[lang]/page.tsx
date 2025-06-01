@@ -6,6 +6,7 @@ import { Brain, Shield, Lightbulb, MessageSquare, CalendarCheck, LucideIcon } fr
 import { useI18n } from '@/contexts/i18n-context';
 import { FirefighterTypes, ExplorePartsButton, FeatureNavigationButton } from '@/components/common';
 import { VersionInfo } from '@/components/ui/version-info';
+import { useDebugMode } from '@/hooks/use-debug-mode';
 
 // Feature card interfaces and types
 /**
@@ -62,8 +63,8 @@ const FeatureCard = ({ id, icon: Icon, titleKey, descriptionKey, buttonComponent
 export default function LandingPage() {
   const { t } = useI18n();
 
-  // Show debug info in development or if URL has debug param
-  const showDebugInfo = process.env.NODE_ENV === 'development';
+  // Use custom hook for safe debug mode detection (handles both dev environment and URL params)
+  const showDebugInfo = useDebugMode();
 
   // Features configuration
   const features: FeatureConfig[] = [
@@ -112,7 +113,7 @@ export default function LandingPage() {
     <div className="container mx-auto py-8 space-y-12 px-4">
       {/* Version Info (only in debug mode) */}
       {showDebugInfo && (
-        <VersionInfo showDebugInfo={true} className="mb-8" />
+        <VersionInfo showDebugInfo className="mb-8" />
       )}
 
       {/* Hero Section */}

@@ -20,7 +20,7 @@ test.describe('Quick Assessment Journey', () => {
 
   test('should complete quick assessment quiz flow successfully', async ({ page }) => {
     await page.goto('en');
-    await page.getByRole('link', { name: 'Explore my financial parts' }).click();
+    await page.getByRole('link', { name: 'Explore my financial parts', exact: false }).first().click();
     await page.getByRole('button', { name: 'Start Discovery' }).click();
     await page.getByText('Browse online stores or go').click();
     await page.getByRole('button', { name: 'Next', exact: true }).click();
@@ -31,7 +31,7 @@ test.describe('Quick Assessment Journey', () => {
     await page.getByText('Impulse purchases I didn\'t').click();
     await page.getByRole('button', { name: 'See Results' }).click();
     
-    await expect(page.getByRole('button', { name: 'The Spender The Spender Your' })).toBeEnabled();
+    await expect(page.getByRole('button', { name: 'The Spender' })).toBeEnabled();
     await page.getByRole('button', { name: 'Perform a Daily Check-In' }).click({force: true});
 
     await expect(page.getByRole('heading', { name: 'Grounding Breath Exercise' })).toBeVisible({timeout: 1000});
@@ -81,7 +81,6 @@ test.describe('Quick Assessment Journey', () => {
     await page.getByRole('textbox', { name: 'Content' }).click();
     await page.getByRole('textbox', { name: 'Content' }).fill('Domek');
     await page.getByRole('button', { name: 'Add Item' }).click();
-    await page.getByRole('button', { name: 'Close' }).click();
     await page.getByRole('button', { name: 'Set My Budget' }).click();
     await page.getByRole('spinbutton', { name: 'Monthly Income' }).fill('50000');
     await page.getByRole('button', { name: 'Save Budget' }).click();

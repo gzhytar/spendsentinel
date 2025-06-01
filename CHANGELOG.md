@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.9.0] - 2025-06-01
+
+### Added
+- **Enhanced Privacy Transparency**: Updated privacy policy with clear analytics disclosure
+  - Added dedicated section explaining what data is collected and how it's used
+  - Improved transparency about tracking practices with user control information
+  - Reinforced privacy-first approach to protect user data
+
+### Changed
+- **Improved App Performance**: Streamlined analytics tracking across all features
+  - Faster and more reliable tracking in self-assessment, daily check-in, and parts journal
+  - More consistent user experience when navigating between features
+  - Better responsiveness when saving progress and completing activities
+
+### Fixed
+- **Enhanced App Stability**: Resolved technical issues affecting user experience
+  - Improved reliability of progress tracking throughout the app
+  - Fixed potential interruptions during daily check-ins and assessments
+  - Enhanced overall app stability and smooth operation
+
+
 ## [0.8.0] - 2025-05-30
 
 ### Added

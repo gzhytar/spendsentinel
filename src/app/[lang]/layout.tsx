@@ -10,7 +10,7 @@ import { LanguageSwitcher } from '@/components/ui/language-switcher';
 import { useStorageCleanup } from '@/hooks/use-storage-cleanup';
 
 // Update this version number when releasing new versions
-const CURRENT_VERSION = '0.8.0';
+const CURRENT_VERSION = '0.9.0';
 
 export default function MainAppLayout({ 
   children,

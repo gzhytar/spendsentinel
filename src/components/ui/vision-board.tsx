@@ -93,7 +93,7 @@ export function VisionBoard({ items, onAddItem, onRemoveItem }: VisionBoardProps
       <CardFooter>
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant={items.length === 0 ? "default" : "secondary"}>
+            <Button variant={items.length === 0 ? "default" : "outline"}>
               <PlusCircle className="mr-2 h-4 w-4" /> 
               {t('expenseHighlighter.visionBoard.addItem')}
             </Button>

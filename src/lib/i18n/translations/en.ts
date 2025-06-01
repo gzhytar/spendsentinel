@@ -20,20 +20,47 @@ export const en = {
   },
   landing: {
     hero: {
-      title: 'Transform Your Relationship with Money Through Compassionate Self-Discovery',
-      subtitle: 'Using Internal Family Systems (IFS) therapy, understand the different parts of yourself that influence your financial decisions and learn to work with them, not against them.',
+      badge: 'Evidence-Based Financial Wellness',
+      title: 'Break Free from Emotional Spending Patterns with Science-Based Self-Compassion',
+      subtitle: 'Stop fighting your financial habits. Our AI-powered platform uses proven Internal Family Systems therapy to help you understand and heal the emotional roots of money stress.',
+      description: 'Join thousands who have transformed their relationship with money by learning to work with their financial patterns instead of against them. Start your journey to financial wellness today.',
+      features: {
+        evidenceBased: 'Evidence-Based IFS Therapy',
+        traumaInformed: 'Trauma-Informed Approach',
+        selfCompassion: 'AI-powered discovery',
+      },
+      cta: {
+        primary: 'Discover Your Financial Parts',
+        secondary: 'Start Tracking My Financial Decisions',
+      },
+      socialProof: {
+        text: 'Trusted by people seeking healthier relationships with money',
+        features: {
+          free: 'Free to start',
+          private: 'Completely private',
+          noSignup: 'No account required',
+        },
+      },
     },
     theory: {
-      title: 'Why This Works',
-      subtitle: 'The science and compassion behind financial transformation',
-      description: 'Traditional budgeting treats symptoms. We address the root: the emotional parts of you that drive financial behavior. By understanding and befriending these parts instead of fighting them, you create lasting change.',
+      title: 'Transform Your Money Mindset with Science-Based Self-Compassion',
+      subtitle: 'Evidence-based financial therapy using Internal Family Systems psychology',
+      description: 'Traditional budgeting and financial planning often fail because they ignore the emotional root causes of spending patterns. Research shows that 90% of financial decisions are driven by emotions, not logic. Our approach addresses the psychological parts of yourself that influence money choices.',
+      benefitsDescription: 'When you understand and work with your financial patterns instead of fighting them, you create lasting change that goes beyond temporary willpower. This leads to reduced financial stress, better spending decisions, and a healthier relationship with money.',
       emotionsMatter: {
-        title: 'Emotions Drive Spending',
-        description: 'Several research studies provide evidence that financial decisions are predominantly driven by emotions rather than logic. Until we understand our emotional patterns, we\'re fighting our own nature.',
+        title: 'Why Emotional Spending Happens',
+        description: 'Neuroscience research reveals that financial decisions activate the same brain regions as physical pain and pleasure. Your spending patterns are protective responses developed over time to manage stress, anxiety, and emotional needs.',
+        researchNote: 'Studies from behavioral economics show that emotional factors influence up to 95% of purchasing decisions.',
       },
       ifsConnection: {
-        title: 'The IFS Connection',
-        description: 'Internal Family Systems helps you recognize that different parts of you want different things with money. Instead of self-criticism, you learn self-compassion.',
+        title: 'Internal Family Systems: A Proven Therapeutic Approach',
+        description: 'IFS therapy helps you recognize that different parts of yourself have different relationships with money. Instead of self-criticism and shame, you learn self-compassion and internal cooperation for sustainable financial wellness.',
+        therapyNote: 'IFS is an evidence-based therapy developed by Dr. Richard Schwartz, proven effective for trauma, anxiety, and behavioral change.',
+      },
+      cta: {
+        title: 'Ready to Discover Your Financial Parts?',
+        description: 'Take our science-based assessment to identify which emotional parts drive your money decisions and learn how to work with them compassionately.',
+        buttonText: 'Explore My Financial Parts',
       },
     },
     firefighters: {

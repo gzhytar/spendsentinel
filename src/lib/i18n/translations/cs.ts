@@ -20,22 +20,48 @@ export const cs = {
   },
   landing: {
     hero: {
-      title: 'Transformujte svůj vztah k penězům',
-      subtitle: 'Objevte, jak porozumění vašim emočním vzorcům může vést k lepším finančním rozhodnutím a trvalé změně.',
-      cta: 'Poznejte své Hasiče'
+      badge: 'Vědecky podložené finanční zdraví',
+      title: 'Osvoboďte se od emočních vzorů utrácení pomocí vědecky podložené sebelásky',
+      subtitle: 'Přestaňte bojovat se svými finančními návyky. Naše AI platforma využívá ověřenou terapii Internal Family Systems k pochopení a léčení emočních kořenů finančního stresu.',
+      description: 'Připojte se k tisícům lidí, kteří transformovali svůj vztah k penězům tím, že se naučili pracovat se svými finančními vzorci místo boje proti nim. Začněte svou cestu k finančnímu zdraví ještě dnes.',
+      features: {
+        evidenceBased: '✓ Vědecky podložená IFS terapie',
+        traumaInformed: '✓ Traumy-informovaný přístup',
+        selfCompassion: '✓ AI-powered objevování',
+      },
+      cta: {
+        primary: 'Objevte své finanční části',
+        secondary: 'Začněte sledovat svá finanční rozhodnutí',
+      },
+      socialProof: {
+        text: 'Důvěřují nám lidé hledající zdravější vztah k penězům',
+        features: {
+          free: 'Zdarma na začátek',
+          private: 'Úplně soukromé',
+          noSignup: 'Bez registrace',
+        },
+      },
     },
     theory: {
-      title: 'Model Finančních Hasičů',
-      subtitle: 'Porozumění emočnímu prostředí finančních rozhodnutí',
-      description: 'Finanční rozhodnutí zřídka souvisí pouze s čísly. Jsou hluboce propojena s našimi emocemi, minulými zkušenostmi a psychologickými vzorci. Model Finančních Hasičů vám pomáhá tyto vzorce pochopit a transformovat.',
+      title: 'Transformujte svůj peněžní způsob myšlení pomocí vědecky podložené sebelásky',
+      subtitle: 'Vědecky podložená finanční terapie využívající psychologii Vnitřních Rodinných Systémů',
+      description: 'Tradiční rozpočtování a finanční plánování často selhává, protože ignoruje emocionální příčiny vzorců utrácení. Výzkumy ukazují, že 90% finančních rozhodnutí je řízeno emocemi, ne logikou. Náš přístup se zabývá psychologickými částmi vás, které ovlivňují peněžní volby.',
+      benefitsDescription: 'Když porozumíte svým finančním vzorcům a pracujete s nimi místo boje proti nim, vytvoříte trvalou změnu, která přesahuje dočasnou vůli. To vede ke snížení finančního stresu, lepším rozhodnutím o utrácení a zdravějšímu vztahu k penězům.',
       emotionsMatter: {
-        title: 'Emoce ovlivňují utrácení',
-        description: 'Výzkumné studie poskytují důkazy, že finanční rozhodnutí jsou převážně ovlivňována emocemi spíše než logikou. Dokud neporozumíme našim emočním vzorcům, bojujeme proti své vlastní povaze.'
+        title: 'Proč dochází k emočnímu utrácení',
+        description: 'Výzkum neurovědy odhaluje, že finanční rozhodnutí aktivují stejné oblasti mozku jako fyzická bolest a potěšení. Vaše vzorce utrácení jsou ochranné odpovědi vyvinuté v čase pro zvládání stresu, úzkosti a emocionálních potřeb.',
+        researchNote: 'Studie z behaviorální ekonomie ukazují, že emocionální faktory ovlivňují až 95% nákupních rozhodnutí.',
       },
       ifsConnection: {
-        title: 'Potvrzeno vědou',
-        description: 'Založeno na terapii Internal Family Systems (IFS), tento model vám pomáhá identifikovat a pracovat s různými "částmi" sebe sama, které ovlivňují vaše finanční chování.'
-      }
+        title: 'Vnitřní Rodinné Systémy: Ověřený terapeutický přístup',
+        description: 'IFS terapie vám pomáhá rozpoznat, že různé části vás mají různé vztahy k penězům. Místo sebevkritiky a studu se učíte sebelásku a vnitřní spolupráci pro udržitelné finanční zdraví.',
+        therapyNote: 'IFS je vědecky podložená terapie vyvinutá Dr. Richardem Schwartzem, prokázaně účinná pro trauma, úzkost a změnu chování.',
+      },
+      cta: {
+        title: 'Jste připraveni objevit své finanční části?',
+        description: 'Absolvujte naše vědecky založené hodnocení k identifikaci emocionálních částí, které řídí vaše peněžní rozhodnutí, a naučte se s nimi pracovat soucitně.',
+        buttonText: 'Prozkoumejte mé finanční části',
+      },
     },
     firefighters: {
       title: 'Typy Finančních Hasičů',

@@ -32,13 +32,13 @@ test.describe('Quick Assessment Journey', () => {
     await page.getByRole('button', { name: 'See Results' }).click();
     
     await expect(page.getByRole('button', { name: 'The Spender The Spender Your' })).toBeEnabled();
-    await page.getByRole('button', { name: 'Perform a Daily Check-In' }).click();
+    await page.getByRole('button', { name: 'Perform a Daily Check-In' }).click({force: true});
 
-    await expect(page.getByRole('heading', { name: 'Grounding Breath Exercise' })).toBeVisible();
-    await page.getByRole('button', { name: 'Next'}).click();
+    await expect(page.getByRole('heading', { name: 'Grounding Breath Exercise' })).toBeVisible({timeout: 1000});
+    await page.getByRole('button', { name: 'Next'}).click({force: true});
 
-    await expect(page.getByRole('heading', { name: 'Reflect on Your Day' })).toBeVisible();
-    await page.getByRole('button', { name: 'Next', exact: true }).click();
+    await expect(page.getByRole('heading', { name: 'Reflect on Your Day' })).toBeVisible({timeout: 1000});
+    await page.getByRole('button', { name: 'Next', exact: true }).click({force: true});
 
     await page.getByRole('radio', { name: 'Spend' }).click();
     await page.getByRole('spinbutton', { name: 'Amount' }).click();

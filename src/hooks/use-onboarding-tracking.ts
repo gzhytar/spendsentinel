@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useAnalyticsContext } from '@/contexts/analytics-context';
 import { createOnboardingTracker, ONBOARDING_FUNNEL_STEPS } from '@/lib/analytics-utils';
 
@@ -29,7 +30,8 @@ import { createOnboardingTracker, ONBOARDING_FUNNEL_STEPS } from '@/lib/analytic
 export function useOnboardingTracking() {
   const { trackEvent } = useAnalyticsContext();
   
-  return createOnboardingTracker(trackEvent);
+  // Memoize the trackOnboarding function to prevent unnecessary re-renders
+  return useMemo(() => createOnboardingTracker(trackEvent), [trackEvent]);
 }
 
 // Export the type for convenience

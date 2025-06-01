@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import { getAnalyticsInstance } from '@/app/firebase';
 import { logEvent, Analytics } from 'firebase/analytics';
@@ -36,9 +36,8 @@ export function useAnalytics() {
     }
   }, [pathname, analytics]);
 
-  // Core tracking function - handles all analytics events
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const trackAnalyticsEvent = (
+  // Core tracking function - handles all analytics events (memoized)
+  const trackAnalyticsEvent = useCallback((
     eventName: string, 
     parameters?: AnalyticsParameters,
     eventType: string = 'general'
@@ -51,29 +50,30 @@ export function useAnalytics() {
       console.warn(`⚠️ Analytics not ready, queuing ${eventType}:`, eventName, parameters);
       return { success: false, queued: true };
     }
-  };
+  }, [analytics]);
 
-  // Public API functions
-  const trackEvent = (eventName: string, parameters?: AnalyticsParameters) => {
+  // Public API functions (memoized)
+  const trackEvent = useCallback((eventName: string, parameters?: AnalyticsParameters) => {
     return trackAnalyticsEvent(eventName, parameters, 'Event');
-  };
+  }, [trackAnalyticsEvent]);
 
-  const trackUserInteraction = (action: string, category: string, label?: string, value?: number) => {
+  const trackUserInteraction = useCallback((action: string, category: string, label?: string, value?: number) => {
     const eventData = createInteractionEventData(action, category, label, value);
     return trackAnalyticsEvent('user_interaction', eventData, 'User Interaction');
-  };
+  }, [trackAnalyticsEvent]);
 
-  const trackFeatureUsage = (featureName: string, details?: AnalyticsParameters) => {
+  const trackFeatureUsage = useCallback((featureName: string, details?: AnalyticsParameters) => {
     const eventData = createFeatureEventData(featureName, details);
     return trackAnalyticsEvent('feature_usage', eventData, 'Feature Usage');
-  };
+  }, [trackAnalyticsEvent]);
 
-  return {
+  // Memoize the returned object to prevent unnecessary re-renders
+  return useMemo(() => ({
     trackEvent,
     trackUserInteraction,
     trackFeatureUsage,
     isReady: !!analytics,
-  };
+  }), [trackEvent, trackUserInteraction, trackFeatureUsage, analytics]);
 }
 
 // Helper functions

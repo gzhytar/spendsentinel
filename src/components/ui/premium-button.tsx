@@ -5,7 +5,6 @@ import { Crown, Lock } from 'lucide-react';
 import { 
   Tooltip, 
   TooltipContent, 
-  TooltipProvider, 
   TooltipTrigger 
 } from '@/components/ui/tooltip';
 import { usePremiumStatus } from '@/hooks/use-premium-status';
@@ -39,36 +38,46 @@ export function PremiumButton({
 }: PremiumButtonProps) {
   const { isPremiumEnabled } = usePremiumStatus();
   
-  return (
-    <TooltipProvider>
+  const button = (
+    <Button
+      onClick={isPremiumEnabled ? onClick : undefined}
+      disabled={!isPremiumEnabled}
+      wrap={wrap}
+      className={cn(
+        "relative",
+        isPremiumEnabled 
+          ? 'bg-gradient-to-r from-amber-300 to-amber-500 text-black hover:from-amber-400 hover:to-amber-600 shadow-md' 
+          : 'bg-muted text-muted-foreground cursor-not-allowed',
+        className
+      )}
+      {...props}
+    >
+      {isPremiumEnabled ? (
+        <Crown className="w-4 h-4 mr-2 text-amber-200" />
+      ) : (
+        <Lock className="w-4 h-4 mr-2 text-muted-foreground" />
+      )}
+      {children}
+      <span className="absolute -top-1 -right-1 bg-amber-200 text-amber-800 text-xs font-bold px-1 rounded-full">
+        PRO
+      </span>
+    </Button>
+  );
+
+  // Only wrap with Tooltip if premium is disabled and we need to show tooltip
+  if (!isPremiumEnabled) {
+    return (
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button
-            onClick={isPremiumEnabled ? onClick : undefined}
-            disabled={!isPremiumEnabled}
-            wrap={wrap}
-            className={cn(
-              `relative`,
-              isPremiumEnabled 
-                ? 'bg-gradient-to-r from-amber-300 to-amber-500 text-black hover:from-amber-400 hover:to-amber-600 shadow-md' 
-                : 'bg-muted text-muted-foreground cursor-not-allowed',
-              className
-            )}
-            {...props}
-          >
-            {children}
-            {isPremiumEnabled ? ( <Crown className="w-4 h-4 mr-2 text-amber-200" /> ) : ( <Lock className="w-4 h-4 mr-2 text-muted-foreground" /> )}
-            <span className="absolute -top-1 -right-1 bg-amber-200 text-amber-800 text-xs font-bold px-1 rounded-full">
-              PRO
-            </span>
-          </Button>
+          {button}
         </TooltipTrigger>
-        {!isPremiumEnabled && (
-          <TooltipContent>
-            <p>{tooltipText}</p>
-          </TooltipContent>
-        )}
+        <TooltipContent>
+          <p>{tooltipText}</p>
+        </TooltipContent>
       </Tooltip>
-    </TooltipProvider>
-  );
+    );
+  }
+
+  // Return button without tooltip when premium is enabled
+  return button;
 } 

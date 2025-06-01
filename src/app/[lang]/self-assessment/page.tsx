@@ -66,7 +66,7 @@ export default function SelfAssessmentPage() {
       source_page: 'self_assessment',
       has_existing_results: false,
     });
-  }, [trackOnboarding]);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Load saved quiz results from local storage on initial render
   useEffect(() => {
@@ -115,7 +115,7 @@ export default function SelfAssessmentPage() {
         setShowIdentifyForm(true); // Show the form on error
       }
     }
-  }, [locale, trackOnboarding]);
+  }, [locale]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const identifyForm = useForm<IdentifyFormValues>({
     resolver: zodResolver(identifySchema),

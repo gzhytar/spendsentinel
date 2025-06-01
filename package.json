@@ -18,7 +18,14 @@
     "deploy:with-cleanup": "echo 'Setting cleanup flag...' && NEXT_PUBLIC_FORCE_CLEANUP=true npm run build",
     "deploy:major": "npm run version:major && npm run build",
     "deploy:minor": "npm run version:minor && npm run build",
-    "release": "npm run typecheck && npm run lint && npm run version:minor && npm run build"
+    "release": "npm run typecheck && npm run lint && npm run version:minor && npm run build",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:debug": "playwright test --debug",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:quick": "playwright test tests/e2e/specs/critical-flows/quick-assessment.spec.ts",
+    "test:e2e:report": "playwright show-report",
+    "test:e2e:install": "playwright install"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.6.1",

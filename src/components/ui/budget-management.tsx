@@ -8,6 +8,7 @@ import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Card } from '@/components/ui/card';
 import { Calculator, Home, PiggyBank, Banknote } from 'lucide-react';
 import { useI18n } from '@/contexts/i18n-context';
+import { useCurrency } from '@/hooks/use-currency';
 import { useBudget, type Budget } from '@/hooks/use-budget';
 
 interface BudgetManagementProps {
@@ -30,6 +31,7 @@ const formatMessage = (template: string, variables: Record<string, string | numb
 
 export function BudgetManagement({ budget }: BudgetManagementProps) {
   const { t } = useI18n();
+  const { formatAmount } = useCurrency();
   
   const budgetCategories = [
     {
@@ -81,7 +83,7 @@ export function BudgetManagement({ budget }: BudgetManagementProps) {
               <p className="text-muted-foreground text-sm">{category.description}</p>
               {value && (
                 <p className={`text-sm font-medium ${category.iconColor} mt-1`}>
-                  ${value.toFixed(0)}
+                  {formatAmount(value, { decimals: 0 })}
                 </p>
               )}
             </div>
@@ -94,6 +96,7 @@ export function BudgetManagement({ budget }: BudgetManagementProps) {
 
 function BudgetDialog({ isOpen, onClose, initialBudget, onSave }: BudgetDialogProps) {
   const { t } = useI18n();
+  const { formatAmount } = useCurrency();
   const { calculateRecommended, adjustSpendBudget, adjustSavingTarget } = useBudget();
   const [budgetInput, setBudgetInput] = useState<Budget>(initialBudget);
 
@@ -210,18 +213,18 @@ function BudgetDialog({ isOpen, onClose, initialBudget, onSave }: BudgetDialogPr
                 <div className="grid grid-cols-3 gap-4 text-sm">
                   <div>
                     <p className="text-muted-foreground">{t('expenseHighlighter.budgetPlanner.dialog.summary.income')}</p>
-                    <p className="font-medium text-blue-600">${budgetInput.monthlyIncome}</p>
+                    <p className="font-medium text-blue-600">{formatAmount(budgetInput.monthlyIncome, { decimals: 0 })}</p>
                   </div>
                   <div>
                     <p className="text-muted-foreground">{t('expenseHighlighter.budgetPlanner.dialog.summary.spendBudget')}</p>
-                    <p className="font-medium text-chart-1">${budgetInput.spendBudget}</p>
+                    <p className="font-medium text-chart-1">{formatAmount(budgetInput.spendBudget, { decimals: 0 })}</p>
                     <p className="text-xs text-muted-foreground">
                       {budgetInput.monthlyIncome > 0 ? Math.round((budgetInput.spendBudget / budgetInput.monthlyIncome) * 100) : 0}%
                     </p>
                   </div>
                   <div>
                     <p className="text-muted-foreground">{t('expenseHighlighter.budgetPlanner.dialog.summary.savingTarget')}</p>
-                    <p className="font-medium text-green-600">${budgetInput.savingTarget}</p>
+                    <p className="font-medium text-green-600">{formatAmount(budgetInput.savingTarget, { decimals: 0 })}</p>
                     <p className="text-xs text-muted-foreground">
                       {budgetInput.monthlyIncome > 0 ? Math.round((budgetInput.savingTarget / budgetInput.monthlyIncome) * 100) : 0}%
                     </p>

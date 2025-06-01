@@ -424,6 +424,7 @@ export const uk = {
         content: 'Зміст',
         description: 'Опис',
         save: 'Додати елемент',
+        cancel: 'Скасувати',
         types: {
           text: 'Текстове твердження',
           image: 'Зображення (URL)'

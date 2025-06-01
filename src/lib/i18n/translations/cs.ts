@@ -424,6 +424,7 @@ export const cs = {
         content: 'Obsah',
         description: 'Popis',
         save: 'Přidat Položku',
+        cancel: 'Zrušit',
         types: {
           text: 'Textové Potvrzení',
           image: 'Obrázek (URL)'

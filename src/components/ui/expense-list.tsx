@@ -5,6 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Edit3, Trash2, Home, ShoppingBag, HelpCircle, PiggyBank, Shield, Target } from 'lucide-react';
 import { useI18n } from '@/contexts/i18n-context';
+import { useCurrency } from '@/hooks/use-currency';
 import { cn } from '@/lib/utils';
 import type { Expense } from './add-expense-form';
 
@@ -22,6 +23,7 @@ export function ExpenseList({
   showEditActions = true 
 }: ExpenseListProps) {
   const { t } = useI18n();
+  const { formatAmount } = useCurrency();
 
   const getCategoryIcon = (category: Expense['category'], size: 'sm' | 'md' | 'lg' = 'sm') => {
     const dimensions = {
@@ -84,7 +86,7 @@ export function ExpenseList({
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-xs text-muted-foreground">{t('expenseHighlighter.form.amount')}</p>
-                  <p className="font-medium">${expense.amount.toFixed(0)}</p>
+                  <p className="font-medium">{formatAmount(expense.amount, { decimals: 0 })}</p>
                 </div>
                 <div>
                   <p className="text-xs text-muted-foreground">{t('expenseHighlighter.form.date')}</p>
@@ -153,7 +155,7 @@ export function ExpenseList({
             {expenses.sort((a,b) => new Date(b.date).getTime() - new Date(a.date).getTime()).map(expense => (
               <TableRow key={expense.id}>
                 <TableCell className="font-medium">{expense.description}</TableCell>
-                <TableCell>${expense.amount.toFixed(0)}</TableCell>
+                <TableCell>{formatAmount(expense.amount, { decimals: 0 })}</TableCell>
                 <TableCell>{new Date(expense.date).toLocaleDateString()}</TableCell>
                 <TableCell className="capitalize">{expense.type === 'expense' ? t('expenseHighlighter.form.types.expense') : t('expenseHighlighter.form.types.saving')}</TableCell>
                 <TableCell>

@@ -530,6 +530,7 @@ export const en = {
         content: 'Content',
         description: 'Description',
         save: 'Add Item',
+        cancel: 'Cancel',
         types: {
           text: 'Text Affirmation',
           image: 'Image (URL)'

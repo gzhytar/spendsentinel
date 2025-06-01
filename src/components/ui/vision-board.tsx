@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter }
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Eye, PlusCircle, Trash2 } from 'lucide-react';
 import { useI18n } from '@/contexts/i18n-context';
 import { VisionBoardItem } from '@/types';
@@ -17,7 +17,13 @@ interface VisionBoardProps {
   onRemoveItem: (id: string) => void;
 }
 
-export function VisionBoard({ items, onAddItem, onRemoveItem }: VisionBoardProps) {
+interface AddVisionBoardItemDialogProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onAddItem: (item: Omit<VisionBoardItem, 'id'>) => void;
+}
+
+function AddVisionBoardItemDialog({ isOpen, onClose, onAddItem }: AddVisionBoardItemDialogProps) {
   const { t } = useI18n();
   const [newItemType, setNewItemType] = useState<'text' | 'image'>('text');
   const [newItemContent, setNewItemContent] = useState('');
@@ -38,9 +44,98 @@ export function VisionBoard({ items, onAddItem, onRemoveItem }: VisionBoardProps
     };
     
     onAddItem(newItem);
+    
+    // Reset form and close dialog
     setNewItemContent('');
     setNewItemDescription('');
+    setNewItemType('text');
+    onClose();
   };
+
+  const handleClose = () => {
+    // Reset form when closing
+    setNewItemContent('');
+    setNewItemDescription('');
+    setNewItemType('text');
+    onClose();
+  };
+
+  return (
+    <Dialog open={isOpen} onOpenChange={handleClose}>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>{t('expenseHighlighter.visionBoard.addItem')}</DialogTitle>
+          <DialogDescription>
+            {t('expenseHighlighter.visionBoard.addItemDescription')}
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="item-type" className="text-right">
+              {t('expenseHighlighter.visionBoard.form.type')}
+            </Label>
+            <select 
+              id="item-type" 
+              value={newItemType} 
+              onChange={(e) => setNewItemType(e.target.value as 'text'|'image')} 
+              className="col-span-3 border border-input rounded-md px-3 py-2 text-sm"
+            >
+              <option value="text">{t('expenseHighlighter.visionBoard.form.types.text')}</option>
+              <option value="image">{t('expenseHighlighter.visionBoard.form.types.image')}</option>
+            </select>
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="item-content" className="text-right">
+              {t('expenseHighlighter.visionBoard.form.content')}
+            </Label>
+            {newItemType === 'text' ? (
+              <Input 
+                id="item-content" 
+                value={newItemContent} 
+                onChange={(e) => setNewItemContent(e.target.value)} 
+                className="col-span-3" 
+              />
+            ) : (
+              <Input 
+                id="item-content" 
+                type="url" 
+                value={newItemContent} 
+                onChange={(e) => setNewItemContent(e.target.value)} 
+                className="col-span-3" 
+                placeholder="https://..." 
+              />
+            )}
+          </div>
+          {newItemType === 'image' && (
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="item-description" className="text-right">
+                {t('expenseHighlighter.visionBoard.form.description')}
+              </Label>
+              <Input 
+                id="item-description" 
+                value={newItemDescription} 
+                onChange={(e) => setNewItemDescription(e.target.value)} 
+                className="col-span-3" 
+              />
+            </div>
+          )}
+        </div>
+        <DialogFooter>
+          <Button variant="outline" onClick={handleClose}>
+            {t('expenseHighlighter.visionBoard.form.cancel')}
+          </Button>
+          <Button onClick={handleAddItem} disabled={!newItemContent}>
+            {t('expenseHighlighter.visionBoard.form.save')}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+export function VisionBoard({ items, onAddItem, onRemoveItem }: VisionBoardProps) {
+  const { t } = useI18n();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   return (
     <Card>
@@ -91,78 +186,19 @@ export function VisionBoard({ items, onAddItem, onRemoveItem }: VisionBoardProps
         </div>
       </CardContent>
       <CardFooter>
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant={items.length === 0 ? "default" : "outline"}>
-              <PlusCircle className="mr-2 h-4 w-4" /> 
-              {t('expenseHighlighter.visionBoard.addItem')}
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
-            <DialogHeader>
-              <DialogTitle>{t('expenseHighlighter.visionBoard.addItem')}</DialogTitle>
-              <DialogDescription>
-                {t('expenseHighlighter.visionBoard.addItemDescription')}
-              </DialogDescription>
-            </DialogHeader>
-            <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="item-type" className="text-right">
-                  {t('expenseHighlighter.visionBoard.form.type')}
-                </Label>
-                <select 
-                  id="item-type" 
-                  value={newItemType} 
-                  onChange={(e) => setNewItemType(e.target.value as 'text'|'image')} 
-                  className="col-span-3 border border-input rounded-md px-3 py-2 text-sm"
-                >
-                  <option value="text">{t('expenseHighlighter.visionBoard.form.types.text')}</option>
-                  <option value="image">{t('expenseHighlighter.visionBoard.form.types.image')}</option>
-                </select>
-              </div>
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="item-content" className="text-right">
-                  {t('expenseHighlighter.visionBoard.form.content')}
-                </Label>
-                {newItemType === 'text' ? (
-                  <Input 
-                    id="item-content" 
-                    value={newItemContent} 
-                    onChange={(e) => setNewItemContent(e.target.value)} 
-                    className="col-span-3" 
-                  />
-                ) : (
-                  <Input 
-                    id="item-content" 
-                    type="url" 
-                    value={newItemContent} 
-                    onChange={(e) => setNewItemContent(e.target.value)} 
-                    className="col-span-3" 
-                    placeholder="https://..." 
-                  />
-                )}
-              </div>
-              {newItemType === 'image' && (
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="item-description" className="text-right">
-                    {t('expenseHighlighter.visionBoard.form.description')}
-                  </Label>
-                  <Input 
-                    id="item-description" 
-                    value={newItemDescription} 
-                    onChange={(e) => setNewItemDescription(e.target.value)} 
-                    className="col-span-3" 
-                  />
-                </div>
-              )}
-            </div>
-            <DialogFooter>
-              <Button onClick={handleAddItem}>
-                {t('expenseHighlighter.visionBoard.form.save')}
-              </Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
+        <Button 
+          variant={items.length === 0 ? "default" : "outline"}
+          onClick={() => setIsDialogOpen(true)}
+        >
+          <PlusCircle className="mr-2 h-4 w-4" /> 
+          {t('expenseHighlighter.visionBoard.addItem')}
+        </Button>
+        
+        <AddVisionBoardItemDialog 
+          isOpen={isDialogOpen}
+          onClose={() => setIsDialogOpen(false)}
+          onAddItem={onAddItem}
+        />
       </CardFooter>
     </Card>
   );

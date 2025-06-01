@@ -424,6 +424,7 @@ export const ru = {
         content: 'Содержание',
         description: 'Описание',
         save: 'Добавить Элемент',
+        cancel: 'Отмена',
         types: {
           text: 'Текстовое Утверждение',
           image: 'Изображение (URL)'

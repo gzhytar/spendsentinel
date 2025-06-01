@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TrendingUp, PiggyBank, DollarSign, CheckCircle, AlertTriangle, Info, Heart } from 'lucide-react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend } from 'recharts';
 import { useI18n } from '@/contexts/i18n-context';
+import { useCurrency } from '@/hooks/use-currency';
 import { getCategoryConfig, CATEGORY_COLORS } from '@/lib/constants/categories';
 import { useBudget } from '@/hooks/use-budget';
 import { Progress } from '@/components/ui/progress';
@@ -37,6 +38,7 @@ const formatMessage = (template: string, variables: Record<string, string | numb
 
 export function ExpenseOverview({ expenses }: ExpenseOverviewProps) {
   const { t } = useI18n();
+  const { formatAmount } = useCurrency();
   const { budget } = useBudget();
 
   // Calculate expense summary
@@ -284,7 +286,7 @@ export function ExpenseOverview({ expenses }: ExpenseOverviewProps) {
             <div className="space-y-4">
               <div className="flex items-center">
                 <DollarSign className="mr-2 h-5 w-5 text-primary" />
-                <p>{t('expenseHighlighter.total')}: <span className="font-bold text-primary">${expenseSummary.total.toFixed(0)}</span></p>
+                <p>{t('expenseHighlighter.total')}: <span className="font-bold text-primary">{formatAmount(expenseSummary.total, { decimals: 0 })}</span></p>
               </div>
               
               {/* Budget Consumption Indicator */}
@@ -293,7 +295,7 @@ export function ExpenseOverview({ expenses }: ExpenseOverviewProps) {
                   <div className="flex items-center justify-between">
                     <p className="text-sm font-medium">{t('expenseHighlighter.budgetProgress.title')}</p>
                     <p className="text-sm text-muted-foreground">
-                      ${expenseSummary.total.toFixed(0)} / ${budget.spendBudget.toFixed(0)}
+                      {formatAmount(expenseSummary.total, { decimals: 0 })} / {formatAmount(budget.spendBudget, { decimals: 0 })}
                     </p>
                   </div>
                   
@@ -322,15 +324,15 @@ export function ExpenseOverview({ expenses }: ExpenseOverviewProps) {
               <div className="space-y-2 pt-2">
                 <div className="flex items-center">
                   {getCategoryIconForSummary('living')}
-                  <p>{t('expenseHighlighter.categories.living')}: <span className="font-bold" style={{color: CATEGORY_COLORS.living}}>${expenseSummary.living.toFixed(0)}</span></p>
+                  <p>{t('expenseHighlighter.categories.living')}: <span className="font-bold" style={{color: CATEGORY_COLORS.living}}>{formatAmount(expenseSummary.living, { decimals: 0 })}</span></p>
                 </div>
                 <div className="flex items-center">
                   {getCategoryIconForSummary('lifestyle')}
-                  <p>{t('expenseHighlighter.categories.lifestyle')}: <span className="font-bold" style={{color: CATEGORY_COLORS.lifestyle}}>${expenseSummary.lifestyle.toFixed(0)}</span></p>
+                                      <p>{t('expenseHighlighter.categories.lifestyle')}: <span className="font-bold" style={{color: CATEGORY_COLORS.lifestyle}}>{formatAmount(expenseSummary.lifestyle, { decimals: 0 })}</span></p>
                 </div>
                 <div className="flex items-center">
                   {getCategoryIconForSummary('unassigned')}
-                  <p>{t('expenseHighlighter.unassigned')}: <span className="font-bold" style={{color: CATEGORY_COLORS.unassigned}}>${expenseSummary.unassigned.toFixed(0)}</span></p>
+                  <p>{t('expenseHighlighter.unassigned')}: <span className="font-bold" style={{color: CATEGORY_COLORS.unassigned}}>{formatAmount(expenseSummary.unassigned, { decimals: 0 })}</span></p>
                 </div>
               </div>
             </div>
@@ -380,7 +382,7 @@ export function ExpenseOverview({ expenses }: ExpenseOverviewProps) {
             <div className="space-y-4">
               <div className="flex items-center">
                 <DollarSign className="mr-2 h-5 w-5 text-primary" />
-                <p>{t('expenseHighlighter.totalSavings')}: <span className="font-bold text-primary">${savingsSummary.total.toFixed(0)}</span></p>
+                <p>{t('expenseHighlighter.totalSavings')}: <span className="font-bold text-primary">{formatAmount(savingsSummary.total, { decimals: 0 })}</span></p>
               </div>
               
               {/* Saving Target Progress Indicator */}
@@ -389,7 +391,7 @@ export function ExpenseOverview({ expenses }: ExpenseOverviewProps) {
                   <div className="flex items-center justify-between">
                     <p className="text-sm font-medium">{t('expenseHighlighter.savingProgress.title')}</p>
                     <p className="text-sm text-muted-foreground">
-                      ${savingsSummary.total.toFixed(0)} / ${budget.savingTarget.toFixed(0)}
+                      {formatAmount(savingsSummary.total, { decimals: 0 })} / {formatAmount(budget.savingTarget, { decimals: 0 })}
                     </p>
                   </div>
                   
@@ -418,15 +420,15 @@ export function ExpenseOverview({ expenses }: ExpenseOverviewProps) {
               <div className="space-y-2 pt-2">
                 <div className="flex items-center">
                   {getCategoryIconForSummary('avoided')}
-                  <p>{t('expenseHighlighter.savingCategories.avoided')}: <span className="font-bold" style={{color: CATEGORY_COLORS.avoided}}>${savingsSummary.avoided.toFixed(0)}</span></p>
+                                      <p>{t('expenseHighlighter.savingCategories.avoided')}: <span className="font-bold" style={{color: CATEGORY_COLORS.avoided}}>{formatAmount(savingsSummary.avoided, { decimals: 0 })}</span></p>
                 </div>
                 <div className="flex items-center">
                   {getCategoryIconForSummary('goals')}
-                  <p>{t('expenseHighlighter.savingCategories.goals')}: <span className="font-bold" style={{color: CATEGORY_COLORS.goals}}>${savingsSummary.goals.toFixed(0)}</span></p>
+                                      <p>{t('expenseHighlighter.savingCategories.goals')}: <span className="font-bold" style={{color: CATEGORY_COLORS.goals}}>{formatAmount(savingsSummary.goals, { decimals: 0 })}</span></p>
                 </div>
                 <div className="flex items-center">
                   {getCategoryIconForSummary('unassigned')}
-                  <p>{t('expenseHighlighter.unassigned')}: <span className="font-bold" style={{color: CATEGORY_COLORS.unassigned}}>${savingsSummary.unassigned.toFixed(0)}</span></p>
+                  <p>{t('expenseHighlighter.unassigned')}: <span className="font-bold" style={{color: CATEGORY_COLORS.unassigned}}>{formatAmount(savingsSummary.unassigned, { decimals: 0 })}</span></p>
                 </div>
               </div>
             </div>

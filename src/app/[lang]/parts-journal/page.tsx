@@ -182,9 +182,6 @@ export default function PartsJournal({ params }: PartsJournalProps) {
       completedSessions.push(completedSession);
       localStorage.setItem('completedPartsJournalSessions', JSON.stringify(completedSessions));
       
-      // Show completion message
-      window.alert(t('partsJournal.completionMessage'));
-      
       // Return to daily check-in
       window.location.href = `/${lang}/daily-checkin`;
       return;
@@ -203,9 +200,6 @@ export default function PartsJournal({ params }: PartsJournalProps) {
     const completedSessions = JSON.parse(localStorage.getItem('completedPartsJournalSessions') || '[]');
     completedSessions.push(completedSession);
     localStorage.setItem('completedPartsJournalSessions', JSON.stringify(completedSessions));
-    
-    // Show completion message
-    window.alert(t('partsJournal.completionMessage'));
     
     // Navigate back to introduction screen
     setShowIntroduction(true);

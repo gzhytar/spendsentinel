@@ -18,8 +18,9 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { expenseStorage } from '@/lib/expense-storage';
 import { useIdentifiedParts } from '@/lib/assessment-utils';
 import { use } from 'react';
-import { completeOnboardingSession } from '@/lib/analytics-utils';
+import { completeOnboardingSession, ANALYTICS_EVENTS } from '@/lib/analytics-utils';
 import { useOnboardingTracking } from '@/hooks/use-onboarding-tracking';
+import { useAnalyticsContext } from '@/contexts/analytics-context';
 
 interface DailyCheckInProps {
   params: Promise<{
@@ -31,6 +32,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
   const { lang } = use(params);
   const { t } = useI18n();
   const trackOnboarding = useOnboardingTracking();
+  const { trackFeatureUsage } = useAnalyticsContext();
   const [currentStep, setCurrentStep] = useState(1);
   const containerRef = useRef<HTMLDivElement>(null);
   const [checkInData, setCheckInData] = useState({
@@ -59,10 +61,6 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
         // Clean up return context
         localStorage.removeItem('dailyCheckInReturnContext');
         
-        // Show welcome back message
-        setTimeout(() => {
-          window.alert('Welcome back! Your parts journal session has been completed. Please continue with your self-compassion check-in.');
-        }, 500);
         
         return; // Don't load saved progress, use return context instead
       }
@@ -107,6 +105,15 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
         progress_percentage: (nextStep / 5) * 100,
       });
       
+      // Track step progression for GA4 analytics
+      trackFeatureUsage(ANALYTICS_EVENTS.DAILY_CHECKIN_STEP_PROGRESSION, {
+        step: nextStep,
+        total_steps: 5,
+        progress_percentage: (nextStep / 5) * 100,
+        completed: false,
+        timestamp: new Date().toISOString()
+      });
+      
       // Scroll to top of the container for better navigation
       containerRef.current?.scrollIntoView({ 
         behavior: 'smooth', 
@@ -138,6 +145,15 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
       expense_category: expenseData.category,
       has_triggered_parts: selectedParts.length > 0,
       triggered_parts_count: selectedParts.length,
+    });
+    
+    // Track expense addition for GA4 analytics
+    trackFeatureUsage(ANALYTICS_EVENTS.DAILY_CHECKIN_EXPENSE_ADDED, {
+      expense_category: expenseData.category,
+      has_triggered_parts: selectedParts.length > 0,
+      triggered_parts_count: selectedParts.length,
+      context: 'daily_checkin',
+      timestamp: new Date().toISOString()
     });
     
     // Save to shared expenses storage (same as Expense Highlighter)
@@ -213,16 +229,27 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
     // Mark today as completed
     const today = new Date().toISOString().split('T')[0];
     const completedCheckIns = JSON.parse(localStorage.getItem('completedCheckIns') || '[]');
+    
     if (!completedCheckIns.includes(today)) {
       completedCheckIns.push(today);
       localStorage.setItem('completedCheckIns', JSON.stringify(completedCheckIns));
+      
+      // Track daily check-in completion with detailed metrics for GA4
+      trackFeatureUsage(ANALYTICS_EVENTS.DAILY_CHECKIN_COMPLETED, {
+        completed_expenses: checkInData.expenses.length,
+        compassion_score: checkInData.selfCompassionScore,
+        triggered_parts_count: [...new Set(
+          checkInData.expenses.flatMap(expense => expense.triggeredParts || [])
+        )].length,
+        total_steps: 5,
+        completed: true,
+        timestamp: new Date().toISOString()
+      });
     }
     
     // TODO: Save to database
     console.log('Check-in completed:', checkInData);
     
-    // Show completion message
-    window.alert(t('dailyCheckIn.completionMessage'));
     
     // Reset for new check-in
     setCurrentStep(1);
@@ -279,6 +306,14 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
         source_page: 'daily_checkin_step_4',
       });
       
+      // Track parts journal session start for GA4 analytics
+      trackFeatureUsage(ANALYTICS_EVENTS.PARTS_JOURNAL_SESSION_START, {
+        part_name: partName,
+        source_page: 'daily_checkin',
+        context: 'daily_checkin_step_4',
+        timestamp: new Date().toISOString()
+      });
+      
       // Store current daily check-in state before navigating
       localStorage.setItem('dailyCheckInReturnContext', JSON.stringify({
         currentStep: 5, // Return to self-compassion step
@@ -297,9 +332,9 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
           <div className="flex justify-center">
             <Heart className="h-12 w-12 text-muted-foreground" />
           </div>
-          <h3 className="text-lg font-semibold">No parts were triggered today</h3>
+          <h3 className="text-lg font-semibold">{t('dailyCheckIn.steps.partsJournal.noPartsTriggered.title')}</h3>
           <p className="text-muted-foreground">
-            You haven&apos;t logged any expenses with triggered parts today. Continue with your self-compassion check-in.
+            {t('dailyCheckIn.steps.partsJournal.noPartsTriggered.description')}
           </p>
         </div>
       );
@@ -308,9 +343,9 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
     return (
       <div className="space-y-6">
         <div className="text-center space-y-2">
-          <h3 className="text-lg font-semibold">Parts triggered in today&apos;s spending:</h3>
+          <h3 className="text-lg font-semibold">{t('dailyCheckIn.steps.partsJournal.triggeredParts.title')}</h3>
           <p className="text-muted-foreground">
-            Deepen your relationship with the parts that showed up in your financial decisions today.
+            {t('dailyCheckIn.steps.partsJournal.triggeredParts.description')}
           </p>
         </div>
         
@@ -339,7 +374,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
                       className="w-full"
                       size="default"
                     >
-                      Start New Session
+                      {t('dailyCheckIn.steps.partsJournal.startNewSession')}
                     </Button>
                   </div>
                 </Card>
@@ -350,7 +385,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
         
         <div className="text-center">
           <p className="text-sm text-muted-foreground">
-            After completing a parts journal session, you&apos;ll return to finish your daily check-in.
+            {t('dailyCheckIn.steps.partsJournal.completionNote')}
           </p>
         </div>
       </div>
@@ -422,15 +457,15 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
             </p>
             
             <blockquote className="italic text-md text-center text-primary-foreground max-w-md mx-auto my-8 px-8 py-6 border-l-4 border-primary/40 bg-primary/5 rounded-r-lg shadow-sm">
-              &quot;The quieter you become, the more you can hear.&quot;
-              <footer className="text-sm mt-3 text-muted-foreground">&mdash; Ram Dass</footer>
+              &quot;{t('dailyCheckIn.quotes.ramDass')}&quot;
+              <footer className="text-sm mt-3 text-muted-foreground">&mdash; {t('dailyCheckIn.quotes.ramDassAttribution')}</footer>
             </blockquote>
             
             <div className="flex flex-col items-center space-y-4">
               <div className="relative h-[250px] w-full rounded-lg overflow-hidden bg-primary/5">
                 <Image 
                   src="/images/reflection-calm.jpg" 
-                  alt="Calm reflective state"
+                  alt={t('dailyCheckIn.images.reflectionCalmAlt')}
                   fill
                   style={{ objectFit: "cover" }}
                   className="rounded-lg"
@@ -530,6 +565,15 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
                   trackOnboarding('COMPASSION_SCORE_SAVE', {
                     score: score,
                     step: 5,
+                  });
+                  
+                  // Track self-compassion score save for GA4 analytics
+                  trackFeatureUsage(ANALYTICS_EVENTS.SELF_COMPASSION_SCORE_SAVED, {
+                    score: score,
+                    context: 'daily_checkin',
+                    step: 5,
+                    total_steps: 5,
+                    timestamp: new Date().toISOString()
                   });
                   
                   // Save to calm history for consistency with self-compassion page

@@ -32,7 +32,11 @@ export const ANALYTICS_EVENTS = {
   BUDGET_UPDATED: 'budget_updated',
   ASSESSMENT_COMPLETED: 'assessment_completed',
   DAILY_CHECKIN_COMPLETED: 'daily_checkin_completed',
+  DAILY_CHECKIN_STEP_PROGRESSION: 'daily_checkin_step_progression',
+  DAILY_CHECKIN_EXPENSE_ADDED: 'daily_checkin_expense_added',
   PARTS_JOURNAL_SESSION: 'parts_journal_session',
+  PARTS_JOURNAL_SESSION_START: 'parts_journal_session_start',
+  SELF_COMPASSION_SCORE_SAVED: 'self_compassion_score_saved',
   
   // User engagement
   SESSION_START: 'session_start',

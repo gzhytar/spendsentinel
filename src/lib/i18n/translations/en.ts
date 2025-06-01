@@ -815,6 +815,25 @@ export const en = {
         veryCompassionate: 'very compassionate',
         savePrompt: 'Please save your self-compassion score to view your calm journey and complete the check-in.',
         scoreSaved: 'Your self-compassion score has been saved! You can now complete your check-in.'
+      },
+      partsJournal: {
+        startNewSession: 'Start New Session',
+        completionNote: 'After completing a parts journal session, you\'ll return to finish your daily check-in.',
+        noPartsTriggered: {
+          title: 'No parts were triggered today',
+          description: 'You haven\'t logged any expenses with triggered parts today. Continue with your self-compassion check-in.'
+        },
+        triggeredParts: {
+          title: 'Parts triggered in today\'s spending:',
+          description: 'Deepen your relationship with the parts that showed up in your financial decisions today.'
+        }
+      },
+      quotes: {
+        ramDass: 'The quieter you become, the more you can hear.',
+        ramDassAttribution: 'Ram Dass'
+      },
+      images: {
+        reflectionCalmAlt: 'Calm reflective state'
       }
     },
     timeline: {

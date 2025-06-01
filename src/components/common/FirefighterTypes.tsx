@@ -199,7 +199,7 @@ export function FirefighterTypes({
                 <div className="relative w-full h-20 mb-3 rounded-md overflow-hidden">
                   <Image
                     src={`/images/${type.id}.jpg`}
-                    alt={type.title}
+                    alt={`Illustration representing ${type.title} financial behavior`}
                     fill
                     className="object-cover"
                   />

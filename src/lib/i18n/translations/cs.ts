@@ -25,9 +25,9 @@ export const cs = {
       subtitle: 'Přestaňte bojovat se svými finančními návyky. Naše AI platforma využívá ověřenou terapii Internal Family Systems k pochopení a léčení emočních kořenů finančního stresu.',
       description: 'Připojte se k tisícům lidí, kteří transformovali svůj vztah k penězům tím, že se naučili pracovat se svými finančními vzorci místo boje proti nim. Začněte svou cestu k finančnímu zdraví ještě dnes.',
       features: {
-        evidenceBased: '✓ Vědecky podložená IFS terapie',
-        traumaInformed: '✓ Traumy-informovaný přístup',
-        selfCompassion: '✓ AI-powered objevování',
+        evidenceBased: 'Vědecky podložená IFS terapie',
+        traumaInformed: 'Traumy-informovaný přístup',
+        selfCompassion: 'AI-powered objevování',
       },
       cta: {
         primary: 'Objevte své finanční části',
@@ -772,6 +772,25 @@ export const cs = {
         veryCompassionate: 'velmi soucitný',
         savePrompt: 'Prosím uložte své skóre sebelásky, abyste mohli zobrazit svou cestu klidu a dokončit check-in.',
         scoreSaved: 'Vaše skóre sebelásky bylo uloženo! Nyní můžete dokončit svůj check-in.'
+      },
+      partsJournal: {
+        startNewSession: 'Začít novou relaci',
+        completionNote: 'Po dokončení relace deníku částí se vrátíte k dokončení denního check-inu.',
+        noPartsTriggered: {
+          title: 'Dnes nebyly spuštěny žádné části',
+          description: 'Dnes jste nezaznamenali žádné výdaje se spuštěnými částmi. Pokračujte s vaším check-inem sebelásky.'
+        },
+        triggeredParts: {
+          title: 'Části spuštěné v dnešním utrácení:',
+          description: 'Prohloubte svůj vztah s částmi, které se objevily ve vašich finančních rozhodnutích dnes.'
+        }
+      },
+      quotes: {
+        ramDass: 'Čím tišší se stanete, tím více můžete slyšet.',
+        ramDassAttribution: 'Ram Dass'
+      },
+      images: {
+        reflectionCalmAlt: 'Klidný stav reflexe'
       }
     },
     timeline: {

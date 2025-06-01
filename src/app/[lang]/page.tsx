@@ -27,18 +27,11 @@ export default function LandingPage() {
         <div className="absolute top-0 left-1/4 w-72 h-72 bg-primary/10 rounded-full blur-3xl -z-10" />
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl -z-10" />
         
-        <div className="container mx-auto px-4 py-16 md:py-24">
+        <div className="container mx-auto px-4 py-4 md:py-6">
           <div className="text-center space-y-12">
             {/* Header Content */}
             <div className="space-y-8">
               <div className="space-y-4">
-                <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/15 border border-primary/20 shadow-sm">
-                  <div className="w-2 h-2 bg-primary rounded-full mr-3 animate-pulse" />
-                  <span className="text-sm font-medium text-primary tracking-wide">
-                    {t('landing.hero.badge')}
-                  </span>
-                </div>
-                
                 <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-tight">
                   <span className="bg-gradient-to-r from-foreground via-primary to-accent bg-clip-text text-transparent">
                     {t('landing.hero.title')}
@@ -134,7 +127,7 @@ export default function LandingPage() {
       </section>
 
       {/* Theory Section */}
-      <section className="space-y-6 px-4">
+      <section className="space-y-4 px-4">
         <Card className="shadow-lg">
           <CardHeader>
             <div className="flex items-center space-x-3">

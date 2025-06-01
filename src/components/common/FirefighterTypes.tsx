@@ -226,7 +226,7 @@ export function FirefighterTypes({
         <div className="space-y-6">
           <div className="flex items-center space-x-6">
             <div className="flex-1">
-              <h3 className="text-xl font-semibold mb-2">{currentType.title}</h3>
+              <h4 className="text-xl font-semibold mb-2">{currentType.title}</h4>
               <p className="text-muted-foreground">{currentType.description}</p>
             </div>
           </div>

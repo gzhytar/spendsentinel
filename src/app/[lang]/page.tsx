@@ -1,17 +1,112 @@
 "use client";
 
+import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Brain, Shield, Lightbulb, MessageSquare, CalendarCheck } from 'lucide-react';
+import { Brain, Shield, Lightbulb, MessageSquare, CalendarCheck, LucideIcon } from 'lucide-react';
 import { useI18n } from '@/contexts/i18n-context';
 import { FirefighterTypes, ExplorePartsButton, FeatureNavigationButton } from '@/components/common';
 import { VersionInfo } from '@/components/ui/version-info';
+
+// Feature card interfaces and types
+/**
+ * Configuration interface for feature cards
+ * @interface FeatureConfig
+ * @property {string} id - Unique identifier for the feature (used for keys and ARIA labels)
+ * @property {LucideIcon} icon - Lucide icon component to display
+ * @property {string} titleKey - Translation key for the feature title
+ * @property {string} descriptionKey - Translation key for the feature description
+ * @property {React.ReactNode} buttonComponent - React component for the feature's CTA button
+ */
+interface FeatureConfig {
+  id: string;
+  icon: LucideIcon;
+  titleKey: string;
+  descriptionKey: string;
+  buttonComponent: React.ReactNode;
+}
+
+/**
+ * Reusable FeatureCard component with proper accessibility and semantic structure
+ * @param {FeatureConfig} props - Feature configuration object
+ * @returns {React.ReactElement} Accessible feature card with article/header/footer structure
+ */
+const FeatureCard = ({ id, icon: Icon, titleKey, descriptionKey, buttonComponent }: FeatureConfig) => {
+  const { t } = useI18n();
+  
+  return (
+    <article className="space-y-4" role="article" aria-labelledby={`feature-${id}-title`}>
+      <header>
+        <div className="flex items-center space-x-3 mb-2">
+          <Icon 
+            className="w-6 h-6 text-primary flex-shrink-0" 
+            aria-hidden="true" 
+          />
+          <h3 
+            id={`feature-${id}-title`} 
+            className="font-semibold"
+          >
+            {t(titleKey)}
+          </h3>
+        </div>
+        <p className="text-muted-foreground">
+          {t(descriptionKey)}
+        </p>
+      </header>
+      <footer className="mt-4">
+        {buttonComponent}
+      </footer>
+    </article>
+  );
+};
 
 export default function LandingPage() {
   const { t } = useI18n();
 
   // Show debug info in development or if URL has debug param
-  const showDebugInfo = process.env.NODE_ENV === 'development' || 
-    (typeof window !== 'undefined' && window.location.search.includes('debug=true'));
+  const showDebugInfo = process.env.NODE_ENV === 'development';
+
+  // Features configuration
+  const features: FeatureConfig[] = [
+    {
+      id: 'self-assessment',
+      icon: MessageSquare,
+      titleKey: 'landing.features.selfAssessment.title',
+      descriptionKey: 'landing.features.selfAssessment.description',
+      buttonComponent: (
+        <ExplorePartsButton 
+          fullWidth={true}
+          analyticsSource="landing"
+          analyticsLocation="self_assessment_feature_card"
+        />
+      )
+    },
+    {
+      id: 'daily-checkin',
+      icon: CalendarCheck,
+      titleKey: 'landing.features.dailyCheckIn.title',
+      descriptionKey: 'landing.features.dailyCheckIn.description',
+      buttonComponent: (
+        <FeatureNavigationButton 
+          href="/daily-checkin"
+          translationKey="landing.features.dailyCheckIn.button"
+          fullWidth={true}
+        />
+      )
+    },
+    {
+      id: 'financial-decisions',
+      icon: Lightbulb,
+      titleKey: 'landing.features.myFinancialDecisions.title',
+      descriptionKey: 'landing.features.myFinancialDecisions.description',
+      buttonComponent: (
+        <FeatureNavigationButton 
+          href="/expense-highlighter"
+          translationKey="landing.features.myFinancialDecisions.button"
+          fullWidth={true}
+        />
+      )
+    }
+  ];
 
   return (
     <div className="container mx-auto py-8 space-y-12 px-4">
@@ -192,69 +287,28 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section className="space-y-6 px-4">
+      <section className="space-y-6 px-4" aria-labelledby="features-heading">
         <Card className="shadow-lg">
           <CardHeader>
             <div className="flex items-center space-x-3">
-              <Shield className="w-6 h-6 md:w-8 md:h-8 text-primary" />
-              <CardTitle className="text-xl md:text-2xl">{t('landing.features.title')}</CardTitle>
+              <Shield className="w-6 h-6 md:w-8 md:h-8 text-primary" aria-hidden="true" />
+              <CardTitle id="features-heading" className="text-xl md:text-2xl">
+                {t('landing.features.title')}
+              </CardTitle>
             </div>
             <CardDescription>
               {t('landing.features.subtitle')}
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <div>
-                <div className="flex items-center space-x-3 mb-2">
-                  <MessageSquare className="w-6 h-6 text-primary flex-shrink-0" />
-                  <h3 className="font-semibold">{t('landing.features.selfAssessment.title')}</h3>
-                </div>
-                <p className="text-muted-foreground">
-                  {t('landing.features.selfAssessment.description')}
-                </p>
-                <div className="mt-4">
-                  <ExplorePartsButton 
-                    fullWidth={true}
-                    analyticsSource="landing"
-                    analyticsLocation="self_assessment_feature_card"
-                  />
-                </div>
-              </div>
-              <div>
-                <div className="flex items-center space-x-3 mb-2">
-                  <CalendarCheck className="w-6 h-6 text-primary flex-shrink-0" />
-                  <h3 className="font-semibold">{t('landing.features.dailyCheckIn.title')}</h3>
-                </div>
-                <p className="text-muted-foreground">
-                  {t('landing.features.dailyCheckIn.description')}
-                </p>
-                <div className="mt-4">
-                  <FeatureNavigationButton 
-                    href="/daily-checkin"
-                    translationKey="landing.features.dailyCheckIn.button"
-                    fullWidth={true}
-                  />
-                </div>
-              </div>
-              <div>
-                <div className="flex items-center space-x-3 mb-2">
-                  <Lightbulb className="w-6 h-6 text-primary flex-shrink-0" />
-                  <h3 className="font-semibold">{t('landing.features.myFinancialDecisions.title')}</h3>
-                </div>
-                <p className="text-muted-foreground">
-                  {t('landing.features.myFinancialDecisions.description')}
-                </p>
-                <div className="mt-4">
-                  <FeatureNavigationButton 
-                    href="/expense-highlighter"
-                    translationKey="landing.features.myFinancialDecisions.button"
-                    fullWidth={true}
-                  />
-                </div>
-              </div>
-
-
+            <div 
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" 
+              role="region" 
+              aria-labelledby="features-heading"
+            >
+              {features.map((feature) => (
+                <FeatureCard key={feature.id} {...feature} />
+              ))}
             </div>
           </CardContent>
         </Card>

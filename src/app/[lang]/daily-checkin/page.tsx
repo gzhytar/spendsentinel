@@ -457,8 +457,8 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
             </p>
             
             <blockquote className="italic text-md text-center text-primary-foreground max-w-md mx-auto my-8 px-8 py-6 border-l-4 border-primary/40 bg-primary/5 rounded-r-lg shadow-sm">
-              &quot;{t('dailyCheckIn.quotes.ramDass')}&quot;
-              <footer className="text-sm mt-3 text-muted-foreground">&mdash; {t('dailyCheckIn.quotes.ramDassAttribution')}</footer>
+              &quot;{t('dailyCheckIn.steps.quotes.ramDass')}&quot;
+              <footer className="text-sm mt-3 text-muted-foreground">&mdash; {t('dailyCheckIn.steps.quotes.ramDassAttribution')}</footer>
             </blockquote>
             
             <div className="flex flex-col items-center space-y-4">

@@ -189,29 +189,29 @@ export default function LandingPage() {
               </div>
               
               {/* Social Proof */}
-              <div className="space-y-4">
-                <p className="text-sm text-muted-foreground font-medium">
+              <div className="space-y-3 sm:space-y-4">
+                <p className="text-xs sm:text-sm text-muted-foreground font-medium px-4">
                   {t('landing.hero.socialProof.text')}
                 </p>
                 
-                <div className="inline-flex items-center justify-center gap-6 px-6 py-3 bg-card/50 backdrop-blur-sm border border-border/50 rounded-full">
-                  <div className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 bg-green-500 rounded-full" />
-                    <span className="text-xs font-medium text-muted-foreground">
+                <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 lg:gap-6 px-3 sm:px-6 py-2 sm:py-3 bg-card/50 backdrop-blur-sm border border-border/50 rounded-full max-w-sm sm:max-w-none mx-auto">
+                  <div className="flex items-center gap-1.5 sm:gap-2">
+                    <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-green-500 rounded-full flex-shrink-0" />
+                    <span className="text-xs font-medium text-muted-foreground whitespace-nowrap">
                       {t('landing.hero.socialProof.features.free')}
                     </span>
                   </div>
-                  <div className="w-px h-4 bg-border" />
-                  <div className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 bg-blue-500 rounded-full" />
-                    <span className="text-xs font-medium text-muted-foreground">
+                  <div className="hidden sm:block w-px h-3 sm:h-4 bg-border" />
+                  <div className="flex items-center gap-1.5 sm:gap-2">
+                    <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-blue-500 rounded-full flex-shrink-0" />
+                    <span className="text-xs font-medium text-muted-foreground whitespace-nowrap">
                       {t('landing.hero.socialProof.features.private')}
                     </span>
                   </div>
-                  <div className="w-px h-4 bg-border" />
-                  <div className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 bg-purple-500 rounded-full" />
-                    <span className="text-xs font-medium text-muted-foreground">
+                  <div className="hidden sm:block w-px h-3 sm:h-4 bg-border" />
+                  <div className="flex items-center gap-1.5 sm:gap-2">
+                    <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-purple-500 rounded-full flex-shrink-0" />
+                    <span className="text-xs font-medium text-muted-foreground whitespace-nowrap">
                       {t('landing.hero.socialProof.features.noSignup')}
                     </span>
                   </div>
@@ -227,7 +227,7 @@ export default function LandingPage() {
         <Card className="shadow-lg">
           <CardHeader>
             <div className="flex items-center space-x-3">
-              <Brain className="w-6 h-6 md:w-8 md:h-8 text-primary" />
+              <Brain className="w-24 h-24 md:w-12 md:h-12 text-primary" />
               <CardTitle className="text-xl md:text-2xl">{t('landing.theory.title')}</CardTitle>
             </div>
             <CardDescription>{t('landing.theory.subtitle')}</CardDescription>

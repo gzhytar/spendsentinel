@@ -294,7 +294,7 @@ export function FirefighterTypes({
             {!highlightedType && (
               <ExplorePartsButton 
                 size="lg"
-                className="flex-1 sm:flex-initial"
+                className="flex-1 sm:flex-initial w-full"
                 customText={t('landing.firefighters.assessmentButton')}
                 analyticsSource="firefighter_types"
                 analyticsLocation="assessment_button"

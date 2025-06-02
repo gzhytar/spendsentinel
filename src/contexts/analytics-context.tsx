@@ -9,6 +9,9 @@ interface AnalyticsContextType {
   trackUserInteraction: (action: string, category: string, label?: string, value?: number) => void;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   trackFeatureUsage: (featureName: string, details?: Record<string, any>) => void;
+  isReady: boolean;
+  environment: string;
+  shouldTrack: boolean;
 }
 
 const AnalyticsContext = createContext<AnalyticsContextType | undefined>(undefined);

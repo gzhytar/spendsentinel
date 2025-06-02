@@ -3,6 +3,57 @@ import { initializeApp, getApps } from 'firebase/app';
 //import { getFirestore } from 'firebase/firestore';
 import { getAnalytics, Analytics, isSupported } from "firebase/analytics";
 
+// Environment configuration
+const getEnvironmentConfig = () => {
+  if (typeof window === 'undefined') {
+    return {
+      environment: 'server',
+      traffic_type: 'server',
+      shouldTrack: false
+    };
+  }
+
+  const hostname = window.location.hostname;
+  const port = window.location.port;
+  const protocol = window.location.protocol;
+  
+  // Check for specific testing environment
+  if (hostname === 'localhost' && port === '9002') {
+    return {
+      environment: 'testing',
+      traffic_type: 'testing',
+      shouldTrack: false // Don't track localhost:9002
+    };
+  }
+  
+  // Check for other local development
+  if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname.includes('local')) {
+    return {
+      environment: 'development',
+      traffic_type: 'development',
+      shouldTrack: true // Track other local environments for testing
+    };
+  }
+  
+  // Check for staging/preview environments
+  if (hostname.includes('preview') || hostname.includes('staging') || hostname.includes('vercel.app')) {
+    return {
+      environment: 'staging',
+      traffic_type: 'staging',
+      shouldTrack: true
+    };
+  }
+  
+  // Production environment
+  return {
+    environment: 'production',
+    traffic_type: 'production',
+    shouldTrack: true
+  };
+};
+
+// Export environment config for use in analytics
+export const environmentConfig = getEnvironmentConfig();
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -26,17 +77,21 @@ let analyticsPromise: Promise<Analytics | undefined>;
 
 if (typeof window !== 'undefined') {
     analyticsPromise = isSupported().then((supported) => {
-        if (supported) {
+        if (supported && environmentConfig.shouldTrack) {
           analytics = getAnalytics(app);
           console.log('Firebase Analytics initialized successfully');
+          console.log('Environment config:', environmentConfig);
           console.log('Config check:', {
             hasApiKey: !!firebaseConfig.apiKey,
             hasProjectId: !!firebaseConfig.projectId,
             hasMeasurementId: !!firebaseConfig.measurementId,
           });
           return analytics;
-        } else {
+        } else if (!supported) {
           console.log('Firebase Analytics not supported in this environment');
+          return undefined;
+        } else {
+          console.log(`Firebase Analytics disabled for ${environmentConfig.environment} environment`);
           return undefined;
         }
     }).catch((error) => {

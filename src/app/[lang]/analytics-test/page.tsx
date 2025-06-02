@@ -1,4 +1,4 @@
-import { AnalyticsTest } from '@/components/common';
+import { AnalyticsTest } from '@/components/common/analytics-test';
 
 export default function AnalyticsTestPage() {
   return (
@@ -16,14 +16,14 @@ export default function AnalyticsTestPage() {
         <div className="max-w-2xl text-sm text-muted-foreground">
           <h2 className="font-semibold mb-2">How to test:</h2>
           <ol className="list-decimal list-inside space-y-1">
-            <li>Open your browser's developer console (F12)</li>
+            <li>Open your browser&apos;s developer console (F12)</li>
             <li>Click the test buttons above to send events</li>
             <li>Check the console for event logs and analytics status</li>
             <li>
-              On localhost:9002, you should see "🚫 Analytics tracking disabled" messages
+              On localhost:9002, you should see &quot;🚫 Analytics tracking disabled&quot; messages
             </li>
             <li>
-              On other environments, you should see "✅ Analytics Event Sent" messages
+              On other environments, you should see &quot;✅ Analytics Event Sent&quot; messages
             </li>
           </ol>
         </div>

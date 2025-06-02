@@ -21,6 +21,8 @@ import { use } from 'react';
 import { completeOnboardingSession, ANALYTICS_EVENTS } from '@/lib/analytics-utils';
 import { useOnboardingTracking } from '@/hooks/use-onboarding-tracking';
 import { useAnalyticsContext } from '@/contexts/analytics-context';
+import { CelebrationSupport } from '@/components/common/celebration-support';
+import { toast } from '@/hooks/use-toast';
 
 interface DailyCheckInProps {
   params: Promise<{
@@ -42,6 +44,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
   });
   const [selectedParts, setSelectedParts] = useState<string[]>([]);
   const [isScoreSaved, setIsScoreSaved] = useState(false);
+  const [showCompletionCelebration, setShowCompletionCelebration] = useState(false);
   
   // Get user's identified parts from self-assessment results
   const userParts = useIdentifiedParts();
@@ -250,22 +253,33 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
     // TODO: Save to database
     console.log('Check-in completed:', checkInData);
     
+    // Show completion celebration first
+    setShowCompletionCelebration(true);
     
-    // Reset for new check-in
-    setCurrentStep(1);
-    setCheckInData({
-      selfCompassionScore: 5,
-      expenses: [],
-      triggeredParts: {},
+    // Show completion toast
+    toast({
+      title: t('dailyCheckIn.completionMessage'),
+      variant: "default",
     });
-    setSelectedParts([]);
-    setIsScoreSaved(false);
     
-    // Scroll to top after reset for better UX
-    containerRef.current?.scrollIntoView({ 
-      behavior: 'smooth', 
-      block: 'start' 
-    });
+    // Reset for new check-in after a delay to allow celebration to be seen
+    setTimeout(() => {
+      setCurrentStep(1);
+      setCheckInData({
+        selfCompassionScore: 5,
+        expenses: [],
+        triggeredParts: {},
+      });
+      setSelectedParts([]);
+      setIsScoreSaved(false);
+      setShowCompletionCelebration(false);
+      
+      // Scroll to top after reset for better UX
+      containerRef.current?.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+      });
+    }, 5000); // Show celebration for 5 seconds
   };
 
   const progressPercentage = (currentStep / 5) * 100;
@@ -654,6 +668,16 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
           )}
         </div>
       </Card>
+
+      {/* Completion Celebration */}
+      {showCompletionCelebration && (
+        <div className="mt-6">
+          <CelebrationSupport 
+            completionType="checkin" 
+            className="max-w-2xl mx-auto"
+          />
+        </div>
+      )}
     </div>
   );
 } 

@@ -598,7 +598,92 @@ export const en = {
     allRightsReserved: 'All rights reserved.',
     madeWithLove: 'Made with awareness in Czech Republic',
     disclaimerLabel: 'Disclaimer',
-    disclaimer: 'SpendSentinel is a digital wellness tool and does not replace professional financial advice or mental health treatment. If you\'re experiencing a mental health crisis, please contact your local emergency services or a mental health professional.'
+    disclaimer: 'SpendSentinel is a digital wellness tool and does not replace professional financial advice or mental health treatment. If you\'re experiencing a mental health crisis, please contact your local emergency services or a mental health professional.',
+    supportMessage: 'Help us continue providing compassionate financial wellness tools for everyone.',
+    supportButton: 'Support Our Mission'
+  },
+
+  support: {
+    button: {
+      footer: 'Support Our Mission',
+      card: 'Buy Us a Coffee',
+      celebration: 'Support Development',
+      settings: 'Support the Team'
+    },
+    dialog: {
+      title: 'Support Our Mission',
+      description: 'Help us continue building trauma-informed financial wellness tools'
+    },
+    mission: {
+      title: 'Support Our Mission',
+      description: 'SpendSentinel is built by a small team passionate about reducing suffering and helping people live more harmonious life.',
+      sustainabilityTitle: 'Help Us Keep Growing',
+      sustainabilityMessage: 'Your contributions help us keep the core features free while developing new ways to support your wellbeing journey.',
+      sustainabilityButton: 'Support Development'
+    }
+  },
+
+  monetization: {
+    gentle: {
+      message: 'If our tools have been helpful to you, consider supporting our mission.',
+      button: 'Show Support'
+    }
+  },
+
+  premium: {
+    introduction: {
+      title: 'Enhanced Features Available',
+      subtitle: 'Optional features to deepen your financial wellness journey'
+    },
+    core: {
+      commitment: 'Our Promise',
+      promise: 'Core healing features will always remain free and accessible to everyone.'
+    },
+    enhanced: {
+      title: 'Enhanced Features Include:'
+    },
+    teaser: {
+      title: 'Explore Enhanced Features',
+      description: 'Discover additional tools to support your financial wellness journey.',
+      button: 'Learn More'
+    },
+    cta: {
+      primary: 'Explore Enhanced Features',
+      noCommitment: 'No commitment required • Cancel anytime'
+    }
+  },
+
+  completion: {
+    celebration: {
+      title: 'Great Progress!',
+      message: 'You\'ve completed something meaningful for your financial wellness.'
+    },
+    nextSteps: 'Continue Journey',
+    supportOption: 'Support Our Work'
+  },
+
+  settings: {
+    support: {
+      title: 'Support Development',
+      description: 'Help us continue building trauma-informed financial wellness tools.',
+      coffee: {
+        title: 'Buy Us a Coffee',
+        description: 'Support our mission to make financial healing accessible to everyone.',
+        button: 'Support Development'
+      }
+    }
+  },
+
+  about: {
+    mission: {
+      title: 'Our Mission',
+      description: 'We\'re dedicated to providing trauma-informed financial wellness tools that help people heal their relationship with money.'
+    },
+    sustainability: {
+      title: 'Sustainable Development',
+      message: 'Your support helps us maintain and improve these tools while keeping them accessible to those who need them most.',
+      button: 'Support Our Mission'
+    }
   },
   privacyPolicy: {
     title: 'Privacy Policy',

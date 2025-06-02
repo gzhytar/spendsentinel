@@ -185,19 +185,17 @@ Session 8+: Contextual placement based on user engagement
 #### Tier Structure (Trauma-Informed Naming)
 ```
 ☕ Supporter ($3/month)
-- Community member badge
-- Early feature previews
-- Monthly development updates
+✅ Community member badge
+Access to exclusive meditations and supporting materials
 
-🌱 Advocate ($7/month) 
-- Everything in Supporter
-- Priority feature requests
-- Access to exclusive meditations and supporting materials
+🌱 Advocate ($9/month) 
+✅Early feature previews 🔜
+✅Direct feedback to development team 🗣️
+✅Everything in ☕ Supporter
 
 💜 Champion ($15/month)
-- Everything in Advocate  
-- Direct feedback to development team
-- Influence product roadmap
+☑️ individual IFS-informed coaching session with Georgiy (1 hour session / month)
+☑️ everything in 🌱 Advocate
 ```
 
 ---

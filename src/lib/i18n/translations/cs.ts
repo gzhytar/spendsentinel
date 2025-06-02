@@ -494,7 +494,92 @@ export const cs = {
     allRightsReserved: 'Všechna práva vyhrazena.',
     madeWithLove: 'Vytvořeno s vědomím v České republice',
     disclaimerLabel: 'Upozornění',
-    disclaimer: 'InnerBalance je nástroj pro digitální wellness a nenahrazuje profesionální finanční poradenství nebo léčbu duševního zdraví. Pokud prožíváte krizi duševního zdraví, kontaktujte prosím místní záchranné služby nebo odborníka na duševní zdraví.'
+    disclaimer: 'InnerBalance je nástroj pro digitální wellness a nenahrazuje profesionální finanční poradenství nebo léčbu duševního zdraví. Pokud prožíváte krizi duševního zdraví, kontaktujte prosím místní záchranné služby nebo odborníka na duševní zdraví.',
+    supportMessage: 'Pomozte nám pokračovat v poskytování soucitných nástrojů pro finanční wellness pro všechny.',
+    supportButton: 'Podpořte naši misi'
+  },
+
+  support: {
+    button: {
+      footer: 'Podpořte naši misi',
+      card: 'Kupte nám kávu',
+      celebration: 'Podpořte vývoj',
+      settings: 'Podpořte tým'
+    },
+    dialog: {
+      title: 'Podpořte naši misi',
+      description: 'Pomozte nám pokračovat ve vytváření nástrojů pro finanční wellness založených na traumatu'
+    },
+    mission: {
+      title: 'Podpořte naši misi',
+      description: 'SpendSentinel je vytvořen malým týmem lidí, kteří se věnují snižování utrpení a pomáhají lidem žít harmoničtější život.',
+      sustainabilityTitle: 'Pomozte nám růst',
+      sustainabilityMessage: 'Vaše příspěvky nám pomáhají udržet základní funkce zdarma a zároveň vyvíjet nové způsoby podpory vaší cesty k blahu.',
+      sustainabilityButton: 'Podpořte vývoj'
+    }
+  },
+
+  monetization: {
+    gentle: {
+      message: 'Pokud vám naše nástroje pomohly, zvažte podporu naší mise.',
+      button: 'Ukázat podporu'
+    }
+  },
+
+  premium: {
+    introduction: {
+      title: 'Dostupné rozšířené funkce',
+      subtitle: 'Volitelné funkce pro prohloubení vaší cesty k finanční pohodě'
+    },
+    core: {
+      commitment: 'Náš slib',
+      promise: 'Základní léčebné funkce zůstanou vždy bezplatné a dostupné pro všechny.'
+    },
+    enhanced: {
+      title: 'Rozšířené funkce zahrnují:'
+    },
+    teaser: {
+      title: 'Prozkoumejte rozšířené funkce',
+      description: 'Objevte další nástroje pro podporu vaší cesty k finanční pohodě.',
+      button: 'Zjistit více'
+    },
+    cta: {
+      primary: 'Prozkoumejte rozšířené funkce',
+      noCommitment: 'Žádné závazky • Zrušte kdykoli'
+    }
+  },
+
+  completion: {
+    celebration: {
+      title: 'Skvělý pokrok!',
+      message: 'Dokončili jste něco smysluplného pro svou finanční pohodu.'
+    },
+    nextSteps: 'Pokračovat v cestě',
+    supportOption: 'Podpořte naši práci'
+  },
+
+  settings: {
+    support: {
+      title: 'Podpořte vývoj',
+      description: 'Pomozte nám pokračovat ve vytváření nástrojů pro finanční wellness založených na traumatu.',
+      coffee: {
+        title: 'Kupte nám kávu',
+        description: 'Podpořte naši misi zpřístupnit finanční uzdravení všem.',
+        button: 'Podpořte vývoj'
+      }
+    }
+  },
+
+  about: {
+    mission: {
+      title: 'Naše mise',
+      description: 'Věnujeme se poskytování nástrojů pro finanční wellness založených na traumatu, které lidem pomáhají uzdravit jejich vztah s penězi.'
+    },
+    sustainability: {
+      title: 'Udržitelný vývoj',
+      message: 'Vaše podpora nám pomáhá udržovat a zlepšovat tyto nástroje a zároveň je udržuje dostupné pro ty, kteří je nejvíce potřebují.',
+      button: 'Podpořte naši misi'
+    }
   },
   privacyPolicy: {
     title: 'Ochrana soukromí',

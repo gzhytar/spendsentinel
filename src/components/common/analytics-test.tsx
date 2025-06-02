@@ -88,7 +88,7 @@ export function AnalyticsTest() {
         {analyticsDebug.isTestingEnvironment() && (
           <div className="p-3 bg-red-50 border border-red-200 rounded-md">
             <p className="text-red-800 text-sm">
-              🚫 <strong>Testing Environment Detected:</strong> You're on localhost:9002 - analytics tracking is disabled.
+              🚫 <strong>Testing Environment Detected:</strong> You&apos;re on localhost:9002 - analytics tracking is disabled.
             </p>
           </div>
         )}
@@ -121,8 +121,8 @@ export function AnalyticsTest() {
         </div>
 
         <div className="text-xs text-gray-500 mt-4">
-          <p><strong>Note:</strong> Check your browser's developer console to see the analytics events and environment information.</p>
-          <p><strong>Traffic Type Parameter:</strong> All events will include a 'traffic_type' parameter indicating the current environment.</p>
+          <p><strong>Note:</strong> Check your browser&apos;s developer console to see the analytics events and environment information.</p>
+          <p><strong>Traffic Type Parameter:</strong> All events will include a &apos;traffic_type&apos; parameter indicating the current environment.</p>
         </div>
       </CardContent>
     </Card>

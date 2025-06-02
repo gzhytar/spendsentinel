@@ -3,10 +3,13 @@
 import Link from 'next/link';
 import { Shield, Heart, Mail, AlertTriangle } from 'lucide-react';
 import { useI18n } from '@/contexts/i18n-context';
+import { BuyMeCoffeeButton } from '@/components/common/buy-me-coffee-button';
+import { useMonetizationVisibility } from '@/hooks/use-monetization-visibility';
 
 export function AppFooter() {
   const { t, locale } = useI18n();
   const currentYear = new Date().getFullYear();
+  const { showSupportMention } = useMonetizationVisibility();
   
   return (
     <footer className="mt-8 border-t bg-background/80 backdrop-blur-sm">
@@ -77,6 +80,25 @@ export function AppFooter() {
             <strong>{t('footer.disclaimerLabel')}:</strong> {t('footer.disclaimer')}
           </p>
         </div>
+
+        {/* Support Section (Progressive Disclosure) */}
+        {showSupportMention && (
+          <div className="mt-6 pt-6 border-t border-border">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <div className="text-center md:text-left">
+                <p className="text-sm text-muted-foreground">
+                  {t('footer.supportMessage')}
+                </p>
+              </div>
+              <BuyMeCoffeeButton 
+                placement="footer"
+                variant="outline" 
+                size="sm"
+                className="flex items-center gap-2"
+              />
+            </div>
+          </div>
+        )}
 
         {/* Bottom Bar */}
         <div className="mt-6 pt-4 border-t border-border">

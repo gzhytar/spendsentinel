@@ -1,10 +1,10 @@
 "use client";
 
 import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Brain, Shield, Lightbulb, MessageSquare, CalendarCheck, LucideIcon } from 'lucide-react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
+import { Brain, Shield, Lightbulb, MessageSquare, CalendarCheck, Coffee, LucideIcon } from 'lucide-react';
 import { useI18n } from '@/contexts/i18n-context';
-import { FirefighterTypes, ExplorePartsButton, FeatureNavigationButton } from '@/components/common';
+import { FirefighterTypes, ExplorePartsButton, FeatureNavigationButton, BuyMeCoffeeButton } from '@/components/common';
 import { VersionInfo } from '@/components/ui/version-info';
 import { useDebugMode } from '@/hooks/use-debug-mode';
 
@@ -312,6 +312,37 @@ export default function LandingPage() {
               ))}
             </div>
           </CardContent>
+        </Card>
+      </section>
+
+      {/* Support Mission Section */}
+      <section className="px-4">
+        <Card className="shadow-lg">
+          <CardHeader>
+            <div className="flex items-center space-x-3">
+              <Coffee className="w-8 h-8 text-primary" />
+              <CardTitle className="text-2xl">{t('support.mission.title')}</CardTitle>
+            </div>
+            <CardDescription>
+              {t('support.mission.description')}
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="bg-primary/5 p-6 rounded-lg space-y-4">
+              <h3 className="font-semibold text-lg">{t('support.mission.sustainabilityTitle')}</h3>
+              <p className="text-muted-foreground">
+                {t('support.mission.sustainabilityMessage')}
+              </p>
+            </div>
+          </CardContent>
+          <CardFooter>
+            <BuyMeCoffeeButton 
+              placement="card"
+              variant="outline"
+              size="default"
+              className="flex items-center gap-2 w-full sm:w-auto"
+            />
+          </CardFooter>
         </Card>
       </section>
     </div>

@@ -15,7 +15,6 @@ const getEnvironmentConfig = () => {
 
   const hostname = window.location.hostname;
   const port = window.location.port;
-  const protocol = window.location.protocol;
   
   // Check for specific testing environment
   if (hostname === 'localhost' && port === '9002') {
@@ -29,18 +28,9 @@ const getEnvironmentConfig = () => {
   // Check for other local development
   if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname.includes('local')) {
     return {
-      environment: 'development',
-      traffic_type: 'development',
-      shouldTrack: true // Track other local environments for testing
-    };
-  }
-  
-  // Check for staging/preview environments
-  if (hostname.includes('preview') || hostname.includes('staging') || hostname.includes('vercel.app')) {
-    return {
       environment: 'staging',
       traffic_type: 'staging',
-      shouldTrack: true
+      shouldTrack: true // Track other local environments for testing
     };
   }
   

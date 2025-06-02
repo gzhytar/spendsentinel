@@ -51,6 +51,7 @@ export const analyticsDebug = {
   /**
    * Simulate what parameters would be sent with an event
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   simulateEventParameters: (customParams: Record<string, any> = {}) => {
     const defaultParams = {
       traffic_type: environmentConfig.traffic_type,

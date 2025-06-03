@@ -7,6 +7,7 @@ import { useI18n } from '@/contexts/i18n-context';
 import { FirefighterTypes, ExplorePartsButton, FeatureNavigationButton, BuyMeCoffeeButton } from '@/components/common';
 import { VersionInfo } from '@/components/ui/version-info';
 import { useDebugMode } from '@/hooks/use-debug-mode';
+import { useMonetizationVisibility } from '@/hooks/use-monetization-visibility';
 
 // Feature card interfaces and types
 /**
@@ -65,6 +66,7 @@ export default function LandingPage() {
 
   // Use custom hook for safe debug mode detection (handles both dev environment and URL params)
   const showDebugInfo = useDebugMode();
+  const { showMissionMention } = useMonetizationVisibility();
 
   // Features configuration
   const features: FeatureConfig[] = [
@@ -316,7 +318,7 @@ export default function LandingPage() {
       </section>
 
       {/* Support Mission Section */}
-      <section className="px-4">
+      { showMissionMention && <section className="px-4">
         <Card className="shadow-lg">
           <CardHeader>
             <div className="flex items-center space-x-3">
@@ -345,6 +347,7 @@ export default function LandingPage() {
           </CardFooter>
         </Card>
       </section>
+      }
     </div>
   );
 } 

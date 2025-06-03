@@ -12,6 +12,7 @@ interface MonetizationVisibility {
   showPremiumTeaser: boolean;
   showSubscriptionOffer: boolean;
   showCelebrationSupport: boolean;
+  showMissionMention: boolean;
 }
 
 /**
@@ -24,15 +25,18 @@ export function useMonetizationVisibility(): MonetizationVisibility {
     showPremiumTeaser: false,
     showSubscriptionOffer: false,
     showCelebrationSupport: false,
+    showMissionMention: false,
   });
 
   useEffect(() => {
     setVisibility({
-      showCelebrationSupport: getEngagementLevel() >= EngagementLevel.STARTER,
-      showSupportMention: getEngagementLevel() >= EngagementLevel.BEGINNER,
+      showSupportMention: getEngagementLevel() >= EngagementLevel.STARTER,
+      showCelebrationSupport: getEngagementLevel() >= EngagementLevel.BEGINNER,
+      showMissionMention: getEngagementLevel() >= EngagementLevel.ADVANCED,
       showPremiumTeaser: getEngagementLevel() >= EngagementLevel.ADVANCED,
       showSubscriptionOffer: getEngagementLevel() >= EngagementLevel.EXPERT,
     });
+    console.log('EngagementLevel', getEngagementLevel());
   }, []);
 
   return visibility;
@@ -52,20 +56,26 @@ export function getEngagementLevel(): EngagementLevel {
     try {
         // Check various engagement indicators
         const hasExpenses = localStorage.getItem('expenses');
-        const hasBudget = localStorage.getItem('monthlyBudget');
-        const hasCompletedCheckin = localStorage.getItem('completedCheckIns');
-        const hasCompletedAssessment = localStorage.getItem('firefighterQuizResults');
-        const hasPartsJournal = localStorage.getItem('completedPartsJournalSessions');
-       
-        if (hasCompletedAssessment) score += 4;
         if (hasExpenses) score += 2;
+        
+        const hasBudget = localStorage.getItem('monthlyBudget');
         if (hasBudget) score += 2;
-        if (hasCompletedCheckin) score += 3;
-        if (hasPartsJournal) score += 3;
 
+        const hasCompletedAssessment = localStorage.getItem('firefighterQuizResults');
+        if (hasCompletedAssessment) score += 4;
+
+        // ToDo: count completed checkins
+        const hasCompletedCheckin = localStorage.getItem('completedCheckIns');
+        if (hasCompletedCheckin) score += 3;
+
+        // ToDo: count completed parts journal sessions
+        const hasPartsJournal = localStorage.getItem('completedPartsJournalSessions');
+        if (hasPartsJournal) score += 3;
+       
         if (score >= 12) return EngagementLevel.EXPERT;
         if (score >= 8) return EngagementLevel.ADVANCED;
         if (score >= 4) return EngagementLevel.BEGINNER;
+        
         return EngagementLevel.STARTER;
 
       } catch {

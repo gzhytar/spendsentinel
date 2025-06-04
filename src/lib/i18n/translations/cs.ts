@@ -693,7 +693,7 @@ export const cs = {
       contactUs: {
         title: 'Kontaktujte nás',
         content: 'Pokud máte otázky ohledně těchto zásad ochrany soukromí nebo jak zacházíme s vašimi daty, kontaktujte nás:',
-        email: 'privacy@spendsentinel.app',
+        email: 'privacy@spendsentinel.com',
         responseTime: 'Na dotazy ohledně soukromí odpovídáme do 72 hodin'
       },
       trustIsSacred: 'Chápeme, že rozhodnutí sdílet s námi svou finanční a emoční cestu vyžaduje obrovskou důvěru. Tuto důvěru ctíme udržováním nejvyšších standardů ochrany soukromí a etického zacházení s daty.'

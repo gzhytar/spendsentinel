@@ -797,7 +797,7 @@ export const en = {
       contactUs: {
         title: 'Contact Us',
         content: 'If you have questions about this privacy policy or how we handle your data, please contact us:',
-        email: 'privacy@spendsentinel.app',
+        email: 'privacy@spendsentinel.com',
         responseTime: 'We respond to privacy inquiries within 72 hours'
       },
       trustIsSacred: 'We understand that choosing to share your financial and emotional journey with us requires tremendous trust. We honor that trust by maintaining the highest standards of privacy protection and ethical data handling.'
@@ -847,9 +847,9 @@ export const en = {
       contactInfo: {
         title: 'Contact Information',
         content: 'For questions about these terms or our Service:',
-        generalSupport: 'support@spendsentinel.app',
-        legalQuestions: 'legal@spendsentinel.app',
-        privacyConcerns: 'privacy@spendsentinel.app'
+        generalSupport: 'support@spendsentinel.com',
+        legalQuestions: 'legal@spendsentinel.com',
+        privacyConcerns: 'privacy@spendsentinel.com'
       },
       commitment: 'We are dedicated to supporting your financial wellness journey with compassion, respect, and the highest ethical standards. These terms exist to protect both you and our ability to provide this important service.'
     }

@@ -144,7 +144,7 @@ export default function TermsOfServicePage() {
                 <Mail className="h-4 w-4 text-primary" />
                 <div>
                   <p className="font-medium">{t('footer.generalSupport')}</p>
-                  <a href="mailto:support@spendsentinel.app" className="text-primary hover:underline text-sm">
+                  <a href="mailto:support@spendsentinel.com" className="text-primary hover:underline text-sm">
                     {t('termsOfService.sections.contactInfo.generalSupport')}
                   </a>
                 </div>
@@ -153,7 +153,7 @@ export default function TermsOfServicePage() {
                 <FileText className="h-4 w-4 text-primary" />
                 <div>
                   <p className="font-medium">{t('common.legalQuestions')}</p>
-                  <a href="mailto:legal@spendsentinel.app" className="text-primary hover:underline text-sm">
+                  <a href="mailto:legal@spendsentinel.com" className="text-primary hover:underline text-sm">
                     {t('termsOfService.sections.contactInfo.legalQuestions')}
                   </a>
                 </div>
@@ -162,7 +162,7 @@ export default function TermsOfServicePage() {
                 <Shield className="h-4 w-4 text-primary" />
                 <div>
                   <p className="font-medium">{t('footer.privacyQuestions')}</p>
-                  <a href="mailto:privacy@spendsentinel.app" className="text-primary hover:underline text-sm">
+                  <a href="mailto:privacy@spendsentinel.com" className="text-primary hover:underline text-sm">
                     {t('termsOfService.sections.contactInfo.privacyConcerns')}
                   </a>
                 </div>

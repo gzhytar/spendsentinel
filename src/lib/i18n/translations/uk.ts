@@ -750,7 +750,7 @@ export const uk = {
       contactUs: {
         title: 'Зв\'яжіться з нами',
         content: 'Якщо у вас є питання щодо цієї політики конфіденційності або щодо того, як ми обробляємо ваші дані, будь ласка, зв\'яжіться з нами:',
-        email: 'privacy@spendsentinel.app',
+        email: 'privacy@spendsentinel.com',
         responseTime: 'Ми відповідаємо на запити про конфіденційність протягом 72 годин'
       },
       trustIsSacred: 'Ми розуміємо, що рішення поділитися з нами своєю фінансовою та емоційною подорожжю вимагає величезної довіри. Ми шануємо цю довіру, підтримуючи найвищі стандарти захисту конфіденційності та етичного поводження з даними.'
@@ -801,9 +801,9 @@ export const uk = {
       contactInformation: {
         title: 'Контактна інформація',
         content: 'З питань щодо цих умов або нашої Послуги:',
-        generalSupport: 'support@spendsentinel.app',
-        legalQuestions: 'legal@spendsentinel.app',
-        privacyConcerns: 'privacy@spendsentinel.app'
+        generalSupport: 'support@spendsentinel.com',
+        legalQuestions: 'legal@spendsentinel.com',
+        privacyConcerns: 'privacy@spendsentinel.com'
       },
       commitment: 'Ми присвячені підтримці вашої подорожі фінансового благополуччя зі співчуттям, повагою та найвищими етичними стандартами. Ці умови існують для захисту як вас, так і нашої здатності надавати цю важливу послугу.'
     }

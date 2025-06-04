@@ -692,7 +692,7 @@ export const ru = {
       contactUs: {
         title: 'Свяжитесь с нами',
         content: 'Если у вас есть вопросы об этой политике конфиденциальности или о том, как мы обрабатываем ваши данные, пожалуйста, свяжитесь с нами:',
-        email: 'privacy@spendsentinel.app',
+        email: 'privacy@spendsentinel.com',
         responseTime: 'Мы отвечаем на запросы о конфиденциальности в течение 72 часов'
       },
       trustIsSacred: 'Мы понимаем, что решение поделиться с нами своим финансовым и эмоциональным путешествием требует огромного доверия. Мы чтим это доверие, поддерживая самые высокие стандарты защиты конфиденциальности и этичного обращения с данными.'
@@ -742,9 +742,9 @@ export const ru = {
       contactInformation: {
         title: 'Контактная информация',
         content: 'По вопросам об этих условиях или нашей Услуге:',
-        generalSupport: 'support@spendsentinel.app',
-        legalQuestions: 'legal@spendsentinel.app',
-        privacyConcerns: 'privacy@spendsentinel.app'
+        generalSupport: 'support@spendsentinel.com',
+        legalQuestions: 'legal@spendsentinel.com',
+        privacyConcerns: 'privacy@spendsentinel.com'
       },
       commitment: 'Мы посвящены поддержке вашего путешествия финансового благополучия с состраданием, уважением и самыми высокими этическими стандартами. Эти условия существуют для защиты как вас, так и нашей способности предоставлять эту важную услугу.'
     }

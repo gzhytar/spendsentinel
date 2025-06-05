@@ -47,3 +47,5 @@ firestore-debug.log
 .idx/*
 playwright-report/*
 test-results/*
+._nv.*
+.env

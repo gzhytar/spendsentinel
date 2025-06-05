@@ -120,7 +120,7 @@ export function CookieConsentSettings() {
                       {getCategoryIcon(purpose.category)}
                       <div>
                         <CardTitle className="text-base flex items-center gap-2">
-                          {purpose.name}
+                          {t(purpose.name)}
                           {purpose.required && (
                             <Badge variant="secondary" className="text-xs bg-emerald-100 text-emerald-800">
                               {t('cookie.settings.required')}
@@ -128,7 +128,7 @@ export function CookieConsentSettings() {
                           )}
                         </CardTitle>
                         <CardDescription className="text-sm mt-1">
-                          {purpose.description}
+                          {t(purpose.description)}
                         </CardDescription>
                       </div>
                     </div>

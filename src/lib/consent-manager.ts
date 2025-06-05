@@ -6,26 +6,26 @@ export class ConsentManager {
   private static readonly CONSENT_VERSION = '1.0.0';
   private static readonly REFRESH_INTERVAL_MONTHS = 6;
 
-  // GDPR-compliant cookie purposes for SpendSentinel
+  // GDPR-compliant cookie purposes for SpendSentinel (using translation keys)
   static readonly PURPOSES: ConsentPurpose[] = [
     {
       id: 'essential',
-      name: 'Essential Cookies',
-      description: 'Required for the website to function properly, including user sessions, security, and basic functionality. These cannot be disabled.',
+      name: 'consent.widget.essential',
+      description: 'cookie.category.essentialDesc',
       required: true,
       category: 'essential'
     },
     {
       id: 'analytics',
-      name: 'Analytics & Performance',
-      description: 'Help us understand how you use SpendSentinel to improve your experience. Includes Firebase Analytics for usage patterns and feature effectiveness.',
+      name: 'consent.widget.analytics',
+      description: 'cookie.category.analyticsDesc',
       required: false,
       category: 'analytics'
     },
     {
       id: 'preferences',
-      name: 'Preferences & Settings',
-      description: 'Remember your language, currency, and other personal preferences to enhance your experience across sessions.',
+      name: 'consent.widget.preferences',
+      description: 'cookie.category.preferencesDesc',
       required: false,
       category: 'preferences'
     }

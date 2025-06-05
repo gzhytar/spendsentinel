@@ -150,10 +150,10 @@ export const en = {
   navigation: {
     home: 'Home',
     overview: 'Overview',
-    selfAssessment: 'My parts',
+    selfAssessment: 'My Parts',
     partsJournal: 'Parts Journal',
     myFinancialDecisions: 'My Financial Decisions',
-    dailyCheckIn: 'Daily Check-in',
+    dailyCheckIn: 'My Daily Check-in',
   },
   landing: {
     hero: {
@@ -167,7 +167,7 @@ export const en = {
         selfCompassion: 'AI-powered discovery',
       },
       cta: {
-        primary: 'Discover Your Financial Parts',
+        primary: 'Discover My Financial Parts',
         secondary: 'Start Tracking My Financial Decisions',
       },
       socialProof: {
@@ -197,7 +197,7 @@ export const en = {
       cta: {
         title: 'Ready to Discover Your Financial Parts?',
         description: 'Take our science-based assessment to identify which emotional parts drive your money decisions and learn how to work with them compassionately.',
-        buttonText: 'Explore My Financial Parts',
+        buttonText: 'Start My Discovery',
       },
     },
     firefighters: {
@@ -390,7 +390,7 @@ export const en = {
         innerDialogue: 'Inner Dialogue',
         digitalFootprints: 'Digital Footprints'
       },
-      assessmentButton: 'Explore my financial parts',
+      assessmentButton: 'Explore My Financial Parts',
       workWithPartButton: 'Deepen relationship with this part',
       compassionButton: 'Learn Self-Compassion'
     },
@@ -398,36 +398,34 @@ export const en = {
       title: 'Discover Your Financial Self',
       subtitle: 'Tools designed to help you understand and work with your financial parts',
       selfAssessment: {
-        title: 'My Parts',
+        title: 'My Parts Discovery',
         description: 'Discover which financial "firefighter" parts are most active in your life and learn about their protective intentions.',
-        button: 'Explore My Parts',
+        button: 'Start My Discovery',
       },
       myFinancialDecisions: {
         title: 'My Financial Decisions',
         description: 'Track and understand the emotional patterns behind your spending with AI-powered insights.',
-        button: 'Track Decisions',
+        button: 'Start My Tracking',
       },
-
-
       dailyCheckIn: {
-        title: 'Daily Check-in',
+        title: 'My Daily Check-in',
         description: 'Build a daily habit of reflection, expense tracking, and compassionate self-awareness with your financial parts.',
-        button: 'Start Check-in',
+        button: 'Start My Check-in',
       },
     },
   },
   selfAssessment: {
-    title: 'My Parts',
+    title: 'My Parts Discovery',
     subtitle: 'Discover your financial parts and learn to work with them compassionately',
     quiz: {
-      title: 'Quick Part Discovery',
+      title: 'Quick Parts Discovery',
       description: 'Take this brief quiz to identify your primary financial firefighter part',
       instruction: 'Answer 4 quick questions to discover which financial "firefighter" part is most active in your life.',
-      startButton: 'Start Discovery',
+      startButton: 'Start My Discovery',
       unsureOption: 'I\'m not sure / None of these match me',
       result: 'Your primary firefighter part is:',
       resultDescription: 'This doesn\'t define you completely—we all have multiple parts. Understanding your dominant part is the first step toward financial self-compassion.',
-      repeatQuizButton: 'Repeat Discovery',
+      repeatQuizButton: 'Repeat My Discovery',
       detailedResult: {
         title: 'Your Financial Firefighter Part',
         subtitle: 'Understanding your primary part and how to work with it compassionately'
@@ -692,7 +690,7 @@ export const en = {
       },
     },
     identifyButton: 'Identify Financial Part',
-    repeatAssessmentButton: 'Repeat Firefighter-parts assessment',
+    repeatAssessmentButton: 'Repeat My Parts Discovery',
     explorePartButton: 'Explore This Part Deeper',
     premiumFeatureTooltip: 'This deep exploration is a premium feature. Subscribe to enable premium features.',
     error: {
@@ -991,7 +989,7 @@ export const en = {
     }
   },
   dailyCheckIn: {
-    title: 'Daily Check-in',
+    title: 'My Daily Check-in',
     subtitle: 'Build a habit of reflection and understanding with your financial parts',
     progress: 'Step {current} of {total}',
     panicButtonReminder: 'Remember, the panic button is always here for you - no judgment, just support when you need it.',
@@ -1028,7 +1026,7 @@ export const en = {
       deepenRelationships: {
         title: 'Deepen Part Relationships',
         description: 'Explore and build a deeper understanding with the parts that were triggered today.',
-        button: 'Deepen Part Relationships'
+        button: 'Deepen My Part Relationships'
       },
       selfCompassion: {
         title: 'Self-Compassion Score',
@@ -1075,17 +1073,17 @@ export const en = {
     }
   },
   partsJournal: {
-    title: 'Parts Journal',
+    title: 'My Parts Journal',
     subtitle: 'Engage in structured dialogue with your financial parts',
     sessionTitle: 'Dialogue with {partName}',
     sessionSubtitle: 'This is a safe space for inner exploration and understanding',
     progress: 'Step {current} of {total}',
-    viewHistory: 'View History',
+    viewHistory: 'View My History',
     startNewSession: 'Start New Session',
-    journalHistory: 'Journal History',
+    journalHistory: 'My Journal History',
     showSummary: 'Show Summary',
     noPartsTitle: 'No Parts Identified',
-    noPartsMessage: 'Complete the parts exploration first to identify your financial parts before starting a journal session.',
+    noPartsMessage: 'Complete the parts discovery first to identify your financial parts before starting a journal session.',
     goToAssessment: 'Go to My Parts',
     selectPartTitle: 'Select a Part',
     selectPartMessage: 'Choose which financial part you\'d like to dialogue with today.',
@@ -1119,7 +1117,7 @@ export const en = {
           'Appreciate & Log - Honor insights and express gratitude'
         ]
       },
-      noPartsMessage: 'Complete the parts exploration first to identify your financial parts.',
+      noPartsMessage: 'Complete the parts discovery first to identify your financial parts.',
       choosePartTitle: 'Choose a part to work with:'
     },
     navigation: {

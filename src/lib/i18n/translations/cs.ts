@@ -1,4 +1,142 @@
 export const cs = {
+  // Cookie Consent
+  cookie: {
+    banner: {
+      title: 'Nastavení cookies a soukromí',
+      titleRefresh: 'Aktualizace preferencí cookies',
+      description: 'SpendSentinel používá cookies k vylepšení vašeho zážitku při respektování vašeho soukromí. Potřebujeme váš souhlas s nezbytně nutnými cookies, které nám pomáhají vylepšovat funkce finančního zdraví.',
+      descriptionRefresh: 'Je to už chvíle, co jste naposledy aktualizovali své preference cookies. Prosím, zkontrolujte a potvrďte své volby pro pokračování s aktuálním nastavením.',
+      refreshBadge: 'Kontrola nutná'
+    },
+    category: {
+      essential: 'Nezbytné',
+      essentialDesc: 'Nutné pro základní funkcionalitu',
+      analytics: 'Analytické',
+      analyticsDesc: 'Pomáhají vylepšit uživatelské rozhraní',
+      preferences: 'Preference',
+      preferencesDesc: 'Pamatují si vaše nastavení'
+    },
+    gdpr: {
+      title: 'Vaše práva na soukromí:',
+      description: 'Máte právo přijmout nebo odmítnout nezbytně nutné cookies. Vaše volba je zaznamenána a může být kdykoli změněna.',
+      rights: 'Nezbytné cookies (přihlášení, bezpečnost) jsou vždy aktivní a nemohou být zakázány, protože jsou nutné pro správné fungování webové stránky.'
+    },
+    button: {
+      acceptAll: 'Přijmout vše',
+      rejectAll: 'Odmítnout vše',
+      customize: 'Přizpůsobit',
+      saveSettings: 'Uložit preference',
+      cancel: 'Zrušit'
+    },
+    link: {
+      privacyPolicy: 'Zobrazit zásady ochrany osobních údajů'
+    },
+    settings: {
+      title: 'Nastavení cookies a soukromí',
+      description: 'Spravujte své preference cookies a souhlas se zpracováním dat. Tato nastavení můžete kdykoli změnit.',
+      required: 'Povinné',
+      gdprTitle: 'Dodržování GDPR',
+      gdprDescription: 'Váš souhlas je dán svobodně a může být kdykoli odvolán. Zpracováváme vaše data pouze jak je popsáno a nikdy neprodáváme vaše osobní údaje.',
+      analyticsDetails: 'Analytické a výkonnostní cookies',
+      analyticsFeature1: 'Sledování používání funkcí pro zlepšení funkcionality',
+      analyticsFeature2: 'Sledování výkonu a chybovosti',
+      analyticsFeature3: 'Porozumění uživatelským cestám pro lepší UX',
+      analyticsProvider: 'Poháněno Firebase Analytics (Google)',
+      preferencesDetails: 'Preferenční a nastavovací cookies',
+      preferencesFeature1: 'Pamatovat si volbu jazyka',
+      preferencesFeature2: 'Uložit měnu a preference zobrazení',
+      preferencesFeature3: 'Udržovat personalizované konfigurace',
+      lastConsent: 'Historie souhlasu',
+      consentDate: 'Naposledy aktualizováno',
+      consentMethod: 'Aktualizováno přes',
+      refreshInfo: 'Vaše preference souhlasu jsou automaticky kontrolovány každých 6 měsíců pro dodržování předpisů.',
+      pageDescription: 'Spravujte své preference cookies a prohlížejte si historii souhlasu. Vaše volby soukromí máte vždy pod kontrolou.',
+      currentStatus: 'Aktuální stav souhlasu',
+      statusDescription: 'Zde je přehled cookies a sledování, které máte aktuálně povolené',
+      consentHistory: 'Historie souhlasu',
+      historyDescription: 'Vaše nedávná rozhodnutí o souhlasu jsou zaznamenána pro dodržování předpisů',
+      method: 'Metoda',
+      version: 'Verze',
+      categoriesEnabled: 'kategorií povoleno',
+      dataManagement: 'Správa dat',
+      dataDescription: 'Stáhnout data o souhlasu nebo vymazat všechny uložené preference',
+      downloadData: 'Stáhnout moje data',
+      clearAllData: 'Vymazat všechna data',
+      confirmClear: 'Jste si jisti, že chcete vymazat všechna data o souhlasu s cookies? Toto resetuje všechny vaše preference.',
+      gdprNote: 'Práva GDPR:',
+      gdprNoteText: 'Máte právo na přístup, opravu nebo smazání svých osobních údajů. Kontaktujte podporu pro pomoc s požadavky subjektu údajů.'
+    }
+  },
+  
+  // Privacy Policy Content
+  privacy: {
+    title: 'Zásady ochrany osobních údajů',
+    lastUpdated: 'Naposledy aktualizováno',
+    overview: {
+      title: 'Přehled soukromí',
+      description: 'SpendSentinel se zavazuje chránit vaše soukromí a udržovat nejvyšší standardy ochrany dat. Tyto zásady vysvětlují, jak s vašimi informacemi zacházíme s péčí a respektem.'
+    },
+    cookies: {
+      title: 'Zásady cookies',
+      description: 'Používáme cookies k vylepšení vašeho zážitku při zachování přísných standardů soukromí. Váš souhlas je vyžadován pro všechny nezbytně nutné cookies.',
+      essential: {
+        title: 'Nezbytné cookies (vždy aktivní)',
+        description: 'Nutné pro základní funkcionalitu, bezpečnost a uživatelské relace. Tyto cookies nelze zakázat, protože jsou nutné pro správné fungování webové stránky.'
+      },
+      analytics: {
+        title: 'Analytické a výkonnostní cookies',
+        description: 'Pomáhají nám pochopit, jak používáte SpendSentinel, abychom mohli vylepšit váš zážitek. Poháněno Firebase Analytics s prioritou soukromí při shromažďování dat.'
+      },
+      preferences: {
+        title: 'Preferenční cookies',
+        description: 'Pamatují si váš jazyk, měnu a další osobní preference pro vylepšení zážitku napříč relacemi.'
+      }
+    },
+    dataProcessing: {
+      title: 'Principy zpracování dat',
+      description: 'Zpracováváme vaše data na základě následujících principů:',
+      item1: 'Minimalizace dat - shromažďujeme pouze to, co potřebujeme',
+      item2: 'Omezení účelu - data jsou používána pouze pro uvedené účely',
+      item3: 'Omezení uchovávání - data jsou uchována pouze tak dlouho, jak je nutné',
+      item4: 'Soukromí podle návrhu - úvahy o soukromí jsou zabudovány do našich systémů'
+    },
+    gdprRights: {
+      title: 'Vaše práva podle GDPR',
+      description: 'Podle GDPR máte následující práva týkající se vašich osobních údajů:',
+      access: 'Právo na přístup - požádat o kopii svých osobních údajů',
+      rectification: 'Právo na opravu - opravit nepřesné osobní údaje',
+      erasure: 'Právo na výmaz - požádat o smazání svých osobních údajů',
+      portability: 'Právo na přenositelnost dat - obdržet svá data v přenositelném formátu',
+      withdraw: 'Právo odvolat souhlas - odvolat souhlas kdykoli'
+    },
+    contact: {
+      title: 'Kontaktujte nás',
+      description: 'Máte-li jakékoli otázky k těmto zásadám ochrany osobních údajů nebo svým právům na data, kontaktujte nás prostřednictvím našich kanálů podpory.'
+    },
+    footer: 'Tyto zásady ochrany osobních údajů jsou navrženy tak, aby byly transparentní a uživatelsky přívětivé při zajištění plného dodržování GDPR.'
+  },
+  
+  consent: {
+    widget: {
+      title: 'Nastavení cookies',
+      essential: 'Nezbytné cookies',
+      analytics: 'Analytické',
+      preferences: 'Preference',
+      required: 'Povinné',
+      enabled: 'Povoleno',
+      disabled: 'Zakázáno',
+      lastUpdated: 'Naposledy aktualizováno',
+      customize: 'Přizpůsobit',
+      withdrawAll: 'Odvolat všechny nezbytně nutné souhlasy',
+      tooltip: {
+        title: 'Stav souhlasu s cookies',
+        status: 'Stav',
+        granted: 'kategorií povoleno',
+        click: 'Klikněte pro správu vašich preferencí'
+      }
+    }
+  },
+
   common: {
     appName: 'SpendSentinel',
     loading: 'Načítání...',
@@ -488,6 +626,7 @@ export const cs = {
     support: 'Podpora',
     privacyPolicy: 'Ochrana soukromí',
     termsOfService: 'Podmínky služby',
+    cookieSettings: 'Nastavení cookies',
     emergencyProtocol: 'Nouzový protokol',
     privacyQuestions: 'Otázky o soukromí',
     generalSupport: 'Obecná podpora',

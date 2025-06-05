@@ -1,15 +1,17 @@
 "use client";
 
 import Link from 'next/link';
-import { Shield, Heart, Mail, AlertTriangle } from 'lucide-react';
+import { Shield, Heart, Mail, AlertTriangle, Cookie } from 'lucide-react';
 import { useI18n } from '@/contexts/i18n-context';
 import { BuyMeCoffeeButton } from '@/components/common/buy-me-coffee-button';
 import { useMonetizationVisibility } from '@/hooks/use-monetization-visibility';
+import { useConsent } from '@/contexts/consent-context';
 
 export function AppFooter() {
   const { t, locale } = useI18n();
   const currentYear = new Date().getFullYear();
   const { showSupportMention } = useMonetizationVisibility();
+  const { openSettings } = useConsent();
   
   return (
     <footer className="mt-8 border-t bg-background/80 backdrop-blur-sm">
@@ -43,6 +45,13 @@ export function AppFooter() {
               >
                 {t('footer.termsOfService')}
               </Link>
+              <button
+                onClick={openSettings}
+                className="text-muted-foreground hover:text-primary transition-colors inline-flex items-center gap-1 text-left"
+              >
+                <Cookie className="h-3 w-3" />
+                {t('cookie.settings.title')}
+              </button>
             </div>
           </div>
 

@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, ReactNode } from 'react';
 import { useAnalytics } from '@/hooks/use-analytics';
+import { ConsentManager } from '@/lib/consent-manager';
 
 interface AnalyticsContextType {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -19,8 +20,46 @@ const AnalyticsContext = createContext<AnalyticsContextType | undefined>(undefin
 export function AnalyticsProvider({ children }: { children: ReactNode }) {
   const analytics = useAnalytics();
 
+  // Create consent-aware analytics wrapper
+  const consentAwareAnalytics: AnalyticsContextType = {
+    trackEvent: (eventName: string, parameters?: Record<string, any>) => {
+      const consentState = ConsentManager.loadConsentState();
+      if (ConsentManager.hasValidConsent(consentState, 'analytics')) {
+        analytics.trackEvent(eventName, parameters);
+      } else {
+        // Log that tracking was blocked for debugging
+        if (process.env.NODE_ENV === 'development') {
+          console.log('Analytics tracking blocked - no consent:', eventName, parameters);
+        }
+      }
+    },
+    trackUserInteraction: (action: string, category: string, label?: string, value?: number) => {
+      const consentState = ConsentManager.loadConsentState();
+      if (ConsentManager.hasValidConsent(consentState, 'analytics')) {
+        analytics.trackUserInteraction(action, category, label, value);
+      } else {
+        if (process.env.NODE_ENV === 'development') {
+          console.log('Analytics interaction blocked - no consent:', { action, category, label, value });
+        }
+      }
+    },
+    trackFeatureUsage: (featureName: string, details?: Record<string, any>) => {
+      const consentState = ConsentManager.loadConsentState();
+      if (ConsentManager.hasValidConsent(consentState, 'analytics')) {
+        analytics.trackFeatureUsage(featureName, details);
+      } else {
+        if (process.env.NODE_ENV === 'development') {
+          console.log('Analytics feature tracking blocked - no consent:', featureName, details);
+        }
+      }
+    },
+    isReady: analytics.isReady,
+    environment: analytics.environment,
+    shouldTrack: analytics.shouldTrack && ConsentManager.hasValidConsent(ConsentManager.loadConsentState(), 'analytics')
+  };
+
   return (
-    <AnalyticsContext.Provider value={analytics}>
+    <AnalyticsContext.Provider value={consentAwareAnalytics}>
       {children}
     </AnalyticsContext.Provider>
   );

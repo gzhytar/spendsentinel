@@ -7,8 +7,11 @@ import { AppLayoutClient } from '@/components/layout/app-layout-client';
 import { I18nProvider } from '@/contexts/i18n-context';
 import { PreferencesProvider } from '@/contexts/preferences-context';
 import { AnalyticsProvider } from '@/contexts/analytics-context';
+import { ConsentProvider } from '@/contexts/consent-context';
 import { LanguageSwitcher } from '@/components/ui/language-switcher';
 import { useStorageCleanup } from '@/hooks/use-storage-cleanup';
+import { CookieConsentBanner } from '@/components/ui/cookie-consent-banner';
+import { CookieConsentSettings } from '@/components/ui/cookie-consent-settings';
 
 // Update this version number when releasing new versions
 const CURRENT_VERSION = '0.9.0';
@@ -36,14 +39,20 @@ export default function MainAppLayout({
     <I18nProvider>
       <PreferencesProvider>
         <AnalyticsProvider>
-          <div className="fixed top-4 right-4 z-50">
-            <LanguageSwitcher />
-          </div>
-          <SidebarProvider defaultOpen>
-            <AppLayoutClient>
-              {children}
-            </AppLayoutClient>
-          </SidebarProvider>
+          <ConsentProvider>
+            <div className="fixed top-4 right-4 z-50">
+              <LanguageSwitcher />
+            </div>
+            <SidebarProvider defaultOpen>
+              <AppLayoutClient>
+                {children}
+              </AppLayoutClient>
+            </SidebarProvider>
+            
+            {/* Cookie Consent Components */}
+            <CookieConsentBanner />
+            <CookieConsentSettings />
+          </ConsentProvider>
         </AnalyticsProvider>
       </PreferencesProvider>
     </I18nProvider>

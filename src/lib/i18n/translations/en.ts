@@ -1,4 +1,141 @@
 export const en = {
+  // Cookie Consent
+  cookie: {
+    banner: {
+      title: 'Cookie & Privacy Settings',
+      titleRefresh: 'Update Your Cookie Preferences',
+      description: 'SpendSentinel uses cookies to enhance your experience while respecting your privacy. We need your consent for non-essential cookies that help us improve our financial wellness features.',
+      descriptionRefresh: 'It\'s been a while since you last updated your cookie preferences. Please review and confirm your choices to continue with your current settings.',
+      refreshBadge: 'Review Required'
+    },
+    category: {
+      essential: 'Essential',
+      essentialDesc: 'Required for core functionality',
+      analytics: 'Analytics',
+      analyticsDesc: 'Helps improve user experience',
+      preferences: 'Preferences',
+      preferencesDesc: 'Remembers your settings'
+    },
+    gdpr: {
+      title: 'Your Privacy Rights:',
+      description: 'You have the right to accept or reject non-essential cookies. Your choice is recorded and can be changed at any time.',
+      rights: 'Essential cookies (login, security) are always active and cannot be disabled as they\'re necessary for the website to function properly.'
+    },
+    button: {
+      acceptAll: 'Accept All',
+      rejectAll: 'Reject All',
+      customize: 'Customize',
+      saveSettings: 'Save Preferences',
+      cancel: 'Cancel'
+    },
+    link: {
+      privacyPolicy: 'View Privacy Policy'
+    },
+    settings: {
+      title: 'Cookie & Privacy Settings',
+      description: 'Manage your cookie preferences and data processing consent. You can change these settings at any time.',
+      required: 'Required',
+      gdprTitle: 'GDPR Compliance',
+      gdprDescription: 'Your consent is freely given and can be withdrawn at any time. We only process your data as described and never sell your personal information.',
+      analyticsDetails: 'Analytics & Performance Cookies',
+      analyticsFeature1: 'Track feature usage to improve functionality',
+      analyticsFeature2: 'Monitor performance and error rates',
+      analyticsFeature3: 'Understand user journeys for better UX',
+      analyticsProvider: 'Powered by Firebase Analytics (Google)',
+      preferencesDetails: 'Preference & Settings Cookies',
+      preferencesFeature1: 'Remember your language choice',
+      preferencesFeature2: 'Save currency and display preferences',
+      preferencesFeature3: 'Maintain personalized configurations',
+      lastConsent: 'Consent History',
+      consentDate: 'Last updated',
+      consentMethod: 'Updated via',
+      refreshInfo: 'Your consent preferences are automatically reviewed every 6 months for compliance.',
+      pageDescription: 'Manage your cookie preferences and view your consent history. Your privacy choices are always under your control.',
+      currentStatus: 'Current Consent Status',
+      statusDescription: 'Here\'s what cookies and tracking you\'ve currently enabled',
+      consentHistory: 'Consent History',
+      historyDescription: 'Your recent consent decisions are recorded for compliance',
+      method: 'Method',
+      version: 'Version',
+      categoriesEnabled: 'categories enabled',
+      dataManagement: 'Data Management',
+      dataDescription: 'Download your consent data or clear all stored preferences',
+      downloadData: 'Download My Data',
+      clearAllData: 'Clear All Data',
+      confirmClear: 'Are you sure you want to clear all cookie consent data? This will reset all your preferences.',
+      gdprNote: 'GDPR Rights:',
+      gdprNoteText: 'You have the right to access, rectify, or delete your personal data. Contact support for assistance with data subject requests.'
+    }
+  },
+  
+  // Privacy Policy Content
+  privacy: {
+    title: 'Privacy Policy',
+    lastUpdated: 'Last updated',
+    overview: {
+      title: 'Privacy Overview',
+      description: 'SpendSentinel is committed to protecting your privacy and maintaining the highest standards of data protection. This policy explains how we handle your information with care and respect.'
+    },
+    cookies: {
+      title: 'Cookie Policy',
+      description: 'We use cookies to enhance your experience while maintaining strict privacy standards. Your consent is required for all non-essential cookies.',
+      essential: {
+        title: 'Essential Cookies (Always Active)',
+        description: 'Required for core functionality, security, and user sessions. These cookies cannot be disabled as they are necessary for the website to function properly.'
+      },
+      analytics: {
+        title: 'Analytics & Performance Cookies',
+        description: 'Help us understand how you use SpendSentinel to improve your experience. Powered by Firebase Analytics with privacy-first data collection.'
+      },
+      preferences: {
+        title: 'Preference Cookies',
+        description: 'Remember your language, currency, and other personal preferences to enhance your experience across sessions.'
+      }
+    },
+    dataProcessing: {
+      title: 'Data Processing Principles',
+      description: 'We process your data based on the following principles:',
+      item1: 'Data minimization - we only collect what we need',
+      item2: 'Purpose limitation - data is used only for stated purposes',
+      item3: 'Storage limitation - data is kept only as long as necessary',
+      item4: 'Privacy by design - privacy considerations are built into our systems'
+    },
+    gdprRights: {
+      title: 'Your GDPR Rights',
+      description: 'Under GDPR, you have the following rights regarding your personal data:',
+      access: 'Right of access - request a copy of your personal data',
+      rectification: 'Right to rectification - correct inaccurate personal data',
+      erasure: 'Right to erasure - request deletion of your personal data',
+      portability: 'Right to data portability - receive your data in a portable format',
+      withdraw: 'Right to withdraw consent - revoke consent at any time'
+    },
+    contact: {
+      title: 'Contact Us',
+      description: 'If you have any questions about this privacy policy or your data rights, please contact us through our support channels.'
+    },
+         footer: 'This privacy policy is designed to be transparent and user-friendly while ensuring full GDPR compliance.'
+   },
+  consent: {
+    widget: {
+      title: 'Cookie Settings',
+      essential: 'Essential Cookies',
+      analytics: 'Analytics',
+      preferences: 'Preferences',
+      required: 'Required',
+      enabled: 'Enabled',
+      disabled: 'Disabled',
+      lastUpdated: 'Last updated',
+      customize: 'Customize',
+      withdrawAll: 'Withdraw all non-essential consent',
+      tooltip: {
+        title: 'Cookie Consent Status',
+        status: 'Status',
+        granted: 'categories enabled',
+        click: 'Click to manage your preferences'
+      }
+    }
+  },
+  
   common: {
     appName: 'SpendSentinel',
     loading: 'Loading...',

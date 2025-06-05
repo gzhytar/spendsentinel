@@ -94,7 +94,7 @@ export function StreakMessage({
       return {
         type: 'warning',
         icon: <AlertTriangle className="h-4 w-4 flex-shrink-0" />,
-        message: `Streak at risk! Complete today's check-in to maintain your ${streak}-day streak.`,
+        message: t('dailyCheckIn.timeline.streakMessages.warning', { count: streak.toString() }),
         className: "bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900 rounded-lg p-3 text-amber-800 dark:text-amber-200"
       };
     }
@@ -111,19 +111,20 @@ export function StreakMessage({
   };
 
   const getMotivationalMessage = (streakCount: number): string => {
-    const messages = {
-      1: "Great start! Keep it going! 🌟",
-      7: `${streakCount} days strong! You're building momentum! 💪`,
-      14: `Amazing ${streakCount}-day streak! You're on fire! 🔥`,
-      21: `Incredible ${streakCount}-day streak! You're a champion! 🏆`
-    };
-
     // Find the appropriate message based on streak thresholds
-    if (streakCount === 1) return messages[1];
-    if (streakCount < 7) return `${streakCount} days strong! You're building momentum! 💪`;
-    if (streakCount < 14) return messages[7].replace('7', streakCount.toString());
-    if (streakCount < 21) return messages[14].replace('14', streakCount.toString());
-    return messages[21].replace('21', streakCount.toString());
+    if (streakCount === 1) {
+      return t('dailyCheckIn.timeline.streakMessages.day1');
+    }
+    if (streakCount < 7) {
+      return t('dailyCheckIn.timeline.streakMessages.dayDefault', { count: streakCount.toString() });
+    }
+    if (streakCount < 14) {
+      return t('dailyCheckIn.timeline.streakMessages.week1', { count: streakCount.toString() });
+    }
+    if (streakCount < 21) {
+      return t('dailyCheckIn.timeline.streakMessages.week2', { count: streakCount.toString() });
+    }
+    return t('dailyCheckIn.timeline.streakMessages.week3Plus', { count: streakCount.toString() });
   };
 
   const messageConfig = getMessageConfig();

@@ -1064,7 +1064,15 @@ export const en = {
       missed: 'Missed',
       streak: 'Current streak',
       days: 'days',
-      totalCompleted: 'Total completed'
+      totalCompleted: 'Total completed',
+      streakMessages: {
+        warning: 'Streak at risk! Complete today\'s check-in to maintain your {count}-day streak.',
+        day1: 'Great start! Keep it going! 🌟',
+        dayDefault: '{count} days strong! You\'re building momentum! 💪',
+        week1: '{count} days strong! You\'re building momentum! 💪',
+        week2: 'Amazing {count}-day streak! You\'re on fire! 🔥',
+        week3Plus: 'Incredible {count}-day streak! You\'re a champion! 🏆'
+      }
     }
   },
   partsJournal: {

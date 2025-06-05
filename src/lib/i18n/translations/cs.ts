@@ -1023,7 +1023,15 @@ export const cs = {
       missed: 'Vynecháno',
       streak: 'Současná série',
       days: 'dní',
-      totalCompleted: 'Celkem dokončeno'
+      totalCompleted: 'Celkem dokončeno',
+      streakMessages: {
+        warning: 'Série je v ohrožení! Dokončete dnešní check-in a udržte si svou {count}-denní sérii.',
+        day1: 'Skvělý začátek! Pokračujte dál! 🌟',
+        dayDefault: '{count} dní silný! Budujete hybnou sílu! 💪',
+        week1: '{count} dní silný! Budujete hybnou sílu! 💪',
+        week2: 'Úžasná {count}-denní série! Jste v ohni! 🔥',
+        week3Plus: 'Neuvěřitelná {count}-denní série! Jste šampión! 🏆'
+      }
     }
   },
   partsJournal: {

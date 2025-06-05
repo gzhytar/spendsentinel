@@ -383,6 +383,92 @@ export const en = {
           ]
         },
       },
+      planner: {
+        title: 'The Planner',
+        description: 'This part keeps a constant eye on every euro because it wants you to feel safe. By tracking bills, updating budgets, and rehearsing "what-if" scenarios, it builds a sturdy fence against surprise costs. Its vigilance is love in action—making sure money worries never catch you off-guard.',
+        triggers: {
+          label: 'Common situations that activate this firefighter:',
+          items: [
+            'Payday',
+            'Bill-due dates',
+            'News about inflation or layoffs',
+            'Any purchase that wasn\'t pre-approved'
+          ]
+        },
+        behaviors: {
+          label: 'How this firefighter typically responds:',
+          items: [
+            'Opens banking apps first thing each morning',
+            'Scans every line item',
+            'Tweaks budget categories after the smallest change',
+            'Sets multiple balance alerts'
+          ]
+        },
+        emotions: {
+          label: 'Emotional patterns over time:',
+          items: [
+            'Before checking: anxiety',
+            'During: focused calm',
+            'After: brief relief, then fresh worry about the next unknown'
+          ]
+        },
+        innerDialogue: {
+          label: 'Common thoughts this part has:',
+          items: [
+            'One missed fee could wreck the plan.',
+            'Let\'s run the numbers again to be safe.'
+          ]
+        },
+        digitalFootprints: {
+          label: 'Online signs this part leaves behind:',
+          items: [
+            'Color-coded spreadsheets with tabs for "What-if Scenarios"',
+            'Calendar blocked for weekly "Money Review"',
+            'Push alerts for every card swipe'
+          ]
+        },
+      },
+      expenseController: {
+        title: 'The Expense Controller',
+        description: 'This part watches your partner\'s spending like a guard at the gate, not to criticize but to protect the family\'s future. Each budget reminder or purchase check is its way of saying, "I care about our stability." It believes that firm, clear limits today will shield everyone from debt and stress tomorrow.',
+        triggers: {
+          label: 'Common situations that activate this firefighter:',
+          items: [
+            'Partner mentions a sale, brings home packages, or suggests a trip',
+            'Upward nudge in credit-card balance'
+          ]
+        },
+        behaviors: {
+          label: 'How this firefighter typically responds:',
+          items: [
+            'Sends partner budget screenshots',
+            'Asks for purchase details before approving',
+            'Lowers card limits or sets spend caps'
+          ]
+        },
+        emotions: {
+          label: 'Emotional patterns over time:',
+          items: [
+            'Before partner spends: dread',
+            'During control action: firm resolve',
+            'After: mix of relief and guilt over conflict'
+          ]
+        },
+        innerDialogue: {
+          label: 'Common thoughts this part has:',
+          items: [
+            'One splurge could sink us.',
+            'I\'m the last line of defense.'
+          ]
+        },
+        digitalFootprints: {
+          label: 'Online signs this part leaves behind:',
+          items: [
+            'Shared spreadsheets with "Remaining Allowance" columns',
+            'Text threads full of "Do we really need this?"'
+          ]
+        },
+      },
       tabs: {
         behaviors: 'Behaviors',
         triggers: 'Triggers',

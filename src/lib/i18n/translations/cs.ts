@@ -384,6 +384,92 @@ export const cs = {
           ]
         }
       },
+      planner: {
+        title: 'Plánovač',
+        description: 'Tato část má neustále na očích každé euro, protože chce, abyste se cítili v bezpečí. Sledováním účtů, aktualizací rozpočtů a nacvičováním scénářů "co kdyby" buduje pevný plot proti neočekávaným nákladům. Jeho bdělost je láska v akci—zajišťuje, že vás peníze nikdy nezaskočí.',
+        triggers: {
+          label: 'Běžné situace, které aktivují tohoto hasiče:',
+          items: [
+            'Den výplaty',
+            'Datum splatnosti účtů',
+            'Zprávy o inflaci nebo propouštění',
+            'Jakýkoli nákup, který nebyl předem schválen'
+          ]
+        },
+        behaviors: {
+          label: 'Jak tento hasič typicky reaguje:',
+          items: [
+            'Otevírá bankovní aplikace hned ráno',
+            'Prochází každou položku',
+            'Upravuje kategorie rozpočtu po nejmenší změně',
+            'Nastavuje několik upozornění na zůstatek'
+          ]
+        },
+        emotions: {
+          label: 'Emocionální vzorce v průběhu času:',
+          items: [
+            'Před kontrolou: úzkost',
+            'Během: soustředěný klid',
+            'Po: krátká úleva, pak čerstvé obavy o další neznámou'
+          ]
+        },
+        innerDialogue: {
+          label: 'Běžné myšlenky této části:',
+          items: [
+            'Jeden zapomenutý poplatek by mohl zničit plán.',
+            'Spočítejme si to znovu pro jistotu.'
+          ]
+        },
+        digitalFootprints: {
+          label: 'Online stopy, které tato část zanechává:',
+          items: [
+            'Barevně kódované tabulky s kartami "Co kdyby scénáře"',
+            'Kalendář blokovaný pro týdenní "Přehled peněz"',
+            'Push upozornění pro každé stažení z karty'
+          ]
+        },
+      },
+      expenseController: {
+        title: 'Kontrolor výdajů',
+        description: 'Tato část hlídá útraty vašeho partnera jako strážce u brány, ne proto, aby kritizovala, ale aby chránila budoucnost rodiny. Každé připomenutí rozpočtu nebo kontrola nákupu je její způsob, jak říci: "Záleží mi na naší stabilitě." Věří, že pevné, jasné limity dnes ochrání všechny před dluhy a stresem zítra.',
+        triggers: {
+          label: 'Běžné situace, které aktivují tohoto hasiče:',
+          items: [
+            'Partner zmíní výprodej, přinese domů balíčky nebo navrhne výlet',
+            'Nárůst na kreditní kartě'
+          ]
+        },
+        behaviors: {
+          label: 'Jak tento hasič typicky reaguje:',
+          items: [
+            'Posílá partnerovi snímky obrazovky rozpočtu',
+            'Ptá se na detaily nákupu před schválením',
+            'Snižuje limity na kartách nebo nastavuje stropy útraty'
+          ]
+        },
+        emotions: {
+          label: 'Emocionální vzorce v průběhu času:',
+          items: [
+            'Před útraou partnera: strach',
+            'Během kontrolní akce: pevné odhodlání',
+            'Po: směs úlevy a viny z konfliktu'
+          ]
+        },
+        innerDialogue: {
+          label: 'Běžné myšlenky této části:',
+          items: [
+            'Jedna rozhazovačnost nás může potopit.',
+            'Jsem poslední linie obrany.'
+          ]
+        },
+        digitalFootprints: {
+          label: 'Online stopy, které tato část zanechává:',
+          items: [
+            'Sdílené tabulky se sloupci "Zbývající příspěvek"',
+            'Textové konverzace plné "Opravdu to potřebujeme?"'
+          ]
+        },
+      },
       tabs: {
         behaviors: 'Chování',
         triggers: 'Spouštěče',

@@ -92,6 +92,26 @@ export function FirefighterTypes({
       emotions: t<string[]>('landing.firefighters.indulger.emotions.items'),
       innerDialogue: t<string[]>('landing.firefighters.indulger.innerDialogue.items'),
       digitalFootprints: t<string[]>('landing.firefighters.indulger.digitalFootprints.items'),
+    },
+    {
+      id: 'planner',
+      title: t('landing.firefighters.planner.title'),
+      description: t('landing.firefighters.planner.description'),
+      triggers: t<string[]>('landing.firefighters.planner.triggers.items'),
+      behaviors: t<string[]>('landing.firefighters.planner.behaviors.items'),
+      emotions: t<string[]>('landing.firefighters.planner.emotions.items'),
+      innerDialogue: t<string[]>('landing.firefighters.planner.innerDialogue.items'),
+      digitalFootprints: t<string[]>('landing.firefighters.planner.digitalFootprints.items'),
+    },
+    {
+      id: 'expenseController',
+      title: t('landing.firefighters.expenseController.title'),
+      description: t('landing.firefighters.expenseController.description'),
+      triggers: t<string[]>('landing.firefighters.expenseController.triggers.items'),
+      behaviors: t<string[]>('landing.firefighters.expenseController.behaviors.items'),
+      emotions: t<string[]>('landing.firefighters.expenseController.emotions.items'),
+      innerDialogue: t<string[]>('landing.firefighters.expenseController.innerDialogue.items'),
+      digitalFootprints: t<string[]>('landing.firefighters.expenseController.digitalFootprints.items'),
     }
   ];
 
@@ -172,7 +192,7 @@ export function FirefighterTypes({
 
       <CardContent className="space-y-6">
         {/* Interactive Type Selector */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
           {firefighterTypes.map((type) => {
             const isHighlighted = highlightedType === type.id;
             const isGrayedOut = highlightedType && !isHighlighted;

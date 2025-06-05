@@ -505,46 +505,6 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
               selectedParts={selectedParts}
               onPartToggle={handlePartToggle}
             />
-
-            {/* Expense List */}
-            {checkInData.expenses.length > 0 && (
-              <div className="space-y-4">
-                <h3 className="font-semibold">{t('expenseHighlighter.yourExpenses')}</h3>
-                
-                <ExpenseList
-                  expenses={checkInData.expenses}
-                  onDelete={removeExpense}
-                  showEditActions={false}
-                />
-
-                {/* Show Journal Notes Summary */}
-                {checkInData.expenses.some(expense => expense.triggeredParts && expense.triggeredParts.length > 0) && (
-                  <div className="space-y-4">
-                    <h4 className="font-medium">{t('dailyCheckIn.steps.expenseLogging.journalNotes')}</h4>
-                    {checkInData.expenses.map((expense) => (
-                      expense.triggeredParts && expense.triggeredParts.length > 0 && (
-                        <Card key={expense.id} className="p-4">
-                          <h5 className="font-medium mb-3">{expense.description}</h5>
-                          <div className="space-y-3">
-                            {expense.triggeredParts.map((part) => {
-                              const note = checkInData.triggeredParts[`${expense.id}-${part}`];
-                              return note ? (
-                                <div key={`${expense.id}-${part}`} className="space-y-2">
-                                  <Label className="text-sm font-medium">{part}:</Label>
-                                  <p className="text-sm text-muted-foreground bg-muted/50 p-3 rounded-md">
-                                    {note}
-                                  </p>
-                                </div>
-                              ) : null;
-                            })}
-                          </div>
-                        </Card>
-                      )
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
           </div>
         )}
 
@@ -667,6 +627,46 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
             </Button>
           )}
         </div>
+
+        {/* Financial Decisions History - Show below navigation for step 3 */}
+        {currentStep === 3 && checkInData.expenses.length > 0 && (
+          <div className="space-y-4 mt-8">
+            <h3 className="font-semibold">{t('expenseHighlighter.yourExpenses')}</h3>
+            
+            <ExpenseList
+              expenses={checkInData.expenses}
+              onDelete={removeExpense}
+              showEditActions={false}
+            />
+
+            {/* Show Journal Notes Summary */}
+            {checkInData.expenses.some(expense => expense.triggeredParts && expense.triggeredParts.length > 0) && (
+              <div className="space-y-4">
+                <h4 className="font-medium">{t('dailyCheckIn.steps.expenseLogging.journalNotes')}</h4>
+                {checkInData.expenses.map((expense) => (
+                  expense.triggeredParts && expense.triggeredParts.length > 0 && (
+                    <Card key={expense.id} className="p-4">
+                      <h5 className="font-medium mb-3">{expense.description}</h5>
+                      <div className="space-y-3">
+                        {expense.triggeredParts.map((part) => {
+                          const note = checkInData.triggeredParts[`${expense.id}-${part}`];
+                          return note ? (
+                            <div key={`${expense.id}-${part}`} className="space-y-2">
+                              <Label className="text-sm font-medium">{part}:</Label>
+                              <p className="text-sm text-muted-foreground bg-muted/50 p-3 rounded-md">
+                                {note}
+                              </p>
+                            </div>
+                          ) : null;
+                        })}
+                      </div>
+                    </Card>
+                  )
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </Card>
 
       {/* Completion Celebration */}

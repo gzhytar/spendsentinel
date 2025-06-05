@@ -712,7 +712,6 @@ export const en = {
   groundingExercise: {
     title: 'Take a Moment to Breathe',
     subtitle: 'Focus on your breath. You are safe.',
-    introduction: 'Let\'s try a quick grounding exercise:',
     steps: {
       see: 'Notice 5 things you can see around you.',
       touch: 'Notice 4 things you can touch.',

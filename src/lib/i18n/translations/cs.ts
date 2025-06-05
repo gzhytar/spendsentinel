@@ -609,7 +609,6 @@ export const cs = {
   groundingExercise: {
     title: 'Najděte si chvilku k dýchání',
     subtitle: 'Soustřeďte se na svůj dech. Jste v bezpečí.',
-    introduction: 'Zkusíme rychlé uklidňující cvičení:',
     steps: {
       see: 'Všimněte si 5 věcí, které vidíte kolem sebe.',
       touch: 'Všimněte si 4 věcí, kterých se můžete dotknout.',

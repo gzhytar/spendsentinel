@@ -216,6 +216,199 @@ jest.mock('@/contexts/i18n-context', () => ({
 }));
 ```
 
+## Translation Freezing System
+
+### Overview
+
+The project implements a translation freezing system to protect human-reviewed and approved translations from being modified by AI agents during development. This ensures that carefully crafted content (legal copy, branding, clinical terminology) remains unchanged while allowing flexibility for ongoing improvements to other translations.
+
+### Comment-Based Freezing (Primary Method)
+
+This approach uses special comments directly in translation files to mark frozen strings. It's the simplest method that requires no additional infrastructure while providing clear visual indicators for both humans and AI agents.
+
+#### For AI/LLM Agents: Translation Freeze Detection Rules
+
+**CRITICAL: Before modifying any translation string, AI agents MUST check for freeze markers.**
+
+#### Freeze Marker Syntax
+
+Frozen translations are marked with special comments using the `@freeze` directive:
+
+```typescript
+export const en = {
+  common: {
+    // @freeze - Human reviewed and approved
+    appName: 'SpendSentinel',
+    
+    // @freeze - Final branding decision
+    loading: 'Loading...',
+    
+    error: 'An error occurred', // Not frozen - can be improved
+    
+    // @freeze - Standard UI actions
+    save: 'Save',
+    cancel: 'Cancel',
+    delete: 'Delete',
+    edit: 'Edit',
+  },
+  navigation: {
+    // @freeze - Core navigation approved by UX team
+    home: 'Home',
+    overview: 'Overview',
+    selfAssessment: 'My parts',
+    
+    partsJournal: 'Parts Journal', // Not frozen - under review
+    myFinancialDecisions: 'My Financial Decisions',
+    
+    // @freeze - Hyphenated format approved
+    dailyCheckIn: 'Daily Check-in',
+  },
+} as const;
+```
+
+#### AI Agent Detection Algorithm
+
+AI agents MUST implement this detection logic:
+
+1. **Check the line immediately before** the translation string
+2. **Check the same line after** the translation string (inline comments)
+3. **Look for group freeze markers** that cover multiple translations
+
+#### Freeze Marker Patterns
+
+AI agents must recognize these patterns:
+
+```typescript
+// Pattern 1: Line-before freeze marker
+// @freeze - [optional reason]
+key: 'Frozen Translation',
+
+// Pattern 2: Inline freeze marker  
+key: 'Frozen Translation', // @freeze - [optional reason]
+
+// Pattern 3: Group freeze marker (covers multiple keys until next marker)
+// @freeze-group - Navigation approved by UX team
+home: 'Home',
+overview: 'Overview', 
+selfAssessment: 'My parts',
+// @freeze-group-end
+
+// Pattern 4: Section freeze marker with reason
+// @freeze - Legal and marketing approved - evidence-based claims verified
+title: 'Break Free from Emotional Spending Patterns with Science-Based Self-Compassion',
+subtitle: 'Stop fighting your financial habits...',
+```
+
+#### Required Freeze Marker Formats
+
+AI agents must recognize these exact patterns (case-insensitive):
+
+- `// @freeze`
+- `// @freeze -`
+- `// @freeze - [any text]`
+- `// @freeze-group`
+- `// @freeze-group -`
+- `// @freeze-group - [any text]`
+- `// @freeze-group-end`
+
+#### AI Agent Modification Rules
+
+**ABSOLUTE REQUIREMENTS:**
+
+1. **NEVER modify any translation string that has a freeze marker**
+2. **NEVER remove or modify freeze markers**
+3. **NEVER add content between a freeze marker and its protected translation**
+4. **ALWAYS preserve the exact format and spacing of freeze markers**
+
+#### Implementation Example for AI Agents
+
+```typescript
+// Pseudo-code for AI agent freeze detection
+function canModifyTranslation(filePath: string, lineNumber: number): boolean {
+  const lines = readFile(filePath);
+  const currentLine = lines[lineNumber];
+  const previousLine = lines[lineNumber - 1] || '';
+  
+  // Check for freeze markers
+  if (previousLine.includes('@freeze') || currentLine.includes('@freeze')) {
+    return false;
+  }
+  
+  // Check for group freeze markers
+  let isInFrozenGroup = false;
+  for (let i = lineNumber - 1; i >= 0; i--) {
+    if (lines[i].includes('@freeze-group-end')) {
+      break;
+    }
+    if (lines[i].includes('@freeze-group')) {
+      isInFrozenGroup = true;
+      break;
+    }
+  }
+  
+  return !isInFrozenGroup;
+}
+```
+
+#### Special Cases for AI Agents
+
+1. **Nested Objects**: If a parent object is frozen, ALL child properties are frozen:
+   ```typescript
+   // @freeze - Entire hero section approved
+   hero: {
+     title: 'Protected Title',      // FROZEN (parent frozen)
+     subtitle: 'Protected Subtitle', // FROZEN (parent frozen)
+   },
+   ```
+
+2. **Array Translations**: Individual array items can be frozen:
+   ```typescript
+   items: [
+     'Modifiable item',
+     'Another modifiable item',
+     // @freeze - Legal requirement
+     'Protected legal text',
+   ],
+   ```
+
+3. **Multi-line Translations**: Freeze marker protects the entire string:
+   ```typescript
+   // @freeze - Multi-line legal text approved
+   description: `This is a long description
+   that spans multiple lines
+   and is completely protected`,
+   ```
+
+#### Error Handling for AI Agents
+
+When AI agents encounter frozen translations:
+
+1. **Log the detection**: Record which keys were skipped due to freeze markers
+2. **Suggest alternatives**: If possible, suggest nearby non-frozen keys that could be improved
+3. **Report conflicts**: If a modification request conflicts with frozen content, report it clearly
+
+Example logging:
+```
+[AI AGENT] Skipped modification of 'common.appName' - found freeze marker: '@freeze - Final branding decision'
+[AI AGENT] Alternative suggestion: Consider improving 'common.error' which is not frozen
+```
+
+#### Validation Rules for AI Agents
+
+Before completing any translation work, AI agents should:
+
+1. **Verify no freeze markers were removed**
+2. **Confirm no frozen translations were modified**
+3. **Check that new translations don't conflict with frozen content**
+4. **Ensure freeze marker format remains consistent**
+
+#### Common Freeze Reasons (for AI Agent Context)
+
+AI agents should understand these common freeze reasons to respect the intent:
+
+- `UX approved` - User experience decisions
+- `IFS terminology` - Internal Family Systems therapy terms
+
 ## Future Improvements
 
 1. Add support for:

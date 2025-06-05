@@ -1,6 +1,6 @@
 # Design Guidelines
 
-> **Purpose**: This document serves as a comprehensive guide for maintaining consistent design language across the InnerBalance application. It captures the reasoning behind design decisions and provides context for AI/LLM when creating new features.
+> **Purpose**: This document serves as a comprehensive guide for maintaining consistent design language across the SpendSentinel application. It captures the reasoning behind design decisions and provides context for AI/LLM when creating new features.
 
 ## Table of Contents
 - [Visual Hierarchy](#visual-hierarchy)

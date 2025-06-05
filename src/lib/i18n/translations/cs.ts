@@ -494,7 +494,7 @@ export const cs = {
     allRightsReserved: 'Všechna práva vyhrazena.',
     madeWithLove: 'Vytvořeno s vědomím v České republice',
     disclaimerLabel: 'Upozornění',
-    disclaimer: 'InnerBalance je nástroj pro digitální wellness a nenahrazuje profesionální finanční poradenství nebo léčbu duševního zdraví. Pokud prožíváte krizi duševního zdraví, kontaktujte prosím místní záchranné služby nebo odborníka na duševní zdraví.',
+    disclaimer: 'SpendSentinel je nástroj pro digitální wellness a nenahrazuje profesionální finanční poradenství nebo léčbu duševního zdraví. Pokud prožíváte krizi duševního zdraví, kontaktujte prosím místní záchranné služby nebo odborníka na duševní zdraví.',
     supportMessage: 'Pomozte nám pokračovat v poskytování soucitných nástrojů pro finanční wellness pro všechny.',
     supportButton: 'Podpořte naši misi'
   },
@@ -587,7 +587,7 @@ export const cs = {
     sections: {
       intro: {
         title: 'Vaše soukromí záleží',
-        content: 'Ve společnosti InnerBalance chápeme, že finanční a emoční data jsou hluboce osobní. Tyto zásady ochrany soukromí vysvětlují, jak shromažďujeme, používáme, chráníme a respektujeme vaše informace při poskytování našich AI-poháněných služeb finanční terapie a koučování.'
+        content: 'Ve společnosti SpendSentinel chápeme, že finanční a emoční data jsou hluboce osobní. Tyto zásady ochrany soukromí vysvětlují, jak shromažďujeme, používáme, chráníme a respektujeme vaše informace při poskytování našich AI-poháněných služeb finanční terapie a koučování.'
       },
       informationWeCollect: {
         title: 'Informace, které shromažďujeme',

@@ -1,6 +1,6 @@
 # Trauma-Informed Design Guidelines
 
-> **Purpose**: This document establishes comprehensive trauma-informed design principles for the InnerBalance application. It provides context for AI/LLM when creating new features to ensure consistent, compassionate, and psychologically safe user experiences.
+> **Purpose**: This document establishes comprehensive trauma-informed design principles for the SpendSentinel application. It provides context for AI/LLM when creating new features to ensure consistent, compassionate, and psychologically safe user experiences.
 
 ## Table of Contents
 - [Core Principles](#core-principles)

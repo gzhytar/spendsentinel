@@ -1,6 +1,6 @@
 # Monetization Implementation: Buy Me a Coffee Integration
 
-This document outlines the implementation of trauma-informed monetization features for the InnerBalance app, following the strategic guidelines outlined in `docs/monetization-strategy.md`.
+This document outlines the implementation of trauma-informed monetization features for the SpendSentinel app, following the strategic guidelines outlined in `docs/monetization-strategy.md`.
 
 ## Overview
 

@@ -1,6 +1,6 @@
 # Monetization Strategy
 
-> **Purpose**: This document establishes trauma-informed monetization strategies for the InnerBalance application, ensuring financial support mechanisms align with our core values of safety, empowerment, and compassion.
+> **Purpose**: This document establishes trauma-informed monetization strategies for the SpendSentinel application, ensuring financial support mechanisms align with our core values of safety, empowerment, and compassion.
 
 ## Table of Contents
 - [Core Monetization Principles](#core-monetization-principles)
@@ -84,7 +84,7 @@ Session 8+: Contextual placement based on user engagement
         <Button 
           variant="outline" 
           size="sm"
-          onClick={() => window.open('https://buymeacoffee.com/innerbalance')}
+          onClick={() => window.open('https://buymeacoffee.com/SpendSentinel')}
           className="flex items-center gap-2"
         >
           <Coffee className="w-4 h-4" />
@@ -394,7 +394,7 @@ to make financial healing accessible to everyone."
 
 #### Settings/About Context
 ```
-"InnerBalance is built by a small team passionate about trauma-informed 
+"SpendSentinel is built by a small team passionate about trauma-informed 
 financial wellness. We believe everyone deserves access to compassionate 
 financial support tools. Your contributions help us keep the core features 
 free while developing new ways to support your healing journey."
@@ -439,7 +439,7 @@ export function BuyMeCoffeeButton({
       engagement_level: getEngagementLevel()
     });
     
-    window.open('https://buymeacoffee.com/innerbalance', '_blank');
+    window.open('https://buymeacoffee.com/SpendSentinel', '_blank');
   };
 
   return (

@@ -19,27 +19,58 @@ interface BuyMeCoffeeButtonProps {
   variant?: 'default' | 'outline' | 'ghost';
   size?: 'sm' | 'default' | 'lg';
   className?: string;
+  onClose?: () => void;
+  translations?: {
+    buttonText: string;
+    dialogTitle: string;
+    dialogDescription: string;
+  };
 }
 
 export function BuyMeCoffeeButton({ 
   placement, 
   variant = 'outline', 
   size = 'sm',
-  className = ''
+  className = '',
+  onClose,
+  translations
 }: BuyMeCoffeeButtonProps) {
-  const { t } = useI18n();
-  const { trackEvent } = useAnalyticsContext();
+  const { t } = translations ? { t: () => '' } : useI18n(); // Use dummy t if translations provided
+  
+  // Use analytics context only if translations are not provided (normal context)
+  // When translations are provided (toast context), analytics might not be available
+  let trackEvent: ((eventName: string, parameters?: any) => void) | undefined;
+  try {
+    if (!translations) {
+      const analyticsContext = useAnalyticsContext();
+      trackEvent = analyticsContext.trackEvent;
+    }
+  } catch (error) {
+    // Analytics context not available (e.g., in toast), continue without tracking
+    trackEvent = undefined;
+  }
+  
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const handleClick = () => {
-    // Track the event and open dialog
-    trackEvent('support_cta_clicked', {
-      placement,
-      variant,
-      size
-    });
+    // Track the event and open dialog (if analytics available)
+    if (trackEvent) {
+      trackEvent('support_cta_clicked', {
+        placement,
+        variant,
+        size
+      });
+    }
     
+    // Open dialog first
     setIsDialogOpen(true);
+    
+    // Close parent container (e.g., toast) after a short delay to allow dialog to mount
+    if (onClose) {
+      setTimeout(() => {
+        onClose();
+      }, 100); // Small delay to ensure dialog is mounted
+    }
   };
 
   return (
@@ -51,7 +82,7 @@ export function BuyMeCoffeeButton({
         className={cn("flex items-center gap-2", className)}
       >
         <Coffee className="w-4 h-4" />
-        {t(`support.button.${placement}`)}
+        {translations ? translations.buttonText : t(`support.button.${placement}`)}
       </Button>
 
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -60,11 +91,13 @@ export function BuyMeCoffeeButton({
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Coffee className="w-5 h-5 text-primary" />
-                <DialogTitle className="text-lg">{t('support.dialog.title')}</DialogTitle>
+                <DialogTitle className="text-lg">
+                  {translations ? translations.dialogTitle : t('support.dialog.title')}
+                </DialogTitle>
               </div>
             </div>
             <DialogDescription className="text-sm">
-              {t('support.dialog.description')}
+              {translations ? translations.dialogDescription : t('support.dialog.description')}
             </DialogDescription>
           </DialogHeader>
           

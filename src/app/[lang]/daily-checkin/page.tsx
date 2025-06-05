@@ -15,13 +15,15 @@ import { ExpenseList } from '@/components/ui/expense-list';
 import { SelfCompassionScore } from '@/components/ui/self-compassion-score';
 import { CompassionTimeline } from '@/components/ui/compassion-timeline';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { Coffee } from 'lucide-react';
 import { expenseStorage } from '@/lib/expense-storage';
 import { useIdentifiedParts } from '@/lib/assessment-utils';
 import { use } from 'react';
 import { completeOnboardingSession, ANALYTICS_EVENTS } from '@/lib/analytics-utils';
 import { useOnboardingTracking } from '@/hooks/use-onboarding-tracking';
 import { useAnalyticsContext } from '@/contexts/analytics-context';
-import { CelebrationSupport } from '@/components/common/celebration-support';
+import { CelebrationSupportToast } from '@/components/common/celebration-support';
 import { toast } from '@/hooks/use-toast';
 
 interface DailyCheckInProps {
@@ -44,7 +46,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
   });
   const [selectedParts, setSelectedParts] = useState<string[]>([]);
   const [isScoreSaved, setIsScoreSaved] = useState(false);
-  const [showCompletionCelebration, setShowCompletionCelebration] = useState(false);
+  const [isSupportDialogOpen, setIsSupportDialogOpen] = useState(false);
   
   // Get user's identified parts from self-assessment results
   const userParts = useIdentifiedParts();
@@ -253,13 +255,31 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
     // TODO: Save to database
     console.log('Check-in completed:', checkInData);
     
-    // Show completion celebration first
-    setShowCompletionCelebration(true);
-    
-    // Show completion toast
-    toast({
-      title: t('dailyCheckIn.completionMessage'),
+    // Show completion celebration toast with extended duration
+    const celebrationToast = toast({
+      title: `🎉 ${t('dailyCheckIn.completionMessage')} ✨`,
+      description: (
+        <div className="mt-2">
+          <CelebrationSupportToast 
+            completionType="checkin" 
+            className="max-w-full"
+            onSupportClick={() => {
+              setIsSupportDialogOpen(true);
+              celebrationToast.dismiss();
+            }}
+            translations={{
+              title: t('completion.celebration.title'),
+              message: t('completion.celebration.message'),
+              gentleMessage: t('monetization.gentle.message'),
+              buttonText: t('support.button.celebration'),
+              dialogTitle: t('support.dialog.title'),
+              dialogDescription: t('support.dialog.description')
+            }}
+          />
+        </div>
+      ),
       variant: "default",
+      duration: 10000, // 10 seconds
     });
     
     // Reset for new check-in after a delay to allow celebration to be seen
@@ -272,14 +292,13 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
       });
       setSelectedParts([]);
       setIsScoreSaved(false);
-      setShowCompletionCelebration(false);
       
       // Scroll to top after reset for better UX
       containerRef.current?.scrollIntoView({ 
         behavior: 'smooth', 
         block: 'start' 
       });
-    }, 5000); // Show celebration for 5 seconds
+    }, 10000); // Wait for toast to finish (10 seconds)
   };
 
   const progressPercentage = (currentStep / 5) * 100;
@@ -669,15 +688,35 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
         )}
       </Card>
 
-      {/* Completion Celebration */}
-      {showCompletionCelebration && (
-        <div className="mt-6">
-          <CelebrationSupport 
-            completionType="checkin" 
-            className="max-w-2xl mx-auto"
-          />
-        </div>
-      )}
+      {/* Support Dialog */}
+      <Dialog open={isSupportDialogOpen} onOpenChange={setIsSupportDialogOpen}>
+        <DialogContent className="w-[95vw] max-w-lg h-[90vh] max-h-[800px] p-0 flex flex-col">
+          <DialogHeader className="p-4 pb-2 shrink-0">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Coffee className="w-5 h-5 text-primary" />
+                <DialogTitle className="text-lg">
+                  {t('support.dialog.title')}
+                </DialogTitle>
+              </div>
+            </div>
+            <DialogDescription className="text-sm">
+              {t('support.dialog.description')}
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="flex-1 p-4 pt-0 min-h-0">
+            <iframe
+              src="https://buymeacoffee.com/spendsentinel"
+              className="w-full h-full border-0 rounded-md bg-white"
+              title="Buy Me a Coffee"
+              loading="lazy"
+              sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
+
     </div>
   );
 } 

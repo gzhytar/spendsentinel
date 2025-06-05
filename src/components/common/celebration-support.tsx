@@ -1,7 +1,8 @@
 'use client';
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Sparkles, Heart } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Sparkles, Heart, Coffee } from 'lucide-react';
 import { useI18n } from '@/contexts/i18n-context';
 import { BuyMeCoffeeButton } from '@/components/common/buy-me-coffee-button';
 import { useMonetizationVisibility } from '@/hooks/use-monetization-visibility';
@@ -9,6 +10,20 @@ import { useMonetizationVisibility } from '@/hooks/use-monetization-visibility';
 interface CelebrationSupportProps {
   completionType: 'assessment' | 'checkin' | 'journal' | 'expense';
   className?: string;
+}
+
+interface CelebrationSupportToastProps {
+  completionType: 'assessment' | 'checkin' | 'journal' | 'expense';
+  className?: string;
+  onSupportClick?: () => void;
+  translations: {
+    title: string;
+    message: string;
+    gentleMessage: string;
+    buttonText: string;
+    dialogTitle: string;
+    dialogDescription: string;
+  };
 }
 
 /**
@@ -53,5 +68,53 @@ export function CelebrationSupport({
         </div>
       </CardContent>
     </Card>
+  );
+}
+
+/**
+ * Version of CelebrationSupport for use in toasts where context is not available.
+ * Accepts translations as props instead of using useI18n hook.
+ */
+export function CelebrationSupportToast({ 
+  className = '',
+  onSupportClick,
+  translations
+}: CelebrationSupportToastProps) {
+  const { showCelebrationSupport } = useMonetizationVisibility();
+
+  // Only render if progressive disclosure indicates user is ready
+  if (!showCelebrationSupport) {
+    return null;
+  }
+
+  return (
+    <div className={`bg-gradient-to-br from-primary/5 to-accent/5 border border-primary/30 rounded-lg p-4 ${className}`}>
+      <div className="space-y-3">
+        <div className="flex items-center space-x-3">
+          <Sparkles className="w-5 h-5 text-primary animate-pulse" />
+          <div>
+            <div className="font-semibold text-sm">{translations.title}</div>
+            <div className="text-xs text-muted-foreground">
+              {translations.message}
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-3">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <Heart className="w-3 h-3 text-red-500" />
+            <span>{translations.gentleMessage}</span>
+          </div>
+          <Button 
+            variant="default" 
+            size="sm"
+            onClick={onSupportClick}
+            className="flex items-center gap-2"
+          >
+            <Coffee className="w-4 h-4" />
+            {translations.buttonText}
+          </Button>
+        </div>
+      </div>
+    </div>
   );
 } 

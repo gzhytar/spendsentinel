@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Sparkles, Heart, Coffee } from 'lucide-react';
+import { Sparkles, Heart, Coffee, X } from 'lucide-react';
 import { useI18n } from '@/contexts/i18n-context';
 import { BuyMeCoffeeButton } from '@/components/common/buy-me-coffee-button';
 import { useMonetizationVisibility } from '@/hooks/use-monetization-visibility';
@@ -16,6 +16,7 @@ interface CelebrationSupportToastProps {
   completionType: 'assessment' | 'checkin' | 'journal' | 'expense';
   className?: string;
   onSupportClick?: () => void;
+  onClose?: () => void;
   translations: {
     title: string;
     message: string;
@@ -78,6 +79,7 @@ export function CelebrationSupport({
 export function CelebrationSupportToast({ 
   className = '',
   onSupportClick,
+  onClose,
   translations
 }: CelebrationSupportToastProps) {
   const { showCelebrationSupport } = useMonetizationVisibility();
@@ -88,16 +90,28 @@ export function CelebrationSupportToast({
   }
 
   return (
-    <div className={`bg-gradient-to-br from-primary/5 to-accent/5 border border-primary/30 rounded-lg p-4 ${className}`}>
+    <div className={`bg-gradient-to-br from-green-50 to-primary/20 border-2 border-green-200 rounded-lg p-4 shadow-lg ${className}`}>
       <div className="space-y-3">
-        <div className="flex items-center space-x-3">
-          <Sparkles className="w-5 h-5 text-primary animate-pulse" />
-          <div>
-            <div className="font-semibold text-sm">{translations.title}</div>
-            <div className="text-xs text-muted-foreground">
-              {translations.message}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-3">
+            <Sparkles className="w-5 h-5 text-primary animate-pulse" />
+            <div>
+              <div className="font-semibold text-sm">{translations.title}</div>
+              <div className="text-xs text-muted-foreground">
+                {translations.message}
+              </div>
             </div>
           </div>
+          {onClose && (
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={onClose}
+              className="h-6 w-6 p-0 text-muted-foreground hover:text-foreground"
+            >
+              <X className="w-4 h-4" />
+            </Button>
+          )}
         </div>
         <div className="flex flex-col sm:flex-row justify-between items-center gap-3">
           <div className="flex items-center gap-2 text-xs text-muted-foreground">

@@ -267,6 +267,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
               setIsSupportDialogOpen(true);
               celebrationToast.dismiss();
             }}
+            onClose={() => celebrationToast.dismiss()}
             translations={{
               title: t('completion.celebration.title'),
               message: t('completion.celebration.message'),
@@ -279,8 +280,13 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
         </div>
       ),
       variant: "default",
-      duration: 10000, // 10 seconds
+      duration: 5000, // 10 seconds
     });
+    
+    // Ensure toast auto-dismisses after timeout
+    setTimeout(() => {
+      celebrationToast.dismiss();
+    }, 5000);
     
     // Reset for new check-in after a delay to allow celebration to be seen
     setTimeout(() => {

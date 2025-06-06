@@ -936,7 +936,7 @@ export const cs = {
     quiz: {
       title: 'Rychlé objevování částí',
       description: 'Proveďte tento krátký kvíz k identifikaci vašeho primárního typu finančního hasiče',
-      instruction: 'Odpovězte na 4 rychlé otázky a objevte, která finanční "hasičská" část je ve vašem životě nejaktivnější.',
+      instruction: 'Odpovězte na 6 otázek a objevte, která finanční "hasičská" část je ve vašem životě nejaktivnější.',
       startButton: 'Začít objevování',
       unsureOption: 'Nejsem si jistý / Nic z toho mi neodpovídá',
       result: 'Vaše primární hasičská část je:',
@@ -958,7 +958,9 @@ export const cs = {
             shop: 'Procházet online obchody nebo jít nakupovat',
             save: 'Zkontrolovat své úspory a přesunout tam více peněz',
             ignore: 'Rozptýlit se něčím jiným',
-            treat: 'Dopřát si něco speciálního'
+            treat: 'Dopřát si něco speciálního',
+            plan: 'Otevřít bankovní aplikaci a zkontrolovat všechny účty',
+            control: 'Zkontrolovat, za co utrácí partner/rodina'
           }
         },
         unexpectedMoney: {
@@ -967,7 +969,9 @@ export const cs = {
             splurge: 'Okamžitě myslím na věci k nákupu',
             secure: 'Dám to celé do úspor, než to utratím',
             delay: 'Odložím rozhodnutí, co s tím udělat',
-            celebrate: 'Naplánujem oslavu nebo speciální zážitek'
+            celebrate: 'Naplánujem oslavu nebo speciální zážitek',
+            research: 'Vytvořím detailní plán, jak to nejlépe rozdělit',
+            discuss: 'Nejdříve prodiskutuji výdajové limity s partnerem'
           }
         },
         financialPlanning: {
@@ -976,7 +980,9 @@ export const cs = {
             restrictive: 'Připadá mi to příliš omezující a bere to radost ze života',
             essential: 'Je to nezbytné - sleduji každou korunu',
             overwhelming: 'Je to ohromující a radši o tom nechci přemýšlet',
-            flexible: 'Dávám přednost flexibilitě pro spontánní radosti'
+            flexible: 'Dávám přednost flexibilitě pro spontánní radosti',
+            detailed: 'Miluji vytváření detailních tabulek a sledování všeho',
+            monitoring: 'Zaměřuji se hlavně na sledování výdajů ostatních'
           }
         },
         financialRegret: {
@@ -985,7 +991,31 @@ export const cs = {
             impulse: 'Impulzivní nákupy, které jsem ve skutečnosti nepotřeboval',
             missingOut: 'Zmeškat zážitky kvůli šetření',
             procrastination: 'Neřešit finanční problémy dříve',
-            overindulgence: 'Utrácet příliš za luxus nebo zábavu'
+            overindulgence: 'Utrácet příliš za luxus nebo zábavu',
+            overPlanning: 'Trávit příliš času plánováním místo užívání',
+            arguments: 'Hádky s rodinou o výdajových rozhodnutích'
+          }
+        },
+        moneyAnxiety: {
+          question: 'Co vás na penězích nejvíce znepokojuje?',
+          options: {
+            notEnough: 'Nemít dost na věci, které chci',
+            running: 'Že mi v budoucnu dojdou peníze',
+            dealing: 'Nutnost řešit finanční dokumenty nebo rozhodnutí',
+            missing: 'Zmeškat zážitky kvůli šetření',
+            losing: 'Ztratit přehled o své finanční situaci',
+            others: 'Že ostatní lidé v mém životě utrácejí nezodpovědně'
+          }
+        },
+        dailyMoney: {
+          question: 'Jak často o financích přemýšlíte nebo je kontrolujete?',
+          options: {
+            rarely: 'Jen když potřebuji něco koupit',
+            crisis: 'Jen když je finanční krize',
+            avoiding: 'Snažím se o tom nepřemýšlet',
+            enjoying: 'Když plánuji něco zábavného k nákupu',
+            constantly: 'Několikrát denně - pravidelně kontroluji zůstatky',
+            monitoring: 'Když potřebuji stanovit limity pro výdaje ostatních'
           }
         }
       },
@@ -1033,6 +1063,12 @@ export const cs = {
       title: 'Něco se pokazilo',
       identifyFailed: 'Nelze identifikovat vaše finanční části. Zkuste to prosím znovu.',
       resolveFailed: 'Nelze tuto část prozkoumat dále. Zkuste to prosím znovu.'
+    },
+    nextSteps: {
+      title: 'Pokračujte ve své cestě',
+      description: 'Nyní, když znáte svou primární finanční hasičskou část, prozkoumejte tyto další kroky k prohloubení vašeho porozumění a vytvoření zdravějšího vztahu k penězům.',
+      deepAssessmentPrompt: 'Chcete více personalizovaných poznatků o vašich finančních částech?',
+      deepAssessmentButton: 'Zkuste hluboké prozkoumání částí'
     }
   },
   dailyCheckIn: {

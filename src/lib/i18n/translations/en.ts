@@ -506,7 +506,7 @@ export const en = {
     quiz: {
       title: 'Quick Parts Discovery',
       description: 'Take this brief quiz to identify your primary financial firefighter part',
-      instruction: 'Answer 4 quick questions to discover which financial "firefighter" part is most active in your life.',
+      instruction: 'Answer 6 questions to discover which financial "firefighter" part is most active in your life.',
       startButton: 'Start My Discovery',
       unsureOption: 'I\'m not sure / None of these match me',
       result: 'Your primary firefighter part is:',
@@ -527,7 +527,9 @@ export const en = {
             shop: 'Browse online stores or go shopping',
             save: 'Check my savings and move more money there',
             ignore: 'Distract myself with something else',
-            treat: 'Treat myself to something special'
+            treat: 'Treat myself to something special',
+            plan: 'Open my banking app and review all my accounts',
+            control: 'Check what my partner/family has been spending on'
           }
         },
         unexpectedMoney: {
@@ -536,7 +538,9 @@ export const en = {
             splurge: 'Immediately think of things to buy',
             secure: 'Put it all in savings before I can spend it',
             delay: 'Put off deciding what to do with it',
-            celebrate: 'Plan a celebration or special experience'
+            celebrate: 'Plan a celebration or special experience',
+            research: 'Create a detailed plan for how to best allocate it',
+            discuss: 'Discuss spending limits with my partner first'
           }
         },
         financialPlanning: {
@@ -545,7 +549,9 @@ export const en = {
             restrictive: 'It feels too restrictive and takes the fun out of life',
             essential: 'It\'s essential - I track every penny',
             overwhelming: 'It\'s overwhelming and I\'d rather not think about it',
-            flexible: 'I prefer to keep things flexible for spontaneous enjoyment'
+            flexible: 'I prefer to keep things flexible for spontaneous enjoyment',
+            detailed: 'I love creating detailed spreadsheets and tracking everything',
+            monitoring: 'I mainly focus on monitoring others\' spending habits'
           }
         },
         financialRegret: {
@@ -554,7 +560,31 @@ export const en = {
             impulse: 'Impulse purchases I didn\'t really need',
             missingOut: 'Missing out on experiences because I was saving',
             procrastination: 'Not dealing with financial issues sooner',
-            overindulgence: 'Spending too much on luxury or entertainment'
+            overindulgence: 'Spending too much on luxury or entertainment',
+            overPlanning: 'Spending too much time planning instead of enjoying',
+            arguments: 'Arguments with family about spending decisions'
+          }
+        },
+        moneyAnxiety: {
+          question: 'What makes you most anxious about money?',
+          options: {
+            notEnough: 'Not having enough for things I want',
+            running: 'Running out of money in the future',
+            dealing: 'Having to deal with financial paperwork or decisions',
+            missing: 'Missing out on experiences due to saving',
+            losing: 'Losing track of my financial situation',
+            others: 'Other people in my life spending irresponsibly'
+          }
+        },
+        dailyMoney: {
+          question: 'How often do you think about or check your finances?',
+          options: {
+            rarely: 'Only when I need to make a purchase',
+            crisis: 'Only when there\'s a financial crisis',
+            avoiding: 'I try to avoid thinking about it',
+            enjoying: 'When I\'m planning something fun to buy',
+            constantly: 'Multiple times a day - I check balances regularly',
+            monitoring: 'When I need to set limits for others\' spending'
           }
         }
       },
@@ -604,6 +634,12 @@ export const en = {
       title: 'Something went wrong',
       identifyFailed: 'Unable to identify your financial parts. Please try again.',
       resolveFailed: 'Unable to explore this part further. Please try again.'
+    },
+    nextSteps: {
+      title: 'Continue Your Journey',
+      description: 'Now that you know your primary financial firefighter part, explore these next steps to deepen your understanding and build a healthier relationship with money.',
+      deepAssessmentPrompt: 'Want more personalized insights about your financial parts?',
+      deepAssessmentButton: 'Try Deep Part Exploration'
     }
   },
   selfCompassion: {

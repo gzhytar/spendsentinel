@@ -15,7 +15,7 @@ interface QuizQuestion {
   options: {
     value: string;
     label: string;
-    type: 'spender' | 'hoarder' | 'avoider' | 'indulger' | 'unsure';
+    type: 'spender' | 'hoarder' | 'avoider' | 'indulger' | 'planner' | 'expenseController' | 'unsure';
   }[];
 }
 
@@ -41,6 +41,8 @@ export function FirefighterQuiz({ onComplete, onCancel, onSuggestDeepAssessment 
         { value: 'save', label: t('selfAssessment.quiz.questions.stressResponse.options.save'), type: 'hoarder' },
         { value: 'ignore', label: t('selfAssessment.quiz.questions.stressResponse.options.ignore'), type: 'avoider' },
         { value: 'treat', label: t('selfAssessment.quiz.questions.stressResponse.options.treat'), type: 'indulger' },
+        { value: 'plan', label: t('selfAssessment.quiz.questions.stressResponse.options.plan'), type: 'planner' },
+        { value: 'control', label: t('selfAssessment.quiz.questions.stressResponse.options.control'), type: 'expenseController' },
         { value: 'unsure-1', label: t('selfAssessment.quiz.unsureOption'), type: 'unsure' }
       ]
     },
@@ -52,6 +54,8 @@ export function FirefighterQuiz({ onComplete, onCancel, onSuggestDeepAssessment 
         { value: 'secure', label: t('selfAssessment.quiz.questions.unexpectedMoney.options.secure'), type: 'hoarder' },
         { value: 'delay', label: t('selfAssessment.quiz.questions.unexpectedMoney.options.delay'), type: 'avoider' },
         { value: 'celebrate', label: t('selfAssessment.quiz.questions.unexpectedMoney.options.celebrate'), type: 'indulger' },
+        { value: 'research', label: t('selfAssessment.quiz.questions.unexpectedMoney.options.research'), type: 'planner' },
+        { value: 'discuss', label: t('selfAssessment.quiz.questions.unexpectedMoney.options.discuss'), type: 'expenseController' },
         { value: 'unsure-2', label: t('selfAssessment.quiz.unsureOption'), type: 'unsure' }
       ]
     },
@@ -63,6 +67,8 @@ export function FirefighterQuiz({ onComplete, onCancel, onSuggestDeepAssessment 
         { value: 'essential', label: t('selfAssessment.quiz.questions.financialPlanning.options.essential'), type: 'hoarder' },
         { value: 'overwhelming', label: t('selfAssessment.quiz.questions.financialPlanning.options.overwhelming'), type: 'avoider' },
         { value: 'flexible', label: t('selfAssessment.quiz.questions.financialPlanning.options.flexible'), type: 'indulger' },
+        { value: 'detailed', label: t('selfAssessment.quiz.questions.financialPlanning.options.detailed'), type: 'planner' },
+        { value: 'monitoring', label: t('selfAssessment.quiz.questions.financialPlanning.options.monitoring'), type: 'expenseController' },
         { value: 'unsure-3', label: t('selfAssessment.quiz.unsureOption'), type: 'unsure' }
       ]
     },
@@ -74,7 +80,35 @@ export function FirefighterQuiz({ onComplete, onCancel, onSuggestDeepAssessment 
         { value: 'missing-out', label: t('selfAssessment.quiz.questions.financialRegret.options.missingOut'), type: 'hoarder' },
         { value: 'procrastination', label: t('selfAssessment.quiz.questions.financialRegret.options.procrastination'), type: 'avoider' },
         { value: 'overindulgence', label: t('selfAssessment.quiz.questions.financialRegret.options.overindulgence'), type: 'indulger' },
+        { value: 'overPlanning', label: t('selfAssessment.quiz.questions.financialRegret.options.overPlanning'), type: 'planner' },
+        { value: 'arguments', label: t('selfAssessment.quiz.questions.financialRegret.options.arguments'), type: 'expenseController' },
         { value: 'unsure-4', label: t('selfAssessment.quiz.unsureOption'), type: 'unsure' }
+      ]
+    },
+    {
+      id: 'money-anxiety',
+      question: t('selfAssessment.quiz.questions.moneyAnxiety.question'),
+      options: [
+        { value: 'notEnough', label: t('selfAssessment.quiz.questions.moneyAnxiety.options.notEnough'), type: 'spender' },
+        { value: 'running', label: t('selfAssessment.quiz.questions.moneyAnxiety.options.running'), type: 'hoarder' },
+        { value: 'dealing', label: t('selfAssessment.quiz.questions.moneyAnxiety.options.dealing'), type: 'avoider' },
+        { value: 'missing', label: t('selfAssessment.quiz.questions.moneyAnxiety.options.missing'), type: 'indulger' },
+        { value: 'losing', label: t('selfAssessment.quiz.questions.moneyAnxiety.options.losing'), type: 'planner' },
+        { value: 'others', label: t('selfAssessment.quiz.questions.moneyAnxiety.options.others'), type: 'expenseController' },
+        { value: 'unsure-5', label: t('selfAssessment.quiz.unsureOption'), type: 'unsure' }
+      ]
+    },
+    {
+      id: 'daily-money',
+      question: t('selfAssessment.quiz.questions.dailyMoney.question'),
+      options: [
+        { value: 'rarely', label: t('selfAssessment.quiz.questions.dailyMoney.options.rarely'), type: 'spender' },
+        { value: 'crisis', label: t('selfAssessment.quiz.questions.dailyMoney.options.crisis'), type: 'hoarder' },
+        { value: 'avoiding', label: t('selfAssessment.quiz.questions.dailyMoney.options.avoiding'), type: 'avoider' },
+        { value: 'enjoying', label: t('selfAssessment.quiz.questions.dailyMoney.options.enjoying'), type: 'indulger' },
+        { value: 'constantly', label: t('selfAssessment.quiz.questions.dailyMoney.options.constantly'), type: 'planner' },
+        { value: 'monitoring', label: t('selfAssessment.quiz.questions.dailyMoney.options.monitoring'), type: 'expenseController' },
+        { value: 'unsure-6', label: t('selfAssessment.quiz.unsureOption'), type: 'unsure' }
       ]
     }
   ];
@@ -100,8 +134,8 @@ export function FirefighterQuiz({ onComplete, onCancel, onSuggestDeepAssessment 
         setCurrentQuestion(currentQuestion + 1);
         setSelectedValue(answers[questions[currentQuestion + 1].id] || '');
       } else {
-        // Check if user answered "unsure" to too many questions (2 or more)
-        if (newUnsureCount >= 2 && onSuggestDeepAssessment) {
+        // Check if user answered "unsure" to too many questions (3 or more out of 6)
+        if (newUnsureCount >= 3 && onSuggestDeepAssessment) {
           onSuggestDeepAssessment();
           return;
         }
@@ -111,7 +145,9 @@ export function FirefighterQuiz({ onComplete, onCancel, onSuggestDeepAssessment 
           spender: 0,
           hoarder: 0,
           avoider: 0,
-          indulger: 0
+          indulger: 0,
+          planner: 0,
+          expenseController: 0
         };
 
         // Count all answers except current one

@@ -39,7 +39,9 @@ function getLocalizedFirefighterNames(locale: string): Record<string, string> {
     spender: t.landing.firefighters.spender.title,
     hoarder: t.landing.firefighters.hoarder.title,
     avoider: t.landing.firefighters.avoider.title,
-    indulger: t.landing.firefighters.indulger.title
+    indulger: t.landing.firefighters.indulger.title,
+    planner: t.landing.firefighters.planner.title,
+    expenseController: t.landing.firefighters.expenseController.title
   };
 }
 

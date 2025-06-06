@@ -21,11 +21,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useI18n } from '@/contexts/i18n-context';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { useIdentifiedParts } from '@/lib/assessment-utils';
+import { useIdentifiedParts, createFirefighterTypeData, FirefighterTypeId } from '@/lib/assessment-utils';
 import { ExplorePartsButton } from './explore-parts-button';
 
 interface FirefighterType {
-  id: string;
+  id: FirefighterTypeId;
   title: string;
   description: string;
   triggers: string[];
@@ -52,68 +52,8 @@ export function FirefighterTypes({
   const [selectedType, setSelectedType] = useState<string>(highlightedType || 'spender');
   const identifiedParts = useIdentifiedParts();
 
-  const firefighterTypes: FirefighterType[] = [
-    {
-      id: 'spender',
-      title: t('landing.firefighters.spender.title'),
-      description: t('landing.firefighters.spender.description'),
-      triggers: t<string[]>('landing.firefighters.spender.triggers.items'),
-      behaviors: t<string[]>('landing.firefighters.spender.behaviors.items'),
-      emotions: t<string[]>('landing.firefighters.spender.emotions.items'),
-      innerDialogue: t<string[]>('landing.firefighters.spender.innerDialogue.items'),
-      digitalFootprints: t<string[]>('landing.firefighters.spender.digitalFootprints.items'),
-    },
-    {
-      id: 'hoarder',
-      title: t('landing.firefighters.hoarder.title'),
-      description: t('landing.firefighters.hoarder.description'),
-      triggers: t<string[]>('landing.firefighters.hoarder.triggers.items'),
-      behaviors: t<string[]>('landing.firefighters.hoarder.behaviors.items'),
-      emotions: t<string[]>('landing.firefighters.hoarder.emotions.items'),
-      innerDialogue: t<string[]>('landing.firefighters.hoarder.innerDialogue.items'),
-      digitalFootprints: t<string[]>('landing.firefighters.hoarder.digitalFootprints.items'),
-    },
-    {
-      id: 'avoider',
-      title: t('landing.firefighters.avoider.title'),
-      description: t('landing.firefighters.avoider.description'),
-      triggers: t<string[]>('landing.firefighters.avoider.triggers.items'),
-      behaviors: t<string[]>('landing.firefighters.avoider.behaviors.items'),
-      emotions: t<string[]>('landing.firefighters.avoider.emotions.items'),
-      innerDialogue: t<string[]>('landing.firefighters.avoider.innerDialogue.items'),
-      digitalFootprints: t<string[]>('landing.firefighters.avoider.digitalFootprints.items'),
-    },
-    {
-      id: 'indulger',
-      title: t('landing.firefighters.indulger.title'),
-      description: t('landing.firefighters.indulger.description'),
-      triggers: t<string[]>('landing.firefighters.indulger.triggers.items'),
-      behaviors: t<string[]>('landing.firefighters.indulger.behaviors.items'),
-      emotions: t<string[]>('landing.firefighters.indulger.emotions.items'),
-      innerDialogue: t<string[]>('landing.firefighters.indulger.innerDialogue.items'),
-      digitalFootprints: t<string[]>('landing.firefighters.indulger.digitalFootprints.items'),
-    },
-    {
-      id: 'planner',
-      title: t('landing.firefighters.planner.title'),
-      description: t('landing.firefighters.planner.description'),
-      triggers: t<string[]>('landing.firefighters.planner.triggers.items'),
-      behaviors: t<string[]>('landing.firefighters.planner.behaviors.items'),
-      emotions: t<string[]>('landing.firefighters.planner.emotions.items'),
-      innerDialogue: t<string[]>('landing.firefighters.planner.innerDialogue.items'),
-      digitalFootprints: t<string[]>('landing.firefighters.planner.digitalFootprints.items'),
-    },
-    {
-      id: 'expenseController',
-      title: t('landing.firefighters.expenseController.title'),
-      description: t('landing.firefighters.expenseController.description'),
-      triggers: t<string[]>('landing.firefighters.expenseController.triggers.items'),
-      behaviors: t<string[]>('landing.firefighters.expenseController.behaviors.items'),
-      emotions: t<string[]>('landing.firefighters.expenseController.emotions.items'),
-      innerDialogue: t<string[]>('landing.firefighters.expenseController.innerDialogue.items'),
-      digitalFootprints: t<string[]>('landing.firefighters.expenseController.digitalFootprints.items'),
-    }
-  ];
+  // Use centralized configuration to eliminate duplication
+  const firefighterTypes: FirefighterType[] = createFirefighterTypeData(t);
 
   const currentType = firefighterTypes.find(type => type.id === selectedType) || firefighterTypes[0];
 

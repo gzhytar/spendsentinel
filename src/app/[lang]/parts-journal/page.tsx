@@ -13,7 +13,7 @@ import { SafeEnvironmentStep } from '@/components/parts-journal/safe-environment
 import { FindFocusStep } from '@/components/parts-journal/find-focus-step';
 import { CuriousDialogueStep } from '@/components/parts-journal/curious-dialogue-step';
 import { AppreciateLogStep } from '@/components/parts-journal/appreciate-log-step';
-import { useIdentifiedParts } from '@/lib/assessment-utils';
+import { useIdentifiedParts, getFirefighterTypeId } from '@/lib/assessment-utils';
 import { use } from 'react';
 import Image from 'next/image';
 import { useOnboardingTracking } from '@/hooks/use-onboarding-tracking';
@@ -38,26 +38,7 @@ interface JournalContent {
   step4: string;
 }
 
-// Utility function to map part names to firefighter type IDs for image display
-const getFirefighterTypeId = (partName: string, t: (key: string) => string): string => {
-  // Get the firefighter type names from translations
-  const firefighterTypeNames = {
-    spender: t('landing.firefighters.spender.title'),
-    hoarder: t('landing.firefighters.hoarder.title'),
-    avoider: t('landing.firefighters.avoider.title'),
-    indulger: t('landing.firefighters.indulger.title')
-  };
-  
-  // Find the type ID that matches the part name
-  for (const [typeId, typeName] of Object.entries(firefighterTypeNames)) {
-    if (typeName === partName) {
-      return typeId;
-    }
-  }
-  
-  // Default fallback
-  return 'spender';
-};
+// Using shared getFirefighterTypeId utility from assessment-utils
 
 export default function PartsJournal({ params }: PartsJournalProps) {
   const { lang } = use(params);

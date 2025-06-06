@@ -28,21 +28,45 @@ interface DeepAssessmentResult {
 const QUIZ_RESULTS_KEY = 'firefighterQuizResults';
 const DEEP_ASSESSMENT_KEY = 'identifiedFinancialParts';
 
+// Centralized firefighter types configuration - single source of truth
+export const FIREFIGHTER_TYPE_IDS = [
+  'spender', 
+  'hoarder', 
+  'avoider', 
+  'indulger', 
+  'planner', 
+  'expenseController'
+] as const;
+
+export type FirefighterTypeId = typeof FIREFIGHTER_TYPE_IDS[number];
+
 /**
- * Get localized firefighter type names for a given locale
+ * Centralized firefighter type configuration
+ * Single source of truth for all firefighter type definitions
  */
-function getLocalizedFirefighterNames(locale: string): Record<string, string> {
+export interface FirefighterTypeConfig {
+  id: FirefighterTypeId;
+  translationKeyBase: string;
+}
+
+export const FIREFIGHTER_TYPES_CONFIG: FirefighterTypeConfig[] = FIREFIGHTER_TYPE_IDS.map(id => ({
+  id,
+  translationKeyBase: `landing.firefighters.${id}`
+}));
+
+/**
+ * Get localized firefighter type names using centralized config
+ */
+export function getLocalizedFirefighterNames(locale: string): Record<string, string> {
   const translations = { en, cs, ru, uk };
   const t = translations[locale as keyof typeof translations] || translations.en;
   
-  return {
-    spender: t.landing.firefighters.spender.title,
-    hoarder: t.landing.firefighters.hoarder.title,
-    avoider: t.landing.firefighters.avoider.title,
-    indulger: t.landing.firefighters.indulger.title,
-    planner: t.landing.firefighters.planner.title,
-    expenseController: t.landing.firefighters.expenseController.title
-  };
+  return FIREFIGHTER_TYPES_CONFIG.reduce((acc, config) => {
+    // Use type assertion to access dynamic properties safely
+    const firefighterSection = t.landing.firefighters as any;
+    acc[config.id] = firefighterSection[config.id]?.title || config.id;
+    return acc;
+  }, {} as Record<string, string>);
 }
 
 /**
@@ -118,4 +142,50 @@ export function useIdentifiedParts(): string[] {
   }, [locale]);
 
   return parts;
+}
+
+/**
+ * Maps a localized part name to its corresponding firefighter type ID for image display
+ * Uses centralized configuration to eliminate duplication
+ */
+export function getFirefighterTypeId(partName: string, t: (key: string) => string): string {
+  // Use centralized config to build translation mapping
+  const firefighterTypeNames: Record<string, string> = FIREFIGHTER_TYPES_CONFIG.reduce((acc, config) => {
+    acc[config.id] = t(`${config.translationKeyBase}.title`);
+    return acc;
+  }, {} as Record<string, string>);
+  
+  // Find the type ID that matches the part name
+  for (const [typeId, typeName] of Object.entries(firefighterTypeNames)) {
+    if (typeName === partName) {
+      return typeId;
+    }
+  }
+  
+  // Default fallback to spender
+  return 'spender';
+}
+
+/**
+ * Gets all available firefighter type IDs from centralized config
+ */
+export function getAllFirefighterTypeIds(): FirefighterTypeId[] {
+  return [...FIREFIGHTER_TYPE_IDS];
+}
+
+/**
+ * Create firefighter type data structure for components
+ * Centralized factory function to generate consistent type objects
+ */
+export function createFirefighterTypeData(t: (key: string) => any) {
+  return FIREFIGHTER_TYPES_CONFIG.map(config => ({
+    id: config.id,
+    title: t(`${config.translationKeyBase}.title`),
+    description: t(`${config.translationKeyBase}.description`),
+    triggers: t(`${config.translationKeyBase}.triggers.items`),
+    behaviors: t(`${config.translationKeyBase}.behaviors.items`),
+    emotions: t(`${config.translationKeyBase}.emotions.items`),
+    innerDialogue: t(`${config.translationKeyBase}.innerDialogue.items`),
+    digitalFootprints: t(`${config.translationKeyBase}.digitalFootprints.items`),
+  }));
 } 

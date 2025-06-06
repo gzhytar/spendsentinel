@@ -18,7 +18,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Coffee } from 'lucide-react';
 import { expenseStorage } from '@/lib/expense-storage';
-import { useIdentifiedParts } from '@/lib/assessment-utils';
+import { useIdentifiedParts, getFirefighterTypeId } from '@/lib/assessment-utils';
 import { use } from 'react';
 import { completeOnboardingSession, ANALYTICS_EVENTS } from '@/lib/analytics-utils';
 import { useOnboardingTracking } from '@/hooks/use-onboarding-tracking';
@@ -317,26 +317,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
         .flatMap(expense => expense.triggeredParts || [])
     )];
 
-    // Utility function to map part names to firefighter type IDs for image display
-    const getFirefighterTypeId = (partName: string): string => {
-      // Get the firefighter type names from translations
-      const firefighterTypeNames: Record<string, string> = {
-        spender: t('landing.firefighters.spender.title'),
-        hoarder: t('landing.firefighters.hoarder.title'),
-        avoider: t('landing.firefighters.avoider.title'),
-        indulger: t('landing.firefighters.indulger.title')
-      };
-      
-      // Find the type ID that matches the part name
-      for (const [typeId, typeName] of Object.entries(firefighterTypeNames)) {
-        if (typeName === partName) {
-          return typeId;
-        }
-      }
-      
-      // Default fallback
-      return 'spender';
-    };
+    // Use shared utility function for firefighter type ID mapping
 
     const handleStartPartSession = (partName: string) => {
       // Track parts session start in onboarding flow
@@ -391,7 +372,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
         <div className="flex justify-center">
           <div className="grid gap-6 max-w-4xl">
             {triggeredParts.map((part) => {
-              const firefighterTypeId = getFirefighterTypeId(part);
+              const firefighterTypeId = getFirefighterTypeId(part, t);
               return (
                 <Card key={part} className="overflow-hidden hover:shadow-md transition-shadow w-full max-w-sm mx-auto">
                   <div className="relative h-40 w-full">

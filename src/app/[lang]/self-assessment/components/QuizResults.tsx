@@ -1,7 +1,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { CheckCircle, RefreshCw, ArrowRight, Calendar, BookOpen, DollarSign, Wand2 } from 'lucide-react';
+import { CheckCircle, RefreshCw, ArrowRight, Calendar, BookOpen, DollarSign } from 'lucide-react';
 import { useI18n } from '@/contexts/i18n-context';
 import { FirefighterTypes } from '@/components/common/FirefighterTypes';
 import { useAssessmentTracking } from '../hooks/useAssessmentTracking';
@@ -16,7 +16,7 @@ export function QuizResults({ result, assessmentState }: QuizResultsProps) {
   const { t, locale } = useI18n();
   const { trackDailyCheckinStart, trackPartsSessionStart } = useAssessmentTracking();
   
-  const { retakeQuiz, suggestDeepAssessment } = assessmentState;
+  const { retakeQuiz } = assessmentState;
 
   const handleDailyCheckinStart = () => {
     trackDailyCheckinStart('self_assessment_quiz_results', {

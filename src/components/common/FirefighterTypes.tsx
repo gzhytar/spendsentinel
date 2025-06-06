@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -13,15 +12,11 @@ import {
   Brain,
   Heart,
   Shield,
-  Smartphone,
-  BookOpen,
-  Calendar
-} from 'lucide-react';
+  Smartphone} from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useI18n } from '@/contexts/i18n-context';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { useIdentifiedParts, createFirefighterTypeData, FirefighterTypeId } from '@/lib/assessment-utils';
+import { createFirefighterTypeData, FirefighterTypeId } from '@/lib/assessment-utils';
 import { ExplorePartsButton } from './explore-parts-button';
 
 interface FirefighterType {
@@ -48,9 +43,8 @@ export function FirefighterTypes({
   subtitle, 
   showIntroduction = true 
 }: FirefighterTypesProps) {
-  const { t, locale } = useI18n();
+  const { t } = useI18n();
   const [selectedType, setSelectedType] = useState<string>(highlightedType || 'spender');
-  const identifiedParts = useIdentifiedParts();
 
   // Use centralized configuration to eliminate duplication
   const firefighterTypes: FirefighterType[] = createFirefighterTypeData(t);

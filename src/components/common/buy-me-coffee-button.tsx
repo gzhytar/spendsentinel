@@ -35,17 +35,19 @@ export function BuyMeCoffeeButton({
   onClose,
   translations
 }: BuyMeCoffeeButtonProps) {
-  const { t } = translations ? { t: () => '' } : useI18n(); // Use dummy t if translations provided
-  
+  const analyticsContext = useAnalyticsContext();
+  const { t } = useI18n();
+
   // Use analytics context only if translations are not provided (normal context)
   // When translations are provided (toast context), analytics might not be available
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let trackEvent: ((eventName: string, parameters?: any) => void) | undefined;
   try {
     if (!translations) {
-      const analyticsContext = useAnalyticsContext();
       trackEvent = analyticsContext.trackEvent;
     }
   } catch (error) {
+    console.error('Error accessing analytics context:', error);
     // Analytics context not available (e.g., in toast), continue without tracking
     trackEvent = undefined;
   }

@@ -5,7 +5,7 @@ interface DeepAssessmentSectionProps {
   assessmentState: AssessmentState;
 }
 
-export function DeepAssessmentSection({ assessmentState }: DeepAssessmentSectionProps) {
+export function DeepAssessmentSection({ }: DeepAssessmentSectionProps) {
   const { t } = useI18n();
   
   return (

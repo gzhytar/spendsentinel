@@ -22,6 +22,7 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
 
   // Create consent-aware analytics wrapper
   const consentAwareAnalytics: AnalyticsContextType = {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     trackEvent: (eventName: string, parameters?: Record<string, any>) => {
       const consentState = ConsentManager.loadConsentState();
       if (ConsentManager.hasValidConsent(consentState, 'analytics')) {
@@ -43,6 +44,7 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
         }
       }
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     trackFeatureUsage: (featureName: string, details?: Record<string, any>) => {
       const consentState = ConsentManager.loadConsentState();
       if (ConsentManager.hasValidConsent(consentState, 'analytics')) {

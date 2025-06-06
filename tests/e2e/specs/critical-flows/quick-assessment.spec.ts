@@ -20,25 +20,30 @@ test.describe('Quick Assessment Journey', () => {
 
   test('should complete quick assessment quiz flow successfully', async ({ page }) => {
     await page.goto('en');
-    await page.getByRole('link', { name: 'Explore my financial parts', exact: false }).first().click();
-    await page.getByRole('button', { name: 'Start Discovery' }).click();
-    await page.getByText('Browse online stores or go').click();
-    await page.getByRole('button', { name: 'Next', exact: true }).click();
-    await page.getByText('Put it all in savings before').click();
-    await page.getByRole('button', { name: 'Next', exact: true }).click();
-    await page.getByText('It feels too restrictive and').click();
-    await page.getByRole('button', { name: 'Next', exact: true }).click();
-    await page.getByText('Impulse purchases I didn\'t').click();
+    await page.getByRole('button', { name: 'Accept all'}).click();
+    await page.getByRole('link', { name: 'Explore my financial parts' }).first().click();
+    await page.getByRole('button', { name: 'Start My Discovery' }).click();
+    await page.getByText('Browse online stores').click();
+    await page.getByRole('button', { name: 'Next' }).click();
+    await page.getByText('Put it all in savings').click();
+    await page.getByRole('button', { name: 'Next' }).click();
+    await page.getByText('It feels too restrictive').click();
+    await page.getByRole('button', { name: 'Next' }).click();
+    await page.getByText('Impulse purchases').click();
+    await page.getByRole('button', { name: 'Next' }).click();
+    await page.getByText('Not having enough').click();
+    await page.getByRole('button', { name: 'Next' }).click();
+    await page.getByText('Only when I').click();
     await page.getByRole('button', { name: 'See Results' }).click();
     
     await expect(page.getByRole('button', { name: 'The Spender' })).toBeEnabled();
-    await page.getByRole('button', { name: 'Perform a Daily Check-In' }).click({force: true});
+    await page.getByRole('button', { name: 'Perform a Daily Check-In' }).click();
 
-    await expect(page.getByRole('heading', { name: 'Grounding Breath Exercise' })).toBeVisible({timeout: 1000});
-    await page.getByRole('button', { name: 'Next'}).click({force: true});
+    await expect(page.getByRole('heading', { name: 'Grounding Breath Exercise' })).toBeVisible();
+    await page.getByRole('button', { name: 'Next'}).click();
 
-    await expect(page.getByRole('heading', { name: 'Reflect on Your Day' })).toBeVisible({timeout: 1000});
-    await page.getByRole('button', { name: 'Next', exact: true }).click({force: true});
+    await expect(page.getByRole('heading', { name: 'Reflect on Your Day' })).toBeVisible();
+    await page.getByRole('button', { name: 'Next'}).click();
 
     await page.getByRole('radio', { name: 'Spend' }).click();
     await page.getByRole('spinbutton', { name: 'Amount' }).click();

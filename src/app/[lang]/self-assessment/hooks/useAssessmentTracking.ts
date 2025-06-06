@@ -25,6 +25,7 @@ export function useAssessmentTracking() {
     });
   }, [trackOnboarding]);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const trackDailyCheckinStart = useCallback((source: string, additionalData: any = {}) => {
     trackOnboarding('DAILY_CHECKIN_START', {
       source_page: source,

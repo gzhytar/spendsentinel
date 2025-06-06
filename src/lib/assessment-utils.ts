@@ -63,6 +63,7 @@ export function getLocalizedFirefighterNames(locale: string): Record<string, str
   
   return FIREFIGHTER_TYPES_CONFIG.reduce((acc, config) => {
     // Use type assertion to access dynamic properties safely
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const firefighterSection = t.landing.firefighters as any;
     acc[config.id] = firefighterSection[config.id]?.title || config.id;
     return acc;
@@ -177,6 +178,7 @@ export function getAllFirefighterTypeIds(): FirefighterTypeId[] {
  * Create firefighter type data structure for components
  * Centralized factory function to generate consistent type objects
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function createFirefighterTypeData(t: (key: string) => any) {
   return FIREFIGHTER_TYPES_CONFIG.map(config => ({
     id: config.id,

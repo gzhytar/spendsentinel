@@ -10,9 +10,7 @@ interface AssessmentResultsProps {
 }
 
 export function AssessmentResults({ 
-  identificationResult, 
-  resolutionResult, 
-  assessmentState 
+  identificationResult 
 }: AssessmentResultsProps) {
   const { t } = useI18n();
   

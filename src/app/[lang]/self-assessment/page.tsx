@@ -13,7 +13,6 @@ import { ErrorDisplay } from './components/ErrorDisplay';
 import { Separator } from "@/components/ui/separator";
 
 export default function SelfAssessmentPage() {
-  const { t } = useI18n();
   const assessmentState = useAssessmentState();
   const { trackAssessmentStart } = useAssessmentTracking();
 

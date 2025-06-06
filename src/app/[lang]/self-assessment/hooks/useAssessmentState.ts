@@ -29,6 +29,7 @@ export interface AssessmentState {
   completeQuiz: (result: string) => void;
   retakeQuiz: () => void;
   suggestDeepAssessment: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   submitIdentification: (data: any) => Promise<void>;
   resetIdentification: () => void;
   resolvePart: () => Promise<void>;
@@ -117,6 +118,7 @@ export function useAssessmentState(): AssessmentState {
   };
 
   // Deep assessment actions
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const submitIdentification = async (data: any) => {
     setIsLoadingIdentify(true);
     setError(null);

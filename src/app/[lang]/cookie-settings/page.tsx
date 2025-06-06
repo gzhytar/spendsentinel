@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -132,7 +132,7 @@ export default function CookieSettingsPage() {
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
-              {consentHistory.slice(-5).reverse().map((record, index) => (
+              {consentHistory.slice(-5).reverse().map((record) => (
                 <div key={record.id} className="p-3 rounded-lg bg-slate-50 border border-slate-200">
                   <div className="flex items-center justify-between">
                     <div>

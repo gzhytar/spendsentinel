@@ -142,6 +142,8 @@ export function useAssessmentState(): AssessmentState {
       // Track and save
       trackDeepAssessmentComplete(result.identifiedPart.partName);
       storageService.saveDeepAssessmentResult({ result, locale });
+      // Also save the part name as a quiz result for consistency
+      storageService.saveQuizResult({ result: result.identifiedPart.partName, locale });
     } catch (e) {
       console.error(e);
       setError(t('selfAssessment.error.identifyFailed'));

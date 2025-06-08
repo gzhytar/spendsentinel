@@ -1,11 +1,12 @@
 import { useI18n } from '@/contexts/i18n-context';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { AlertCircle, Brain, Lightbulb, RotateCcw, Heart } from 'lucide-react';
+import { AlertCircle, Brain } from 'lucide-react';
 import type { AssessmentState } from '../hooks/useAssessmentState';
+import { AssessmentResults } from './AssessmentResults';
 
 interface DeepAssessmentSectionProps {
   assessmentState: AssessmentState;
@@ -118,8 +119,6 @@ export function DeepAssessmentSection({ assessmentState }: DeepAssessmentSection
         </Card>
       )}
 
-
-
       {/* Form Step */}
       {currentView === 'form' && (
         <Card className="shadow-lg">
@@ -152,7 +151,6 @@ export function DeepAssessmentSection({ assessmentState }: DeepAssessmentSection
               />
               {errors.financialSituation && (
                 <p className="text-sm text-blue-600 mt-1 flex items-start gap-2">
-                  <Heart className="w-4 h-4 mt-0.5 flex-shrink-0" />
                   {errors.financialSituation}
                 </p>
               )}
@@ -177,7 +175,6 @@ export function DeepAssessmentSection({ assessmentState }: DeepAssessmentSection
               />
               {errors.recentFinancialBehavior && (
                 <p className="text-sm text-blue-600 mt-1 flex items-start gap-2">
-                  <Heart className="w-4 h-4 mt-0.5 flex-shrink-0" />
                   {errors.recentFinancialBehavior}
                 </p>
               )}
@@ -207,123 +204,12 @@ export function DeepAssessmentSection({ assessmentState }: DeepAssessmentSection
 
       {/* Results Step */}
       {currentView === 'results' && identificationResult && (
-        <Card className="shadow-lg">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <Lightbulb className="w-5 h-5" />
-              <span>Your Financial Guardian: {identificationResult.identifiedPart.partName}</span>
-            </CardTitle>
-            <CardDescription>
-              Understanding this part of you can help create a more harmonious relationship with money.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            {/* Part Details */}
-            <div className="grid gap-4">
-              <div className="space-y-2">
-                <h4 className="font-medium text-sm uppercase tracking-wide text-muted-foreground">
-                  Protective Role
-                </h4>
-                <p className="text-sm leading-relaxed">
-                  {identificationResult.identifiedPart.role}
-                </p>
-              </div>
-              
-              <div className="space-y-2">
-                <h4 className="font-medium text-sm uppercase tracking-wide text-muted-foreground">
-                  What This Part Carries
-                </h4>
-                <p className="text-sm leading-relaxed">
-                  {identificationResult.identifiedPart.burden}
-                </p>
-              </div>
-              
-              <div className="space-y-2">
-                <h4 className="font-medium text-sm uppercase tracking-wide text-muted-foreground">
-                  Underlying Care
-                </h4>
-                <p className="text-sm leading-relaxed">
-                  {identificationResult.identifiedPart.concern}
-                </p>
-              </div>
-              
-              <div className="space-y-2">
-                <h4 className="font-medium text-sm uppercase tracking-wide text-muted-foreground">
-                  How to Work With This Part
-                </h4>
-                <p className="text-sm leading-relaxed">
-                  {identificationResult.suggestedEngagement}
-                </p>
-              </div>
-            </div>
-
-            {/* Resolution Results */}
-            {resolutionResult && (
-              <div className="mt-6 p-4 bg-primary/5 rounded-lg space-y-4">
-                <h4 className="font-medium text-primary flex items-center gap-2">
-                  <Heart className="w-4 h-4" />
-                  Deeper Understanding
-                </h4>
-                
-                <div className="grid gap-3">
-                  <div>
-                    <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Enhanced Role Clarity:</span>
-                    <p className="text-sm mt-1">{resolutionResult.role}</p>
-                  </div>
-                  
-                  <div>
-                    <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Deeper Compassion:</span>
-                    <p className="text-sm mt-1">{resolutionResult.burden}</p>
-                  </div>
-                  
-                  <div>
-                    <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Core Care:</span>
-                    <p className="text-sm mt-1">{resolutionResult.concern}</p>
-                  </div>
-                  
-                  <div>
-                    <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Gentle Approach:</span>
-                    <p className="text-sm mt-1 capitalize">{resolutionResult.engagementStrategy} approach recommended</p>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      This suggests the most supportive way to work with this part of yourself.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-          </CardContent>
-          <CardFooter className="flex flex-col sm:flex-row gap-3">
-            {!resolutionResult && (
-              <Button 
-                onClick={resolvePart}
-                disabled={isLoadingResolve}
-                variant="outline"
-                className="flex-1"
-              >
-                {isLoadingResolve ? (
-                  <>
-                    <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin mr-2" />
-                    Deepening understanding...
-                  </>
-                ) : (
-                  <>
-                    <Lightbulb className="w-4 h-4 mr-2" />
-                    Explore deeper insights
-                  </>
-                )}
-              </Button>
-            )}
-            
-            <Button 
-              onClick={handleReset}
-              variant="outline"
-              className="flex-1"
-            >
-              <RotateCcw className="w-4 h-4 mr-2" />
-              Explore another part
-            </Button>
-          </CardFooter>
-        </Card>
+        <AssessmentResults 
+          partName={identificationResult.identifiedPart.partName}
+          identificationResult={identificationResult}
+          resolutionResult={resolutionResult}
+          assessmentState={assessmentState}
+        />
       )}
     </div>
   );

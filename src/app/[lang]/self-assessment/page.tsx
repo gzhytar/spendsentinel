@@ -61,13 +61,7 @@ export default function SelfAssessmentPage() {
       {error && <ErrorDisplay error={error} />}
 
       {/* Assessment Results */}
-      {identificationResult && (
-        <AssessmentResults 
-          identificationResult={identificationResult}
-          resolutionResult={resolutionResult}
-          assessmentState={assessmentState}
-        />
-      )}
+      {/* Removed duplicate AssessmentResults render to prevent triple display for custom parts */}
     </div>
   );
 }

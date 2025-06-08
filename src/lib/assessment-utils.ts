@@ -164,7 +164,7 @@ export function getFirefighterTypeId(partName: string, t: (key: string) => strin
   }
   
   // Default fallback to spender
-  return 'spender';
+  return 'custom';
 }
 
 /**

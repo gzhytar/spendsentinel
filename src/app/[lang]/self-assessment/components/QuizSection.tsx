@@ -5,6 +5,7 @@ import { useI18n } from '@/contexts/i18n-context';
 import { FirefighterQuiz } from '@/components/common/FirefighterQuiz';
 import { useAssessmentTracking } from '../hooks/useAssessmentTracking';
 import type { AssessmentState } from '../hooks/useAssessmentState';
+import { AssessmentResults } from './AssessmentResults';
 
 interface QuizSectionProps {
   assessmentState: AssessmentState;
@@ -20,6 +21,8 @@ export function QuizSection({ assessmentState }: QuizSectionProps) {
     cancelQuiz,
     completeQuiz,
     suggestDeepAssessment,
+    showQuizResult,
+    quizResult,
   } = assessmentState;
 
   const handleQuizComplete = (result: string) => {
@@ -56,11 +59,16 @@ export function QuizSection({ assessmentState }: QuizSectionProps) {
             </Button>
           </div>
         ) : (
-          <FirefighterQuiz
-            onComplete={handleQuizComplete}
-            onCancel={cancelQuiz}
-            onSuggestDeepAssessment={suggestDeepAssessment}
-          />
+          <div className="space-y-6">
+            {showQuizResult && quizResult && (
+              <AssessmentResults partName={quizResult} />
+            )}
+            <FirefighterQuiz
+              onComplete={handleQuizComplete}
+              onCancel={cancelQuiz}
+              onSuggestDeepAssessment={suggestDeepAssessment}
+            />
+          </div>
         )}
       </CardContent>
     </Card>

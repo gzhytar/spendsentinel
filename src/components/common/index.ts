@@ -6,3 +6,16 @@ export { GroundingExercise } from './grounding-exercise';
 export { PanicButton } from './panic-button';
 export { CelebrationSupport } from './celebration-support';
 export { BuyMeCoffeeButton } from './buy-me-coffee-button';
+
+// New unified components
+export { 
+  UniversalPartsDisplay,
+  UniversalPartSelector,
+  useUniversalPartData,
+  identificationResultToUniversalPart,
+  enhancePartWithResolution,
+  firefighterTypeToUniversalPart,
+  quizResultToUniversalPart,
+  mergeParts,
+  filterParts
+} from './firefighter-types';

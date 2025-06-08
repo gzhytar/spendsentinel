@@ -1155,6 +1155,47 @@ export const cs = {
       }
     }
   },
+  parts: {
+    introduction: {
+      title: 'Pochopení vašich finančních částí',
+      description: 'Každá část představuje jiný aspekt vašeho finančního chování. Pochopením těchto částí se soucitem můžete činit uvědomělejší finanční rozhodnutí.'
+    },
+    overview: {
+      title: 'Vaše finanční části',
+      subtitle: 'Všechny vaše identifikované části - z hodnocení a vestavěných typů',
+      noParts: 'Zatím nebyly identifikovány žádné části. Dokončete hodnocení a objevte své finanční části.'
+    }
+  },
+  assessment: {
+    results: {
+      title: 'Vaše identifikované finanční části',
+      subtitle: 'Tyto části byly objeveny prostřednictvím vašeho osobního hodnocení',
+      noParts: 'Zatím nebyly identifikovány žádné vlastní části. Proveďte hluboké hodnocení a objevte své jedinečné finanční části.',
+      behaviors: {
+        label: 'Jak se tato část projevuje ve vašich činech'
+      },
+      triggers: {
+        label: 'Co aktivuje tuto část'
+      },
+      emotions: {
+        label: 'Emoce, které tato část zažívá'
+      },
+      innerDialogue: {
+        label: 'Co vám tato část říká vnitřně'
+      },
+      digitalFootprints: {
+        label: 'Jak se tato část projevuje online'
+      },
+      ifs: {
+        roleDescription: 'Role, kterou tato část hraje ve vašem finančním životě',
+        roleLabel: 'Role části',
+        burdenDescription: 'Břemeno nebo negativní přesvědčení, které tato část nese',
+        burdenLabel: 'Co nese',
+        concernDescription: 'Základní obava, která řídí chování této části',
+        concernLabel: 'Její největší starост'
+      }
+    }
+  },
   partsJournal: {
     title: 'Deník částí',
     subtitle: 'Zapojte se do strukturovaného dialogu se svými finančními částmi',

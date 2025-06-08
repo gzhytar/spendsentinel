@@ -10,7 +10,8 @@ import { ExplorePartsButton } from './explore-parts-button';
 import { 
   FirefighterTypeSelector, 
   FirefighterTypeContent, 
-  useFirefighterTypeData 
+  useFirefighterTypeData,
+  firefighterTypeToUniversalPart
 } from './firefighter-types';
 
 interface FirefighterTypesProps {
@@ -30,6 +31,9 @@ export function FirefighterTypes({
   const [selectedType, setSelectedType] = useState<string>(highlightedType || 'spender');
   
   const { firefighterTypes, currentType } = useFirefighterTypeData(selectedType, t);
+
+  // Convert to UniversalPart format for the content component
+  const currentUniversalPart = firefighterTypeToUniversalPart(currentType);
 
   const handleTypeSelect = (typeId: string) => {
     const isGrayedOut = highlightedType && highlightedType !== typeId;
@@ -76,7 +80,7 @@ export function FirefighterTypes({
         />
 
         <FirefighterTypeContent
-          currentType={currentType}
+          currentPart={currentUniversalPart}
           t={t}
         />
 

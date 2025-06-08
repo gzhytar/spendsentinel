@@ -1194,6 +1194,47 @@ export const en = {
       }
     }
   },
+  parts: {
+    introduction: {
+      title: 'Understanding Your Financial Parts',
+      description: 'Each part represents a different aspect of your financial behavior. By understanding these parts with compassion, you can make more conscious money decisions.'
+    },
+    overview: {
+      title: 'Your Financial Parts',
+      subtitle: 'All your identified parts - from assessments and built-in types',
+      noParts: 'No parts have been identified yet. Complete an assessment to discover your financial parts.'
+    }
+  },
+  assessment: {
+    results: {
+      title: 'Your Identified Financial Parts',
+      subtitle: 'These parts were discovered through your personal assessment',
+      noParts: 'No custom parts have been identified yet. Take a deep assessment to discover your unique financial parts.',
+      behaviors: {
+        label: 'How this part shows up in your actions'
+      },
+      triggers: {
+        label: 'What activates this part'
+      },
+      emotions: {
+        label: 'Emotions this part experiences'
+      },
+      innerDialogue: {
+        label: 'What this part says to you internally'
+      },
+      digitalFootprints: {
+        label: 'How this part shows up online'
+      },
+      ifs: {
+        roleDescription: 'The role this part plays in your financial life',
+        roleLabel: 'Part\'s Role',
+        burdenDescription: 'The burden or negative belief this part carries',
+        burdenLabel: 'What It Carries',
+        concernDescription: 'The underlying concern driving this part\'s behavior',
+        concernLabel: 'Its Biggest Worry'
+      }
+    }
+  },
   partsJournal: {
     title: 'My Parts Journal',
     subtitle: 'Engage in structured dialogue with your financial parts',

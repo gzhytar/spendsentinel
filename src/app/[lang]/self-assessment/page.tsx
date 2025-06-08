@@ -8,7 +8,6 @@ import { useAssessmentTracking } from './hooks/useAssessmentTracking';
 import { QuizSection } from './components/QuizSection';
 import { QuizResults } from './components/QuizResults';
 import { DeepAssessmentSection } from './components/DeepAssessmentSection';
-import { AssessmentResults } from './components/AssessmentResults';
 import { ErrorDisplay } from './components/ErrorDisplay';
 import { Separator } from "@/components/ui/separator";
 

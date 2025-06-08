@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { LucideIcon, AlertCircle, CheckCircle2, Brain, Heart, Shield, Smartphone, User, Target } from 'lucide-react';
-import { UniversalPart } from '../../../lib/FireFighterTypes';
+import { UniversalPart } from './types';
 
 export interface SectionConfig {
   id: string;
@@ -22,7 +22,7 @@ export function useSectionConfiguration(
   t: (key: string) => string
 ): UseSectionConfigurationReturn {
   const sections = useMemo(() => {
-    const baseSections: SectionConfig[] = [
+    const baseSections = [
       {
         id: 'behaviors',
         titleKey: 'landing.firefighters.tabs.behaviors',
@@ -77,14 +77,14 @@ export function useSectionConfiguration(
 
     // Add custom sections for IFS parts
     if (currentPart.type === 'custom') {
-      const customSections: SectionConfig[] = [];
+      const customSections = [];
       
       if (currentPart.role) {
         customSections.push({
           id: 'role',
-          titleKey: 'assessment.results.ifs.roleLabel',
+          titleKey: 'assessment.results.ifs.role',
           icon: User,
-          labelKey: 'assessment.results.ifs.roleDescription',
+          labelKey: 'assessment.results.ifs.role.label',
           itemIcon: User,
           items: undefined,
           customContent: currentPart.role,
@@ -94,9 +94,9 @@ export function useSectionConfiguration(
       if (currentPart.burden) {
         customSections.push({
           id: 'burden',
-          titleKey: 'assessment.results.ifs.burdenLabel',
+          titleKey: 'assessment.results.ifs.burden',
           icon: Shield,
-          labelKey: 'assessment.results.ifs.burdenDescription',
+          labelKey: 'assessment.results.ifs.burden.label',
           itemIcon: Shield,
           items: undefined,
           customContent: currentPart.burden,
@@ -106,9 +106,9 @@ export function useSectionConfiguration(
       if (currentPart.concern) {
         customSections.push({
           id: 'concern',
-          titleKey: 'assessment.results.ifs.concernLabel',
+          titleKey: 'assessment.results.ifs.concern',
           icon: Target,
-          labelKey: 'assessment.results.ifs.concernDescription',
+          labelKey: 'assessment.results.ifs.concern.label',
           itemIcon: Target,
           items: undefined,
           customContent: currentPart.concern,

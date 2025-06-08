@@ -4,7 +4,8 @@ import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Brain, Shield, Lightbulb, MessageSquare, CalendarCheck, Coffee, LucideIcon } from 'lucide-react';
 import { useI18n } from '@/contexts/i18n-context';
-import { FirefighterTypes, ExplorePartsButton, FeatureNavigationButton, BuyMeCoffeeButton } from '@/components/common';
+import { ExplorePartsButton, FeatureNavigationButton, BuyMeCoffeeButton } from '@/components/common';
+import { UniversalPartsDisplay } from '@/components/common/firefighter-types';
 import { VersionInfo } from '@/components/ui/version-info';
 import { useDebugMode } from '@/hooks/use-debug-mode';
 import { useMonetizationVisibility } from '@/hooks/use-monetization-visibility';
@@ -286,7 +287,9 @@ export default function LandingPage() {
 
       {/* Firefighter Types Section - Now using the new component */}
       <section className="space-y-6 px-4">
-        <FirefighterTypes />
+        <UniversalPartsDisplay 
+          showOnlyPredefined={true}
+        />
       </section>
 
       {/* Features Section */}

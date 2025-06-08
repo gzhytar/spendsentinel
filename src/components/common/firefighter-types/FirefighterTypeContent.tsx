@@ -1,16 +1,16 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { FirefighterType } from './useFirefighterTypeData';
+import { UniversalPart } from '../../../lib/FireFighterTypes';
 import { useSectionConfiguration } from './useSectionConfiguration';
 import { SectionRenderer } from './SectionRenderer';
 
 interface FirefighterTypeContentProps {
-  currentType: FirefighterType;
+  currentPart: UniversalPart;
   t: (key: string) => string;
 }
 
-export function FirefighterTypeContent({ currentType, t }: FirefighterTypeContentProps) {
-  const { availableSections } = useSectionConfiguration(currentType, t);
+export function FirefighterTypeContent({ currentPart, t }: FirefighterTypeContentProps) {
+  const { availableSections } = useSectionConfiguration(currentPart, t);
 
   if (availableSections.length === 0) {
     return null;
@@ -21,8 +21,8 @@ export function FirefighterTypeContent({ currentType, t }: FirefighterTypeConten
       {/* Type Header */}
       <div className="flex items-center space-x-6">
         <div className="flex-1">
-          <h4 className="text-xl font-semibold mb-2">{currentType.title}</h4>
-          <p className="text-muted-foreground">{currentType.description}</p>
+          <h4 className="text-xl font-semibold mb-2">{currentPart.title}</h4>
+          <p className="text-muted-foreground">{currentPart.description}</p>
         </div>
       </div>
 

@@ -6,7 +6,11 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { AlertCircle, Brain } from 'lucide-react';
 import type { AssessmentState } from '../hooks/useAssessmentState';
-import { AssessmentResults } from './AssessmentResults';
+import { 
+  UniversalPartsDisplay, 
+  identificationResultToUniversalPart,
+  enhancePartWithResolution 
+} from '@/components/common/firefighter-types';
 
 interface DeepAssessmentSectionProps {
   assessmentState: AssessmentState;
@@ -95,6 +99,20 @@ export function DeepAssessmentSection({ assessmentState }: DeepAssessmentSection
   };
 
   const currentView = determineCurrentView();
+
+  // Convert identification result to UniversalPart format
+  const getCustomParts = () => {
+    if (!identificationResult) return [];
+    
+    let universalPart = identificationResultToUniversalPart(identificationResult);
+    
+    // Enhance with resolution data if available
+    if (resolutionResult) {
+      universalPart = enhancePartWithResolution(universalPart, resolutionResult);
+    }
+    
+    return [universalPart];
+  };
 
   return (
     <div className="space-y-6">
@@ -204,11 +222,14 @@ export function DeepAssessmentSection({ assessmentState }: DeepAssessmentSection
 
       {/* Results Step */}
       {currentView === 'results' && identificationResult && (
-        <AssessmentResults 
-          partName={identificationResult.identifiedPart.partName}
-          identificationResult={identificationResult}
-          resolutionResult={resolutionResult}
-          assessmentState={assessmentState}
+        <UniversalPartsDisplay
+          customParts={getCustomParts()}
+          title={t('assessment.results.title')}
+          subtitle={t('assessment.results.subtitle')}
+          showIntroduction={false}
+          showOnlyCustom={true}
+          showCallToAction={false}
+          highlightedPart={getCustomParts()[0]?.id}
         />
       )}
     </div>

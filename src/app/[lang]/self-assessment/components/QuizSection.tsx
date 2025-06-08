@@ -60,7 +60,7 @@ export function QuizSection({ assessmentState }: QuizSectionProps) {
           </div>
         ) : (
           <div className="space-y-6">
-            {showQuizResult && quizResult && (
+            {(
               <AssessmentResults partName={quizResult} />
             )}
             <FirefighterQuiz

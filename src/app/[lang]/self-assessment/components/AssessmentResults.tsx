@@ -28,36 +28,68 @@ export function AssessmentResults({
   console.log('typeId', typeId);
   console.log('partName', partName);
 
-  if (isKnownType) {
-    // Use FirefighterTypes for known types
-    return (
-      <FirefighterTypes
-        highlightedType={typeId}
-        title={t('selfAssessment.quiz.detailedResult.title')}
-        subtitle={t('selfAssessment.quiz.detailedResult.subtitle')}
-        showIntroduction={false}
-      />
-    );
-  }
+  // Helper to render prominent examples as a list
+  const renderList = (items: string[] | undefined) =>
+    items && items.length > 0 ? (
+      <ul className="list-disc list-inside space-y-1 text-left mx-auto max-w-md">
+        {items.map((item, idx) => (
+          <li key={idx}>{item}</li>
+        ))}
+      </ul>
+    ) : null;
 
-  // Fallback for custom/unknown part
-  return (
-    <div className="space-y-6">
-      <div className="flex flex-col items-center">
-        <div className="relative w-40 h-40 mb-4 rounded-md overflow-hidden border bg-muted">
-          {/* Placeholder for custom part image */}
-          <Image src="/images/custom.jpg" alt="Custom part" fill className="object-contain" />
+  // Render extended details for any part (custom or known)
+  const renderExtendedDetails = (identifiedPart: IdentifyIFSPartOutput['identifiedPart']) => (
+    <div className="space-y-4 mt-6">
+      {identifiedPart.description && (
+        <div>
+          <h4 className="font-semibold text-lg mb-1">{t('selfAssessment.result.description') || 'Description'}</h4>
+          <p className="text-muted-foreground text-base">{identifiedPart.description}</p>
         </div>
-        <h3 className="text-xl font-semibold text-center">{partName}</h3>
-        {identificationResult && (
-          <div className="mt-2 space-y-2 text-center">
-            <p className="text-muted-foreground">{identificationResult.identifiedPart.role}</p>
-            <p className="text-muted-foreground">{identificationResult.identifiedPart.burden}</p>
-            <p className="text-muted-foreground">{identificationResult.identifiedPart.concern}</p>
-            <p className="text-primary font-medium mt-2">{identificationResult.suggestedEngagement}</p>
-          </div>
-        )}
-      </div>
+      )}
+      {identifiedPart.behaviors && identifiedPart.behaviors.length > 0 && (
+        <div>
+          <h4 className="font-semibold text-lg mb-1">{t('selfAssessment.result.behaviors') || 'Behaviors'}</h4>
+          {renderList(identifiedPart.behaviors)}
+        </div>
+      )}
+      {identifiedPart.triggers && identifiedPart.triggers.length > 0 && (
+        <div>
+          <h4 className="font-semibold text-lg mb-1">{t('selfAssessment.result.triggers') || 'Triggers'}</h4>
+          {renderList(identifiedPart.triggers)}
+        </div>
+      )}
+      {identifiedPart.emotions && identifiedPart.emotions.length > 0 && (
+        <div>
+          <h4 className="font-semibold text-lg mb-1">{t('selfAssessment.result.emotions') || 'Emotions over time'}</h4>
+          {renderList(identifiedPart.emotions)}
+        </div>
+      )}
+      {identifiedPart.innerDialogue && identifiedPart.innerDialogue.length > 0 && (
+        <div>
+          <h4 className="font-semibold text-lg mb-1">{t('selfAssessment.result.innerDialogue') || 'Inner Dialogue'}</h4>
+          {renderList(identifiedPart.innerDialogue)}
+        </div>
+      )}
+      {identifiedPart.digitalFootprints && identifiedPart.digitalFootprints.length > 0 && (
+        <div>
+          <h4 className="font-semibold text-lg mb-1">{t('selfAssessment.result.digitalFootprints') || 'Digital Footprints'}</h4>
+          {renderList(identifiedPart.digitalFootprints)}
+        </div>
+      )}
     </div>
   );
+
+    return (
+      <div className="space-y-8">
+        <FirefighterTypes
+          highlightedType={typeId}
+          title={t('selfAssessment.quiz.detailedResult.title')}
+          subtitle={t('selfAssessment.quiz.detailedResult.subtitle')}
+          showIntroduction={false}
+        />
+        {/* Optionally show extended details for known types as well */}
+        {identificationResult && renderExtendedDetails(identificationResult.identifiedPart)}
+      </div>
+    );
 } 

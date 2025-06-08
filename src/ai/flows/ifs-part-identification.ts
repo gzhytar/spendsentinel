@@ -26,33 +26,18 @@ const IFSPartDetailsSchema = z.object({
   role: z.string().describe("The role this part plays in the user's financial life."),
   burden: z.string().describe('The burden or negative belief this part carries.'),
   concern: z.string().describe("The underlying concern or fear driving this part's behavior."),
+  description: z.string().describe('A one-paragraph compassionate description with a focus on the positive protective intent of the part, rewritten for clarity, simple language, and brevity.'),
+  behaviors: z.array(z.string()).describe('Prominent examples of behavior of the identified part.'),
+  triggers: z.array(z.string()).describe('Prominent examples of triggers of the identified part.'),
+  emotions: z.array(z.string()).describe('Prominent examples of emotions over time of the identified part.'),
+  innerDialogue: z.array(z.string()).describe('Prominent examples of inner dialogue of the identified part.'),
+  digitalFootprints: z.array(z.string()).describe('Prominent examples of digital footprints of the identified part.'),
 });
 
 const IdentifyIFSPartOutputSchema = z.object({
-  identifiedPart: IFSPartDetailsSchema.describe("Details of the identified financial part."),
-  suggestedEngagement: z
-    .string()
-    .describe("A suggestion on how to engage with the part following the 6F framework (Find, Focus, Flesh out, Feel toward, Befriend, Fears) to help understand the user's financial parts."),
+  identifiedPart: IFSPartDetailsSchema.describe("Details of the identified financial part.")
 });
 export type IdentifyIFSPartOutput = z.infer<typeof IdentifyIFSPartOutputSchema>;
-
-const decideEngagementTool = ai.defineTool({
-  name: 'decideEngagement',
-  description: "Decides how to best engage with the user's part following the 6F framework (Find, Focus, Flesh out, Feel toward, Befriend, Fears) to help understand the user's financial parts.",
-  inputSchema: z.object({
-    partName: z.string().describe("The name of the identified financial part."),
-    role: z.string().describe("The role this part plays in the user's financial life."),
-    burden: z.string().describe("The burden or negative belief this part carries."),
-    concern: z.string().describe("The underlying concern or fear driving this part's behavior."),
-  }),
-  outputSchema: z.string(),
-},
-async input => {
-  // Placeholder implementation for deciding engagement strategy
-  // In a real application, this would contain logic to tailor the engagement
-  // based on the user's personality type and the identified part's details.
-  return `Describe in details how to engage with the part following the 6F framework (Find, Focus, Flesh out, Feel toward, Befriend, Fears) to help understand the user's ${input.partName} financial parts.`;
-});
 
 export async function identifyIFSPart(input: IdentifyIFSPartInput): Promise<IdentifyIFSPartOutput> {
   return identifyIFSPartFlow(input);
@@ -62,7 +47,7 @@ const prompt = ai.definePrompt({
   name: 'identifyIFSPartPrompt',
   input: {schema: IdentifyIFSPartInputSchema},
   output: {schema: IdentifyIFSPartOutputSchema},
-  tools: [decideEngagementTool],
+  tools: [],
   prompt: `You are an AI trained in Internal Family Systems (IFS) therapy, specializing in financial behaviors. You respond in language: {{locale}}
 	Your goal is to help users understand their internal 'financial parts' to improve their financial decision-making.	
 
@@ -71,7 +56,18 @@ const prompt = ai.definePrompt({
 	User's Personality Type: {{{personalityType}}}
 
 	Based on the provided information, identify one prominent financial part, including its role, burden, and concern.
-	Then, use the decideEngagement tool to determine the best way to communicate with the user about this part, considering their personality.
+
+  For the identified part, provide the following structured information:
+  - partName: The name of the identified financial part.
+  - role: The role this part plays in the user's financial life.
+  - burden: The burden or negative belief this part carries.
+  - concern: The underlying concern or fear driving this part's behavior.
+  - description: Write a one-paragraph, compassionate description with a focus on the positive protective intent of the part. Rewrite it for clarity, use simple language, and make it a bit shorter.
+  - behaviors: List 3-5 prominent examples of behavior of the identified part (as an array of short strings).
+  - triggers: List 3-5 prominent examples of triggers of the identified part (as an array of short strings).
+  - emotions: List 3-5 prominent examples of emotions over time of the identified part (as an array of short strings).
+  - innerDialogue: List 3-5 prominent examples of inner dialogue of the identified part (as an array of short strings).
+  - digitalFootprints: List 3-5 prominent examples of digital footprints of the identified part (as an array of short strings).
 
   {{#if locale}}
     IMPORTANT: Respond in language: {{locale}}
@@ -85,9 +81,14 @@ const prompt = ai.definePrompt({
 		  "partName": "The Worrier",
 		  "role": "To protect you from financial ruin by constantly worrying about money.",
 		  "burden": "Believes you are incapable of managing money and will end up in poverty.",
-		  "concern": "Fear of becoming homeless or unable to provide for your family."
-		},
-		"suggestedEngagement": "Engage with The Worrier by acknowledging their concerns and reassuring them that you are taking steps to ensure financial stability."
+		  "concern": "Fear of becoming homeless or unable to provide for your family.",
+      "description": "The Worrier is always on alert, trying to keep you safe from financial trouble. It means well, even if it sometimes makes you anxious. Its main goal is to help you avoid mistakes and feel secure.",
+      "behaviors": ["Double-checking expenses", "Avoiding big purchases", "Constantly reviewing budgets"],
+      "triggers": ["Unexpected bills", "Low account balance", "Talking about money"],
+      "emotions": ["Anxiety", "Restlessness", "Relief after saving"],
+      "innerDialogue": ["What if I run out of money?", "I need to be careful.", "Did I forget a bill?"],
+      "digitalFootprints": ["Frequent banking app checks", "Setting up alerts", "Saving financial articles"]
+		}
 	}
 
   {{#if locale}}

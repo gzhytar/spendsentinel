@@ -602,44 +602,52 @@ export const en = {
       title: 'Deep Part Exploration',
       description: 'For a more personalized analysis, describe your specific financial situation and patterns.',
       formTitle: 'Personalized Financial Part Identification',
-      formDescription: 'Share your financial experiences and we\'ll help you understand the parts of yourself that influence your money decisions.'
-    },
-    form: {
+      formDescription: 'Share your financial experiences and we\'ll help you understand the parts of yourself that influence your money decisions.',
+      success: 'Great! We\'ve identified a financial part that influences your money decisions.',
+      analyzing: 'Analyzing your financial patterns...',
+      resolving: 'Exploring this part deeper...',
+      identifyButton: 'Identify My Financial Parts',
+      resolveButton: 'Explore This Part Deeper',
+      tryAgainButton: 'Try New Exploration',
       financialSituation: {
         label: 'Describe your current financial situation',
-        placeholder: 'Share what\'s happening with your finances right now - debts, income, expenses, goals, challenges...',
-        error: 'Please provide more details about your financial situation.'
+        placeholder: 'Share what\'s happening with your finances right now - debts, income, expenses, goals, challenges...'
       },
-      recentFinancialBehavior: {
+      recentBehavior: {
         label: 'Describe your recent financial behavior',
-        placeholder: 'Tell us about your spending, saving, or money-related decisions in the past few weeks or months...',
-        error: 'Please describe your recent financial behavior in more detail.'
+        placeholder: 'Tell us about your spending, saving, or money-related decisions in the past few weeks or months...'
+      },
+      validation: {
+        financialSituation: 'Please provide more details about your financial situation.',
+        recentBehavior: 'Please describe your recent financial behavior in more detail.'
+      },
+      resolution: {
+        title: 'Explore This Part Deeper',
+        description: 'Let\'s understand more about this part\'s role and how to work with it compassionately.',
+        results: {
+          title: 'Understanding Your Financial Part',
+          role: 'Role',
+          burden: 'What it carries',
+          concern: 'Its biggest worry'
+        }
+      },
+      results: {
+        title: 'Your Identified Financial Part',
+        subtitle: 'Understanding this part and how to work with it compassionately'
       }
-    },
-    identifyButton: 'Identify My Financial Parts',
-    repeatAssessmentButton: 'Start New Exploration',
-    explorePartButton: 'Explore This Part Deeper',
-    startPartJournalButton: 'Start Part Journal',
-    dailyCheckInButton: 'Perform a Daily Check-In',
-    premiumFeatureTooltip: 'This deep exploration is a premium feature. Subscribe to enable premium features.',
-    result: {
-      title: 'Meet Your {partName}',
-      role: 'Role',
-      burden: 'What it carries',
-      concern: 'Its biggest worry',
-      suggestedEngagement: 'How to work with this part',
-      engagementDescription: 'Remember: this part is trying to help you. Approach it with curiosity and compassion.'
-    },
-    error: {
-      title: 'Something went wrong',
-      identifyFailed: 'Unable to identify your financial parts. Please try again.',
-      resolveFailed: 'Unable to explore this part further. Please try again.'
     },
     nextSteps: {
       title: 'Continue Your Journey',
       description: 'Now that you know your primary financial firefighter part, explore these next steps to deepen your understanding and build a healthier relationship with money.',
       deepAssessmentPrompt: 'Want more personalized insights about your financial parts?',
       deepAssessmentButton: 'Try Deep Part Exploration'
+    },
+    dailyCheckInButton: 'Start Daily Check-in',
+    startPartJournalButton: 'Start Parts Journal',
+    error: {
+      title: 'Something went wrong',
+      identifyFailed: 'Unable to identify your financial parts. Please try again.',
+      resolveFailed: 'Unable to explore this part further. Please try again.'
     }
   },
   selfCompassion: {

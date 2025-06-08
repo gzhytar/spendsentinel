@@ -22,7 +22,6 @@ export function UniversalPartsDisplay({
   subtitle,
   showIntroduction = true,
   showTypeSelector = true,
-  allowSelection = true,
   showOnlyCustom = false,
   showOnlyPredefined = false,
   showCallToAction = true,
@@ -47,9 +46,11 @@ export function UniversalPartsDisplay({
   });
 
   const handlePartSelect = (partId: string) => {
-    if (!allowSelection) return;
     
     const isGrayedOut = highlightedPart && highlightedPart !== partId;
+    console.log('isGrayedOut', isGrayedOut);  
+    console.log('partId', partId);
+    console.log('highlightedPart', highlightedPart);  
     if (!isGrayedOut) {
       setSelectedPartId(partId);
       const selectedPart = availableParts.find(p => p.id === partId);

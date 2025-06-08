@@ -1,5 +1,24 @@
 import type { IdentifyIFSPartOutput } from '@/ai/flows/ifs-part-identification';
+import type { IFSPartResolutionOutput } from '@/ai/flows/ifs-part-resolution';
 
+interface UnifiedAssessmentResult {
+  id: string;
+  type: 'quiz' | 'deep-assessment';
+  timestamp: string;
+  locale: string;
+  
+  // For quiz results
+  quizResult?: string;
+  
+  // For deep assessment results  
+  identificationResult?: IdentifyIFSPartOutput;
+  resolutionResult?: IFSPartResolutionOutput;
+  
+  // Common fields for easier access
+  partName: string; // Extracted from either type
+}
+
+// Legacy interfaces for backward compatibility
 interface SavedQuizResult {
   result: string;
   timestamp: string;
@@ -13,83 +32,180 @@ interface SavedDeepAssessmentResult {
 }
 
 export class AssessmentStorageService {
-  private static readonly QUIZ_RESULTS_KEY = 'firefighterQuizResults';
-  private static readonly DEEP_ASSESSMENT_KEY = 'identifiedFinancialParts';
+  private static readonly UNIFIED_RESULTS_KEY = 'unifiedAssessmentResults';
+  private static readonly QUIZ_RESULTS_KEY = 'firefighterQuizResults'; // Legacy
+  private static readonly DEEP_ASSESSMENT_KEY = 'identifiedFinancialParts'; // Legacy
   private static readonly MAX_RESULTS_PER_LOCALE = 10;
 
-  // Quiz result methods
-  saveQuizResult(data: { result: string; locale: string }): void {
+  // Unified methods
+  saveAssessmentResult(data: {
+    type: 'quiz' | 'deep-assessment';
+    locale: string;
+    quizResult?: string;
+    identificationResult?: IdentifyIFSPartOutput;
+    resolutionResult?: IFSPartResolutionOutput;
+  }): void {
     try {
-      const newResult: SavedQuizResult = {
-        ...data,
+      const existingResults = this.getUnifiedResults();
+      
+      // Extract part name based on type
+      const partName = data.type === 'quiz' 
+        ? data.quizResult! 
+        : data.identificationResult!.identifiedPart.partName;
+
+      const newResult: UnifiedAssessmentResult = {
+        id: `${data.type}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        type: data.type,
         timestamp: new Date().toISOString(),
+        locale: data.locale,
+        partName,
+        quizResult: data.quizResult,
+        identificationResult: data.identificationResult,
+        resolutionResult: data.resolutionResult
       };
 
-      const existingResults = this.getQuizResults();
-      const updatedResults = this.addResultToCollection(existingResults, newResult, data.locale);
+      // Add to existing results
+      const updatedResults = this.addResultToUnifiedCollection(existingResults, newResult, data.locale);
       
-      localStorage.setItem(AssessmentStorageService.QUIZ_RESULTS_KEY, JSON.stringify(updatedResults));
+      localStorage.setItem(AssessmentStorageService.UNIFIED_RESULTS_KEY, JSON.stringify(updatedResults));
     } catch (error) {
-      console.error('Error saving quiz result:', error);
+      console.error('Failed to save unified assessment result:', error);
     }
+  }
+
+  getLatestAssessmentResult(locale: string): UnifiedAssessmentResult | null {
+    try {
+      const results = this.getUnifiedResults();
+      const localeResults = this.filterByLocale(results, locale);
+      return this.getMostRecent(localeResults);
+    } catch (error) {
+      console.error('Failed to load latest assessment result:', error);
+      return null;
+    }
+  }
+
+  getAllAssessmentResults(locale: string): UnifiedAssessmentResult[] {
+    try {
+      const results = this.getUnifiedResults();
+      return this.filterByLocale(results, locale);
+    } catch (error) {
+      console.error('Failed to load assessment results:', error);
+      return [];
+    }
+  }
+
+  // Legacy methods for backward compatibility
+  saveQuizResult(data: { result: string; locale: string }): void {
+    this.saveAssessmentResult({
+      type: 'quiz',
+      locale: data.locale,
+      quizResult: data.result
+    });
   }
 
   getLatestQuizResult(locale: string): SavedQuizResult | null {
+    // First try unified storage
+    const unifiedResult = this.getLatestAssessmentResult(locale);
+    if (unifiedResult && unifiedResult.type === 'quiz') {
+      return {
+        result: unifiedResult.quizResult!,
+        timestamp: unifiedResult.timestamp,
+        locale: unifiedResult.locale
+      };
+    }
+
+    // Fallback to legacy storage
     try {
-      const results = this.getQuizResults();
+      const results = this.getLegacyQuizResults();
       const localeResults = this.filterByLocale(results, locale);
       return this.getMostRecent(localeResults);
     } catch (error) {
-      console.error('Error loading quiz results:', error);
+      console.error('Failed to load quiz results:', error);
       return null;
     }
   }
 
-  // Deep assessment result methods
-  saveDeepAssessmentResult(data: { result: IdentifyIFSPartOutput; locale: string }): void {
-    try {
-      const newResult: SavedDeepAssessmentResult = {
-        ...data,
-        timestamp: new Date().toISOString(),
-      };
-
-      const existingResults = this.getDeepAssessmentResults();
-      const updatedResults = this.addResultToCollection(existingResults, newResult, data.locale);
-      
-      localStorage.setItem(AssessmentStorageService.DEEP_ASSESSMENT_KEY, JSON.stringify(updatedResults));
-    } catch (error) {
-      console.error('Error saving deep assessment result:', error);
-    }
+  saveDeepAssessmentResult(data: { result: IdentifyIFSPartOutput; locale: string; resolutionResult?: IFSPartResolutionOutput }): void {
+    this.saveAssessmentResult({
+      type: 'deep-assessment',
+      locale: data.locale,
+      identificationResult: data.result,
+      resolutionResult: data.resolutionResult
+    });
   }
 
   getLatestDeepAssessmentResult(locale: string): SavedDeepAssessmentResult | null {
+    // First try unified storage
+    const unifiedResult = this.getLatestAssessmentResult(locale);
+    if (unifiedResult && unifiedResult.type === 'deep-assessment') {
+      return {
+        result: unifiedResult.identificationResult!,
+        timestamp: unifiedResult.timestamp,
+        locale: unifiedResult.locale
+      };
+    }
+
+    // Fallback to legacy storage
     try {
-      const results = this.getDeepAssessmentResults();
+      const results = this.getLegacyDeepAssessmentResults();
       const localeResults = this.filterByLocale(results, locale);
       return this.getMostRecent(localeResults);
     } catch (error) {
-      console.error('Error loading deep assessment results:', error);
+      console.error('Failed to load deep assessment results:', error);
       return null;
     }
   }
 
-  // Private helper methods
-  private getQuizResults(): SavedQuizResult[] {
-    if (typeof window === 'undefined') return [];
-    
-    const stored = localStorage.getItem(AssessmentStorageService.QUIZ_RESULTS_KEY);
-    return stored ? JSON.parse(stored) : [];
+  // Private unified storage methods
+  private getUnifiedResults(): UnifiedAssessmentResult[] {
+    try {
+      const stored = localStorage.getItem(AssessmentStorageService.UNIFIED_RESULTS_KEY);
+      return stored ? JSON.parse(stored) : [];
+    } catch (error) {
+      console.error('Failed to parse unified results:', error);
+      return [];
+    }
   }
 
-  private getDeepAssessmentResults(): SavedDeepAssessmentResult[] {
-    if (typeof window === 'undefined') return [];
+  private addResultToUnifiedCollection(
+    existingResults: UnifiedAssessmentResult[], 
+    newResult: UnifiedAssessmentResult, 
+    locale: string
+  ): UnifiedAssessmentResult[] {
+    const filteredResults = existingResults.filter(r => r.locale !== locale);
+    const localeResults = existingResults.filter(r => r.locale === locale);
     
-    const stored = localStorage.getItem(AssessmentStorageService.DEEP_ASSESSMENT_KEY);
-    return stored ? JSON.parse(stored) : [];
+    localeResults.push(newResult);
+    localeResults.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+    
+    const trimmedLocaleResults = localeResults.slice(0, AssessmentStorageService.MAX_RESULTS_PER_LOCALE);
+    
+    return [...filteredResults, ...trimmedLocaleResults];
+  }
+
+  // Private legacy storage methods
+  private getLegacyQuizResults(): SavedQuizResult[] {
+    try {
+      const stored = localStorage.getItem(AssessmentStorageService.QUIZ_RESULTS_KEY);
+      return stored ? JSON.parse(stored) : [];
+    } catch (error) {
+      console.error('Failed to parse legacy quiz results:', error);
+      return [];
+    }
+  }
+
+  private getLegacyDeepAssessmentResults(): SavedDeepAssessmentResult[] {
+    try {
+      const stored = localStorage.getItem(AssessmentStorageService.DEEP_ASSESSMENT_KEY);
+      return stored ? JSON.parse(stored) : [];
+    } catch (error) {
+      console.error('Failed to parse legacy deep assessment results:', error);
+      return [];
+    }
   }
 
   private filterByLocale<T extends { locale: string }>(results: T[], locale: string): T[] {
-    return results.filter(item => item.locale === locale);
+    return results.filter(result => result.locale === locale);
   }
 
   private getMostRecent<T extends { timestamp: string }>(results: T[]): T | null {
@@ -98,21 +214,5 @@ export class AssessmentStorageService {
     return results.sort((a, b) => 
       new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
     )[0];
-  }
-
-  private addResultToCollection<T extends { locale: string; timestamp: string }>(
-    existingResults: T[], 
-    newResult: T, 
-    locale: string
-  ): T[] {
-    const otherLocaleResults = existingResults.filter(item => item.locale !== locale);
-    const currentLocaleResults = existingResults.filter(item => item.locale === locale);
-    
-    // Add new result and limit to max per locale
-    const updatedLocaleResults = [newResult, ...currentLocaleResults]
-      .sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime())
-      .slice(0, AssessmentStorageService.MAX_RESULTS_PER_LOCALE);
-      
-    return [...updatedLocaleResults, ...otherLocaleResults];
   }
 } 

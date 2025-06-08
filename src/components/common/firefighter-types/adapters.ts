@@ -113,4 +113,35 @@ export function filterParts(
   }
   
   return filtered;
+}
+
+/**
+ * Convert unified assessment result to UniversalPart for display
+ */
+export function unifiedResultToUniversalPart(
+  result: {
+    type: 'quiz' | 'deep-assessment';
+    quizResult?: string;
+    identificationResult?: IdentifyIFSPartOutput;
+    resolutionResult?: IFSPartResolutionOutput;
+    partName: string;
+  },
+  predefinedTypes: FirefighterType[]
+): UniversalPart | null {
+  if (result.type === 'quiz' && result.quizResult) {
+    return quizResultToUniversalPart(result.quizResult, predefinedTypes);
+  } else if (result.type === 'deep-assessment' && result.identificationResult) {
+    let part = identificationResultToUniversalPart(
+      result.identificationResult, 
+      `custom-${result.partName.toLowerCase().replace(/[^a-z0-9]/g, '-')}`
+    );
+    
+    if (result.resolutionResult) {
+      part = enhancePartWithResolution(part, result.resolutionResult);
+    }
+    
+    return part;
+  }
+  
+  return null;
 } 

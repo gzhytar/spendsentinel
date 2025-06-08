@@ -61,22 +61,29 @@ export function useAssessmentState(): AssessmentState {
 
   const loadSavedResults = () => {
     try {
-      // Load quiz results
-      const savedQuizResult = storageService.getLatestQuizResult(locale);
-      if (savedQuizResult) {
-        setQuizResult(savedQuizResult.result);
-        setShowQuizResult(true);
-        setShowQuizSection(false);
-      }
+      // Load the latest unified result
+      const latestResult = storageService.getLatestAssessmentResult(locale);
 
-      // Load deep assessment results
-      const savedDeepResult = storageService.getLatestDeepAssessmentResult(locale);
-      if (savedDeepResult) {
-        setIdentificationResult(savedDeepResult.result);
-        setShowIdentifyForm(false);
-        setShowDeepAssessment(true);
-        setShowQuizSection(false);
+      if (latestResult) {
+        if (latestResult.type === 'quiz') {
+          // Quiz result is most recent
+          setQuizResult(latestResult.quizResult!);
+          setShowQuizResult(true);
+          setShowQuizSection(false);
+          setShowDeepAssessment(false);
+        } else if (latestResult.type === 'deep-assessment') {
+          // Deep assessment is most recent
+          setIdentificationResult(latestResult.identificationResult!);
+          if (latestResult.resolutionResult) {
+            setResolutionResult(latestResult.resolutionResult);
+          }
+          setShowIdentifyForm(false);
+          setShowDeepAssessment(true);
+          setShowQuizSection(false);
+          setShowQuizResult(false);
+        }
       }
+      // If no results exist, keep defaults (show quiz section)
     } catch (error) {
       console.error('Error loading saved results:', error);
       setShowIdentifyForm(true);
@@ -141,9 +148,11 @@ export function useAssessmentState(): AssessmentState {
 
       // Track and save
       trackDeepAssessmentComplete(result.identifiedPart.partName);
-      storageService.saveDeepAssessmentResult({ result, locale });
-      // Also save the part name as a quiz result for consistency
-      storageService.saveQuizResult({ result: result.identifiedPart.partName, locale });
+      storageService.saveDeepAssessmentResult({ 
+        result, 
+        locale,
+        resolutionResult: resolutionResult || undefined
+      });
     } catch (e) {
       console.error(e);
       setError(t('selfAssessment.error.identifyFailed'));

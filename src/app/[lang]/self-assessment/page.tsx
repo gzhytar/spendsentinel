@@ -1,64 +1,208 @@
 "use client";
 
-import React from 'react';
-import { Brain } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { Brain, CheckCircle, RefreshCw, RotateCcw, ArrowRight, Calendar, BookOpen, DollarSign } from 'lucide-react';
 import { useI18n } from '@/contexts/i18n-context';
 import { useAssessmentState } from './hooks/useAssessmentState';
 import { useAssessmentTracking } from './hooks/useAssessmentTracking';
 import { QuizSection } from './components/QuizSection';
-import { QuizResults } from './components/QuizResults';
 import { DeepAssessmentSection } from './components/DeepAssessmentSection';
 import { ErrorDisplay } from './components/ErrorDisplay';
-import { Separator } from "@/components/ui/separator";
+import { UniversalPartsDisplay } from '@/components/common/firefighter-types';
+import { unifiedResultToUniversalPart } from '@/components/common/firefighter-types/adapters';
+import { createFirefighterTypeData } from '@/lib/assessment-utils';
+import { AssessmentStorageService } from './services/AssessmentStorageService';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 export default function SelfAssessmentPage() {
+  const { t, locale } = useI18n();
   const assessmentState = useAssessmentState();
-  const { trackAssessmentStart } = useAssessmentTracking();
+  const { trackAssessmentStart, trackDailyCheckinStart, trackPartsSessionStart } = useAssessmentTracking();
 
   // Track page visit on mount
-  React.useEffect(() => {
+  useEffect(() => {
     trackAssessmentStart();
   }, [trackAssessmentStart]);
 
-  const {
-    showQuizSection,
-    showQuizResult,
-    showDeepAssessment,
-    quizResult,
-    identificationResult,
-    resolutionResult,
-    error
-  } = assessmentState;
+  // Get the latest assessment result for parts display
+  const getLatestAssessmentResult = () => {
+    const storageService = new AssessmentStorageService();
+    return storageService.getLatestAssessmentResult(locale);
+  };
+
+  // Convert latest result to display data
+  const getPartsDisplayData = () => {
+    const latestResult = getLatestAssessmentResult();
+    if (!latestResult) return null;
+
+    const predefinedTypes = createFirefighterTypeData(t);
+    const universalPart = unifiedResultToUniversalPart(latestResult, predefinedTypes);
+    
+    return {
+      part: universalPart,
+      type: latestResult.type,
+      partName: latestResult.partName
+    };
+  };
+
+  const partsDisplayData = getPartsDisplayData();
+  const shouldShowPartsDisplay = (assessmentState.showQuizResult || assessmentState.showDeepAssessment) && partsDisplayData;
+
+  const handleRetakeQuiz = () => {
+    assessmentState.retakeQuiz();
+  };
+
+  const handleResetDeepAssessment = () => {
+    assessmentState.resetIdentification();
+  };
+
+  const handleDailyCheckinStart = () => {
+    const latestResult = getLatestAssessmentResult();
+    const result = latestResult?.type === 'quiz' ? latestResult.quizResult : latestResult?.partName;
+    
+    trackDailyCheckinStart('self_assessment_results', {
+      assessment_result: result,
+    });
+    window.location.href = `/${locale}/daily-checkin`;
+  };
+
+  const handlePartsJournalStart = () => {
+    const latestResult = getLatestAssessmentResult();
+    const partName = latestResult?.type === 'quiz' ? latestResult.quizResult : latestResult?.partName;
+    
+    trackPartsSessionStart();
+    window.location.href = `/${locale}/parts-journal${partName ? `?part=${encodeURIComponent(partName)}` : ''}`;
+  };
+
+  const handleExpenseTracking = () => {
+    window.location.href = `/${locale}/expense-highlighter`;
+  };
 
   return (
-    <div className="container mx-auto py-8 space-y-8 px-4">
-      {/* Header */}
+    <div className="container mx-auto p-6 max-w-4xl space-y-8">
       <PageHeader />
-
+      
       {/* Quiz Section */}
-      {showQuizSection && (
+      {assessmentState.showQuizSection && (
         <QuizSection assessmentState={assessmentState} />
       )}
 
-      {/* Quiz Results */}
-      {showQuizResult && quizResult && (
-        <>
-          <QuizResults 
-            result={quizResult} 
-            assessmentState={assessmentState}
-          />
-          <Separator className="my-8" />
-        </>
+      {/* Success Alert - Shown when parts are identified */}
+      {shouldShowPartsDisplay && (
+        <Alert className="bg-green-50 border-green-200 dark:bg-green-950/20 dark:border-green-900">
+          <CheckCircle className="h-4 w-4 text-green-600 dark:text-green-400" />
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <AlertDescription className="text-green-800 dark:text-green-200 flex-1">
+              {partsDisplayData.type === 'quiz' 
+                ? t('selfAssessment.quiz.interpretationGuide')
+                : t('selfAssessment.deepAssessment.success')
+              }
+            </AlertDescription>
+            <Button 
+              onClick={partsDisplayData.type === 'quiz' ? handleRetakeQuiz : handleResetDeepAssessment}
+              variant="outline" 
+              size="sm"
+              className="self-start sm:self-center shrink-0"
+            >
+              {partsDisplayData.type === 'quiz' ? (
+                <>
+                  <RefreshCw className="mr-2 h-4 w-4" /> 
+                  {t('selfAssessment.quiz.repeatQuizButton')}
+                </>
+              ) : (
+                <>
+                  <RotateCcw className="mr-2 h-4 w-4" />
+                  {t('selfAssessment.deepAssessment.tryAgainButton')}
+                </>
+              )}
+            </Button>
+          </div>
+        </Alert>
       )}
 
-      {/* Deep Assessment */}
-      {showDeepAssessment && (
+      {/* Centralized Parts Display */}
+      {shouldShowPartsDisplay && (
+        <UniversalPartsDisplay
+          customParts={partsDisplayData.type === 'deep-assessment' && partsDisplayData.part ? [partsDisplayData.part] : []}
+          highlightedPart={partsDisplayData.partName}
+          title={partsDisplayData.type === 'quiz' 
+            ? t('selfAssessment.quiz.detailedResult.title')
+            : t('selfAssessment.deepAssessment.results.title')
+          }
+          subtitle={partsDisplayData.type === 'quiz'
+            ? t('selfAssessment.quiz.detailedResult.subtitle') 
+            : t('selfAssessment.deepAssessment.results.subtitle')
+          }
+          showIntroduction={false}
+          showOnlyCustom={partsDisplayData.type === 'deep-assessment'}
+          showOnlyPredefined={partsDisplayData.type === 'quiz'}
+          showCallToAction={false}
+        />
+      )}
+
+      {/* Next Steps - Shown when parts are identified */}
+      {shouldShowPartsDisplay && (
+        <Card className="shadow-lg border-2 border-primary/20">
+          <CardHeader>
+            <div className="flex items-center space-x-3">
+              <ArrowRight className="w-6 h-6 text-primary" />
+              <CardTitle className="text-xl">{t('selfAssessment.nextSteps.title')}</CardTitle>
+            </div>
+            <CardDescription>
+              {t('selfAssessment.nextSteps.description')}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-col gap-3">
+              {/* Primary Action - Daily Check-in */}
+              <Button 
+                onClick={handleDailyCheckinStart}
+                size="lg"
+                className="w-full"
+                variant="default"
+              >
+                <Calendar className="mr-2 h-4 w-4" /> 
+                {t('selfAssessment.dailyCheckInButton')}
+              </Button>
+
+              {/* Secondary Actions */}
+              <div className="flex flex-col sm:flex-row gap-3 w-full">
+                <Button 
+                  onClick={handlePartsJournalStart}
+                  size="lg"
+                  className="w-full sm:flex-1"
+                  variant="outline"
+                >
+                  <BookOpen className="mr-2 h-4 w-4" /> 
+                  {t('selfAssessment.startPartJournalButton')}
+                </Button>
+
+                <Button 
+                  onClick={handleExpenseTracking}
+                  size="lg"
+                  className="w-full sm:flex-1"
+                  variant="outline"
+                >
+                  <DollarSign className="mr-2 h-4 w-4" /> 
+                  {t('navigation.myFinancialDecisions')}
+                </Button>
+              </div>
+            </div> 
+          </CardContent>
+        </Card>
+      )}
+
+
+
+      {/* Deep Assessment Section */}
+      {assessmentState.showDeepAssessment && (
         <DeepAssessmentSection assessmentState={assessmentState} />
       )}
 
       {/* Error Display */}
-      {error && <ErrorDisplay error={error} />}
-
+      {assessmentState.error && <ErrorDisplay error={assessmentState.error} />}
     </div>
   );
 }

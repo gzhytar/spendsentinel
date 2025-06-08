@@ -1,16 +1,15 @@
-import { useI18n } from '@/contexts/i18n-context';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { AlertCircle, Brain } from 'lucide-react';
+import { Loader2, RotateCcw, Search, ArrowRight } from 'lucide-react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { useI18n } from '@/contexts/i18n-context';
+import { identificationResultToUniversalPart, enhancePartWithResolution } from '@/components/common/firefighter-types/adapters';
 import type { AssessmentState } from '../hooks/useAssessmentState';
-import { 
-  UniversalPartsDisplay, 
-  identificationResultToUniversalPart,
-  enhancePartWithResolution 
-} from '@/components/common/firefighter-types';
+import type { IdentifyIFSPartOutput } from '@/ai/flows/ifs-part-identification';
+import type { IFSPartResolutionOutput } from '@/ai/flows/ifs-part-resolution';
 
 interface DeepAssessmentSectionProps {
   assessmentState: AssessmentState;
@@ -27,213 +26,222 @@ interface FormErrors {
 }
 
 export function DeepAssessmentSection({ assessmentState }: DeepAssessmentSectionProps) {
-  const { t } = useI18n();
-  const [formData, setFormData] = useState<FormData>({
-    financialSituation: '',
-    recentFinancialBehavior: ''
-  });
-  const [errors, setErrors] = useState<FormErrors>({});
-  const [currentStep, setCurrentStep] = useState<'form' | 'results'>('form');
-
+  const { t, locale } = useI18n();
+  
   const {
     showIdentifyForm,
     identificationResult,
     resolutionResult,
     isLoadingIdentify,
     isLoadingResolve,
-    error,
     submitIdentification,
     resetIdentification,
     resolvePart,
-    setError
+    error,
   } = assessmentState;
+
+  const [formData, setFormData] = useState<FormData>({
+    financialSituation: '',
+    recentFinancialBehavior: '',
+  });
+
+  const [formErrors, setFormErrors] = useState<FormErrors>({});
 
   const handleInputChange = (field: keyof FormData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
-    // Clear gentle nudge when user starts typing
-    if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: undefined }));
+    
+    // Clear error when user starts typing
+    if (formErrors[field]) {
+      setFormErrors(prev => ({ ...prev, [field]: undefined }));
     }
   };
 
   const validateForm = (): boolean => {
-    const newErrors: FormErrors = {};
+    const errors: FormErrors = {};
     
-    if (!formData.financialSituation.trim() || formData.financialSituation.trim().length < 10) {
-      newErrors.financialSituation = 'We\'d love to understand your situation better. Could you share a bit more detail?';
+    if (!formData.financialSituation.trim()) {
+      errors.financialSituation = t('selfAssessment.deepAssessment.validation.financialSituation');
     }
     
-    if (!formData.recentFinancialBehavior.trim() || formData.recentFinancialBehavior.trim().length < 10) {
-      newErrors.recentFinancialBehavior = 'To help identify patterns, could you describe your recent financial experience in a bit more detail?';
+    if (!formData.recentFinancialBehavior.trim()) {
+      errors.recentFinancialBehavior = t('selfAssessment.deepAssessment.validation.recentBehavior');
     }
     
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
   };
 
   const handleSubmit = async () => {
     if (!validateForm()) return;
     
-    setError(null);
-    await submitIdentification({
-      financialSituation: formData.financialSituation.trim(),
-      recentFinancialBehavior: formData.recentFinancialBehavior.trim(),
-      personalityType: 'general' // Default personality type
-    });
+    await submitIdentification(formData);
   };
 
   const handleReset = () => {
     setFormData({
       financialSituation: '',
-      recentFinancialBehavior: ''
+      recentFinancialBehavior: '',
     });
-    setErrors({});
-    setCurrentStep('form');
+    setFormErrors({});
     resetIdentification();
   };
 
-  // Determine which step to show based on state
   const determineCurrentView = () => {
-    if (identificationResult) return 'results';
+    if (showIdentifyForm) return 'form';
+    if (identificationResult && !resolutionResult) return 'identification-result';
+    if (identificationResult && resolutionResult) return 'full-result';
     return 'form';
   };
 
   const currentView = determineCurrentView();
 
-  // Convert identification result to UniversalPart format
-  const getCustomParts = () => {
-    if (!identificationResult) return [];
-    
-    // Use a consistent ID based on the part name to avoid regeneration issues
-    const consistentId = `custom-${identificationResult.identifiedPart.partName.toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
-    
-    let universalPart = identificationResultToUniversalPart(identificationResult, consistentId);
-    
-    // Enhance with resolution data if available
-    if (resolutionResult) {
-      universalPart = enhancePartWithResolution(universalPart, resolutionResult);
-    }
-    
-    return [universalPart];
-  };
+  if (error) {
+    return (
+      <Alert className="border-red-200 bg-red-50">
+        <AlertDescription className="text-red-800">
+          {error}
+        </AlertDescription>
+      </Alert>
+    );
+  }
 
   return (
     <div className="space-y-6">
-      {/* Gentle Error Display */}
-      {error && (
-        <Card className="border-blue-200 bg-blue-50/50 shadow-lg">
-          <CardContent className="pt-4">
-            <div className="flex items-start space-x-3">
-              <AlertCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-              <div>
-                <h4 className="font-medium text-blue-900">We encountered a small hiccup</h4>
-                <p className="text-sm text-blue-700/80 mt-1">
-                  {error === t('ifsDialogue.error.identifyFailed') 
-                    ? 'We\'re having a brief technical moment. Your information is safe, and you can try again when you\'re ready.'
-                    : error === t('ifsDialogue.error.resolveFailed')
-                    ? 'The deeper exploration isn\'t available right now. The insights you\'ve already received are still valuable.'
-                    : error}
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Form Step */}
+      {/* Form Section */}
       {currentView === 'form' && (
         <Card className="shadow-lg">
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <Brain className="w-5 h-5" />
-              <span>Share what feels comfortable</span>
-            </CardTitle>
+            <div className="flex items-center space-x-3">
+              <Search className="w-6 h-6 text-primary" />
+              <CardTitle className="text-xl md:text-2xl">
+                {t('selfAssessment.deepAssessment.title')}
+              </CardTitle>
+            </div>
             <CardDescription>
-              Help us understand your financial journey. Share as much or as little as you'd like.
+              {t('selfAssessment.deepAssessment.description')}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
-            {/* Financial Situation Field */}
             <div className="space-y-2">
-              <Label htmlFor="financialSituation" className="flex items-center gap-2">
-                {t('ifsDialogue.form.financialSituation.label')}
-                <span className="text-xs text-muted-foreground">(share what feels right for you)</span>
+              <Label htmlFor="financialSituation" className="text-sm font-medium">
+                {t('selfAssessment.deepAssessment.financialSituation.label')}
               </Label>
               <Textarea
                 id="financialSituation"
+                placeholder={t('selfAssessment.deepAssessment.financialSituation.placeholder')}
                 value={formData.financialSituation}
                 onChange={(e) => handleInputChange('financialSituation', e.target.value)}
-                placeholder={t('ifsDialogue.form.financialSituation.placeholder')}
-                className={`min-h-[100px] transition-colors ${
-                  errors.financialSituation 
-                    ? 'border-blue-300 bg-blue-50/30 focus:border-blue-400' 
-                    : ''
-                }`}
+                className={`min-h-[100px] ${formErrors.financialSituation ? 'border-red-500' : ''}`}
               />
-              {errors.financialSituation && (
-                <p className="text-sm text-blue-600 mt-1 flex items-start gap-2">
-                  {errors.financialSituation}
-                </p>
+              {formErrors.financialSituation && (
+                <p className="text-sm text-red-600">{formErrors.financialSituation}</p>
               )}
             </div>
 
-            {/* Recent Financial Behavior Field */}
             <div className="space-y-2">
-              <Label htmlFor="recentFinancialBehavior" className="flex items-center gap-2">
-                {t('ifsDialogue.form.recentFinancialBehavior.label')}
-                <span className="text-xs text-muted-foreground">(optional details)</span>
+              <Label htmlFor="recentFinancialBehavior" className="text-sm font-medium">
+                {t('selfAssessment.deepAssessment.recentBehavior.label')}
               </Label>
               <Textarea
                 id="recentFinancialBehavior"
+                placeholder={t('selfAssessment.deepAssessment.recentBehavior.placeholder')}
                 value={formData.recentFinancialBehavior}
                 onChange={(e) => handleInputChange('recentFinancialBehavior', e.target.value)}
-                placeholder={t('ifsDialogue.form.recentFinancialBehavior.placeholder')}
-                className={`min-h-[100px] transition-colors ${
-                  errors.recentFinancialBehavior 
-                    ? 'border-blue-300 bg-blue-50/30 focus:border-blue-400' 
-                    : ''
-                }`}
+                className={`min-h-[100px] ${formErrors.recentFinancialBehavior ? 'border-red-500' : ''}`}
               />
-              {errors.recentFinancialBehavior && (
-                <p className="text-sm text-blue-600 mt-1 flex items-start gap-2">
-                  {errors.recentFinancialBehavior}
-                </p>
+              {formErrors.recentFinancialBehavior && (
+                <p className="text-sm text-red-600">{formErrors.recentFinancialBehavior}</p>
               )}
             </div>
+
+            <div className="flex flex-col sm:flex-row gap-3 pt-4">
+              <Button 
+                onClick={handleSubmit}
+                disabled={isLoadingIdentify}
+                size="lg"
+                className="flex-1"
+              >
+                {isLoadingIdentify ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    {t('selfAssessment.deepAssessment.analyzing')}
+                  </>
+                ) : (
+                  <>
+                    <Search className="mr-2 h-4 w-4" />
+                    {t('selfAssessment.deepAssessment.identifyButton')}
+                  </>
+                )}
+              </Button>
+            </div>
           </CardContent>
-          <CardFooter>
-            <Button 
-              onClick={handleSubmit} 
-              disabled={isLoadingIdentify}
-              className="w-full"
-            >
-              {isLoadingIdentify ? (
-                <>
-                  <div className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin mr-2" />
-                  Understanding your patterns...
-                </>
-              ) : (
-                <>
-                  <Brain className="w-4 h-4 mr-2" />
-                  {t('ifsDialogue.identifyButton')}
-                </>
-              )}
-            </Button>
-          </CardFooter>
         </Card>
       )}
 
-      {/* Results Step */}
-      {currentView === 'results' && identificationResult && (
-        <UniversalPartsDisplay
-          customParts={getCustomParts()}
-          title={t('assessment.results.title')}
-          subtitle={t('assessment.results.subtitle')}
-          showIntroduction={false}
-          showOnlyCustom={false}
-          showCallToAction={false}
-          highlightedPart={getCustomParts()[0]?.id}
-        />
+      {/* Results Section */}
+      {(currentView === 'identification-result' || currentView === 'full-result') && identificationResult && (
+        <div className="space-y-6">
+          {/* Resolution Section */}
+          {currentView === 'identification-result' && (
+            <Card>
+              <CardHeader>
+                <CardTitle>{t('selfAssessment.deepAssessment.resolution.title')}</CardTitle>
+                <CardDescription>
+                  {t('selfAssessment.deepAssessment.resolution.description')}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button 
+                  onClick={resolvePart}
+                  disabled={isLoadingResolve}
+                  size="lg"
+                  className="w-full"
+                >
+                  {isLoadingResolve ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      {t('selfAssessment.deepAssessment.resolving')}
+                    </>
+                  ) : (
+                    <>
+                      <ArrowRight className="mr-2 h-4 w-4" />
+                      {t('selfAssessment.deepAssessment.resolveButton')}
+                    </>
+                  )}
+                </Button>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Resolution Results */}
+          {currentView === 'full-result' && resolutionResult && (
+            <Card>
+              <CardHeader>
+                <CardTitle>{t('selfAssessment.deepAssessment.resolution.results.title')}</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <h4 className="font-medium text-sm text-muted-foreground mb-2">
+                    {t('selfAssessment.deepAssessment.resolution.results.role')}
+                  </h4>
+                  <p className="text-sm">{resolutionResult.role}</p>
+                </div>
+                <div>
+                  <h4 className="font-medium text-sm text-muted-foreground mb-2">
+                    {t('selfAssessment.deepAssessment.resolution.results.burden')}
+                  </h4>
+                  <p className="text-sm">{resolutionResult.burden}</p>
+                </div>
+                <div>
+                  <h4 className="font-medium text-sm text-muted-foreground mb-2">
+                    {t('selfAssessment.deepAssessment.resolution.results.concern')}
+                  </h4>
+                  <p className="text-sm">{resolutionResult.concern}</p>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+        </div>
       )}
     </div>
   );

@@ -1031,44 +1031,50 @@ export const cs = {
       title: 'Hluboké prozkoumání částí',
       description: 'Pro podrobnější analýzu popište svou konkrétní finanční situaci a vzorce.',
       formTitle: 'Personalizovaná identifikace finanční části',
-      formDescription: 'Sdílejte své finanční zkušenosti a pomůžeme vám pochopit části sebe, které ovlivňují vaše rozhodnutí o penězích.'
-    },
-    form: {
+      formDescription: 'Sdílejte své finanční zkušenosti a pomůžeme vám pochopit části sebe, které ovlivňují vaše rozhodnutí o penězích.',
+      success: 'Skvělé! Identifikovali jsme finanční část, která ovlivňuje vaše rozhodnutí o penězích.',
+      analyzing: 'Analyzuji vaše finanční vzorce...',
+      resolving: 'Prozkoumávám tuto část hlouběji...',
+      identifyButton: 'Identifikovat moje finanční části',
+      resolveButton: 'Prozkoumat tuto část hlouběji',
+      tryAgainButton: 'Zkusit nové prozkoumání',
       financialSituation: {
         label: 'Popište svou současnou finanční situaci',
-        placeholder: 'Sdílejte, co se děje s vašimi financemi právě teď - dluhy, příjmy, výdaje, cíle, výzvy...',
-        error: 'Prosím poskytněte více podrobností o vaší finanční situaci.'
+        placeholder: 'Sdílejte, co se děje s vašimi financemi právě teď - dluhy, příjmy, výdaje, cíle, výzvy...'
       },
-      recentFinancialBehavior: {
+      recentBehavior: {
         label: 'Popište své nedávné finanční chování',
-        placeholder: 'Řekněte nám o vašem utrácení, spoření nebo rozhodnutích týkajících se peněz v posledních týdnech nebo měsících...',
-        error: 'Prosím popište své nedávné finanční chování podrobněji.'
+        placeholder: 'Řekněte nám o vašem utrácení, spoření nebo rozhodnutích týkajících se peněz v posledních týdnech nebo měsících...'
+      },
+      validation: {
+        financialSituation: 'Prosím poskytněte více podrobností o vaší finanční situaci.',
+        recentBehavior: 'Prosím popište své nedávné finanční chování podrobněji.'
+      },
+      resolution: {
+        title: 'Prozkoumat tuto část hlouběji',
+        description: 'Pojďme porozumět více o roli této části a jak s ní pracovat soucitně.',
+        results: {
+          title: 'Porozumění vaší finanční části',
+          role: 'Role',
+          burden: 'Co nese',
+          concern: 'Jeho největší obava'
+        }
+      },
+      results: {
+        title: 'Vaše identifikovaná finanční část',
+        subtitle: 'Porozumění této části a jak s ní pracovat soucitně'
       }
-    },
-    identifyButton: 'Identifikovat moje finanční části',
-    repeatAssessmentButton: 'Začít nové prozkoumání',
-    explorePartButton: 'Prozkoumat tuto část hlouběji',
-    startPartJournalButton: 'Začít deník částí',
-    dailyCheckInButton: 'Provést denní check-in',
-    premiumFeatureTooltip: 'Toto hlubší zkoumání je prémiová funkce. Přihlaste se k odběru pro povolení prémiových funkcí.',
-    result: {
-      title: 'Seznamte se s vaším {partName}',
-      role: 'Role',
-      burden: 'Co nese',
-      concern: 'Jeho největší obava',
-      suggestedEngagement: 'Jak s touto částí pracovat',
-      engagementDescription: 'Pamatujte: tato část se vám snaží pomoci. Přistupujte k ní se zvědavostí a soucitem.'
-    },
-    error: {
-      title: 'Něco se pokazilo',
-      identifyFailed: 'Nelze identifikovat vaše finanční části. Zkuste to prosím znovu.',
-      resolveFailed: 'Nelze tuto část prozkoumat dále. Zkuste to prosím znovu.'
     },
     nextSteps: {
       title: 'Pokračujte ve své cestě',
       description: 'Nyní, když znáte svou primární finanční hasičskou část, prozkoumejte tyto další kroky k prohloubení vašeho porozumění a vytvoření zdravějšího vztahu k penězům.',
       deepAssessmentPrompt: 'Chcete více personalizovaných poznatků o vašich finančních částech?',
       deepAssessmentButton: 'Zkuste hluboké prozkoumání částí'
+    },
+    error: {
+      title: 'Něco se pokazilo',
+      identifyFailed: 'Nelze identifikovat vaše finanční části. Zkuste to prosím znovu.',
+      resolveFailed: 'Nelze tuto část prozkoumat dále. Zkuste to prosím znovu.'
     }
   },
   dailyCheckIn: {

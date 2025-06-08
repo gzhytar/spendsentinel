@@ -131,15 +131,70 @@ export function getIdentifiedParts(locale: string): string[] {
 }
 
 /**
- * Hook to get identified parts for the current locale
+ * Hook to get identified parts for the current locale using the unified assessment system
+ * Provides real-time updates when assessment results change
  */
 export function useIdentifiedParts(): string[] {
   const [parts, setParts] = useState<string[]>([]);
   const { locale } = useI18n();
 
   useEffect(() => {
-    const identifiedParts = getIdentifiedParts(locale);
-    setParts(identifiedParts);
+    const loadParts = () => {
+      if (typeof window === 'undefined') {
+        setParts([]);
+        return;
+      }
+
+      try {
+        // Import AssessmentStorageService dynamically to avoid SSR issues
+        import('@/app/[lang]/self-assessment/services/AssessmentStorageService')
+          .then(({ AssessmentStorageService }) => {
+            const service = new AssessmentStorageService();
+            const assessmentResults = service.getAllAssessmentResults(locale);
+            
+            // Extract part names from assessment results
+            const identifiedParts = assessmentResults
+              .map((result: { partName: string }) => result.partName)
+              .filter((name: string, index: number, array: string[]) => array.indexOf(name) === index); // Remove duplicates
+            
+            setParts(identifiedParts);
+          })
+          .catch(error => {
+            console.error('Error loading unified assessment results:', error);
+            // Fallback to legacy method
+            const legacyParts = getIdentifiedParts(locale);
+            setParts(legacyParts);
+          });
+      } catch (error) {
+        console.error('Error in useIdentifiedParts:', error);
+        setParts([]);
+      }
+    };
+
+    // Initial load
+    loadParts();
+
+    // Listen for storage changes to provide real-time updates
+    const handleStorageChange = (event: StorageEvent) => {
+      if (event.key === 'unifiedAssessmentResults' || 
+          event.key === 'firefighterQuizResults' || 
+          event.key === 'identifiedFinancialParts') {
+        loadParts();
+      }
+    };
+
+    // Listen for custom events from assessment components
+    const handleAssessmentUpdate = () => {
+      loadParts();
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('assessmentResultsUpdated', handleAssessmentUpdate);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('assessmentResultsUpdated', handleAssessmentUpdate);
+    };
   }, [locale]);
 
   return parts;

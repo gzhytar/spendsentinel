@@ -798,7 +798,7 @@ export const en = {
 
   ifsDialogue: {
     title: 'IFS Dialogue: Understand Your Financial Parts',
-    subtitle: 'Use AI to identify and understand your inner financial "firefighter" parts using the 6F framework.',
+    subtitle: 'Use AI to identify and understand your inner financial "firefighter" parts.',
     form: {
       financialSituation: {
         label: 'Your Current Financial Situation',

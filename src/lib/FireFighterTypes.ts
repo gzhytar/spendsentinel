@@ -36,18 +36,4 @@ export interface PartDisplayConfig {
   title?: string;
   subtitle?: string;
   showIntroduction?: boolean;
-}
-
-/**
- * Legacy FirefighterType for backward compatibility
- */
-export interface FirefighterType {
-  id: FirefighterTypeId;
-  title: string;
-  description: string;
-  triggers: string[];
-  behaviors: string[];
-  emotions?: string[];
-  innerDialogue?: string[];
-  digitalFootprints?: string[];
 } 

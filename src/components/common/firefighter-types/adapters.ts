@@ -1,4 +1,5 @@
-import { UniversalPart, FirefighterType } from '../../../lib/FireFighterTypes';
+import { UniversalPart } from '../../../lib/FireFighterTypes';
+import { FirefighterType } from './useFirefighterTypeData';
 import { IdentifyIFSPartOutput } from '@/ai/flows/ifs-part-identification';
 import { IFSPartResolutionOutput } from '@/ai/flows/ifs-part-resolution';
 

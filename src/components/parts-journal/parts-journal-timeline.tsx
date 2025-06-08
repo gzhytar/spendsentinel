@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Calendar, Heart, Trash2, FileText, ChevronDown, ChevronUp } from 'lucide-react';
 import { SessionSummary } from './session-summary';
 import Image from 'next/image';
+import { FIREFIGHTER_TYPE_IDS } from '@/lib/assessment-utils';
 
 interface PartsJournalTimelineProps {
   lang: string;
@@ -32,14 +33,12 @@ interface CompletedJournalSession {
 }
 
 // Utility function to map part names to firefighter type IDs for image display
-const getFirefighterTypeId = (partName: string, t: (key: string) => string): string => {
+const getImageForPart = (partName: string, t: (key: string) => string): string => {
   // Get the firefighter type names from translations
-  const firefighterTypeNames = {
-    spender: t('landing.firefighters.spender.title'),
-    hoarder: t('landing.firefighters.hoarder.title'),
-    avoider: t('landing.firefighters.avoider.title'),
-    indulger: t('landing.firefighters.indulger.title')
-  };
+  const firefighterTypeNames: Record<string, string> = {};
+  FIREFIGHTER_TYPE_IDS.forEach(id => {
+    firefighterTypeNames[id] = t(`landing.firefighters.${id}.title`);
+  });
   
   // Find the type ID that matches the part name
   for (const [typeId, typeName] of Object.entries(firefighterTypeNames)) {
@@ -48,8 +47,8 @@ const getFirefighterTypeId = (partName: string, t: (key: string) => string): str
     }
   }
   
-  // Default fallback
-  return 'spender';
+  // Default fallback for custom parts
+  return 'custom';
 };
 
 export function PartsJournalTimeline({ lang }: PartsJournalTimelineProps) {
@@ -128,7 +127,7 @@ export function PartsJournalTimeline({ lang }: PartsJournalTimelineProps) {
     <div className="space-y-4">
       {sessions.map((session) => {
         const isExpanded = expandedSummaryId === session.id;
-        const firefighterTypeId = getFirefighterTypeId(session.partName, t);
+        const imageId = getImageForPart(session.partName, t);
         
         return (
           <Card key={session.id} className="p-4">
@@ -139,7 +138,7 @@ export function PartsJournalTimeline({ lang }: PartsJournalTimelineProps) {
                 <div className="flex items-center gap-3 min-w-0 flex-1">
                   <div className="w-10 h-10 flex-shrink-0 relative rounded-lg overflow-hidden bg-primary/10">
                     <Image
-                      src={`/images/${firefighterTypeId}.jpg`}
+                      src={`/images/${imageId}.jpg`}
                       alt={session.partName}
                       fill
                       className="object-cover"
@@ -156,7 +155,7 @@ export function PartsJournalTimeline({ lang }: PartsJournalTimelineProps) {
                 </div>
                 
                 {/* Action buttons */}
-                <div className="flex gap-2 ml-2">
+                <div className="flex items-center gap-1">
                   <Button
                     variant="outline"
                     size="sm"

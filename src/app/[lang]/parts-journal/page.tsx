@@ -13,7 +13,7 @@ import { SafeEnvironmentStep } from '@/components/parts-journal/safe-environment
 import { FindFocusStep } from '@/components/parts-journal/find-focus-step';
 import { CuriousDialogueStep } from '@/components/parts-journal/curious-dialogue-step';
 import { AppreciateLogStep } from '@/components/parts-journal/appreciate-log-step';
-import { useIdentifiedParts, getFirefighterTypeId } from '@/lib/assessment-utils';
+import { useIdentifiedParts, FIREFIGHTER_TYPE_IDS } from '@/lib/assessment-utils';
 import { use } from 'react';
 import Image from 'next/image';
 import { useOnboardingTracking } from '@/hooks/use-onboarding-tracking';
@@ -38,7 +38,24 @@ interface JournalContent {
   step4: string;
 }
 
-// Using shared getFirefighterTypeId utility from assessment-utils
+// Utility function to map part names to image IDs for display
+const getImageForPart = (partName: string, t: (key: string) => string): string => {
+  // Get the firefighter type names from translations
+  const firefighterTypeNames: Record<string, string> = {};
+  FIREFIGHTER_TYPE_IDS.forEach(id => {
+    firefighterTypeNames[id] = t(`landing.firefighters.${id}.title`);
+  });
+  
+  // Find the type ID that matches the part name
+  for (const [typeId, typeName] of Object.entries(firefighterTypeNames)) {
+    if (typeName === partName) {
+      return typeId;
+    }
+  }
+  
+  // Default fallback for custom parts
+  return 'custom';
+};
 
 export default function PartsJournal({ params }: PartsJournalProps) {
   const { lang } = use(params);
@@ -217,44 +234,45 @@ export default function PartsJournal({ params }: PartsJournalProps) {
           <p className="text-muted-foreground mb-6">{t('partsJournal.subtitle')}</p>
         </div>
 
-        <Card className="p-8 mb-8">
-          <div className="text-center space-y-6">
-            <div className="space-y-4 flex flex-col items-center justify-center">
-              <h2 className="text-2xl font-semibold">{t('partsJournal.introduction.title')}</h2>
-              <div className="flex flex-col gap-4">
-                <p className="text-lg text-muted-foreground max-w-2xl text-center">
-                  {t('partsJournal.introduction.description')}
-                </p>
+        <Card className="p-6 mb-8">
+          <div className="flex items-center gap-3 mb-6">
+            <MessageCircle className="h-8 w-8 text-primary flex-shrink-0" />
+            <div>
+              <h2 className="text-xl font-semibold">{t('partsJournal.introduction.title')}</h2>
+              <p className="text-muted-foreground">{t('partsJournal.introduction.subtitle')}</p>
+            </div>
+          </div>
+          
+          <div className="space-y-4 mb-6">
+            <p>{t('partsJournal.introduction.description')}</p>
+            
+            <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+              <h3 className="font-semibold mb-2 flex items-center gap-2">
+                <Sparkles className="h-4 w-4 text-primary" />
+                {t('partsJournal.introduction.stepPreview.title')}
+              </h3>
+              <div className="grid gap-2 text-sm">
+                <div className="flex items-center gap-2">
+                  <Badge variant="outline" className="w-6 h-6 p-0 flex items-center justify-center text-xs">1</Badge>
+                  <span>{t('partsJournal.introduction.stepPreview.step1')}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Badge variant="outline" className="w-6 h-6 p-0 flex items-center justify-center text-xs">2</Badge>
+                  <span>{t('partsJournal.introduction.stepPreview.step2')}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Badge variant="outline" className="w-6 h-6 p-0 flex items-center justify-center text-xs">3</Badge>
+                  <span>{t('partsJournal.introduction.stepPreview.step3')}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Badge variant="outline" className="w-6 h-6 p-0 flex items-center justify-center text-xs">4</Badge>
+                  <span>{t('partsJournal.introduction.stepPreview.step4')}</span>
+                </div>
               </div>
             </div>
+          </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-              <div className="text-left space-y-3">
-                <h3 className="font-semibold text-lg">{t('partsJournal.introduction.whatYouExplore.title')}</h3>
-                <ul className="space-y-2 text-muted-foreground">
-                  {(t('partsJournal.introduction.whatYouExplore.items') as string[]).map((item: string, index: number) => (
-                    <li key={index} className="flex items-start gap-2">
-                      <span className="text-primary mt-1">•</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              
-              <div className="text-left space-y-3">
-                <h3 className="font-semibold text-lg">{t('partsJournal.introduction.fourStepProcess.title')}</h3>
-                <ul className="space-y-2 text-muted-foreground">
-                  {(t('partsJournal.introduction.fourStepProcess.steps') as string[]).map((step: string, index: number) => (
-                    <li key={index} className="flex items-start gap-2">
-                      <Badge variant="outline" className="mt-0.5">{index + 1}</Badge>
-                      <span>{step}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            {/* Start New Session Section with Part Images */}
+          <div className="border-t pt-4">
             {userParts.length === 0 ? (
               <div className="text-center space-y-4 mt-8">
                 <p className="text-muted-foreground">{t('partsJournal.introduction.noPartsMessage')}</p>
@@ -268,12 +286,12 @@ export default function PartsJournal({ params }: PartsJournalProps) {
                 <div className="flex justify-center">
                   <div className="grid gap-6 max-w-4xl">
                     {userParts.map((part) => {
-                      const firefighterTypeId = getFirefighterTypeId(part, t);
+                      const imageId = getImageForPart(part, t);
                       return (
                         <Card key={part} className="overflow-hidden hover:shadow-md transition-shadow w-full max-w-sm mx-auto">
                           <div className="relative h-40 w-full">
                             <Image
-                              src={`/images/${firefighterTypeId}.jpg`}
+                              src={`/images/${imageId}.jpg`}
                               alt={part}
                               fill
                               className="object-cover"

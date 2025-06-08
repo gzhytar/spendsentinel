@@ -45,6 +45,11 @@ export class AssessmentStorageService {
     identificationResult?: IdentifyIFSPartOutput;
     resolutionResult?: IFSPartResolutionOutput;
   }): void {
+    // Check if we're in browser environment
+    if (typeof window === 'undefined') {
+      return;
+    }
+    
     try {
       const existingResults = this.getUnifiedResults();
       
@@ -158,6 +163,11 @@ export class AssessmentStorageService {
 
   // Private unified storage methods
   private getUnifiedResults(): UnifiedAssessmentResult[] {
+    // Check if we're in browser environment
+    if (typeof window === 'undefined') {
+      return [];
+    }
+    
     try {
       const stored = localStorage.getItem(AssessmentStorageService.UNIFIED_RESULTS_KEY);
       return stored ? JSON.parse(stored) : [];
@@ -185,6 +195,11 @@ export class AssessmentStorageService {
 
   // Private legacy storage methods
   private getLegacyQuizResults(): SavedQuizResult[] {
+    // Check if we're in browser environment
+    if (typeof window === 'undefined') {
+      return [];
+    }
+    
     try {
       const stored = localStorage.getItem(AssessmentStorageService.QUIZ_RESULTS_KEY);
       return stored ? JSON.parse(stored) : [];
@@ -195,6 +210,11 @@ export class AssessmentStorageService {
   }
 
   private getLegacyDeepAssessmentResults(): SavedDeepAssessmentResult[] {
+    // Check if we're in browser environment
+    if (typeof window === 'undefined') {
+      return [];
+    }
+    
     try {
       const stored = localStorage.getItem(AssessmentStorageService.DEEP_ASSESSMENT_KEY);
       return stored ? JSON.parse(stored) : [];
@@ -214,5 +234,41 @@ export class AssessmentStorageService {
     return results.sort((a, b) => 
       new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
     )[0];
+  }
+
+  // Clear all assessment results for a specific locale
+  clearAssessmentResults(locale: string): void {
+    // Check if we're in browser environment
+    if (typeof window === 'undefined') {
+      return;
+    }
+    
+    try {
+      // Clear from unified storage
+      const existingResults = this.getUnifiedResults();
+      const filteredResults = existingResults.filter(r => r.locale !== locale);
+      localStorage.setItem(AssessmentStorageService.UNIFIED_RESULTS_KEY, JSON.stringify(filteredResults));
+      
+      // Clear legacy quiz results for this locale
+      const legacyQuizResults = this.getLegacyQuizResults();
+      const filteredQuizResults = legacyQuizResults.filter(r => r.locale !== locale);
+      localStorage.setItem(AssessmentStorageService.QUIZ_RESULTS_KEY, JSON.stringify(filteredQuizResults));
+      
+      // Clear legacy deep assessment results for this locale
+      const legacyDeepResults = this.getLegacyDeepAssessmentResults();
+      const filteredDeepResults = legacyDeepResults.filter(r => r.locale !== locale);
+      localStorage.setItem(AssessmentStorageService.DEEP_ASSESSMENT_KEY, JSON.stringify(filteredDeepResults));
+      
+      console.log(`Cleared all assessment results for locale: ${locale}`);
+      
+      // Dispatch custom event to notify other components
+      if (typeof window !== 'undefined' && window.dispatchEvent) {
+        window.dispatchEvent(new CustomEvent('assessmentResultsCleared', {
+          detail: { locale, timestamp: new Date().toISOString() }
+        }));
+      }
+    } catch (error) {
+      console.error('Failed to clear assessment results:', error);
+    }
   }
 } 

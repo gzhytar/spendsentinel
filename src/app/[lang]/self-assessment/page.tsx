@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Brain, CheckCircle, RefreshCw, RotateCcw, ArrowRight, Calendar, BookOpen, DollarSign } from 'lucide-react';
 import { useI18n } from '@/contexts/i18n-context';
 import { useAssessmentState } from './hooks/useAssessmentState';
@@ -20,35 +20,43 @@ export default function SelfAssessmentPage() {
   const { t, locale } = useI18n();
   const assessmentState = useAssessmentState();
   const { trackAssessmentStart, trackDailyCheckinStart, trackPartsSessionStart } = useAssessmentTracking();
+  const [partsDisplayData, setPartsDisplayData] = useState<any>(null);
+  const [isClient, setIsClient] = useState(false);
 
   // Track page visit on mount
   useEffect(() => {
     trackAssessmentStart();
   }, [trackAssessmentStart]);
 
-  // Get the latest assessment result for parts display
-  const getLatestAssessmentResult = () => {
-    const storageService = new AssessmentStorageService();
-    return storageService.getLatestAssessmentResult(locale);
-  };
-
-  // Convert latest result to display data
-  const getPartsDisplayData = () => {
-    const latestResult = getLatestAssessmentResult();
-    if (!latestResult) return null;
-
-    const predefinedTypes = createFirefighterTypeData(t);
-    const universalPart = unifiedResultToUniversalPart(latestResult, predefinedTypes);
+  // Set client-side flag and load data
+  useEffect(() => {
+    setIsClient(true);
     
-    return {
-      part: universalPart,
-      type: latestResult.type,
-      partName: latestResult.partName
+    // Get the latest assessment result for parts display
+    const getLatestAssessmentResult = () => {
+      const storageService = new AssessmentStorageService();
+      return storageService.getLatestAssessmentResult(locale);
     };
-  };
 
-  const partsDisplayData = getPartsDisplayData();
-  const shouldShowPartsDisplay = (assessmentState.showQuizResult || assessmentState.showDeepAssessment) && partsDisplayData;
+    // Convert latest result to display data
+    const getPartsDisplayData = () => {
+      const latestResult = getLatestAssessmentResult();
+      if (!latestResult) return null;
+
+      const predefinedTypes = createFirefighterTypeData(t);
+      const universalPart = unifiedResultToUniversalPart(latestResult, predefinedTypes);
+      
+      return {
+        part: universalPart,
+        type: latestResult.type,
+        partName: latestResult.partName
+      };
+    };
+
+    setPartsDisplayData(getPartsDisplayData());
+  }, [locale, t, assessmentState.showQuizResult, assessmentState.showDeepAssessment, assessmentState.identificationResult, assessmentState.resolutionResult]);
+
+  const shouldShowPartsDisplay = isClient && (assessmentState.showQuizResult || assessmentState.showDeepAssessment) && partsDisplayData;
 
   const handleRetakeQuiz = () => {
     assessmentState.retakeQuiz();
@@ -59,7 +67,9 @@ export default function SelfAssessmentPage() {
   };
 
   const handleDailyCheckinStart = () => {
-    const latestResult = getLatestAssessmentResult();
+    // Get fresh result from storage
+    const storageService = new AssessmentStorageService();
+    const latestResult = storageService.getLatestAssessmentResult(locale);
     const result = latestResult?.type === 'quiz' ? latestResult.quizResult : latestResult?.partName;
     
     trackDailyCheckinStart('self_assessment_results', {
@@ -69,7 +79,9 @@ export default function SelfAssessmentPage() {
   };
 
   const handlePartsJournalStart = () => {
-    const latestResult = getLatestAssessmentResult();
+    // Get fresh result from storage
+    const storageService = new AssessmentStorageService();
+    const latestResult = storageService.getLatestAssessmentResult(locale);
     const partName = latestResult?.type === 'quiz' ? latestResult.quizResult : latestResult?.partName;
     
     trackPartsSessionStart();
@@ -126,7 +138,7 @@ export default function SelfAssessmentPage() {
       {shouldShowPartsDisplay && (
         <UniversalPartsDisplay
           customParts={partsDisplayData.type === 'deep-assessment' && partsDisplayData.part ? [partsDisplayData.part] : []}
-          highlightedPart={partsDisplayData.partName}
+          highlightedPart={partsDisplayData.part.id}
           title={partsDisplayData.type === 'quiz' 
             ? t('selfAssessment.quiz.detailedResult.title')
             : t('selfAssessment.deepAssessment.results.title')

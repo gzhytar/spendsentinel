@@ -12,15 +12,34 @@ export class VersionManager {
   
   // App-specific localStorage keys that should be handled carefully
   private static readonly APP_DATA_KEYS = [
-    'dailyCheckInProgress',
-    'completedCheckIns', 
-    'calmHistory',
-    'expenses',
-    'visionBoardItems',
-    'selfAssessmentResults',
-    'quizResults',
-    'deepAssessmentResults',
-    'dailyCheckInReturnContext'
+    // Assessment and quiz data
+    'unifiedAssessmentResults',      // New unified assessment storage
+    'firefighterQuizResults',        // Legacy quiz results
+    'identifiedFinancialParts',      // Legacy deep assessment results
+    'quizResults',                   // Legacy quiz format
+    'deepAssessmentResults',         // Legacy deep assessment format
+    'selfAssessmentResults',         // Old assessment format
+    
+    // Daily check-in data
+    'dailyCheckInProgress',          // Current check-in session
+    'completedCheckIns',             // History of completed check-ins
+    'dailyCheckInReturnContext',     // Context for returning users
+    'calmHistory',                   // Self-compassion scores history
+    
+    // Financial tracking
+    'expenses',                      // User expenses
+    'monthlyBudget',                 // User budget settings
+    'visionBoardItems',              // Vision board items
+    
+    // Parts journal
+    'completedPartsJournalSessions', // Journal session history
+    
+    // User preferences
+    'user_preferences',              // Language, currency, etc.
+    
+    // Consent and privacy
+    'cookie_consent_v1',             // Cookie consent decisions
+    'consent_history_v1'             // Consent history
   ];
 
   static initializeVersion(config: VersionConfig): void {
@@ -324,16 +343,8 @@ export class VersionManager {
     if (!currentVersion) return false;
     
     // Check for data patterns that suggest legacy versions
-    const expenses = localStorage.getItem('expenses');
-    if (expenses) {
-      try {
-        const parsed = JSON.parse(expenses);
-        // Check if expenses don't have the 'type' field (added in v2.0)
-        if (Array.isArray(parsed) && parsed.length > 0 && !parsed[0].type) {
-          return true;
-        }
-      } catch {}
-    }
+    const hasLegacyData = this.APP_DATA_KEYS.some(key => localStorage.getItem(key) !== null);
+    return hasLegacyData;
     
     return false;
   }

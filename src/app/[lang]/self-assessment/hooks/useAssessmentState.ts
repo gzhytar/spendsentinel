@@ -110,10 +110,21 @@ export function useAssessmentState(): AssessmentState {
   };
 
   const retakeQuiz = () => {
+    // Clear all previous assessment results for this locale
+    storageService.clearAssessmentResults(locale);
+    
+    // Reset quiz state
     setQuizResult(null);
     setShowQuizResult(false);
     setShowQuizSection(true);
     setQuizStarted(false);
+    
+    // Also clear deep assessment state in case user had both
+    setIdentificationResult(null);
+    setResolutionResult(null);
+    setShowDeepAssessment(false);
+    setShowIdentifyForm(true);
+    setError(null);
   };
 
   const suggestDeepAssessment = () => {
@@ -162,9 +173,21 @@ export function useAssessmentState(): AssessmentState {
   };
 
   const resetIdentification = () => {
+    // Clear all previous assessment results for this locale
+    storageService.clearAssessmentResults(locale);
+    
+    // Reset deep assessment state
     setIdentificationResult(null);
     setResolutionResult(null);
     setShowIdentifyForm(true);
+    setShowDeepAssessment(true);
+    
+    // Also reset quiz state in case user had both
+    setQuizResult(null);
+    setShowQuizResult(false);
+    setShowQuizSection(false);
+    setQuizStarted(false);
+    setError(null);
   };
 
   const resolvePart = async () => {

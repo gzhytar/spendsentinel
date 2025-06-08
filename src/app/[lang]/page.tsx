@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Brain, Shield, Lightbulb, MessageSquare, CalendarCheck, Coffee, LucideIcon } from 'lucide-react';
 import { useI18n } from '@/contexts/i18n-context';
@@ -9,6 +9,10 @@ import { UniversalPartsDisplay } from '@/components/common/firefighter-types';
 import { VersionInfo } from '@/components/ui/version-info';
 import { useDebugMode } from '@/hooks/use-debug-mode';
 import { useMonetizationVisibility } from '@/hooks/use-monetization-visibility';
+import { AssessmentStorageService } from '@/app/[lang]/self-assessment/services/AssessmentStorageService';
+import { unifiedResultToUniversalPart } from '@/components/common/firefighter-types/adapters';
+import { createFirefighterTypeData } from '@/lib/assessment-utils';
+import { UniversalPart } from '@/lib/FireFighterTypes';
 
 // Feature card interfaces and types
 /**
@@ -63,11 +67,79 @@ const FeatureCard = ({ id, icon: Icon, titleKey, descriptionKey, buttonComponent
 };
 
 export default function LandingPage() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
+  const [customParts, setCustomParts] = useState<UniversalPart[]>([]);
+  const [isLoadingCustomParts, setIsLoadingCustomParts] = useState(true);
 
   // Use custom hook for safe debug mode detection (handles both dev environment and URL params)
   const showDebugInfo = useDebugMode();
   const { showMissionMention } = useMonetizationVisibility();
+
+  // Load custom parts from assessments
+  useEffect(() => {
+    const loadCustomParts = () => {
+      try {
+        const storageService = new AssessmentStorageService();
+        const assessmentResults = storageService.getAllAssessmentResults(locale);
+        
+        if (assessmentResults.length > 0) {
+          // Get predefined types for quiz result conversion
+          const predefinedTypes = createFirefighterTypeData(t);
+          
+          // Convert assessment results to UniversalPart format
+          const parts: UniversalPart[] = [];
+          
+          assessmentResults.forEach(result => {
+            const universalPart = unifiedResultToUniversalPart(result, predefinedTypes);
+            if (universalPart) {
+              parts.push(universalPart);
+            }
+          });
+          
+          setCustomParts(parts);
+        } else {
+          // No results found, clear custom parts
+          setCustomParts([]);
+        }
+      } catch (error) {
+        console.error('Error loading custom parts:', error);
+        setCustomParts([]);
+      } finally {
+        setIsLoadingCustomParts(false);
+      }
+    };
+
+    // Only load if we're in the browser
+    if (typeof window !== 'undefined') {
+      loadCustomParts();
+      
+      // Listen for storage changes to refresh custom parts
+      const handleStorageChange = (event: StorageEvent) => {
+        if (event.key === 'unifiedAssessmentResults' || 
+            event.key === 'firefighterQuizResults' || 
+            event.key === 'identifiedFinancialParts') {
+          setIsLoadingCustomParts(true);
+          loadCustomParts();
+        }
+      };
+      
+      // Listen for custom refresh events (for same-tab updates)
+      const handleCustomRefresh = () => {
+        setIsLoadingCustomParts(true);
+        loadCustomParts();
+      };
+      
+      window.addEventListener('storage', handleStorageChange);
+      window.addEventListener('assessmentResultsCleared', handleCustomRefresh);
+      
+      return () => {
+        window.removeEventListener('storage', handleStorageChange);
+        window.removeEventListener('assessmentResultsCleared', handleCustomRefresh);
+      };
+    } else {
+      setIsLoadingCustomParts(false);
+    }
+  }, [locale, t]);
 
   // Features configuration
   const features: FeatureConfig[] = [
@@ -111,6 +183,18 @@ export default function LandingPage() {
       )
     }
   ];
+
+  // Determine if we should show only predefined parts or include custom parts
+  const shouldShowOnlyPredefined = customParts.length === 0;
+  
+  // Use appropriate titles based on whether custom parts exist
+  const partsDisplayTitle = customParts.length > 0 
+    ? t('selfAssessment.title') // "My Parts Discovery" when custom parts exist
+    : t('landing.firefighters.title'); // "Types of Financial Firefighters" for predefined only
+    
+  const partsDisplaySubtitle = customParts.length > 0
+    ? t('selfAssessment.subtitle') // "Discover your financial parts and learn to work with them compassionately"
+    : t('landing.firefighters.subtitle'); // "Recognize your patterns and understand their purpose"
 
   return (
     <div className="container mx-auto py-8 space-y-12 px-4">
@@ -285,11 +369,26 @@ export default function LandingPage() {
         </Card>
       </section>
 
-      {/* Firefighter Types Section - Now using the new component */}
+      {/* Firefighter Types Section - Now showing custom parts when available */}
       <section className="space-y-6 px-4">
-        <UniversalPartsDisplay 
-          showOnlyPredefined={true}
-        />
+        {!isLoadingCustomParts && (
+          <UniversalPartsDisplay 
+            customParts={customParts}
+            showOnlyPredefined={shouldShowOnlyPredefined}
+            title={partsDisplayTitle}
+            subtitle={partsDisplaySubtitle}
+          />
+        )}
+        
+        {isLoadingCustomParts && (
+          <Card className="shadow-xl border-0">
+            <CardContent className="p-8 text-center">
+              <p className="text-muted-foreground">
+                {t('landing.firefighters.loading') || 'Loading your parts...'}
+              </p>
+            </CardContent>
+          </Card>
+        )}
       </section>
 
       {/* Features Section */}

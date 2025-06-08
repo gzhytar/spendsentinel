@@ -48,9 +48,7 @@ export function UniversalPartsDisplay({
   const handlePartSelect = (partId: string) => {
     
     const isGrayedOut = highlightedPart && highlightedPart !== partId;
-    console.log('isGrayedOut', isGrayedOut);  
-    console.log('partId', partId);
-    console.log('highlightedPart', highlightedPart);  
+   
     if (!isGrayedOut) {
       setSelectedPartId(partId);
       const selectedPart = availableParts.find(p => p.id === partId);

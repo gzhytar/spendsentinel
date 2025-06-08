@@ -182,7 +182,7 @@ export function DeepAssessmentSection({ assessmentState }: DeepAssessmentSection
       {(currentView === 'identification-result' || currentView === 'full-result') && identificationResult && (
         <div className="space-y-6">
           {/* Resolution Section */}
-          {currentView === 'identification-result' && (
+          {/* {currentView === 'identification-result' && (
             <Card>
               <CardHeader>
                 <CardTitle>{t('selfAssessment.deepAssessment.resolution.title')}</CardTitle>
@@ -211,7 +211,7 @@ export function DeepAssessmentSection({ assessmentState }: DeepAssessmentSection
                 </Button>
               </CardContent>
             </Card>
-          )}
+          )} */}
 
           {/* Resolution Results */}
           {currentView === 'full-result' && resolutionResult && (

@@ -59,8 +59,6 @@ export default function SelfAssessmentPage() {
       {/* Error Display */}
       {error && <ErrorDisplay error={error} />}
 
-      {/* Assessment Results */}
-      {/* Removed duplicate AssessmentResults render to prevent triple display for custom parts */}
     </div>
   );
 }

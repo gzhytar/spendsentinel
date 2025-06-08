@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { LucideIcon, AlertCircle, CheckCircle2, Brain, Heart, Shield, Smartphone, User, Target } from 'lucide-react';
+import { LucideIcon, AlertCircle, CheckCircle2, Brain, Heart, Shield, Smartphone } from 'lucide-react';
 import { UniversalPart } from '../../../lib/FireFighterTypes';
 
 export interface SectionConfig {
@@ -75,48 +75,8 @@ export function useSectionConfiguration(
       }
     ];
 
-    // Add custom sections for IFS parts
-    if (currentPart.type === 'custom') {
-      const customSections: SectionConfig[] = [];
-      
-      if (currentPart.role) {
-        customSections.push({
-          id: 'role',
-          titleKey: 'assessment.results.ifs.roleLabel',
-          icon: User,
-          labelKey: 'assessment.results.ifs.roleDescription',
-          itemIcon: User,
-          items: undefined,
-          customContent: currentPart.role,
-        });
-      }
-      
-      if (currentPart.burden) {
-        customSections.push({
-          id: 'burden',
-          titleKey: 'assessment.results.ifs.burdenLabel',
-          icon: Shield,
-          labelKey: 'assessment.results.ifs.burdenDescription',
-          itemIcon: Shield,
-          items: undefined,
-          customContent: currentPart.burden,
-        });
-      }
-      
-      if (currentPart.concern) {
-        customSections.push({
-          id: 'concern',
-          titleKey: 'assessment.results.ifs.concernLabel',
-          icon: Target,
-          labelKey: 'assessment.results.ifs.concernDescription',
-          itemIcon: Target,
-          items: undefined,
-          customContent: currentPart.concern,
-        });
-      }
-      
-      return [...baseSections, ...customSections];
-    }
+    // Custom parts use the same base sections as predefined parts
+    // IFS-specific sections (role, burden, concern) are not displayed in the UI
 
     return baseSections;
   }, [currentPart]);

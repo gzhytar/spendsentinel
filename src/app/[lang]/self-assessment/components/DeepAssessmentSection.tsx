@@ -104,7 +104,10 @@ export function DeepAssessmentSection({ assessmentState }: DeepAssessmentSection
   const getCustomParts = () => {
     if (!identificationResult) return [];
     
-    let universalPart = identificationResultToUniversalPart(identificationResult);
+    // Use a consistent ID based on the part name to avoid regeneration issues
+    const consistentId = `custom-${identificationResult.identifiedPart.partName.toLowerCase().replace(/[^a-z0-9]/g, '-')}`;
+    
+    let universalPart = identificationResultToUniversalPart(identificationResult, consistentId);
     
     // Enhance with resolution data if available
     if (resolutionResult) {
@@ -227,7 +230,7 @@ export function DeepAssessmentSection({ assessmentState }: DeepAssessmentSection
           title={t('assessment.results.title')}
           subtitle={t('assessment.results.subtitle')}
           showIntroduction={false}
-          showOnlyCustom={true}
+          showOnlyCustom={false}
           showCallToAction={false}
           highlightedPart={getCustomParts()[0]?.id}
         />

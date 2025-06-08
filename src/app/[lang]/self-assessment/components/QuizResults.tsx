@@ -108,23 +108,6 @@ export function QuizResults({ result, assessmentState }: QuizResultsProps) {
                 {t('navigation.myFinancialDecisions')}
               </Button>
             </div>
-
-            {/* Deep Assessment Option */}
-            {/*<div className="mt-4 pt-4 border-t">
-              <div className="text-center space-y-3">
-                <p className="text-sm text-muted-foreground">
-                  {t('selfAssessment.nextSteps.deepAssessmentPrompt')}
-                </p>
-                <Button 
-                  onClick={suggestDeepAssessment}
-                  variant="ghost"
-                  size="sm"
-                  className="text-primary hover:text-primary/80"
-                >
-                  <Wand2 className="mr-2 h-4 w-4" /> {t('selfAssessment.nextSteps.deepAssessmentButton')}
-                </Button>
-              </div>
-            </div>*/}
           </div> 
         </CardContent>
       </Card>

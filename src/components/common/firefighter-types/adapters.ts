@@ -18,6 +18,11 @@ export function firefighterTypeToUniversalPart(
 
 /**
  * Convert assessment identification result to UniversalPart
+ * 
+ * @param result - The identification result from the AI flow
+ * @param id - Optional custom ID. If not provided, generates a random ID.
+ *             IMPORTANT: When using this part for highlighting/selection, 
+ *             provide a consistent ID to avoid regeneration issues.
  */
 export function identificationResultToUniversalPart(
   result: IdentifyIFSPartOutput,

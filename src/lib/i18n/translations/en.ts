@@ -1096,11 +1096,23 @@ export const en = {
       }
     },
     timeline: {
+      title: 'Check-in Journey',
       completed: 'Completed',
       missed: 'Missed',
       streak: 'Current streak',
       days: 'days',
       totalCompleted: 'Total completed',
+      weekMarkers: {
+        fourWeeksAgo: '4 weeks ago',
+        threeWeeksAgo: '3 weeks ago',
+        twoWeeksAgo: '2 weeks ago',
+        oneWeekAgo: '1 week ago',
+        today: 'Today'
+      },
+      tooltip: {
+        completedWithScore: 'Completed | Self-compassion:',
+        noCompassionScore: 'No compassion score'
+      },
       streakMessages: {
         warning: 'Streak at risk! Complete today\'s check-in to maintain your {count}-day streak.',
         day1: 'Great start! Keep it going! 🌟',

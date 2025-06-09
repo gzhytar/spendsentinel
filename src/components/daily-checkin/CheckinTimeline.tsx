@@ -154,10 +154,10 @@ export function CheckinTimeline({ lang }: CheckinTimelineProps) {
     }
     
     if (day.compassionScore !== null && day.compassionScore !== undefined) {
-      return `${dateText} - Completed | Self-compassion: ${day.compassionScore}/10 ${getScoreEmoji(day.compassionScore)}`;
+      return `${dateText} - ${t('dailyCheckIn.timeline.tooltip.completedWithScore')} ${day.compassionScore}/10 ${getScoreEmoji(day.compassionScore)}`;
     }
     
-    return `${dateText} - ${t('dailyCheckIn.timeline.completed')} | No compassion score`;
+    return `${dateText} - ${t('dailyCheckIn.timeline.completed')} | ${t('dailyCheckIn.timeline.tooltip.noCompassionScore')}`;
   };
 
   const completedCount = checkinHistory.filter(d => d.completed).length;
@@ -172,9 +172,9 @@ export function CheckinTimeline({ lang }: CheckinTimelineProps) {
         {/* Header with icon and title */}
         <div className="flex items-center gap-2">
           <Calendar className="w-4 h-4 text-primary" />
-          <span className="font-medium text-sm">Check-in Journey</span>
+          <span className="font-medium text-sm">{t('dailyCheckIn.timeline.title')}</span>
           <span className="text-xs text-muted-foreground">
-            {completedCount}/{totalDays} days ({completionPercentage}%)
+            {completedCount}/{totalDays} {t('dailyCheckIn.timeline.days')} ({completionPercentage}%)
           </span>
         </div>
         
@@ -206,11 +206,11 @@ export function CheckinTimeline({ lang }: CheckinTimelineProps) {
           
           {/* Week markers */}
           <div className="flex justify-between text-xs text-muted-foreground">
-            <span>4 weeks ago</span>
-            <span>3 weeks ago</span>
-            <span>2 weeks ago</span>
-            <span>1 week ago</span>
-            <span>Today</span>
+            <span>{t('dailyCheckIn.timeline.weekMarkers.fourWeeksAgo')}</span>
+            <span>{t('dailyCheckIn.timeline.weekMarkers.threeWeeksAgo')}</span>
+            <span>{t('dailyCheckIn.timeline.weekMarkers.twoWeeksAgo')}</span>
+            <span>{t('dailyCheckIn.timeline.weekMarkers.oneWeekAgo')}</span>
+            <span>{t('dailyCheckIn.timeline.weekMarkers.today')}</span>
           </div>
         </div>
 

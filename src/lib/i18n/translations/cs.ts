@@ -1053,11 +1053,23 @@ export const cs = {
       }
     },
     timeline: {
+      title: 'Cesta check-inu',
       completed: 'Dokončeno',
       missed: 'Vynecháno',
       streak: 'Současná série',
       days: 'dní',
       totalCompleted: 'Celkem dokončeno',
+      weekMarkers: {
+        fourWeeksAgo: 'Před 4 týdny',
+        threeWeeksAgo: 'Před 3 týdny',
+        twoWeeksAgo: 'Před 2 týdny',
+        oneWeekAgo: 'Před týdnem',
+        today: 'Dnes'
+      },
+      tooltip: {
+        completedWithScore: 'Dokončeno | Sebeláska:',
+        noCompassionScore: 'Bez skóre sebelásky'
+      },
       streakMessages: {
         warning: 'Série je v ohrožení! Dokončete dnešní check-in a udržte si svou {count}-denní sérii.',
         day1: 'Skvělý začátek! Pokračujte dál! 🌟',

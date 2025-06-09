@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Calendar, Eye, Calculator, DollarSign } from 'lucide-react';
@@ -9,7 +9,7 @@ import { useBudget } from '@/hooks/use-budget';
 import { useVisionBoard } from '@/hooks/use-vision-board';
 import { useJourneyNavigation } from '@/hooks/use-journey-navigation';
 import { VisionBoardDialog } from './vision-board-dialog';
-import { BudgetDialog } from './budget-dialog';
+import { BudgetManagement } from '@/components/ui/budget-management';
 
 interface ContinueYourJourneyProps {
   lang: string;
@@ -39,7 +39,6 @@ export function ContinueYourJourney({
   const { t } = useI18n();
   const { budget, updateBudget, hasValidBudget } = useBudget();
   const [isBudgetDialogOpen, setIsBudgetDialogOpen] = useState(false);
-  const [budgetInput, setBudgetInput] = useState(budget);
 
   const {
     visionBoardItems,
@@ -58,18 +57,12 @@ export function ContinueYourJourney({
     handleVisionBoardAction,
   } = useJourneyNavigation({ lang, onAction });
 
-  // Update budget input when budget changes
-  useEffect(() => {
-    setBudgetInput(budget);
-  }, [budget]);
-
-  const handleBudgetSave = () => {
-    updateBudget(budgetInput);
+  const handleBudgetSave = (newBudget: { monthlyIncome: number; spendBudget: number; savingTarget: number }) => {
+    updateBudget(newBudget);
     setIsBudgetDialogOpen(false);
   };
 
   const handleCloseBudgetDialog = () => {
-    setBudgetInput(budget); // Reset to current budget
     setIsBudgetDialogOpen(false);
   };
 
@@ -174,12 +167,11 @@ export function ContinueYourJourney({
         onAddItem={handleAddVisionItem}
       />
 
-      {/* Budget Dialog */}
-      <BudgetDialog
+      {/* Budget Management Dialog */}
+      <BudgetManagement.Dialog
         isOpen={isBudgetDialogOpen}
         onClose={handleCloseBudgetDialog}
-        budgetInput={budgetInput}
-        setBudgetInput={setBudgetInput}
+        initialBudget={budget}
         onSave={handleBudgetSave}
       />
     </>

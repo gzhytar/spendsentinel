@@ -94,9 +94,6 @@ export function UniversalPartSelector({
       {parts.map((part) => {
         const isHighlighted = highlightedPartId === part.id;
         const isGrayedOut = highlightedPartId && !isHighlighted;
-        console.log('isGrayedOut', isGrayedOut);
-        console.log('highlightedPartId', highlightedPartId);
-        console.log('part.id', part.id);
         
         return (
           <button

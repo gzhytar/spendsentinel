@@ -28,7 +28,20 @@ export function useStorageCleanup(options: UseStorageCleanupOptions) {
           VersionManager.initializeVersion({
             currentVersion,
             clearAllOnMajorUpdate: true,
-            clearSpecificKeys: ['dailyCheckInProgress', 'completedCheckIns', 'firefighterQuizResults', 'expenses', 'completedPartsJournalSessions', 'calmHistory'],
+            clearSpecificKeys: [
+              'unifiedAssessmentResults',      // New unified assessment storage
+              'firefighterQuizResults',        // Legacy quiz results
+              'identifiedFinancialParts',      // Legacy deep assessment results
+              'quizResults',                   // Legacy quiz format
+              'deepAssessmentResults',         // Legacy deep assessment format
+              'selfAssessmentResults',         // Old assessment format
+              'dailyCheckInProgress',          // Current check-in session
+              'completedCheckIns',             // History of completed check-ins
+              'dailyCheckInReturnContext',     // Context for returning users
+              'calmHistory',                   // Self-compassion scores history
+              'monthlyBudget',                 // User budget settings
+              'completedPartsJournalSessions', // Journal session history
+              ],
             migrateData: true
           });
         }

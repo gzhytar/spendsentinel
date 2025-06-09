@@ -97,7 +97,7 @@ export class VersionManager {
   }
 
   private static clearAllData(): void {
-    const keysToPreserve = [this.VERSION_KEY, this.LAST_CLEANUP_KEY, 'cleanup_history'];
+    const keysToPreserve = [this.VERSION_KEY, this.LAST_CLEANUP_KEY, 'cleanup_history', 'expenses'];
     const allKeys = Object.keys(localStorage);
     let clearedCount = 0;
     

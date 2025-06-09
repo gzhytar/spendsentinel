@@ -68,53 +68,6 @@ export const en = {
     }
   },
   
-  // Privacy Policy Content
-  privacy: {
-    title: 'Privacy Policy',
-    lastUpdated: 'Last updated',
-    overview: {
-      title: 'Privacy Overview',
-      description: 'SpendSentinel is committed to protecting your privacy and maintaining the highest standards of data protection. This policy explains how we handle your information with care and respect.'
-    },
-    cookies: {
-      title: 'Cookie Policy',
-      description: 'We use cookies to enhance your experience while maintaining strict privacy standards. Your consent is required for all non-essential cookies.',
-      essential: {
-        title: 'Essential Cookies (Always Active)',
-        description: 'Required for core functionality, security, and user sessions. These cookies cannot be disabled as they are necessary for the website to function properly.'
-      },
-      analytics: {
-        title: 'Analytics & Performance Cookies',
-        description: 'Help us understand how you use SpendSentinel to improve your experience. Powered by Firebase Analytics with privacy-first data collection.'
-      },
-      preferences: {
-        title: 'Preference Cookies',
-        description: 'Remember your language, currency, and other personal preferences to enhance your experience across sessions.'
-      }
-    },
-    dataProcessing: {
-      title: 'Data Processing Principles',
-      description: 'We process your data based on the following principles:',
-      item1: 'Data minimization - we only collect what we need',
-      item2: 'Purpose limitation - data is used only for stated purposes',
-      item3: 'Storage limitation - data is kept only as long as necessary',
-      item4: 'Privacy by design - privacy considerations are built into our systems'
-    },
-    gdprRights: {
-      title: 'Your GDPR Rights',
-      description: 'Under GDPR, you have the following rights regarding your personal data:',
-      access: 'Right of access - request a copy of your personal data',
-      rectification: 'Right to rectification - correct inaccurate personal data',
-      erasure: 'Right to erasure - request deletion of your personal data',
-      portability: 'Right to data portability - receive your data in a portable format',
-      withdraw: 'Right to withdraw consent - revoke consent at any time'
-    },
-    contact: {
-      title: 'Contact Us',
-      description: 'If you have any questions about this privacy policy or your data rights, please contact us through our support channels.'
-    },
-         footer: 'This privacy policy is designed to be transparent and user-friendly while ensuring full GDPR compliance.'
-   },
   consent: {
     widget: {
       title: 'Cookie Settings',
@@ -138,17 +91,11 @@ export const en = {
   
   common: {
     appName: 'SpendSentinel',
-    loading: 'Loading...',
-    error: 'An error occurred',
     save: 'Save',
-    cancel: 'Cancel',
-    delete: 'Delete',
-    edit: 'Edit',
     importantLimitation: 'Important Limitation',
     legalQuestions: 'Legal Questions',
   },
   navigation: {
-    home: 'Home',
     overview: 'Overview',
     selfAssessment: 'My Parts',
     partsJournal: 'Parts Journal',
@@ -157,7 +104,6 @@ export const en = {
   },
   landing: {
     hero: {
-      badge: 'Evidence-Based Financial Wellness',
       title: 'Break Free from Emotional Spending Patterns with Science-Based Self-Compassion',
       subtitle: 'Stop fighting your financial habits. Our AI-powered platform uses proven Internal Family Systems therapy to help you understand and heal the emotional roots of money stress.',
       description: 'Join thousands who have transformed their relationship with money by learning to work with their financial patterns instead of against them. Start your journey to financial wellness today.',
@@ -595,8 +541,7 @@ export const en = {
         seeResults: 'See Results',
         progress: 'Question {current} of {total}'
       },
-      interpretationGuide: "Use the detailed section below to understand your result. This doesn't define you completely—we all have multiple parts. If you feel this isn't your primary part, you can retake the quiz.",
-      retakeHint: "If this doesn't feel like your main part, click 'Repeat Discovery' to try again.",
+      interpretationGuide: "Use the detailed section below to understand your result. This doesn't define you completely—we all have multiple parts. If you feel this isn't your primary part, you can retake the quiz."
     },
     deepAssessment: {
       title: 'Deep Part Exploration',
@@ -692,11 +637,6 @@ export const en = {
     noSavings: 'You haven\'t added any savings yet. Click "Add Saving" to get started.',
     noTransactions: 'You haven\'t added any transactions yet. Click "Add Transaction" to get started.',
     actions: 'Actions',
-    selectCategory: 'Select a category',
-    addDescription: 'Fill in the details below to add a new expense.',
-    addSavingDescription: 'Fill in the details below to add a new saving.',
-    editDescription: 'Update the details of this expense.',
-    editSavingDescription: 'Update the details of this saving.',
     editTransactionDescription: 'Update the details of this spend or saving.',
     livingDescription: 'Essential costs like rent/mortgage, utilities, groceries, transportation for work, insurance.',
     lifestyleDescription: 'Discretionary spending like dining out, entertainment, hobbies, travel, luxury items.',
@@ -804,39 +744,6 @@ export const en = {
     }
   },
 
-  ifsDialogue: {
-    title: 'IFS Dialogue: Understand Your Financial Parts',
-    subtitle: 'Use AI to identify and understand your inner financial "firefighter" parts.',
-    form: {
-      financialSituation: {
-        label: 'Your Current Financial Situation',
-        placeholder: 'e.g., I\'m struggling with debt, I\'m saving for a house...',
-        error: 'Please describe your financial situation in more detail.'
-      },
-      recentFinancialBehavior: {
-        label: 'Recent Financial Behavior/Decisions',
-        placeholder: 'e.g., I recently made a large impulse purchase, I avoided looking at my bank account...',
-        error: 'Please describe your recent financial behavior.'
-      },
-    },
-    identifyButton: 'Identify Financial Part',
-    repeatAssessmentButton: 'Repeat My Parts Discovery',
-    explorePartButton: 'Explore This Part Deeper',
-    premiumFeatureTooltip: 'This deep exploration is a premium feature. Subscribe to enable premium features.',
-    error: {
-      title: 'Error',
-      identifyFailed: 'Failed to identify part. Please try again.',
-      resolveFailed: 'Failed to resolve part. Please try again.'
-    },
-    result: {
-      title: 'Your primary type of Firefighter: {partName}',
-      role: 'Role',
-      burden: 'Burden',
-      concern: 'Concern',
-      suggestedEngagement: 'Suggested Engagement',
-      engagementDescription: 'This strategy suggests a tailored approach to communicate with this part based on its nature and your profile.'
-    }
-  },
   groundingExercise: {
     title: 'Take a Moment to Breathe',
     subtitle: 'Focus on your breath. You are safe.',

@@ -68,54 +68,6 @@ export const cs = {
     }
   },
   
-  // Privacy Policy Content
-  privacy: {
-    title: 'Zásady ochrany osobních údajů',
-    lastUpdated: 'Naposledy aktualizováno',
-    overview: {
-      title: 'Přehled soukromí',
-      description: 'SpendSentinel se zavazuje chránit vaše soukromí a udržovat nejvyšší standardy ochrany dat. Tyto zásady vysvětlují, jak s vašimi informacemi zacházíme s péčí a respektem.'
-    },
-    cookies: {
-      title: 'Zásady cookies',
-      description: 'Používáme cookies k vylepšení vašeho zážitku při zachování přísných standardů soukromí. Váš souhlas je vyžadován pro všechny nezbytně nutné cookies.',
-      essential: {
-        title: 'Nezbytné cookies (vždy aktivní)',
-        description: 'Nutné pro základní funkcionalitu, bezpečnost a uživatelské relace. Tyto cookies nelze zakázat, protože jsou nutné pro správné fungování webové stránky.'
-      },
-      analytics: {
-        title: 'Analytické a výkonnostní cookies',
-        description: 'Pomáhají nám pochopit, jak používáte SpendSentinel, abychom mohli vylepšit váš zážitek. Poháněno Firebase Analytics s prioritou soukromí při shromažďování dat.'
-      },
-      preferences: {
-        title: 'Preferenční cookies',
-        description: 'Pamatují si váš jazyk, měnu a další osobní preference pro vylepšení zážitku napříč relacemi.'
-      }
-    },
-    dataProcessing: {
-      title: 'Principy zpracování dat',
-      description: 'Zpracováváme vaše data na základě následujících principů:',
-      item1: 'Minimalizace dat - shromažďujeme pouze to, co potřebujeme',
-      item2: 'Omezení účelu - data jsou používána pouze pro uvedené účely',
-      item3: 'Omezení uchovávání - data jsou uchována pouze tak dlouho, jak je nutné',
-      item4: 'Soukromí podle návrhu - úvahy o soukromí jsou zabudovány do našich systémů'
-    },
-    gdprRights: {
-      title: 'Vaše práva podle GDPR',
-      description: 'Podle GDPR máte následující práva týkající se vašich osobních údajů:',
-      access: 'Právo na přístup - požádat o kopii svých osobních údajů',
-      rectification: 'Právo na opravu - opravit nepřesné osobní údaje',
-      erasure: 'Právo na výmaz - požádat o smazání svých osobních údajů',
-      portability: 'Právo na přenositelnost dat - obdržet svá data v přenositelném formátu',
-      withdraw: 'Právo odvolat souhlas - odvolat souhlas kdykoli'
-    },
-    contact: {
-      title: 'Kontaktujte nás',
-      description: 'Máte-li jakékoli otázky k těmto zásadám ochrany osobních údajů nebo svým právům na data, kontaktujte nás prostřednictvím našich kanálů podpory.'
-    },
-    footer: 'Tyto zásady ochrany osobních údajů jsou navrženy tak, aby byly transparentní a uživatelsky přívětivé při zajištění plného dodržování GDPR.'
-  },
-  
   consent: {
     widget: {
       title: 'Nastavení cookies',
@@ -139,17 +91,11 @@ export const cs = {
 
   common: {
     appName: 'SpendSentinel',
-    loading: 'Načítání...',
-    error: 'Došlo k chybě',
     save: 'Uložit',
-    cancel: 'Zrušit',
-    delete: 'Smazat',
-    edit: 'Upravit',
     importantLimitation: 'Důležité omezení',
     legalQuestions: 'Právní otázky',
   },
   navigation: {
-    home: 'Domů',
     overview: 'Přehled',
     selfAssessment: 'Mé části',
     partsJournal: 'Deník částí',
@@ -158,7 +104,6 @@ export const cs = {
   },
   landing: {
     hero: {
-      badge: 'Vědecky podložené finanční zdraví',
       title: 'Osvoboďte se od emočních vzorů utrácení pomocí vědecky podložené sebelásky',
       subtitle: 'Přestaňte bojovat se svými finančními návyky. Naše AI platforma využívá ověřenou terapii Internal Family Systems k pochopení a léčení emočních kořenů finančního stresu.',
       description: 'Připojte se k tisícům lidí, kteří transformovali svůj vztah k penězům tím, že se naučili pracovat se svými finančními vzorci místo boje proti nim. Začněte svou cestu k finančnímu zdraví ještě dnes.',
@@ -545,11 +490,6 @@ export const cs = {
     noSavings: 'Zatím jste nepřidali žádné úspory. Klikněte na "Přidat Úsporu" pro začátek.',
     noTransactions: 'Zatím jste nepřidali žádné transakce. Klikněte na "Přidat Transakci" pro začátek.',
     actions: 'Akce',
-    selectCategory: 'Vyberte kategorii',
-    addDescription: 'Vyplňte níže uvedené údaje pro přidání nového výdaje.',
-    addSavingDescription: 'Vyplňte níže uvedené údaje pro přidání nové úspory.',
-    editDescription: 'Aktualizujte údaje tohoto výdaje.',
-    editSavingDescription: 'Aktualizujte údaje této úspory.',
     editTransactionDescription: 'Aktualizujte údaje tohoto výdaje nebo úspory.',
     livingDescription: 'Nezbytné náklady jako nájem/hypotéka, služby, potraviny, doprava do práce, pojištění.',
     lifestyleDescription: 'Volitelné výdaje jako stravování venku, zábava, koníčky, cestování, luxusní předměty.',
@@ -657,41 +597,6 @@ export const cs = {
     }
   },
 
-  ifsDialogue: {
-    title: 'IFS Dialog: Pochopte své finanční části',
-    subtitle: 'Použijte AI k identifikaci a pochopení vašich vnitřních finančních "hasicích" částí pomocí 6F rámce.',
-    form: {
-      financialSituation: {
-        label: 'Vaše Současná Finanční Situace',
-        placeholder: 'např. Bojuji s dluhy, šetřím na dům...',
-        error: 'Prosím, popište svou finanční situaci podrobněji.'
-      },
-      recentFinancialBehavior: {
-        label: 'Nedávné Finanční Chování/Rozhodnutí',
-        placeholder: 'např. Nedávno jsem provedl velký impulzivní nákup, vyhýbám se pohledu na svůj bankovní účet...',
-        error: 'Prosím, popište své nedávné finanční chování.'
-      },
-    },
-    identifyButton: 'Identifikovat Finanční Část',
-    repeatAssessmentButton: 'Opakovat hodnocení hasičských částí',
-    explorePartButton: 'Prozkoumat tuto část hlouběji',
-    startPartJournalButton: 'Začít deník částí',
-    dailyCheckInButton: 'Provést denní check-in',
-    premiumFeatureTooltip: 'Toto hluboké prozkoumání je prémiová funkce. Pro aktivaci prémiových funkcí se přihlaste k odběru.',
-    error: {
-      title: 'Chyba',
-      identifyFailed: 'Nepodařilo se identifikovat část. Prosím, zkuste to znovu.',
-      resolveFailed: 'Nepodařilo se vyřešit část. Prosím, zkuste to znovu.'
-    },
-    result: {
-      title: 'Vaše hlavní typ Hasiče: {partName}',
-      role: 'Role',
-      burden: 'Břemeno',
-      concern: 'Obava',
-      suggestedEngagement: 'Doporučený Přístup',
-      engagementDescription: 'Tato strategie navrhuje přizpůsobený přístup ke komunikaci s touto částí na základě její povahy a vašeho profilu.'
-    }
-  },
   groundingExercise: {
     title: 'Najděte si chvilku k dýchání',
     subtitle: 'Soustřeďte se na svůj dech. Jste v bezpečí.',

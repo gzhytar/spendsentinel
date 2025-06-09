@@ -154,32 +154,6 @@ Session 8+: Contextual placement based on user engagement
 </div>
 ```
 
-**Settings/Preferences Page**
-```tsx
-<Card>
-  <CardHeader>
-    <CardTitle>{t('settings.support.title')}</CardTitle>
-    <CardDescription>{t('settings.support.description')}</CardDescription>
-  </CardHeader>
-  <CardContent>
-    <div className="space-y-4">
-      <div className="flex items-start gap-3">
-        <Coffee className="w-5 h-5 text-primary mt-1" />
-        <div className="space-y-2">
-          <h4 className="font-medium">{t('settings.support.coffee.title')}</h4>
-          <p className="text-sm text-muted-foreground">
-            {t('settings.support.coffee.description')}
-          </p>
-          <Button variant="outline" size="sm">
-            {t('settings.support.coffee.button')}
-          </Button>
-        </div>
-      </div>
-    </div>
-  </CardContent>
-</Card>
-```
-
 ### 3. Buy Me a Coffee Subscription Tiers
 
 #### Tier Structure (Trauma-Informed Naming)

@@ -1023,12 +1023,14 @@ export const cs = {
         button: 'Prohloubte vztahy s částmi'
       },
       selfCompassion: {
-        title: 'Skóre sebelásky',
-        prompt: 'Ohodnoťte svou sebelásku dnes (1 = velmi kritický, 10 = velmi soucitný)',
-        veryCritical: 'velmi kritický',
-        veryCompassionate: 'velmi soucitný',
-        savePrompt: 'Prosím uložte své skóre sebelásky, abyste mohli zobrazit svou cestu klidu a dokončit check-in.',
-        scoreSaved: 'Vaše skóre sebelásky bylo uloženo! Nyní můžete dokončit svůj check-in.'
+        title: 'Pěstování sebelásky',
+        prompt: 'Když se zamyslíte nad svým dnem a částmi, které se objevily, jak byste ohodnotili soucit, který si nabízíte? Tato praxe pomáhá časem budovat laskavější vnitřní vztah.',
+        veryCritical: 'dnes více kritický',
+        veryCompassionate: 'dnes velmi soucitný',
+        savePrompt: 'Vaše praxe sebelásky je součástí budování zdravějšího vztahu se všemi vašimi částmi v čase.',
+        scoreSaved: 'Vaše praxe soucitu byla zaznamenána. Budujete sebeuvědomění den za dnem.',
+        explanation: 'Budování sebelásky je cesta poznávání a ctění všech částí sebe - zejména částí, které ovlivňují vaše finanční rozhodnutí. Každý den nabízí novou příležitost procvičovat si laskavost k sobě a chápat své části se zvědavostí místo odsuzování.',
+        ratingGuidance: 'Zamyslete se: Jak jemně jste se k sobě dnes chovali, když byly části aktivovány? Reagovali jste s porozuměním nebo kritikou? Neexistuje "dokonalé" skóre - jen upřímná sebereflexe.'
       },
       partsJournal: {
         startNewSession: 'Začít novou relaci',

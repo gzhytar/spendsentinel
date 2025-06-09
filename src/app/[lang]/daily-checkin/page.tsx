@@ -13,7 +13,7 @@ import { CheckinTimeline } from '@/components/daily-checkin';
 import { AddExpenseForm, type Expense } from '@/components/ui/add-expense-form';
 import { ExpenseList } from '@/components/ui/expense-list';
 import { SelfCompassionScore } from '@/components/ui/self-compassion-score';
-import { CompassionTimeline } from '@/components/ui/compassion-timeline';
+
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Coffee } from 'lucide-react';
@@ -221,6 +221,48 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
   };
 
   const handleCompleteCheckIn = async () => {
+    // Save the self-compassion score when completing check-in
+    const score = checkInData.selfCompassionScore;
+    
+    // Track compassion score save in onboarding flow
+    trackOnboarding('COMPASSION_SCORE_SAVE', {
+      score: score,
+      step: 5,
+    });
+    
+    // Track self-compassion score save for GA4 analytics
+    trackFeatureUsage(ANALYTICS_EVENTS.SELF_COMPASSION_SCORE_SAVED, {
+      score: score,
+      context: 'daily_checkin',
+      step: 5,
+      total_steps: 5,
+      timestamp: new Date().toISOString()
+    });
+    
+    // Save to calm history for consistency with self-compassion page
+    const newEntry = { date: new Date().toISOString().split('T')[0], score };
+    const storedHistory = localStorage.getItem('calmHistory');
+    const calmHistory = storedHistory ? JSON.parse(storedHistory) : [];
+    
+    // Keep all entries instead of just last 7 for better timeline tracking
+    const existingEntryIndex = calmHistory.findIndex((entry: { date: string; score: number }) => entry.date === newEntry.date);
+    if (existingEntryIndex >= 0) {
+      calmHistory[existingEntryIndex] = newEntry;
+    } else {
+      calmHistory.push(newEntry);
+    }
+    
+    localStorage.setItem('calmHistory', JSON.stringify(calmHistory));
+    
+    // Trigger storage event for real-time timeline updates
+    window.dispatchEvent(new StorageEvent('storage', {
+      key: 'calmHistory',
+      newValue: JSON.stringify(calmHistory)
+    }));
+    
+    // Set score as saved for UI consistency
+    setIsScoreSaved(true);
+    
     // Track onboarding completion
     trackOnboarding('ONBOARDING_COMPLETE', {
       completed_expenses: checkInData.expenses.length,
@@ -533,86 +575,42 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
         {currentStep === 5 && (
           <div className="space-y-6 overflow-hidden">
             <h2 className="text-2xl font-semibold">{t('dailyCheckIn.steps.selfCompassion.title')}</h2>
-            <p className="text-muted-foreground">
-              {t('dailyCheckIn.steps.selfCompassion.prompt')}
-            </p>
             
-            <div className="w-full overflow-hidden">
-              <SelfCompassionScore
-                initialScore={checkInData.selfCompassionScore}
-                onScoreSave={(score) => {
-                  setCheckInData({ ...checkInData, selfCompassionScore: score });
-                  setIsScoreSaved(true);
-                  
-                  // Track compassion score save in onboarding flow
-                  trackOnboarding('COMPASSION_SCORE_SAVE', {
-                    score: score,
-                    step: 5,
-                  });
-                  
-                  // Track self-compassion score save for GA4 analytics
-                  trackFeatureUsage(ANALYTICS_EVENTS.SELF_COMPASSION_SCORE_SAVED, {
-                    score: score,
-                    context: 'daily_checkin',
-                    step: 5,
-                    total_steps: 5,
-                    timestamp: new Date().toISOString()
-                  });
-                  
-                  // Save to calm history for consistency with self-compassion page
-                  const newEntry = { date: new Date().toISOString().split('T')[0], score };
-                  const storedHistory = localStorage.getItem('calmHistory');
-                  const calmHistory = storedHistory ? JSON.parse(storedHistory) : [];
-                  
-                  // Keep all entries instead of just last 7 for better timeline tracking
-                  const existingEntryIndex = calmHistory.findIndex((entry: { date: string; score: number }) => entry.date === newEntry.date);
-                  if (existingEntryIndex >= 0) {
-                    calmHistory[existingEntryIndex] = newEntry;
-                  } else {
-                    calmHistory.push(newEntry);
-                  }
-                  
-                  localStorage.setItem('calmHistory', JSON.stringify(calmHistory));
-                  
-                  // Trigger storage event for real-time timeline updates
-                  window.dispatchEvent(new StorageEvent('storage', {
-                    key: 'calmHistory',
-                    newValue: JSON.stringify(calmHistory)
-                  }));
-                }}
-                showPrompt={true}
-                compact={true}
-                showActions={true}
-              />
+            {/* Explanation of the practice */}
+            <div className="bg-primary/5 p-6 rounded-lg border border-primary/10">
+              <p className="text-primary-foreground leading-relaxed mb-4">
+                {t('dailyCheckIn.steps.selfCompassion.explanation')}
+              </p>
+              <p className="text-sm text-muted-foreground italic">
+                {t('dailyCheckIn.steps.selfCompassion.ratingGuidance')}
+              </p>
             </div>
             
-            {/* Score save status indicator */}
-            {!isScoreSaved && (
-              <div className="mt-6 p-3 bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900 rounded-lg">
-                <p className="text-sm text-amber-800 dark:text-amber-200">
-                  💡 {t('dailyCheckIn.steps.selfCompassion.savePrompt')}
+            <div className="space-y-4">
+              <p className="text-muted-foreground">
+                {t('dailyCheckIn.steps.selfCompassion.prompt')}
+              </p>
+              
+              <div className="w-full overflow-hidden">
+                <SelfCompassionScore
+                  initialScore={checkInData.selfCompassionScore}
+                  onScoreSave={(score) => {
+                    setCheckInData({ ...checkInData, selfCompassionScore: score });
+                    // Note: We don't set isScoreSaved here anymore since the Complete button will handle the save
+                  }}
+                  showPrompt={false}
+                  compact={true}
+                  showActions={false}
+                />
+              </div>
+              
+              <div className="mt-4 p-3 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-900 rounded-lg">
+                <p className="text-sm text-green-800 dark:text-green-200">
+                  💚 {t('dailyCheckIn.steps.selfCompassion.savePrompt')}
                 </p>
               </div>
-            )}
-            
-            {/* Self-Compassion Timeline - Only show after score is saved */}
-            {isScoreSaved && (
-              <div className="mt-8 w-full overflow-hidden">
-                <div className="flex items-center gap-2 mb-4">
-                  <Calendar className="h-5 w-5 text-primary" />
-                  <h3 className="text-lg font-semibold">{t('selfCompassion.journey.title')}</h3>
-                </div>
-                <div className="w-full overflow-x-auto">
-                  <CompassionTimeline lang={lang} />
-                </div>
-                
-                <div className="mt-4 p-3 bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-900 rounded-lg">
-                  <p className="text-sm text-green-800 dark:text-green-200">
-                    ✅ {t('dailyCheckIn.steps.selfCompassion.scoreSaved')}
-                  </p>
-                </div>
-              </div>
-            )}
+            </div>
+
           </div>
         )}
 
@@ -631,7 +629,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
               {t('dailyCheckIn.navigation.next')}
             </Button>
           ) : (
-            <Button onClick={handleCompleteCheckIn} disabled={!isScoreSaved}>
+            <Button onClick={handleCompleteCheckIn}>
               {t('dailyCheckIn.navigation.complete')}
             </Button>
           )}

@@ -1066,12 +1066,14 @@ export const en = {
         button: 'Deepen My Part Relationships'
       },
       selfCompassion: {
-        title: 'Self-Compassion Score',
-        prompt: 'Rate your self-compassion today (1 = very critical, 10 = very compassionate)',
-        veryCritical: 'very critical',
-        veryCompassionate: 'very compassionate',
-        savePrompt: 'Please save your self-compassion score to view your calm journey and complete the check-in.',
-        scoreSaved: 'Your self-compassion score has been saved! You can now complete your check-in.'
+        title: 'Nurture Self-Compassion',
+        prompt: 'As you reflect on your day and the parts that showed up, how would you rate the compassion you\'re offering yourself? This practice helps build a kinder inner relationship over time.',
+        veryCritical: 'more critical today',
+        veryCompassionate: 'very compassionate today',
+        savePrompt: 'Your self-compassion practice is part of building a healthier relationship with all your parts over time.',
+        scoreSaved: 'Your compassion practice has been recorded. You\'re building self-awareness one day at a time.',
+        explanation: 'Building self-compassion is a journey of recognizing and honoring all parts of yourself - especially the parts that influence your financial decisions. Each day offers a new opportunity to practice kindness toward yourself and understand your parts with curiosity rather than judgment.',
+        ratingGuidance: 'Consider: How gently did you treat yourself today when parts were activated? Did you respond with understanding or criticism? There\'s no "perfect" score - just honest self-reflection.'
       },
       partsJournal: {
         startNewSession: 'Start New Session',

@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.10.0] - 2025-06-09
+
+### Added
+- **Enhanced Translation Coverage**: Complete localization support across all app features
+  - Added missing translation keys for all UI elements, ensuring every text is properly localized
+  - Extended translation support to parts selector components for better international accessibility
+  - Added comprehensive translations for Czech, Russian, and Ukrainian languages
+  - Implemented translation tooling to maintain consistent localization quality
+
+### Changed
+- **Improved Parts Recognition Experience**: Enhanced visual representation and naming of personal financial patterns
+  - Custom financial parts now display appropriate images instead of generic placeholders
+  - Identified parts show properly translated names in your chosen language
+  - Streamlined parts display system for more consistent user experience across all features
+  - Better integration between self-assessment results and other app features
+
+- **Enhanced Assessment Flow**: More responsive and reliable self-discovery experience
+  - Quiz results now appear immediately after completion without delays
+  - "Repeat My Discovery" feature now properly clears previous results for fresh starts
+  - Real-time updates when starting new assessments or clearing results
+  - Improved assessment state management for smoother transitions between features
+
+### Fixed
+- **Resolved Display Issues**: Fixed visual inconsistencies affecting user experience
+  - Fixed custom financial parts showing wrong images (now displays appropriate visuals)
+  - Resolved parts showing technical IDs instead of user-friendly names
+  - Fixed custom part buttons being incorrectly disabled in assessment results
+  - Eliminated duplicate implementations that could cause inconsistent behavior
+
+- **Enhanced Technical Stability**: Improved app reliability and performance
+  - Cleaned up obsolete code that could cause unexpected behavior
+  - Unified assessment system integration for more consistent data handling
+  - Better cleanup processes when resetting or retaking assessments
+  - Improved overall app stability and responsiveness
+
+
 ## [0.9.0] - 2025-06-01
 
 ### Added

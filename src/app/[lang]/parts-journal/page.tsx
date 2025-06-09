@@ -7,16 +7,13 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { PanicButton } from '@/components/common/panic-button';
-import { Calendar, Heart, MessageCircle, Sparkles } from 'lucide-react';
-import { PartsJournalTimeline } from '@/components/parts-journal/parts-journal-timeline';
+import { MessageCircle, Sparkles } from 'lucide-react';
 import { SafeEnvironmentStep } from '@/components/parts-journal/safe-environment-step';
 import { FindFocusStep } from '@/components/parts-journal/find-focus-step';
 import { CuriousDialogueStep } from '@/components/parts-journal/curious-dialogue-step';
 import { AppreciateLogStep } from '@/components/parts-journal/appreciate-log-step';
 import { useIdentifiedParts } from '@/lib/assessment-utils';
-import { getPartImageId } from '@/lib/part-image-utils';
 import { use } from 'react';
-import Image from 'next/image';
 import { useOnboardingTracking } from '@/hooks/use-onboarding-tracking';
 
 interface PartsJournalProps {
@@ -39,15 +36,12 @@ interface JournalContent {
   step4: string;
 }
 
-
-
 export default function PartsJournal({ params }: PartsJournalProps) {
   const { lang } = use(params);
   const { t } = useI18n();
   const trackOnboarding = useOnboardingTracking();
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(0); // Start at 0 for introduction
   const [selectedPart, setSelectedPart] = useState<string>('');
-  const [showIntroduction, setShowIntroduction] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   
   const userParts = useIdentifiedParts();
@@ -66,24 +60,25 @@ export default function PartsJournal({ params }: PartsJournalProps) {
     step4: '',
   });
 
-  // Check URL parameters on mount
+  // Check URL parameters on mount to auto-start session
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
       const partParam = urlParams.get('part');
-      const returnToDailyCheckIn = urlParams.get('returnToDailyCheckIn');
       
-      if (partParam && returnToDailyCheckIn === 'true') {
+      if (partParam) {
         // Auto-start session with the specified part
         startNewSession(decodeURIComponent(partParam));
+      } else {
+        // Redirect to self-assessment if no part is specified
+        window.location.href = `/${lang}/self-assessment`;
       }
     }
-  }, []);
+  }, [lang]);
 
   const startNewSession = (partName: string) => {
     setSelectedPart(partName);
-    setCurrentStep(1);
-    setShowIntroduction(false);
+    setCurrentStep(0); // Start with introduction step
     
     // Reset content for new session
     setJournalContent({
@@ -126,7 +121,7 @@ export default function PartsJournal({ params }: PartsJournalProps) {
   };
 
   const handlePreviousStep = () => {
-    if (currentStep > 1) {
+    if (currentStep > 0) {
       const prevStep = currentStep - 1;
       setCurrentStep(prevStep);
       
@@ -169,8 +164,7 @@ export default function PartsJournal({ params }: PartsJournalProps) {
       return;
     }
 
-    // Normal completion flow (not from daily check-in)
-    // Save completed session
+    // Normal completion flow - Save completed session and return to self-assessment
     const completedSession = {
       id: `${Date.now()}_${selectedPart}`,
       partName: selectedPart,
@@ -183,143 +177,13 @@ export default function PartsJournal({ params }: PartsJournalProps) {
     completedSessions.push(completedSession);
     localStorage.setItem('completedPartsJournalSessions', JSON.stringify(completedSessions));
     
-    // Navigate back to introduction screen
-    setShowIntroduction(true);
-    setSelectedPart('');
-    setCurrentStep(1);
-    
-    // Reset content
-    setJournalContent({
-      step1: '',
-      step2: '',
-      step3: {
-        positiveIntention: '',
-        fears: '',
-        protectionOrigins: '',
-        agePerception: '',
-        trustNeeds: '',
-        additionalInsights: '',
-      },
-      step4: '',
-    });
+    // Navigate back to self-assessment
+    window.location.href = `/${lang}/self-assessment`;
   };
 
-  const progressPercentage = (currentStep / 4) * 100;
+  const progressPercentage = ((currentStep) / 4) * 100;
 
-  // Show introduction screen with part selection
-  if (showIntroduction) {
-    return (
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
-        <div className="mb-8">
-          <div className="flex items-center gap-4 mb-2">
-            <MessageCircle className="h-16 w-16 text-primary flex-shrink-0" />
-            <h1 className="text-3xl font-bold">{t('partsJournal.title')}</h1>
-          </div>
-          <p className="text-muted-foreground mb-6">{t('partsJournal.subtitle')}</p>
-        </div>
-
-        <Card className="p-6 mb-8">
-          <div className="flex items-center gap-3 mb-6">
-            <MessageCircle className="h-8 w-8 text-primary flex-shrink-0" />
-            <div>
-              <h2 className="text-xl font-semibold">{t('partsJournal.introduction.title')}</h2>
-              <p className="text-muted-foreground">{t('partsJournal.introduction.subtitle')}</p>
-            </div>
-          </div>
-          
-          <div className="space-y-4 mb-6">
-            <p>{t('partsJournal.introduction.description')}</p>
-            
-            <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
-              <h3 className="font-semibold mb-2 flex items-center gap-2">
-                <Sparkles className="h-4 w-4 text-primary" />
-                {t('partsJournal.introduction.stepPreview.title')}
-              </h3>
-              <div className="grid gap-2 text-sm">
-                <div className="flex items-center gap-2">
-                  <Badge variant="outline" className="w-6 h-6 p-0 flex items-center justify-center text-xs">1</Badge>
-                  <span>{t('partsJournal.introduction.stepPreview.step1')}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Badge variant="outline" className="w-6 h-6 p-0 flex items-center justify-center text-xs">2</Badge>
-                  <span>{t('partsJournal.introduction.stepPreview.step2')}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Badge variant="outline" className="w-6 h-6 p-0 flex items-center justify-center text-xs">3</Badge>
-                  <span>{t('partsJournal.introduction.stepPreview.step3')}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Badge variant="outline" className="w-6 h-6 p-0 flex items-center justify-center text-xs">4</Badge>
-                  <span>{t('partsJournal.introduction.stepPreview.step4')}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t pt-4">
-            {userParts.length === 0 ? (
-              <div className="text-center space-y-4 mt-8">
-                <p className="text-muted-foreground">{t('partsJournal.introduction.noPartsMessage')}</p>
-                <Button onClick={() => window.location.href = '/self-assessment'}>
-                  {t('partsJournal.goToAssessment')}
-                </Button>
-              </div>
-            ) : (
-              <div className="mt-8 space-y-6">
-                <h3 className="text-xl font-semibold text-center">{t('partsJournal.introduction.choosePartTitle')}</h3>
-                <div className="flex justify-center">
-                  <div className="grid gap-6 max-w-4xl">
-                    {userParts.map((part) => {
-                      const imageId = getPartImageId(part, t);
-                      return (
-                        <Card key={part} className="overflow-hidden hover:shadow-md transition-shadow w-full max-w-sm mx-auto">
-                          <div className="relative h-40 w-full">
-                            <Image
-                              src={`/images/${imageId}.jpg`}
-                              alt={part}
-                              fill
-                              className="object-cover"
-                              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            />
-                          </div>
-                          <div className="p-6 space-y-4 text-center">
-                            <div className="flex items-center justify-center gap-3">
-                              <Heart className="h-5 w-5 text-primary flex-shrink-0" />
-                              <span className="font-semibold text-lg">{part}</span>
-                            </div>
-                            <Button 
-                              onClick={() => startNewSession(part)}
-                              className="w-full"
-                              size="default"
-                            >
-                              {t('partsJournal.startNewSession')}
-                            </Button>
-                          </div>
-                        </Card>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        </Card>
-
-        {/* Recent Journal Sessions Timeline */}
-        <div className="mb-8">
-          <div className="flex items-center gap-2 mb-4">
-            <Calendar className="h-5 w-5 text-primary" />
-            <h2 className="text-xl font-semibold">{t('partsJournal.journalHistory')}</h2>
-          </div>
-          <PartsJournalTimeline lang={lang} />
-        </div>
-
-        <PanicButton />
-      </div>
-    );
-  }
-
-  // Show active session (removed the intermediate part selection screen)
+  // Always show active session interface since we require a part parameter
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       {/* Header with Progress */}
@@ -327,29 +191,91 @@ export default function PartsJournal({ params }: PartsJournalProps) {
         <div className="flex items-center justify-between mb-4">
           <div>
             <h1 className="text-3xl font-bold mb-2">
-              {t('partsJournal.sessionTitle', { partName: selectedPart })}
+              {currentStep === 0 
+                ? t('partsJournal.title')
+                : t('partsJournal.sessionTitle', { partName: selectedPart })
+              }
             </h1>
-            <p className="text-muted-foreground">{t('partsJournal.sessionSubtitle')}</p>
+            <p className="text-muted-foreground">
+              {currentStep === 0 
+                ? t('partsJournal.introduction.subtitle')
+                : t('partsJournal.sessionSubtitle')
+              }
+            </p>
           </div>
         </div>
         
-        <div className="mb-4">
-          <div className="flex justify-between items-center mb-2">
-            <span className="text-sm text-muted-foreground">
-              {t('partsJournal.progress', { current: currentStep, total: 4 })}
-            </span>
-            <span className="text-sm text-muted-foreground">
-              {Math.round(progressPercentage)}%
-            </span>
+        {currentStep > 0 && (
+          <div className="mb-4">
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-sm text-muted-foreground">
+                {t('partsJournal.progress', { current: currentStep, total: 4 })}
+              </span>
+              <span className="text-sm text-muted-foreground">
+                {Math.round(progressPercentage)}%
+              </span>
+            </div>
+            <Progress value={progressPercentage} className="h-2" />
           </div>
-          <Progress value={progressPercentage} className="h-2" />
-        </div>
+        )}
       </div>
 
       <PanicButton />
 
       {/* Step Content */}
       <Card ref={containerRef} className="p-6">
+        {/* Introduction Step */}
+        {currentStep === 0 && (
+          <div className="space-y-6">
+            <div className="flex items-center gap-3 mb-6">
+              <MessageCircle className="h-8 w-8 text-primary flex-shrink-0" />
+              <div>
+                <h2 className="text-xl font-semibold">{t('partsJournal.introduction.title')}</h2>
+                <p className="text-muted-foreground">{t('partsJournal.introduction.subtitle')}</p>
+              </div>
+            </div>
+            
+            <div className="space-y-4 mb-6">
+              <p>{t('partsJournal.introduction.description')}</p>
+              
+              <div className="bg-primary/5 border border-primary/20 rounded-lg p-4">
+                <h3 className="font-semibold mb-2 flex items-center gap-2">
+                  <Sparkles className="h-4 w-4 text-primary" />
+                  {t('partsJournal.introduction.stepPreview.title')}
+                </h3>
+                <div className="grid gap-2 text-sm">
+                  <div className="flex items-center gap-2">
+                    <Badge variant="outline" className="w-6 h-6 p-0 flex items-center justify-center text-xs">1</Badge>
+                    <span>{t('partsJournal.introduction.stepPreview.step1')}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Badge variant="outline" className="w-6 h-6 p-0 flex items-center justify-center text-xs">2</Badge>
+                    <span>{t('partsJournal.introduction.stepPreview.step2')}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Badge variant="outline" className="w-6 h-6 p-0 flex items-center justify-center text-xs">3</Badge>
+                    <span>{t('partsJournal.introduction.stepPreview.step3')}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Badge variant="outline" className="w-6 h-6 p-0 flex items-center justify-center text-xs">4</Badge>
+                    <span>{t('partsJournal.introduction.stepPreview.step4')}</span>
+                  </div>
+                </div>
+              </div>
+
+              <Card className="p-4 bg-accent/5 border-accent/20">
+                <p className="text-sm text-center">
+                  <strong>{t('partsJournal.introduction.selectedPart.title', { partName: selectedPart })}</strong>
+                </p>
+                <p className="text-sm text-muted-foreground text-center mt-2">
+                  {t('partsJournal.introduction.selectedPart.subtitle')}
+                </p>
+              </Card>
+            </div>
+          </div>
+        )}
+
+        {/* Structured Dialog Steps */}
         {currentStep === 1 && (
           <SafeEnvironmentStep
             partName={selectedPart}
@@ -388,14 +314,17 @@ export default function PartsJournal({ params }: PartsJournalProps) {
           <Button
             variant="outline"
             onClick={handlePreviousStep}
-            disabled={currentStep === 1}
+            disabled={currentStep === 0}
           >
             {t('partsJournal.navigation.previous')}
           </Button>
           
           {currentStep < 4 ? (
             <Button onClick={handleNextStep}>
-              {t('partsJournal.navigation.next')}
+              {currentStep === 0 
+                ? t('partsJournal.navigation.start')
+                : t('partsJournal.navigation.next')
+              }
             </Button>
           ) : (
             <Button onClick={handleCompleteSession}>

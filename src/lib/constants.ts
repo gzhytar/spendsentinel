@@ -1,12 +1,11 @@
-import { LayoutDashboard, BrainCircuit, PenLine, CalendarCheck, BookOpen } from 'lucide-react';
+import { LayoutDashboard, BrainCircuit, PenLine, CalendarCheck } from 'lucide-react';
 import { NavItem } from '../types/nav';
 
 export const NAV_ITEMS: NavItem[] = [
   { href: '/', label: 'navigation.overview', icon: LayoutDashboard, tooltip: 'navigation.overview' },
   { href: '/self-assessment', label: 'navigation.selfAssessment', icon: BrainCircuit, tooltip: 'navigation.selfAssessment' },
-  { href: '/parts-journal', label: 'navigation.partsJournal', icon: BookOpen, tooltip: 'navigation.partsJournal' },
   { href: '/daily-checkin', label: 'navigation.dailyCheckIn', icon: CalendarCheck, tooltip: 'navigation.dailyCheckIn' },
   { href: '/expense-highlighter', label: 'navigation.myFinancialDecisions', icon: PenLine, tooltip: 'navigation.myFinancialDecisions' },
 ];
 
-export const APP_NAME = "common.appName";
+export const APP_NAME = 'SpendSentinel';

@@ -980,7 +980,11 @@ export const cs = {
       title: 'Něco se pokazilo',
       identifyFailed: 'Nelze identifikovat vaše finanční části. Zkuste to prosím znovu.',
       resolveFailed: 'Nelze tuto část prozkoumat dále. Zkuste to prosím znovu.'
-    }
+    },
+    journalHistory: {
+      subtitle: 'Relace deníku s {partName}'
+    },
+    startNewSessionButton: 'Zahájit novou relaci'
   },
   dailyCheckIn: {
     title: 'Denní check-in',
@@ -1143,6 +1147,8 @@ export const cs = {
     selectPartMessage: 'Vyberte, se kterou finanční částí byste si dnes rádi popovídali.',
     noSessionsTitle: 'Zatím žádné relace deníku',
     noSessionsMessage: 'Začněte svou první relaci dialogu s jednou ze svých identifikovaných částí.',
+    noSessionsForPartTitle: 'Žádné relace pro tuto část',
+    noSessionsForPartMessage: 'Zatím jste neměli žádné relace dialogu s {partName}. Začněte novou relaci.',
     completed: 'Dokončeno',
     inProgress: 'Probíhá',
     stepProgress: 'Krok {step} z {total}',
@@ -1180,11 +1186,16 @@ export const cs = {
         ]
       },
       noPartsMessage: 'Nejprve dokončete prozkoumání částí k identifikaci vašich finančních částí.',
-      choosePartTitle: 'Vyberte část, se kterou chcete pracovat:'
+      choosePartTitle: 'Vyberte část, se kterou chcete pracovat:',
+      selectedPart: {
+        title: 'Práce s {partName}',
+        subtitle: 'Připraveni začít soucitný dialog s touto částí'
+      }
     },
     navigation: {
       previous: 'Předchozí',
       next: 'Další',
+      start: 'Začít dialog',
       complete: 'Dokončit relaci'
     },
     formatting: {

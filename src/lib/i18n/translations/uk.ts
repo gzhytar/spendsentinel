@@ -744,7 +744,11 @@ export const uk = {
       title: 'Щось пішло не так',
       identifyFailed: 'Не вдається визначити ваші фінансові частини. Будь ласка, спробуйте знову.',
       resolveFailed: 'Не вдається дослідити цю частину далі. Будь ласка, спробуйте знову.'
-    }
+    },
+    journalHistory: {
+      subtitle: 'Сесії щоденника з {partName}'
+    },
+    startNewSessionButton: 'Почати нову сесію'
   },
   footer: {
     description: 'AI-підтримувана фінансова терапія та коучинг для емоційного благополуччя та фінансового здоров\'я.',
@@ -1178,6 +1182,8 @@ export const uk = {
     selectPartMessage: 'Виберіть, з якою фінансовою частиною ви хотіли б поговорити сьогодні.',
     noSessionsTitle: 'Сесій щоденника поки немає',
     noSessionsMessage: 'Почніть свою першу сесію діалогу з однією з ваших визначених частин.',
+    noSessionsForPartTitle: 'Немає сесій для цієї частини',
+    noSessionsForPartMessage: 'У вас поки не було сесій діалогу з {partName}. Почніть нову сесію.',
     completed: 'Завершено',
     inProgress: 'В процесі',
     stepProgress: 'Крок {step} з {total}',
@@ -1215,11 +1221,16 @@ export const uk = {
         ]
       },
       noPartsMessage: 'Спочатку завершіть дослідження частин, щоб визначити ваші фінансові частини.',
-      choosePartTitle: 'Виберіть частину для роботи:'
+      choosePartTitle: 'Виберіть частину для роботи:',
+      selectedPart: {
+        title: 'Робота з {partName}',
+        subtitle: 'Готові почати співчутливий діалог з цією частиною'
+      }
     },
     navigation: {
       previous: 'Назад',
       next: 'Далі',
+      start: 'Почати діалог',
       complete: 'Завершити сесію'
     },
     formatting: {

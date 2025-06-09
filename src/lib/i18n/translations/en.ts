@@ -593,7 +593,11 @@ export const en = {
       title: 'Something went wrong',
       identifyFailed: 'Unable to identify your financial parts. Please try again.',
       resolveFailed: 'Unable to explore this part further. Please try again.'
-    }
+    },
+    journalHistory: {
+      subtitle: 'Journal sessions with {partName}'
+    },
+    startNewSessionButton: 'Start New Session'
   },
   selfCompassion: {
     calmScore: {
@@ -1186,6 +1190,8 @@ export const en = {
     selectPartMessage: 'Choose which financial part you\'d like to dialogue with today.',
     noSessionsTitle: 'No Journal Sessions Yet',
     noSessionsMessage: 'Start your first dialogue session with one of your identified parts.',
+    noSessionsForPartTitle: 'No Sessions for This Part',
+    noSessionsForPartMessage: 'You haven\'t had any dialogue sessions with {partName} yet. Start a new session to begin.',
     completed: 'Completed',
     inProgress: 'In Progress',
     stepProgress: 'Step {step} of {total}',
@@ -1223,11 +1229,16 @@ export const en = {
         ]
       },
       noPartsMessage: 'Complete the parts discovery first to identify your financial parts.',
-      choosePartTitle: 'Choose a part to work with:'
+      choosePartTitle: 'Choose a part to work with:',
+      selectedPart: {
+        title: 'Working with {partName}',
+        subtitle: 'Ready to begin a compassionate dialogue with this part'
+      }
     },
     navigation: {
       previous: 'Previous',
       next: 'Next',
+      start: 'Start Dialogue',
       complete: 'Complete Session'
     },
     formatting: {

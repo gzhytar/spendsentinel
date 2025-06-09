@@ -1027,7 +1027,11 @@ export const ru = {
       title: 'Что-то пошло не так',
       identifyFailed: 'Не удается определить ваши финансовые части. Пожалуйста, попробуйте снова.',
       resolveFailed: 'Не удается исследовать эту часть дальше. Пожалуйста, попробуйте снова.'
-    }
+    },
+    journalHistory: {
+      subtitle: 'Сессии дневника с {partName}'
+    },
+    startNewSessionButton: 'Начать новую сессию'
   },
   dailyCheckIn: {
     title: 'Ежедневная проверка',
@@ -1190,6 +1194,8 @@ export const ru = {
     selectPartMessage: 'Выберите, с какой финансовой частью вы хотели бы поговорить сегодня.',
     noSessionsTitle: 'Сессий дневника пока нет',
     noSessionsMessage: 'Начните свою первую сессию диалога с одной из ваших определенных частей.',
+    noSessionsForPartTitle: 'Нет сессий для этой части',
+    noSessionsForPartMessage: 'У вас пока не было сессий диалога с {partName}. Начните новую сессию.',
     completed: 'Завершено',
     inProgress: 'В процессе',
     stepProgress: 'Шаг {step} из {total}',
@@ -1227,11 +1233,16 @@ export const ru = {
         ]
       },
       noPartsMessage: 'Сначала завершите исследование частей, чтобы определить ваши финансовые части.',
-      choosePartTitle: 'Выберите часть для работы:'
+      choosePartTitle: 'Выберите часть для работы:',
+      selectedPart: {
+        title: 'Работа с {partName}',
+        subtitle: 'Готовы начать сострадательный диалог с этой частью'
+      }
     },
     navigation: {
       previous: 'Назад',
       next: 'Далее',
+      start: 'Начать диалог',
       complete: 'Завершить сессию'
     },
     formatting: {

@@ -993,6 +993,11 @@ export const cs = {
     panicButtonReminder: 'Pamatujte, panikové tlačítko je tu vždy pro vás - bez odsuzování, jen podpora, když ji potřebujete.',
     comingSoon: 'Již brzy',
     completionMessage: 'Skvělá práce při dokončení vašeho denního check-inu! Váš pokrok byl uložen.',
+    celebration: {
+      startNewCheckIn: 'Začít nový check-in',
+      close: 'Zavřít',
+      autoResetMessage: 'Automaticky se resetuje za 10 sekund.'
+    },
     navigation: {
       previous: 'Předchozí',
       next: 'Další',

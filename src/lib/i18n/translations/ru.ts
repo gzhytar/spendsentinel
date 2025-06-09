@@ -1040,6 +1040,11 @@ export const ru = {
     panicButtonReminder: 'Помните, кнопка паники всегда здесь для вас - без осуждения, только поддержка, когда она вам нужна.',
     comingSoon: 'Скоро',
     completionMessage: 'Отличная работа по завершению вашей ежедневной проверки! Ваш прогресс сохранен.',
+    celebration: {
+      startNewCheckIn: 'Начать новую проверку',
+      close: 'Закрыть',
+      autoResetMessage: 'Автоматически сбросится через 10 секунд.'
+    },
     navigation: {
       previous: 'Назад',
       next: 'Далее',

@@ -1028,6 +1028,11 @@ export const uk = {
     panicButtonReminder: 'Пам\'ятайте, кнопка паніки завжди тут для вас - без осуду, лише підтримка, коли вона вам потрібна.',
     comingSoon: 'Незабаром',
     completionMessage: 'Чудова робота із завершенням вашої щоденної перевірки! Ваш прогрес збережено.',
+    celebration: {
+      startNewCheckIn: 'Почати нову перевірку',
+      close: 'Закрити',
+      autoResetMessage: 'Автоматично скинеться через 10 секунд.'
+    },
     navigation: {
       previous: 'Назад',
       next: 'Далі',

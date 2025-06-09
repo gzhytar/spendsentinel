@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Label } from '@/components/ui/label';
 import { PanicButton } from '@/components/common/panic-button';
-import { Calendar, ShieldAlert, Heart } from 'lucide-react';
+import { Calendar, ShieldAlert, Heart, Sparkles, Coffee, X } from 'lucide-react';
 import Image from 'next/image';
 import { CheckinTimeline } from '@/components/daily-checkin';
 import { AddExpenseForm, type Expense } from '@/components/ui/add-expense-form';
@@ -16,7 +16,6 @@ import { SelfCompassionScore } from '@/components/ui/self-compassion-score';
 
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
-import { Coffee } from 'lucide-react';
 import { expenseStorage } from '@/lib/expense-storage';
 import { useIdentifiedParts } from '@/lib/assessment-utils';
 import { getPartImagePath } from '@/lib/part-image-utils';
@@ -24,8 +23,7 @@ import { use } from 'react';
 import { completeOnboardingSession, ANALYTICS_EVENTS } from '@/lib/analytics-utils';
 import { useOnboardingTracking } from '@/hooks/use-onboarding-tracking';
 import { useAnalyticsContext } from '@/contexts/analytics-context';
-import { CelebrationSupportToast } from '@/components/common/celebration-support';
-import { toast } from '@/hooks/use-toast';
+import { useMonetizationVisibility } from '@/hooks/use-monetization-visibility';
 
 interface DailyCheckInProps {
   params: Promise<{
@@ -38,7 +36,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
   const { t } = useI18n();
   const trackOnboarding = useOnboardingTracking();
   const { trackFeatureUsage } = useAnalyticsContext();
-
+  const { showCelebrationSupport } = useMonetizationVisibility();
 
   const [currentStep, setCurrentStep] = useState(1);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -50,6 +48,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
   const [selectedParts, setSelectedParts] = useState<string[]>([]);
   const [isScoreSaved, setIsScoreSaved] = useState(false);
   const [isSupportDialogOpen, setIsSupportDialogOpen] = useState(false);
+  const [showCelebration, setShowCelebration] = useState(false);
   
   // Get user's identified parts from self-assessment results
   const userParts = useIdentifiedParts();
@@ -300,56 +299,36 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
     // TODO: Save to database
     console.log('Check-in completed:', checkInData);
     
-    // Show completion celebration toast with extended duration
-    const celebrationToast = toast({
-      title: `🎉 ${t('dailyCheckIn.completionMessage')} ✨`,
-      description: (
-        <div className="mt-2">
-          <CelebrationSupportToast 
-            completionType="checkin" 
-            className="max-w-full"
-            onSupportClick={() => {
-              setIsSupportDialogOpen(true);
-              celebrationToast.dismiss();
-            }}
-            onClose={() => celebrationToast.dismiss()}
-            translations={{
-              title: t('completion.celebration.title'),
-              message: t('completion.celebration.message'),
-              gentleMessage: t('monetization.gentle.message'),
-              buttonText: t('support.button.celebration'),
-              dialogTitle: t('support.dialog.title'),
-              dialogDescription: t('support.dialog.description')
-            }}
-          />
-        </div>
-      ),
-      variant: "default",
-      duration: 5000, // 10 seconds
+    // Show celebration section
+    setShowCelebration(true);
+    
+    // Auto-reset after 10 seconds to allow user to see celebration
+    setTimeout(() => {
+      resetCheckInState();
+    }, 10000);
+  };
+
+  const resetCheckInState = () => {
+    setCurrentStep(1);
+    setCheckInData({
+      selfCompassionScore: 5,
+      expenses: [],
+      triggeredParts: {},
     });
+    setSelectedParts([]);
+    setIsScoreSaved(false);
+    setShowCelebration(false);
     
-    // Ensure toast auto-dismisses after timeout
-    setTimeout(() => {
-      celebrationToast.dismiss();
-    }, 5000);
-    
-    // Reset for new check-in after a delay to allow celebration to be seen
-    setTimeout(() => {
-      setCurrentStep(1);
-      setCheckInData({
-        selfCompassionScore: 5,
-        expenses: [],
-        triggeredParts: {},
-      });
-      setSelectedParts([]);
-      setIsScoreSaved(false);
-      
-      // Scroll to top after reset for better UX
-      containerRef.current?.scrollIntoView({ 
-        behavior: 'smooth', 
-        block: 'start' 
-      });
-    }, 10000); // Wait for toast to finish (10 seconds)
+    // Scroll to top after reset for better UX
+    containerRef.current?.scrollIntoView({ 
+      behavior: 'smooth', 
+      block: 'start' 
+    });
+  };
+
+  const handleCelebrationClose = () => {
+    setShowCelebration(false);
+    resetCheckInState();
   };
 
   const progressPercentage = (currentStep / 5) * 100;
@@ -499,8 +478,68 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
       {/* Panic Button */}
       <PanicButton />
 
+      {/* Celebration Section */}
+      {showCelebration && (
+        <Card className="p-8 bg-gradient-to-br from-green-50 to-primary/10 border-2 border-green-200">
+          <div className="text-center space-y-6">
+            <div className="flex justify-center">
+              <Sparkles className="h-16 w-16 text-primary animate-pulse" />
+            </div>
+            
+            <div className="space-y-3">
+              <h2 className="text-3xl font-bold text-green-800">
+                🎉 {t('dailyCheckIn.completionMessage')} ✨
+              </h2>
+              <p className="text-lg text-green-700">
+                {t('completion.celebration.message')}
+              </p>
+            </div>
+
+            {showCelebrationSupport && (
+              <div className="bg-white/80 p-6 rounded-lg border border-green-200 max-w-md mx-auto">
+                <div className="flex items-center gap-3 justify-center mb-4">
+                  <Heart className="w-5 h-5 text-red-500" />
+                  <span className="text-sm text-muted-foreground">
+                    {t('monetization.gentle.message')}
+                  </span>
+                </div>
+                <Button 
+                  onClick={() => setIsSupportDialogOpen(true)}
+                  className="w-full flex items-center gap-2"
+                >
+                  <Coffee className="w-4 h-4" />
+                  {t('support.button.celebration')}
+                </Button>
+              </div>
+            )}
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                onClick={handleCelebrationClose}
+                size="lg"
+                className="min-w-[200px]"
+              >
+                {t('dailyCheckIn.celebration.startNewCheckIn')}
+              </Button>
+              <Button 
+                variant="outline"
+                onClick={() => setShowCelebration(false)}
+                size="lg"
+              >
+                {t('dailyCheckIn.celebration.close')}
+              </Button>
+            </div>
+
+            <div className="text-sm text-muted-foreground">
+              {t('dailyCheckIn.celebration.autoResetMessage')}
+            </div>
+          </div>
+        </Card>
+      )}
+
       {/* Step Content */}
-      <Card ref={containerRef} className="p-6">
+      {!showCelebration && (
+        <Card ref={containerRef} className="p-6">
         {/* Step 1: Breathing Exercise */}
         {currentStep === 1 && (
           <div className="space-y-6">
@@ -675,6 +714,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
           </div>
         )}
       </Card>
+      )}
 
       {/* Support Dialog */}
       <Dialog open={isSupportDialogOpen} onOpenChange={setIsSupportDialogOpen}>

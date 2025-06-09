@@ -1036,6 +1036,11 @@ export const en = {
     panicButtonReminder: 'Remember, the panic button is always here for you - no judgment, just support when you need it.',
     comingSoon: 'Coming Soon',
     completionMessage: 'Great job completing your daily check-in! Your progress has been saved.',
+    celebration: {
+      startNewCheckIn: 'Start New Check-in',
+      close: 'Close',
+      autoResetMessage: 'This will automatically reset in 10 seconds.'
+    },
     navigation: {
       previous: 'Previous',
       next: 'Next',

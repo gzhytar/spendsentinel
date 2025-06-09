@@ -100,6 +100,7 @@ export const uk = {
     selfAssessment: 'Мої частини',
     partsJournal: 'Щоденник частин',
     myFinancialDecisions: 'Мої фінансові рішення',
+    myVisionAndDecisions: 'Моє бачення та рішення',
     dailyCheckIn: 'Щоденна перевірка',
   },
   landing: {

@@ -99,9 +99,7 @@ export function useIdentifiedParts(): string[] {
 
     // Listen for storage changes to provide real-time updates
     const handleStorageChange = (event: StorageEvent) => {
-      if (event.key === 'unifiedAssessmentResults' || 
-          event.key === 'firefighterQuizResults' || 
-          event.key === 'identifiedFinancialParts') {
+      if (event.key === 'unifiedAssessmentResults') {
         loadParts();
       }
     };

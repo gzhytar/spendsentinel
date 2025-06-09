@@ -100,6 +100,7 @@ export const cs = {
     selfAssessment: 'Mé části',
     partsJournal: 'Deník částí',
     myFinancialDecisions: 'Moje finanční rozhodnutí',
+    myVisionAndDecisions: 'Moje vize a rozhodnutí',
     dailyCheckIn: 'Denní check-in',
   },
   landing: {

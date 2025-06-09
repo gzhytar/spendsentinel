@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { Brain, CheckCircle, RefreshCw, RotateCcw, ArrowRight, Calendar, BookOpen, DollarSign, History } from 'lucide-react';
+import { ContinueYourJourney } from '@/components/common/continue-your-journey';
 import { useI18n } from '@/contexts/i18n-context';
 import { useAssessmentState } from './hooks/useAssessmentState';
 import { useAssessmentTracking } from './hooks/useAssessmentTracking';
@@ -91,6 +92,12 @@ export default function SelfAssessmentPage() {
     window.location.href = `/${locale}/daily-checkin`;
   };
 
+  const isTodayCompleted = () => {
+    const today = new Date().toISOString().split('T')[0];
+    const completedCheckIns = JSON.parse(localStorage.getItem('completedCheckIns') || '[]');
+    return completedCheckIns.includes(today);
+  };
+
   const handlePartsJournalStart = () => {
     // Use the selectedPart title for proper display name, fallback to stored result if needed
     let partName = selectedPart?.title;
@@ -142,44 +149,15 @@ export default function SelfAssessmentPage() {
 
       {/* Next Steps - Shown when parts are identified */}
       {shouldShowPartsDisplay && (
-        <Card className="shadow-lg border-2 border-primary/20">
-          <CardHeader>
-            <div className="flex items-center space-x-3">
-              <ArrowRight className="w-6 h-6 text-primary" />
-              <CardTitle className="text-xl">{t('selfAssessment.nextSteps.title')}</CardTitle>
-            </div>
-            <CardDescription>
-              {t('selfAssessment.nextSteps.description')}
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-col gap-3">
-              {/* Primary Action - Daily Check-in */}
-              <Button 
-                onClick={handleDailyCheckinStart}
-                size="lg"
-                className="w-full"
-                variant="default"
-              >
-                <Calendar className="mr-2 h-4 w-4" /> 
-                {t('selfAssessment.dailyCheckInButton')}
-              </Button>
-
-              {/* Secondary Actions */}
-              <div className="flex flex-col sm:flex-row gap-3 w-full">
-                <Button 
-                  onClick={handleExpenseTracking}
-                  size="lg"
-                  className="w-full"
-                  variant="outline"
-                >
-                  <DollarSign className="mr-2 h-4 w-4" /> 
-                  {t('navigation.myFinancialDecisions')}
-                </Button>
-              </div>
-            </div> 
-          </CardContent>
-        </Card>
+        <ContinueYourJourney
+          lang={locale}
+          showCheckInButton={!isTodayCompleted()}
+          onAction={(action) => {
+            if (action === 'checkin') {
+              handleDailyCheckinStart();
+            }
+          }}
+        />
       )}
 
       {/* Journal History Section - Show for selected part */}

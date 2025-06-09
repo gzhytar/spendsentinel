@@ -61,7 +61,7 @@ export function getEngagementLevel(): EngagementLevel {
         const hasBudget = localStorage.getItem('monthlyBudget');
         if (hasBudget) score += 2;
 
-        const hasCompletedAssessment = localStorage.getItem('firefighterQuizResults');
+        const hasCompletedAssessment = localStorage.getItem('unifiedAssessmentResults');
         if (hasCompletedAssessment) score += 4;
 
         // ToDo: count completed checkins

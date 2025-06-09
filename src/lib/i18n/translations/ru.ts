@@ -100,6 +100,7 @@ export const ru = {
     selfAssessment: 'Мои части',
     partsJournal: 'Дневник частей',
     myFinancialDecisions: 'Мои финансовые решения',
+    myVisionAndDecisions: 'Мое видение и решения',
     dailyCheckIn: 'Ежедневная проверка',
   },
   landing: {

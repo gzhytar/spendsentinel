@@ -115,9 +115,7 @@ export default function LandingPage() {
       
       // Listen for storage changes to refresh custom parts
       const handleStorageChange = (event: StorageEvent) => {
-        if (event.key === 'unifiedAssessmentResults' || 
-            event.key === 'firefighterQuizResults' || 
-            event.key === 'identifiedFinancialParts') {
+        if (event.key === 'unifiedAssessmentResults') {
           setIsLoadingCustomParts(true);
           loadCustomParts();
         }

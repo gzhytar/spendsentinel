@@ -7,15 +7,15 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Label } from '@/components/ui/label';
 import { PanicButton } from '@/components/common/panic-button';
-import { Calendar, ShieldAlert, Heart, Sparkles, Coffee, X, ArrowRight, DollarSign } from 'lucide-react';
+import { Calendar, ShieldAlert, Heart, Sparkles, Coffee, X, ArrowRight, DollarSign, Eye, Calculator, PlusCircle } from 'lucide-react';
 import Image from 'next/image';
 import { CheckinTimeline } from '@/components/daily-checkin';
 import { AddExpenseForm, type Expense } from '@/components/ui/add-expense-form';
 import { ExpenseList } from '@/components/ui/expense-list';
 import { SelfCompassionScore } from '@/components/ui/self-compassion-score';
-
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { ContinueYourJourney } from '@/components/common/continue-your-journey';
 import { expenseStorage } from '@/lib/expense-storage';
 import { useIdentifiedParts } from '@/lib/assessment-utils';
 import { getPartImagePath } from '@/lib/part-image-utils';
@@ -91,7 +91,11 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
       ...prev,
       expenses: todaysExpenses
     }));
+    
+
   }, []);
+
+
 
   useEffect(() => {
     localStorage.setItem('dailyCheckInProgress', JSON.stringify({
@@ -335,6 +339,8 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
     resetCheckInState();
   };
 
+
+
   const progressPercentage = (currentStep / 5) * 100;
 
   // Function to get triggered parts from today's expenses
@@ -521,44 +527,11 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
           </Card>
 
           {/* Continue Your Journey Section */}
-          <Card className="shadow-lg border-2 border-primary/20">
-            <CardHeader>
-              <div className="flex items-center space-x-3">
-                <ArrowRight className="w-6 h-6 text-primary" />
-                <CardTitle className="text-xl">{t('selfAssessment.nextSteps.title')}</CardTitle>
-              </div>
-              <CardDescription>
-                {t('selfAssessment.nextSteps.description')}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-col gap-3">
-                {/* Primary Action - Start New Check-in */}
-                <Button 
-                  onClick={handleCelebrationClose}
-                  size="lg"
-                  className="w-full"
-                  variant="default"
-                >
-                  <Calendar className="mr-2 h-4 w-4" /> 
-                  {t('dailyCheckIn.celebration.startNewCheckIn')}
-                </Button>
-
-                {/* Secondary Actions */}
-                <div className="flex flex-col sm:flex-row gap-3 w-full">
-                  <Button 
-                    onClick={() => window.location.href = `/${lang}/expense-highlighter`}
-                    size="lg"
-                    className="w-full"
-                    variant="outline"
-                  >
-                    <DollarSign className="mr-2 h-4 w-4" /> 
-                    {t('navigation.myFinancialDecisions')}
-                  </Button>
-                </div>
-              </div> 
-            </CardContent>
-          </Card>
+          <ContinueYourJourney
+            lang={lang}
+            onNewCheckIn={handleCelebrationClose}
+            showCheckInButton={false}
+          />
         </div>
       )}
 
@@ -769,6 +742,8 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
           </div>
         </DialogContent>
       </Dialog>
+
+
 
     </div>
   );

@@ -100,6 +100,7 @@ export const en = {
     selfAssessment: 'My Parts',
     partsJournal: 'Parts Journal',
     myFinancialDecisions: 'My Financial Decisions',
+    myVisionAndDecisions: 'My Vision & Decisions',
     dailyCheckIn: 'My Daily Check-in',
   },
   landing: {

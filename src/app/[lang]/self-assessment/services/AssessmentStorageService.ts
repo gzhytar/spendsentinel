@@ -33,8 +33,6 @@ interface SavedDeepAssessmentResult {
 
 export class AssessmentStorageService {
   private static readonly UNIFIED_RESULTS_KEY = 'unifiedAssessmentResults';
-  private static readonly QUIZ_RESULTS_KEY = 'firefighterQuizResults'; // Legacy
-  private static readonly DEEP_ASSESSMENT_KEY = 'identifiedFinancialParts'; // Legacy
   private static readonly MAX_RESULTS_PER_LOCALE = 10;
 
   // Unified methods
@@ -118,14 +116,7 @@ export class AssessmentStorageService {
         locale: unifiedResult.locale
       };
     }
-
-    // Fallback to legacy storage
-    try {
-      const results = this.getLegacyQuizResults();
-      const localeResults = this.filterByLocale(results, locale);
-      return this.getMostRecent(localeResults);
-    } catch (error) {
-      console.error('Failed to load quiz results:', error);
+    else {
       return null;
     }
   }
@@ -141,22 +132,15 @@ export class AssessmentStorageService {
 
   getLatestDeepAssessmentResult(locale: string): SavedDeepAssessmentResult | null {
     // First try unified storage
-    const unifiedResult = this.getLatestAssessmentResult(locale);
-    if (unifiedResult && unifiedResult.type === 'deep-assessment') {
+      const unifiedResult = this.getLatestAssessmentResult(locale);
+      if (unifiedResult && unifiedResult.type === 'deep-assessment') {
       return {
         result: unifiedResult.identificationResult!,
         timestamp: unifiedResult.timestamp,
         locale: unifiedResult.locale
       };
     }
-
-    // Fallback to legacy storage
-    try {
-      const results = this.getLegacyDeepAssessmentResults();
-      const localeResults = this.filterByLocale(results, locale);
-      return this.getMostRecent(localeResults);
-    } catch (error) {
-      console.error('Failed to load deep assessment results:', error);
+    else {
       return null;
     }
   }
@@ -193,37 +177,6 @@ export class AssessmentStorageService {
     return [...filteredResults, ...trimmedLocaleResults];
   }
 
-  // Private legacy storage methods
-  private getLegacyQuizResults(): SavedQuizResult[] {
-    // Check if we're in browser environment
-    if (typeof window === 'undefined') {
-      return [];
-    }
-    
-    try {
-      const stored = localStorage.getItem(AssessmentStorageService.QUIZ_RESULTS_KEY);
-      return stored ? JSON.parse(stored) : [];
-    } catch (error) {
-      console.error('Failed to parse legacy quiz results:', error);
-      return [];
-    }
-  }
-
-  private getLegacyDeepAssessmentResults(): SavedDeepAssessmentResult[] {
-    // Check if we're in browser environment
-    if (typeof window === 'undefined') {
-      return [];
-    }
-    
-    try {
-      const stored = localStorage.getItem(AssessmentStorageService.DEEP_ASSESSMENT_KEY);
-      return stored ? JSON.parse(stored) : [];
-    } catch (error) {
-      console.error('Failed to parse legacy deep assessment results:', error);
-      return [];
-    }
-  }
-
   private filterByLocale<T extends { locale: string }>(results: T[], locale: string): T[] {
     return results.filter(result => result.locale === locale);
   }
@@ -248,16 +201,6 @@ export class AssessmentStorageService {
       const existingResults = this.getUnifiedResults();
       const filteredResults = existingResults.filter(r => r.locale !== locale);
       localStorage.setItem(AssessmentStorageService.UNIFIED_RESULTS_KEY, JSON.stringify(filteredResults));
-      
-      // Clear legacy quiz results for this locale
-      const legacyQuizResults = this.getLegacyQuizResults();
-      const filteredQuizResults = legacyQuizResults.filter(r => r.locale !== locale);
-      localStorage.setItem(AssessmentStorageService.QUIZ_RESULTS_KEY, JSON.stringify(filteredQuizResults));
-      
-      // Clear legacy deep assessment results for this locale
-      const legacyDeepResults = this.getLegacyDeepAssessmentResults();
-      const filteredDeepResults = legacyDeepResults.filter(r => r.locale !== locale);
-      localStorage.setItem(AssessmentStorageService.DEEP_ASSESSMENT_KEY, JSON.stringify(filteredDeepResults));
       
       console.log(`Cleared all assessment results for locale: ${locale}`);
       

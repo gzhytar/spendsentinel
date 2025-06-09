@@ -2,6 +2,43 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.11.0] - 2025-06-09
+
+### Added
+- **Journey Navigation**: New seamless way to continue your personal growth journey
+  - Added "Continue Your Journey" section that appears after completing daily check-ins and self-assessments
+  - Introduced integrated budget planning dialog accessible directly from your progress celebrations
+  - Added vision board feature to help you visualize and plan your financial goals
+  - New guided navigation between different app features for a more connected experience
+
+### Changed
+- **Simplified Navigation**: Renamed "My Daily Check-in" to "My Journey" in the sidebar for clearer purpose
+  - Updated navigation across all supported languages (English, Czech, Russian, Ukrainian)
+  - More intuitive way to access your personal development tools
+
+- **Enhanced Celebration Experience**: Improved how you celebrate completing daily activities
+  - Replaced temporary notification popups with dedicated celebration sections on the page
+  - Better visual feedback when you complete daily check-ins
+  - Clearer next steps presented after finishing activities
+  - Consistent celebration experience across all app features
+
+- **Streamlined User Flow**: More cohesive experience between different app features
+  - Smoother transitions from self-assessment to daily activities
+  - Better integration between financial planning and personal development tools
+  - Consistent interface design across all major features
+
+### Fixed
+- **Improved Reliability**: Fixed timing issues that could interrupt your progress
+  - Eliminated random interruptions during daily check-in completion
+  - More stable celebration and progress tracking
+  - Better handling of feature transitions and data saving
+
+- **Enhanced Interface Consistency**: Resolved visual inconsistencies across the app
+  - Fixed budget dialog appearing differently in various contexts
+  - Cleaned up duplicate or conflicting interface elements
+  - More consistent visual experience throughout your journey
+
+
 ## [0.10.0] - 2025-06-09
 
 ### Added

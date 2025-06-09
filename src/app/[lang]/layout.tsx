@@ -14,7 +14,7 @@ import { CookieConsentBanner } from '@/components/ui/cookie-consent-banner';
 import { CookieConsentSettings } from '@/components/ui/cookie-consent-settings';
 
 // Update this version number when releasing new versions
-const CURRENT_VERSION = '0.10.0';
+const CURRENT_VERSION = '0.11.0';
 
 export default function MainAppLayout({ 
   children,

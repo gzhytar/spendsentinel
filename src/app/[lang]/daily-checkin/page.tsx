@@ -18,7 +18,8 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Coffee } from 'lucide-react';
 import { expenseStorage } from '@/lib/expense-storage';
-import { useIdentifiedParts, FIREFIGHTER_TYPE_IDS } from '@/lib/assessment-utils';
+import { useIdentifiedParts } from '@/lib/assessment-utils';
+import { getPartImagePath } from '@/lib/part-image-utils';
 import { use } from 'react';
 import { completeOnboardingSession, ANALYTICS_EVENTS } from '@/lib/analytics-utils';
 import { useOnboardingTracking } from '@/hooks/use-onboarding-tracking';
@@ -38,22 +39,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
   const trackOnboarding = useOnboardingTracking();
   const { trackFeatureUsage } = useAnalyticsContext();
 
-  // Local function to map part names to firefighter type images
-  const getImageForPart = (partName: string): string => {
-    // Try to match with known firefighter types based on translated names
-    const localizedNames = FIREFIGHTER_TYPE_IDS.reduce((acc, id) => {
-      acc[t(`landing.firefighters.${id}.title`)] = id;
-      return acc;
-    }, {} as Record<string, string>);
-    
-    // Look for exact match first
-    if (localizedNames[partName]) {
-      return localizedNames[partName];
-    }
-    
-    // Fallback to a default image or first available
-    return FIREFIGHTER_TYPE_IDS[0];
-  };
+
   const [currentStep, setCurrentStep] = useState(1);
   const containerRef = useRef<HTMLDivElement>(null);
   const [checkInData, setCheckInData] = useState({
@@ -389,12 +375,12 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
         <div className="flex justify-center">
           <div className="grid gap-6 max-w-4xl">
             {triggeredParts.map((part) => {
-              const firefighterTypeId = getImageForPart(part);
+              const imagePath = getPartImagePath(part, t);
               return (
                 <Card key={part} className="overflow-hidden hover:shadow-md transition-shadow w-full max-w-sm mx-auto">
                   <div className="relative h-40 w-full">
                     <Image
-                      src={`/images/${firefighterTypeId}.jpg`}
+                      src={imagePath}
                       alt={part}
                       fill
                       className="object-cover"

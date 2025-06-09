@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Calendar, Heart, Trash2, FileText, ChevronDown, ChevronUp } from 'lucide-react';
 import { SessionSummary } from './session-summary';
 import Image from 'next/image';
-import { FIREFIGHTER_TYPE_IDS } from '@/lib/assessment-utils';
+import { getPartImageId } from '@/lib/part-image-utils';
 
 interface PartsJournalTimelineProps {
   lang: string;
@@ -32,24 +32,7 @@ interface CompletedJournalSession {
   };
 }
 
-// Utility function to map part names to firefighter type IDs for image display
-const getImageForPart = (partName: string, t: (key: string) => string): string => {
-  // Get the firefighter type names from translations
-  const firefighterTypeNames: Record<string, string> = {};
-  FIREFIGHTER_TYPE_IDS.forEach(id => {
-    firefighterTypeNames[id] = t(`landing.firefighters.${id}.title`);
-  });
-  
-  // Find the type ID that matches the part name
-  for (const [typeId, typeName] of Object.entries(firefighterTypeNames)) {
-    if (typeName === partName) {
-      return typeId;
-    }
-  }
-  
-  // Default fallback for custom parts
-  return 'custom';
-};
+
 
 export function PartsJournalTimeline({ lang }: PartsJournalTimelineProps) {
   const { t } = useI18n();
@@ -127,7 +110,7 @@ export function PartsJournalTimeline({ lang }: PartsJournalTimelineProps) {
     <div className="space-y-4">
       {sessions.map((session) => {
         const isExpanded = expandedSummaryId === session.id;
-        const imageId = getImageForPart(session.partName, t);
+        const imageId = getPartImageId(session.partName, t);
         
         return (
           <Card key={session.id} className="p-4">

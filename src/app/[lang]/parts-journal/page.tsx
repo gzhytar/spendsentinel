@@ -13,7 +13,8 @@ import { SafeEnvironmentStep } from '@/components/parts-journal/safe-environment
 import { FindFocusStep } from '@/components/parts-journal/find-focus-step';
 import { CuriousDialogueStep } from '@/components/parts-journal/curious-dialogue-step';
 import { AppreciateLogStep } from '@/components/parts-journal/appreciate-log-step';
-import { useIdentifiedParts, FIREFIGHTER_TYPE_IDS } from '@/lib/assessment-utils';
+import { useIdentifiedParts } from '@/lib/assessment-utils';
+import { getPartImageId } from '@/lib/part-image-utils';
 import { use } from 'react';
 import Image from 'next/image';
 import { useOnboardingTracking } from '@/hooks/use-onboarding-tracking';
@@ -38,24 +39,7 @@ interface JournalContent {
   step4: string;
 }
 
-// Utility function to map part names to image IDs for display
-const getImageForPart = (partName: string, t: (key: string) => string): string => {
-  // Get the firefighter type names from translations
-  const firefighterTypeNames: Record<string, string> = {};
-  FIREFIGHTER_TYPE_IDS.forEach(id => {
-    firefighterTypeNames[id] = t(`landing.firefighters.${id}.title`);
-  });
-  
-  // Find the type ID that matches the part name
-  for (const [typeId, typeName] of Object.entries(firefighterTypeNames)) {
-    if (typeName === partName) {
-      return typeId;
-    }
-  }
-  
-  // Default fallback for custom parts
-  return 'custom';
-};
+
 
 export default function PartsJournal({ params }: PartsJournalProps) {
   const { lang } = use(params);
@@ -286,7 +270,7 @@ export default function PartsJournal({ params }: PartsJournalProps) {
                 <div className="flex justify-center">
                   <div className="grid gap-6 max-w-4xl">
                     {userParts.map((part) => {
-                      const imageId = getImageForPart(part, t);
+                      const imageId = getPartImageId(part, t);
                       return (
                         <Card key={part} className="overflow-hidden hover:shadow-md transition-shadow w-full max-w-sm mx-auto">
                           <div className="relative h-40 w-full">

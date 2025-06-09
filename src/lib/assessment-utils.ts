@@ -49,11 +49,12 @@ export function getLocalizedFirefighterNames(locale: string): Record<string, str
 
 /**
  * Hook to get identified parts for the current locale using the unified assessment system
+ * Automatically translates predefined firefighter type IDs to localized names
  * Provides real-time updates when assessment results change
  */
 export function useIdentifiedParts(): string[] {
   const [parts, setParts] = useState<string[]>([]);
-  const { locale } = useI18n();
+  const { locale, t } = useI18n();
 
   useEffect(() => {
     const loadParts = () => {
@@ -69,9 +70,16 @@ export function useIdentifiedParts(): string[] {
             const service = new AssessmentStorageService();
             const assessmentResults = service.getAllAssessmentResults(locale);
             
-            // Extract part names from assessment results
+            // Extract and translate part names from assessment results
             const identifiedParts = assessmentResults
-              .map((result: { partName: string }) => result.partName)
+              .map((result: { partName: string; type: 'quiz' | 'deep-assessment' }) => {
+                // For quiz results, the partName is a firefighter type ID that needs translation
+                if (result.type === 'quiz' && FIREFIGHTER_TYPE_IDS.includes(result.partName as FirefighterTypeId)) {
+                  return t(`landing.firefighters.${result.partName}.title`);
+                }
+                // For deep assessment results, the partName is already the final name
+                return result.partName;
+              })
               .filter((name: string, index: number, array: string[]) => array.indexOf(name) === index); // Remove duplicates
             
             setParts(identifiedParts);
@@ -110,7 +118,7 @@ export function useIdentifiedParts(): string[] {
       window.removeEventListener('storage', handleStorageChange);
       window.removeEventListener('assessmentResultsUpdated', handleAssessmentUpdate);
     };
-  }, [locale]);
+  }, [locale, t]);
 
   return parts;
 }

@@ -1,6 +1,7 @@
 import { CheckCircle2 } from 'lucide-react';
 import Image from 'next/image';
 import { FirefighterType } from './useFirefighterTypeData';
+import { useI18n } from '@/contexts/i18n-context';
 
 interface FirefighterTypeSelectorProps {
   types: FirefighterType[];
@@ -15,6 +16,7 @@ export function FirefighterTypeSelector({
   highlightedType,
   onTypeSelect
 }: FirefighterTypeSelectorProps) {
+  const { t } = useI18n();
   const getButtonStyles = (type: FirefighterType) => {
     const isHighlighted = highlightedType === type.id;
     const isGrayedOut = highlightedType && !isHighlighted;
@@ -75,7 +77,7 @@ export function FirefighterTypeSelector({
             </div>
             {isHighlighted && (
               <div className="text-xs text-green-600 mt-1 font-medium">
-                Your Type
+                {t('parts.labels.yourType')}
               </div>
             )}
           </button>

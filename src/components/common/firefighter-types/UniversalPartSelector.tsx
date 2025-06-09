@@ -1,6 +1,7 @@
 import { CheckCircle2, Sparkles, Users } from 'lucide-react';
 import Image from 'next/image';
 import { UniversalPart } from '../../../lib/FireFighterTypes';
+import { useI18n } from '@/contexts/i18n-context';
 
 interface UniversalPartSelectorProps {
   parts: UniversalPart[];
@@ -17,6 +18,7 @@ export function UniversalPartSelector({
   onPartSelect,
   showTypeIndicator = true
 }: UniversalPartSelectorProps) {
+  const { t } = useI18n();
   
   const getButtonStyles = (part: UniversalPart) => {
     const isHighlighted = highlightedPartId === part.id;
@@ -131,13 +133,13 @@ export function UniversalPartSelector({
             
             {part.type === 'custom' && (
               <div className="text-xs text-purple-600 mt-1">
-                Custom Part
+                {t('parts.labels.customPart')}
               </div>
             )}
             
             {isHighlighted && (
               <div className="text-xs text-green-600 mt-1 font-medium">
-                {part.source === 'quiz' ? 'Quiz Result' : 'Your Type'}
+                {part.source === 'quiz' ? t('parts.labels.quizResult') : t('parts.labels.yourType')}
               </div>
             )}
           </button>

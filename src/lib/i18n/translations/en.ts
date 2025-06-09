@@ -1211,6 +1211,11 @@ export const en = {
       title: 'Your Financial Parts',
       subtitle: 'All your identified parts - from assessments and built-in types',
       noParts: 'No parts have been identified yet. Complete an assessment to discover your financial parts.'
+    },
+    labels: {
+      customPart: 'Custom Part',
+      quizResult: 'Quiz Result',
+      yourType: 'Your Type'
     }
   },
   assessment: {
@@ -1269,7 +1274,15 @@ export const en = {
     completionMessage: 'Congratulations! You\'ve completed a meaningful dialogue with your part. Your insights have been saved.',
     introduction: {
       title: 'Engage in structured dialogue with your financial parts',
+      subtitle: 'A safe space for understanding your inner world',
       description: 'This journal provides a safe, structured space to understand and dialogue with the different parts of yourself that influence your financial decisions. Through compassionate inquiry, you\'ll discover the positive intentions behind your financial behaviors.',
+      stepPreview: {
+        title: 'The 4-step process:',
+        step1: 'Create a safe environment',
+        step2: 'Find and focus on your part',
+        step3: 'Engage in curious dialogue',
+        step4: 'Appreciate and log insights'
+      },
       whatYouExplore: {
         title: 'What you\'ll explore:',
         items: [

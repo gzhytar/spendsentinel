@@ -1170,6 +1170,11 @@ export const cs = {
       title: 'Vaše finanční části',
       subtitle: 'Všechny vaše identifikované části - z hodnocení a vestavěných typů',
       noParts: 'Zatím nebyly identifikovány žádné části. Dokončete hodnocení a objevte své finanční části.'
+    },
+    labels: {
+      customPart: 'Vlastní část',
+      quizResult: 'Výsledek kvízu',
+      yourType: 'Váš typ'
     }
   },
   assessment: {
@@ -1228,7 +1233,15 @@ export const cs = {
     completionMessage: 'Gratulujeme! Dokončili jste smysluplný dialog se svou částí. Vaše poznatky byly uloženy.',
     introduction: {
       title: 'Zapojte se do strukturovaného dialogu se svými finančními částmi',
+      subtitle: 'Bezpečný prostor pro pochopení vašeho vnitřního světa',
       description: 'Tento deník poskytuje bezpečný, strukturovaný prostor pro porozumění a dialog s různými částmi sebe, které ovlivňují vaše finanční rozhodnutí. Prostřednictvím soucitného zkoumání objevíte pozitivní záměry za vašimi finančními chováními.',
+      stepPreview: {
+        title: '4-krokový proces:',
+        step1: 'Vytvořte bezpečné prostředí',
+        step2: 'Najděte a zaměřte se na svou část',
+        step3: 'Zapojte se do zvědavého dialogu',
+        step4: 'Oceňte a zaznamenejte poznatky'
+      },
       whatYouExplore: {
         title: 'Co budete zkoumat:',
         items: [

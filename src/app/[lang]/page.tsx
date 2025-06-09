@@ -157,12 +157,12 @@ export default function LandingPage() {
     {
       id: 'daily-checkin',
       icon: CalendarCheck,
-      titleKey: 'landing.features.dailyCheckIn.title',
-      descriptionKey: 'landing.features.dailyCheckIn.description',
+      titleKey: 'landing.features.myJourney.title',
+      descriptionKey: 'landing.features.myJourney.description',
       buttonComponent: (
         <FeatureNavigationButton 
           href="/daily-checkin"
-          translationKey="landing.features.dailyCheckIn.button"
+          translationKey="landing.features.myJourney.button"
           fullWidth={true}
         />
       )
@@ -170,12 +170,12 @@ export default function LandingPage() {
     {
       id: 'financial-decisions',
       icon: Lightbulb,
-      titleKey: 'landing.features.myFinancialDecisions.title',
-      descriptionKey: 'landing.features.myFinancialDecisions.description',
+      titleKey: 'landing.features.myFinances.title',
+      descriptionKey: 'landing.features.myFinances.description',
       buttonComponent: (
         <FeatureNavigationButton 
           href="/expense-highlighter"
-          translationKey="landing.features.myFinancialDecisions.button"
+          translationKey="landing.features.myFinances.button"
           fullWidth={true}
         />
       )
@@ -376,16 +376,6 @@ export default function LandingPage() {
             title={partsDisplayTitle}
             subtitle={partsDisplaySubtitle}
           />
-        )}
-        
-        {isLoadingCustomParts && (
-          <Card className="shadow-xl border-0">
-            <CardContent className="p-8 text-center">
-              <p className="text-muted-foreground">
-                {t('landing.firefighters.loading') || 'Loading your parts...'}
-              </p>
-            </CardContent>
-          </Card>
         )}
       </section>
 

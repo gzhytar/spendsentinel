@@ -100,8 +100,8 @@ export const cs = {
     selfAssessment: 'Mé části',
     partsJournal: 'Deník částí',
     myFinancialDecisions: 'Moje finanční rozhodnutí',
-    myVisionAndDecisions: 'Moje vize a rozhodnutí',
-    dailyCheckIn: 'Denní check-in',
+    myFinances: 'Moje finance',
+    myJourney: 'Moje cesta',
   },
   landing: {
     hero: {
@@ -435,17 +435,17 @@ export const cs = {
         description: 'Objevte, které finanční "hasičské" části jsou ve vašem životě nejaktivnější a dozvíte se o jejich ochranných záměrech.',
         button: 'Prozkoumat mé části',
       },
-      myFinancialDecisions: {
-        title: 'Moje finanční rozhodnutí',
+      myFinances: {
+        title: 'Moje finance',
         description: 'Sledujte a pochopte emocionální vzorce za vašimi výdaji s AI poznatky.',
         button: 'Sledovat rozhodnutí',
       },
 
 
-      dailyCheckIn: {
-        title: 'Denní check-in',
+      myJourney: {
+        title: 'Moje cesta',
         description: 'Budujte denní návyk reflexe, sledování výdajů a soucitného sebeuvědomění se svými finančními částmi.',
-        button: 'Začít check-in',
+        button: 'Začít cestu',
       },
     }
   },

@@ -279,7 +279,7 @@ export function ContinueYourJourney({
                   variant="outline"
                 >
                   <DollarSign className="mr-2 h-4 w-4" /> 
-                  {t('navigation.myVisionAndDecisions')}
+                  {t('navigation.myFinances')}
                 </Button>
               )}
 

@@ -100,8 +100,8 @@ export const en = {
     selfAssessment: 'My Parts',
     partsJournal: 'Parts Journal',
     myFinancialDecisions: 'My Financial Decisions',
-    myVisionAndDecisions: 'My Vision & Decisions',
-    dailyCheckIn: 'My Daily Check-in',
+    myFinances: 'My Finances',
+    myJourney: 'My Journey',
   },
   landing: {
     hero: {
@@ -435,15 +435,15 @@ export const en = {
         description: 'Discover which financial "firefighter" parts are most active in your life and learn about their protective intentions.',
         button: 'Start My Discovery',
       },
-      myFinancialDecisions: {
-        title: 'My Financial Decisions',
+      myFinances: {
+        title: 'My Finances',
         description: 'Track and understand the emotional patterns behind your spending with AI-powered insights.',
         button: 'Start My Tracking',
       },
-      dailyCheckIn: {
-        title: 'My Daily Check-in',
+      myJourney: {
+        title: 'My Journey',
         description: 'Build a daily habit of reflection, expense tracking, and compassionate self-awareness with your financial parts.',
-        button: 'Start My Check-in',
+        button: 'Start My Journey',
       },
     },
   },

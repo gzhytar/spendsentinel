@@ -112,6 +112,12 @@ export async function expectLocalStorageContains(
   
   if (Array.isArray(expectedContent)) {
     expect(storageContent).toEqual(expect.arrayContaining(expectedContent));
+  } else if (typeof expectedContent === 'object' && Array.isArray(storageContent)) {
+    // If expected is an object but storage content is an array,
+    // check if the array contains an object with the expected properties
+    expect(storageContent).toEqual(expect.arrayContaining([
+      expect.objectContaining(expectedContent)
+    ]));
   } else if (typeof expectedContent === 'object') {
     expect(storageContent).toEqual(expect.objectContaining(expectedContent));
   } else {

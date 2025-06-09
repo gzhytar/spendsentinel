@@ -995,8 +995,7 @@ export const cs = {
     completionMessage: 'Skvělá práce při dokončení vašeho denního check-inu! Váš pokrok byl uložen.',
     celebration: {
       startNewCheckIn: 'Začít nový check-in',
-      close: 'Zavřít',
-      autoResetMessage: 'Automaticky se resetuje za 10 sekund.'
+      close: 'Zavřít'
     },
     navigation: {
       previous: 'Předchozí',

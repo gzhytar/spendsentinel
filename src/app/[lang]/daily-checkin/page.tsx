@@ -2,12 +2,12 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useI18n } from '@/contexts/i18n-context';
-import { Card } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Label } from '@/components/ui/label';
 import { PanicButton } from '@/components/common/panic-button';
-import { Calendar, ShieldAlert, Heart, Sparkles, Coffee, X } from 'lucide-react';
+import { Calendar, ShieldAlert, Heart, Sparkles, Coffee, X, ArrowRight, DollarSign } from 'lucide-react';
 import Image from 'next/image';
 import { CheckinTimeline } from '@/components/daily-checkin';
 import { AddExpenseForm, type Expense } from '@/components/ui/add-expense-form';
@@ -40,6 +40,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
 
   const [currentStep, setCurrentStep] = useState(1);
   const containerRef = useRef<HTMLDivElement>(null);
+  const celebrationRef = useRef<HTMLDivElement>(null);
   const [checkInData, setCheckInData] = useState({
     selfCompassionScore: 5,
     expenses: [] as Expense[],
@@ -302,10 +303,13 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
     // Show celebration section
     setShowCelebration(true);
     
-    // Auto-reset after 10 seconds to allow user to see celebration
+    // Scroll to celebration section
     setTimeout(() => {
-      resetCheckInState();
-    }, 10000);
+      celebrationRef.current?.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+      });
+    }, 100); // Small delay to ensure the component has rendered
   };
 
   const resetCheckInState = () => {
@@ -480,61 +484,82 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
 
       {/* Celebration Section */}
       {showCelebration && (
-        <Card className="p-8 bg-gradient-to-br from-green-50 to-primary/10 border-2 border-green-200">
-          <div className="text-center space-y-6">
-            <div className="flex justify-center">
-              <Sparkles className="h-16 w-16 text-primary animate-pulse" />
-            </div>
-            
-            <div className="space-y-3">
-              <h2 className="text-3xl font-bold text-green-800">
-                🎉 {t('dailyCheckIn.completionMessage')} ✨
-              </h2>
-              <p className="text-lg text-green-700">
-                {t('completion.celebration.message')}
-              </p>
-            </div>
-
-            {showCelebrationSupport && (
-              <div className="bg-white/80 p-6 rounded-lg border border-green-200 max-w-md mx-auto">
-                <div className="flex items-center gap-3 justify-center mb-4">
-                  <Heart className="w-5 h-5 text-red-500" />
-                  <span className="text-sm text-muted-foreground">
-                    {t('monetization.gentle.message')}
-                  </span>
-                </div>
-                <Button 
-                  onClick={() => setIsSupportDialogOpen(true)}
-                  className="w-full flex items-center gap-2"
-                >
-                  <Coffee className="w-4 h-4" />
-                  {t('support.button.celebration')}
-                </Button>
+        <div className="space-y-6">
+          <Card ref={celebrationRef} className="p-8 bg-gradient-to-br from-green-50 to-primary/10 border-2 border-green-200">
+            <div className="text-center space-y-6">
+              <div className="flex justify-center">
+                <Sparkles className="h-16 w-16 text-primary animate-pulse" />
               </div>
-            )}
+              
+              <div className="space-y-3">
+                <h2 className="text-3xl font-bold text-green-800">
+                  🎉 {t('dailyCheckIn.completionMessage')} ✨
+                </h2>
+                <p className="text-lg text-green-700">
+                  {t('completion.celebration.message')}
+                </p>
+              </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                onClick={handleCelebrationClose}
-                size="lg"
-                className="min-w-[200px]"
-              >
-                {t('dailyCheckIn.celebration.startNewCheckIn')}
-              </Button>
-              <Button 
-                variant="outline"
-                onClick={() => setShowCelebration(false)}
-                size="lg"
-              >
-                {t('dailyCheckIn.celebration.close')}
-              </Button>
+              {showCelebrationSupport && (
+                <div className="bg-white/80 p-6 rounded-lg border border-green-200 max-w-md mx-auto">
+                  <div className="flex items-center gap-3 justify-center mb-4">
+                    <Heart className="w-5 h-5 text-red-500" />
+                    <span className="text-sm text-muted-foreground">
+                      {t('monetization.gentle.message')}
+                    </span>
+                  </div>
+                  <Button 
+                    onClick={() => setIsSupportDialogOpen(true)}
+                    className="w-full flex items-center gap-2"
+                  >
+                    <Coffee className="w-4 h-4" />
+                    {t('support.button.celebration')}
+                  </Button>
+                </div>
+              )}
             </div>
+          </Card>
 
-            <div className="text-sm text-muted-foreground">
-              {t('dailyCheckIn.celebration.autoResetMessage')}
-            </div>
-          </div>
-        </Card>
+          {/* Continue Your Journey Section */}
+          <Card className="shadow-lg border-2 border-primary/20">
+            <CardHeader>
+              <div className="flex items-center space-x-3">
+                <ArrowRight className="w-6 h-6 text-primary" />
+                <CardTitle className="text-xl">{t('selfAssessment.nextSteps.title')}</CardTitle>
+              </div>
+              <CardDescription>
+                {t('selfAssessment.nextSteps.description')}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-col gap-3">
+                {/* Primary Action - Start New Check-in */}
+                <Button 
+                  onClick={handleCelebrationClose}
+                  size="lg"
+                  className="w-full"
+                  variant="default"
+                >
+                  <Calendar className="mr-2 h-4 w-4" /> 
+                  {t('dailyCheckIn.celebration.startNewCheckIn')}
+                </Button>
+
+                {/* Secondary Actions */}
+                <div className="flex flex-col sm:flex-row gap-3 w-full">
+                  <Button 
+                    onClick={() => window.location.href = `/${lang}/expense-highlighter`}
+                    size="lg"
+                    className="w-full"
+                    variant="outline"
+                  >
+                    <DollarSign className="mr-2 h-4 w-4" /> 
+                    {t('navigation.myFinancialDecisions')}
+                  </Button>
+                </div>
+              </div> 
+            </CardContent>
+          </Card>
+        </div>
       )}
 
       {/* Step Content */}

@@ -1038,8 +1038,7 @@ export const en = {
     completionMessage: 'Great job completing your daily check-in! Your progress has been saved.',
     celebration: {
       startNewCheckIn: 'Start New Check-in',
-      close: 'Close',
-      autoResetMessage: 'This will automatically reset in 10 seconds.'
+      close: 'Close'
     },
     navigation: {
       previous: 'Previous',

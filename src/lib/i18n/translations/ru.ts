@@ -1042,8 +1042,7 @@ export const ru = {
     completionMessage: 'Отличная работа по завершению вашей ежедневной проверки! Ваш прогресс сохранен.',
     celebration: {
       startNewCheckIn: 'Начать новую проверку',
-      close: 'Закрыть',
-      autoResetMessage: 'Автоматически сбросится через 10 секунд.'
+      close: 'Закрыть'
     },
     navigation: {
       previous: 'Назад',

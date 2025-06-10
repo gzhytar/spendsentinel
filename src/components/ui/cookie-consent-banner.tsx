@@ -49,34 +49,34 @@ export function CookieConsentBanner() {
 
           <CardContent className="space-y-6">
             {/* Cookie Categories Summary */}
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              <div className="flex items-center gap-2 p-3 rounded-lg bg-emerald-50 border border-emerald-200">
-                <Shield className="h-4 w-4 text-emerald-600" />
-                <div>
-                  <div className="text-sm font-medium text-emerald-900">{t('cookie.category.essential')}</div>
-                  <div className="text-xs text-emerald-700">{t('cookie.category.essentialDesc')}</div>
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="flex items-center gap-2 p-2 rounded-md bg-emerald-50 border border-emerald-200">
+                <Shield className="h-3.5 w-3.5 text-emerald-600 flex-shrink-0" />
+                <div className="min-w-0">
+                  <div className="text-xs font-medium text-emerald-900 leading-tight">{t('cookie.category.essential')}</div>
+                  <div className="text-xs text-emerald-700 leading-tight">{t('cookie.category.essentialDesc')}</div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 p-3 rounded-lg bg-blue-50 border border-blue-200">
-                <Eye className="h-4 w-4 text-blue-600" />
-                <div>
-                  <div className="text-sm font-medium text-blue-900">{t('cookie.category.analytics')}</div>
-                  <div className="text-xs text-blue-700">{t('cookie.category.analyticsDesc')}</div>
+              <div className="flex items-center gap-2 p-2 rounded-md bg-blue-50 border border-blue-200">
+                <Eye className="h-3.5 w-3.5 text-blue-600 flex-shrink-0" />
+                <div className="min-w-0">
+                  <div className="text-xs font-medium text-blue-900 leading-tight">{t('cookie.category.analytics')}</div>
+                  <div className="text-xs text-blue-700 leading-tight">{t('cookie.category.analyticsDesc')}</div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 p-3 rounded-lg bg-purple-50 border border-purple-200">
-                <Settings className="h-4 w-4 text-purple-600" />
-                <div>
-                  <div className="text-sm font-medium text-purple-900">{t('cookie.category.preferences')}</div>
-                  <div className="text-xs text-purple-700">{t('cookie.category.preferencesDesc')}</div>
+              <div className="flex items-center gap-2 p-2 rounded-md bg-purple-50 border border-purple-200">
+                <Settings className="h-3.5 w-3.5 text-purple-600 flex-shrink-0" />
+                <div className="min-w-0">
+                  <div className="text-xs font-medium text-purple-900 leading-tight">{t('cookie.category.preferences')}</div>
+                  <div className="text-xs text-purple-700 leading-tight">{t('cookie.category.preferencesDesc')}</div>
                 </div>
               </div>
             </div>
 
             {/* GDPR Compliance Notice */}
-            <div className="p-4 rounded-lg bg-slate-50 border border-slate-200">
+            <div className="p-2 rounded-lg bg-slate-50 border border-slate-200">
               <div className="text-xs text-slate-600 space-y-1">
                 <p>
                   <strong>{t('cookie.gdpr.title')}</strong> {t('cookie.gdpr.description')}
@@ -89,16 +89,15 @@ export function CookieConsentBanner() {
 
             {/* Action Buttons - Equal Prominence */}
             <div className="flex flex-col sm:flex-row gap-3 pt-2">
-              {/* Reject All - Equally prominent */}
+              {/* Accept All - Equally prominent */}
               <Button
-                variant="outline"
                 size="lg"
-                onClick={rejectAll}
-                className="flex-1 border-2 border-[#0F5850] text-[#0F5850] hover:bg-[#0F5850] hover:text-white font-semibold h-12"
+                onClick={acceptAll}
+                className="flex-1 bg-[#B5B7E8] hover:bg-[#A5A7D8] text-[#0F5850] font-semibold h-12 border-2 border-[#B5B7E8]"
               >
-                {t('cookie.button.rejectAll')}
+                {t('cookie.button.acceptAll')}
               </Button>
-
+              
               {/* Customize - Secondary */}
               <Button
                 variant="secondary"
@@ -108,14 +107,15 @@ export function CookieConsentBanner() {
               >
                 {t('cookie.button.customize')}
               </Button>
-
-              {/* Accept All - Equally prominent */}
+              
+              {/* Reject All - Equally prominent */}
               <Button
+                variant="outline"
                 size="lg"
-                onClick={acceptAll}
-                className="flex-1 bg-[#B5B7E8] hover:bg-[#A5A7D8] text-[#0F5850] font-semibold h-12 border-2 border-[#B5B7E8]"
+                onClick={rejectAll}
+                className="flex-1 border-2 border-[#0F5850] text-[#0F5850] hover:bg-[#0F5850] hover:text-white font-semibold h-12"
               >
-                {t('cookie.button.acceptAll')}
+                {t('cookie.button.rejectAll')}
               </Button>
             </div>
 

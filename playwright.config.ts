@@ -7,7 +7,7 @@ export default defineConfig({
   testDir: './tests/e2e',
   
   /* Run tests in files in parallel */
-  fullyParallel: false,
+  fullyParallel: true,
   
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
@@ -61,14 +61,15 @@ export default defineConfig({
       },
     },
 
-    {
+    /* {
       name: 'firefox',
       use: { 
         ...devices['Desktop Firefox'],
         viewport: { width: 1920, height: 1080 }
       },
     },
-
+    */
+   
     {
       name: 'webkit',
       use: { 

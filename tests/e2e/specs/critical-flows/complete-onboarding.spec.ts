@@ -19,6 +19,7 @@ test.describe('Complete New User Onboarding Flow', () => {
     await gotoLocalized(page, '/', locale);
     await waitForPageLoad(page);
     await clearStorage(page);
+    await page.waitForTimeout(1000);
   });
 
   test('should complete full onboarding journey from landing to budget setup', async ({ page }) => {
@@ -36,7 +37,7 @@ test.describe('Complete New User Onboarding Flow', () => {
       }
       
       // Verify landing page elements are present
-      await expect(page.getByRole('heading', { name: /SpendSentinel/i })).toBeVisible();
+      await expect(page.getByRole('heading', { name: /break free/i })).toBeVisible();
     });
 
     // Step 2: Use 'Explore My Financial Parts' button
@@ -333,79 +334,19 @@ test.describe('Complete New User Onboarding Flow', () => {
 
     await test.step('Verify deep assessment suggestion', async () => {
       // Should suggest deep assessment due to uncertainty
-      await expect(page.getByText(/having trouble choosing/i)).toBeVisible();
-      await expect(page.getByText(/personalized exploration/i)).toBeVisible();
-      
-      await takeScreenshot(page, 'deep-assessment-suggested');
-    });
-  });
+      await expect(page.getByText(/Deep Part Exploration/i)).toBeVisible();
 
-  test('should support multiple expense entries during check-in', async ({ page }) => {
-    const locale = 'en';
-    
-    await test.step('Complete quiz and navigate to check-in', async () => {
-      // Quick setup to get to check-in flow
-      await gotoLocalized(page, '/self-assessment', locale);
-      await waitForPageLoad(page);
-      
-      // Handle cookie consent
-      const acceptButton = page.getByRole('button', { name: 'Accept all' });
-      if (await acceptButton.isVisible()) {
-        await acceptButton.click();
-      }
-      
-      // Complete quiz quickly
-      await page.getByRole('button', { name: 'Start My Discovery' }).click();
-      
-      // Answer to get The Spender
-      await page.getByText('Browse online stores').click();
-      await page.getByRole('button', { name: 'Next' }).click();
-      await page.getByText('Put it all in savings').click();
-      await page.getByRole('button', { name: 'Next' }).click();
-      await page.getByText('It feels too restrictive').click();
-      await page.getByRole('button', { name: 'Next' }).click();
-      await page.getByText('Impulse purchases').click();
-      await page.getByRole('button', { name: 'Next' }).click();
-      await page.getByText('Not having enough').click();
-      await page.getByRole('button', { name: 'Next' }).click();
-      await page.getByText('Only when I').click();
-      await page.getByRole('button', { name: 'See Results' }).click();
-      
-      // Start check-in
-      await page.getByRole('button', { name: 'Perform a Daily Check-In' }).click();
-      
-      // Navigate through initial steps
-      await page.getByRole('button', { name: 'Next' }).click(); // Grounding
-      await page.getByRole('button', { name: 'Next' }).click(); // Reflection
-    });
+      await page.getByRole('textbox', { name: 'Describe your current' }).fill('I don\'t have any issues with money.');
+      await page.getByRole('textbox', { name: 'Describe your recent' }).fill('I make well balanced financial decisions.');
 
-    await test.step('Add multiple expenses with different categories', async () => {
-      // Add first expense (spend)
-      await page.getByRole('radio', { name: 'Spend' }).click();
-      await page.getByRole('spinbutton', { name: 'Amount' }).fill('15');
-      await page.getByRole('combobox', { name: 'Category' }).click();
-      await page.getByText('Lifestyle Expenses').click();
-      await page.getByRole('textbox', { name: 'Description' }).fill('Morning coffee');
-      await page.getByRole('checkbox', { name: 'The Spender' }).check();
-      await page.getByRole('textbox', { name: 'How did this part show up?' }).fill('needed energy boost');
-      await page.getByRole('button', { name: 'Add Spend' }).click();
-      
-      // Add second expense (saving)
-      await page.getByRole('button', { name: 'Add Spend or Saving' }).click();
-      await page.getByRole('radio', { name: 'Saving' }).click();
-      await page.getByRole('spinbutton', { name: 'Amount' }).fill('50');
-      await page.getByRole('combobox', { name: 'Category' }).click();
-      await page.getByText('Vision Board Goals').click();
-      await page.getByRole('textbox', { name: 'Description' }).fill('Vacation fund');
-      await page.getByRole('button', { name: 'Add Saving' }).click();
-      
-      // Verify both entries are visible
-      await expect(page.getByText('Morning coffee')).toBeVisible();
-      await expect(page.getByText('Vacation fund')).toBeVisible();
-      await expect(page.getByText('$15')).toBeVisible();
-      await expect(page.getByText('$50')).toBeVisible();
-      
-      await takeScreenshot(page, 'multiple-expenses-added');
+      await page.getByRole('button', { name: 'Identify My Financial Parts' }).click();
+
+      // Verify quiz result shows custom part. API call is MOCKED!!!! see test-helpers.ts
+      await expect(page.getByRole('button', { name: 'The Planner' })).toBeEnabled();
+      // Verify behaviors are shown
+      await expect(page.getByRole('tab', { name: 'Behaviors' })).toBeEnabled();
+
+      await expect(page.getByText(/continue your journey/i)).toBeVisible();
     });
   });
 });

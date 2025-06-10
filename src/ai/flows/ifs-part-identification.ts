@@ -53,8 +53,7 @@ const prompt = ai.definePrompt({
 
 	User's Financial Situation: {{{financialSituation}}}
 	Recent Financial Behavior: {{{recentFinancialBehavior}}}
-	User's Personality Type: {{{personalityType}}}
-
+	
 	Based on the provided information, identify one prominent financial part, including its role, burden, and concern.
 
   For the identified part, provide the following structured information:

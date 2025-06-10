@@ -37,14 +37,44 @@ export async function mockAIServices(page: Page, mockResponses?: {
   // Mock IFS Part Identification
   await page.route('**/api/identifyIFSPart**', route => {
     const response = mockResponses?.identifyPart || {
-      identifiedPart: {
-        partName: 'The Test Worrier',
-        role: 'To protect you from financial mistakes by being overly cautious.',
-        burden: 'Believes that any financial risk will lead to catastrophe.',
-        concern: 'Fear of losing financial security and ending up in poverty.'
-      },
-      suggestedEngagement: 'Engage with The Test Worrier by acknowledging their protective intention while gently challenging their extreme beliefs about financial risk.'
-    };
+        "identifiedPart": {
+            "behaviors": [
+                "Carefully plans purchases",
+                "Researches investment options",
+                "Regularly reviews financial goals",
+                "Stays within budget"
+            ],
+            "burden": "Believes that any financial mistakes will lead to failure and a loss of control.",
+            "concern": "Fear of losing financial stability and not achieving long-term goals.",
+            "description": "This part is all about planning and stability, making sure you stay on track with your financial goals. It works to keep you in control and secure. Its focus is to help you feel confident and successful in your financial journey, ensuring a stable and predictable future.",
+            "digitalFootprints": [
+                "Uses financial planning apps",
+                "Follows financial news websites",
+                "Saves articles on investing",
+                "Subscribes to finance newsletters"
+            ],
+            "emotions": [
+                "Confidence",
+                "Satisfaction",
+                "Sense of control",
+                "Mild anxiety when things are uncertain"
+            ],
+            "innerDialogue": [
+                "I'm doing a great job.",
+                "I'm in control.",
+                "Let's make sure we're on track.",
+                "This is working."
+            ],
+            "partName": "The Planner",
+            "role": "To ensure financial security and the attainment of long-term financial goals by meticulously planning and making informed decisions.",
+            "triggers": [
+                "Setting financial goals",
+                "Reviewing financial progress",
+                "Positive financial outcomes",
+                "Talking about future plans"
+            ]
+        }
+      };
     
     route.fulfill({
       status: 200,

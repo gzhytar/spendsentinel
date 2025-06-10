@@ -43,7 +43,6 @@ export * from './expense-overview';
 export * from './budget-management';
 export * from './budget-planner';
 export * from './category-explanations';
-export * from './compassion-timeline';
 export * from './financial-decisions';
 export * from './language-switcher';
 export * from './premium-button';

@@ -112,6 +112,10 @@ export const ONBOARDING_FUNNEL_STEPS = {
   PARTS_SESSION_START: 'onboarding_parts_session_start',
   PARTS_SESSION_COMPLETE: 'onboarding_parts_session_complete',
   COMPASSION_SCORE_SAVE: 'onboarding_compassion_score_save',
+  // New events for missing gaps
+  CONTINUE_JOURNEY_CLICK: 'onboarding_continue_journey_click',
+  VISION_BOARD_GOAL_ADD: 'onboarding_vision_board_goal_add',
+  BUDGET_COMPLETE: 'onboarding_budget_complete',
   ONBOARDING_COMPLETE: 'onboarding_flow_complete'
 } as const;
 
@@ -279,20 +283,4 @@ export const trackOnboardingStepIfActive = (
   }
   
   return true;
-};
-
-// React hook helper for components using analytics context
-// Usage: const trackOnboarding = useOnboardingTracking();
-//        trackOnboarding('ASSESSMENT_QUIZ_COMPLETE', { quiz_result: result });
-export const createOnboardingTracker = (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  trackEventFn: (eventName: string, eventData: any) => void
-) => {
-  return (
-    step: keyof typeof ONBOARDING_FUNNEL_STEPS,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    additionalData?: Record<string, any>
-  ): boolean => {
-    return trackOnboardingStepIfActive(step, additionalData, trackEventFn);
-  };
 }; 

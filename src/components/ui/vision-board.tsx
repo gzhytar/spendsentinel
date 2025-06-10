@@ -10,6 +10,8 @@ import { Eye, PlusCircle, Trash2 } from 'lucide-react';
 import { useI18n } from '@/contexts/i18n-context';
 import { VisionBoardItem } from '@/types';
 import Image from 'next/image';
+import { useAnalyticsContext } from '@/contexts/analytics-context';
+import { trackOnboardingStepIfActive, ONBOARDING_FUNNEL_STEPS } from '@/lib/analytics-utils';
 
 interface VisionBoardProps {
   items: VisionBoardItem[];
@@ -25,6 +27,7 @@ interface AddVisionBoardItemDialogProps {
 
 function AddVisionBoardItemDialog({ isOpen, onClose, onAddItem }: AddVisionBoardItemDialogProps) {
   const { t } = useI18n();
+  const { trackEvent } = useAnalyticsContext();
   const [newItemType, setNewItemType] = useState<'text' | 'image'>('text');
   const [newItemContent, setNewItemContent] = useState('');
   const [newItemDescription, setNewItemDescription] = useState('');
@@ -44,6 +47,14 @@ function AddVisionBoardItemDialog({ isOpen, onClose, onAddItem }: AddVisionBoard
     };
     
     onAddItem(newItem);
+    
+    // Track Vision Board goal creation analytics
+    trackOnboardingStepIfActive('VISION_BOARD_GOAL_ADD', {
+      goal_type: newItemType,
+      goal_content_length: newItemContent.length,
+      has_description: !!newItemDescription,
+      source_section: 'standalone_vision_board'
+    }, trackEvent);
     
     // Reset form and close dialog
     setNewItemContent('');

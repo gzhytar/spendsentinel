@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useAnalyticsContext } from '@/contexts/analytics-context';
-import { createOnboardingTracker, ONBOARDING_FUNNEL_STEPS } from '@/lib/analytics-utils';
+import { trackOnboardingStepIfActive, ONBOARDING_FUNNEL_STEPS } from '@/lib/analytics-utils';
 
 /**
  * Custom hook for simplified onboarding tracking
@@ -30,8 +30,12 @@ import { createOnboardingTracker, ONBOARDING_FUNNEL_STEPS } from '@/lib/analytic
 export function useOnboardingTracking() {
   const { trackEvent } = useAnalyticsContext();
   
-  // Memoize the trackOnboarding function to prevent unnecessary re-renders
-  return useMemo(() => createOnboardingTracker(trackEvent), [trackEvent]);
+  // Return a function that takes a step name and optional additional data
+  return useMemo(() => {
+    return (step: keyof typeof ONBOARDING_FUNNEL_STEPS, additionalData?: Record<string, any>) => {
+      return trackOnboardingStepIfActive(step, additionalData, trackEvent);
+    };
+  }, [trackEvent]);
 }
 
 // Export the type for convenience

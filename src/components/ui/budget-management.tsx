@@ -10,6 +10,8 @@ import { Calculator, Home, PiggyBank, Banknote } from 'lucide-react';
 import { useI18n } from '@/contexts/i18n-context';
 import { useCurrency } from '@/hooks/use-currency';
 import { useBudget, type Budget } from '@/hooks/use-budget';
+import { useAnalyticsContext } from '@/contexts/analytics-context';
+import { trackOnboardingStepIfActive, ONBOARDING_FUNNEL_STEPS } from '@/lib/analytics-utils';
 
 interface BudgetManagementProps {
   budget: Budget;
@@ -97,6 +99,7 @@ export function BudgetManagement({ budget }: BudgetManagementProps) {
 function BudgetDialog({ isOpen, onClose, initialBudget, onSave }: BudgetDialogProps) {
   const { t } = useI18n();
   const { formatAmount } = useCurrency();
+  const { trackEvent } = useAnalyticsContext();
   const { calculateRecommended, adjustSpendBudget, adjustSavingTarget } = useBudget();
   const [budgetInput, setBudgetInput] = useState<Budget>(initialBudget);
 
@@ -117,6 +120,16 @@ function BudgetDialog({ isOpen, onClose, initialBudget, onSave }: BudgetDialogPr
 
   const handleSave = () => {
     onSave(budgetInput);
+    
+    // Track budget completion analytics
+    trackOnboardingStepIfActive('BUDGET_COMPLETE', {
+      budget_amount: budgetInput.monthlyIncome,
+      spend_budget: budgetInput.spendBudget,
+      saving_target: budgetInput.savingTarget,
+      spend_percentage: budgetInput.monthlyIncome > 0 ? Math.round((budgetInput.spendBudget / budgetInput.monthlyIncome) * 100) : 0,
+      saving_percentage: budgetInput.monthlyIncome > 0 ? Math.round((budgetInput.savingTarget / budgetInput.monthlyIncome) * 100) : 0,
+      source_section: 'standalone_budget_dialog'
+    }, trackEvent);
   };
 
   // Reset form when dialog opens

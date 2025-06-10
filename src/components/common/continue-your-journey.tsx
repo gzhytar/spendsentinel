@@ -8,10 +8,12 @@ import { Label } from '@/components/ui/label';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ArrowRight, Calendar, Eye, Calculator, DollarSign } from 'lucide-react';
 import { useI18n } from '@/contexts/i18n-context';
-import { useBudget } from '@/hooks/use-budget';
+import { useBudget, Budget } from '@/hooks/use-budget';
 import { useJourneyNavigation } from '@/hooks/use-journey-navigation';
 import { BudgetManagement } from '@/components/ui/budget-management';
 import { VisionBoardItem } from '@/types';
+import { useAnalyticsContext } from '@/contexts/analytics-context';
+import { trackOnboardingStepIfActive, ONBOARDING_FUNNEL_STEPS } from '@/lib/analytics-utils';
 
 interface ContinueYourJourneyProps {
   lang: string;
@@ -159,6 +161,7 @@ export function ContinueYourJourney({
 }: ContinueYourJourneyProps) {
   const { t } = useI18n();
   const { budget, updateBudget } = useBudget();
+  const { trackEvent } = useAnalyticsContext();
   const [isBudgetDialogOpen, setIsBudgetDialogOpen] = useState(false);
   const [isVisionDialogOpen, setIsVisionDialogOpen] = useState(false);
   const [visionBoardItems, setVisionBoardItems] = useState<VisionBoardItem[]>([]);
@@ -181,6 +184,14 @@ export function ContinueYourJourney({
   const handleBudgetSave = (newBudget: { monthlyIncome: number; spendBudget: number; savingTarget: number }) => {
     updateBudget(newBudget);
     setIsBudgetDialogOpen(false);
+    
+    // Track budget completion analytics
+    trackOnboardingStepIfActive('BUDGET_COMPLETE', {
+      budget_amount: newBudget.monthlyIncome,
+      spend_budget: newBudget.spendBudget,
+      saving_target: newBudget.savingTarget,
+      source_section: 'continue_your_journey'
+    }, trackEvent);
   };
 
   const handleCloseBudgetDialog = () => {
@@ -190,11 +201,25 @@ export function ContinueYourJourney({
   const handleBudgetAction = () => {
     onAction?.('budget');
     setIsBudgetDialogOpen(true);
+    
+    // Track Continue Your Journey button click
+    trackOnboardingStepIfActive('CONTINUE_JOURNEY_CLICK', {
+      action_type: 'budget_setup',
+      button_text: t('expenseHighlighter.budgetPlanner.setBudgetButton'),
+      source_section: 'continue_your_journey'
+    }, trackEvent);
   };
 
   const handleVisionBoardAction = () => {
     onAction?.('vision-board');
     setIsVisionDialogOpen(true);
+    
+    // Track Continue Your Journey button click
+    trackOnboardingStepIfActive('CONTINUE_JOURNEY_CLICK', {
+      action_type: 'vision_board_add',
+      button_text: t('expenseHighlighter.visionBoard.addItem'),
+      source_section: 'continue_your_journey'
+    }, trackEvent);
   };
 
   const handleAddVisionBoardItem = (item: Omit<VisionBoardItem, 'id'>) => {
@@ -205,9 +230,24 @@ export function ContinueYourJourney({
     const updatedItems = [...visionBoardItems, newItem];
     setVisionBoardItems(updatedItems);
     localStorage.setItem('visionBoardItems', JSON.stringify(updatedItems));
+    
+    // Track Vision Board goal creation analytics
+    trackOnboardingStepIfActive('VISION_BOARD_GOAL_ADD', {
+      goal_type: item.type,
+      goal_content_length: item.content.length,
+      total_goals: updatedItems.length,
+      source_section: 'continue_your_journey'
+    }, trackEvent);
   };
 
   const handleCheckInAction = () => {
+    // Track Continue Your Journey button click
+    trackOnboardingStepIfActive('CONTINUE_JOURNEY_CLICK', {
+      action_type: 'daily_checkin_start',
+      button_text: t('dailyCheckIn.celebration.startNewCheckIn'),
+      source_section: 'continue_your_journey'
+    }, trackEvent);
+    
     if (onNewCheckIn) {
       onNewCheckIn();
     } else {

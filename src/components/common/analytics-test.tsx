@@ -3,6 +3,7 @@
 import React from 'react';
 import { useAnalyticsContext } from '@/contexts/analytics-context';
 import { analyticsDebug } from '@/lib/analytics-debug';
+import { trackOnboardingStepIfActive } from '@/lib/analytics-utils';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -23,10 +24,39 @@ export function AnalyticsTest() {
   };
 
   const handleTestFeature = () => {
-    trackFeatureUsage('analytics_testing', {
-      feature_type: 'debug',
-      test_scenario: 'manual_verification'
+    trackFeatureUsage('analytics_test', {
+      test_type: 'manual_feature_test',
+      timestamp: new Date().toISOString()
     });
+  };
+
+  // Test new onboarding events
+  const handleTestContinueJourney = () => {
+    trackOnboardingStepIfActive('CONTINUE_JOURNEY_CLICK', {
+      action_type: 'test_action',
+      button_text: 'Test Continue Journey Button',
+      source_section: 'analytics_test'
+    }, trackEvent);
+  };
+
+  const handleTestVisionBoard = () => {
+    trackOnboardingStepIfActive('VISION_BOARD_GOAL_ADD', {
+      goal_type: 'text',
+      goal_content_length: 25,
+      total_goals: 1,
+      source_section: 'analytics_test'
+    }, trackEvent);
+  };
+
+  const handleTestBudget = () => {
+    trackOnboardingStepIfActive('BUDGET_COMPLETE', {
+      budget_amount: 5000,
+      spend_budget: 3000,
+      saving_target: 2000,
+      spend_percentage: 60,
+      saving_percentage: 40,
+      source_section: 'analytics_test'
+    }, trackEvent);
   };
 
   const handleShowEnvironmentInfo = () => {
@@ -93,31 +123,39 @@ export function AnalyticsTest() {
           </div>
         )}
 
-        <div className="space-y-2">
-          <h4 className="font-medium">Test Analytics Events:</h4>
-          <div className="flex flex-wrap gap-2">
-            <Button onClick={handleTestEvent} size="sm">
-              Test Custom Event
-            </Button>
-            <Button onClick={handleTestInteraction} size="sm" variant="outline">
-              Test User Interaction
-            </Button>
-            <Button onClick={handleTestFeature} size="sm" variant="secondary">
-              Test Feature Usage
-            </Button>
-          </div>
-        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Button onClick={handleTestEvent} variant="outline">
+            Test Basic Event
+          </Button>
+          
+          <Button onClick={handleTestInteraction} variant="outline">
+            Test User Interaction
+          </Button>
+          
+          <Button onClick={handleTestFeature} variant="outline">
+            Test Feature Usage
+          </Button>
 
-        <div className="space-y-2">
-          <h4 className="font-medium">Debug Tools:</h4>
-          <div className="flex flex-wrap gap-2">
-            <Button onClick={handleShowEnvironmentInfo} size="sm" variant="outline">
-              Log Environment Info
-            </Button>
-            <Button onClick={handleSimulateParameters} size="sm" variant="outline">
-              Simulate Event Parameters
-            </Button>
-          </div>
+          <Button onClick={handleShowEnvironmentInfo} variant="outline">
+            Show Environment Info
+          </Button>
+
+          <Button onClick={handleSimulateParameters} variant="outline">
+            Test With Parameters
+          </Button>
+          
+          {/* New onboarding event tests */}
+          <Button onClick={handleTestContinueJourney} variant="outline" className="bg-blue-50 border-blue-200">
+            Test Continue Journey
+          </Button>
+          
+          <Button onClick={handleTestVisionBoard} variant="outline" className="bg-green-50 border-green-200">
+            Test Vision Board Goal
+          </Button>
+          
+          <Button onClick={handleTestBudget} variant="outline" className="bg-purple-50 border-purple-200">
+            Test Budget Complete
+          </Button>
         </div>
 
         <div className="text-xs text-gray-500 mt-4">

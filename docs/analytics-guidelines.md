@@ -151,6 +151,20 @@ const trackProgressiveFeature = (
     timestamp: new Date().toISOString()
   });
 };
+
+// Enhanced pattern for onboarding features with context
+const trackOnboardingFeature = (
+  featureName: string,
+  actionType: string,
+  additionalData: Record<string, any> = {}
+) => {
+  trackOnboarding(featureName, {
+    action_type: actionType,
+    session_id: getOnboardingSessionId(),
+    timestamp: new Date().toISOString(),
+    ...additionalData
+  });
+};
 ```
 
 ### 3. Safe Error Handling
@@ -167,6 +181,23 @@ const safeTrackEvent = (eventName: string, data?: Record<string, any>) => {
     console.warn('Analytics tracking failed:', error);
   }
 };
+
+// Enhanced pattern for onboarding with fallbacks
+const safeTrackOnboarding = (
+  step: string,
+  data?: Record<string, any>,
+  fallbackEvent?: string
+) => {
+  try {
+    if (hasActiveOnboardingSession()) {
+      trackOnboarding(step, data);
+    } else if (fallbackEvent) {
+      trackFeatureUsage(fallbackEvent, data);
+    }
+  } catch (error) {
+    console.warn('Onboarding tracking failed:', error);
+  }
+};
 ```
 
 ## Privacy Safeguards
@@ -180,14 +211,22 @@ const safeTrackEvent = (eventName: string, data?: Record<string, any>) => {
 - Language preferences
 - Error rates (without sensitive details)
 - Performance metrics
+- Button click patterns and text
+- Feature sequencing and timing
+- Setup completion status
+- Goal creation patterns (type and length only)
+- Budget setup patterns (ranges only)
 
 **❌ NEVER TRACK:**
 - Actual expense amounts
 - Personal financial data
-- User-generated content (journal entries)
+- User-generated content (journal entries, goal content)
 - Account information
 - Location data
 - Device identifiers
+- Exact budget amounts
+- Personal goal descriptions
+- Specific part dialogue content
 
 ### Data Anonymization
 
@@ -198,6 +237,16 @@ const trackAnonymizedUsage = (featureType: string, category: string) => {
     feature_type: featureType,     // e.g., 'expense_tracking'
     category: category,            // e.g., 'lifestyle' (anonymized)
     // NO: specific amounts, descriptions, or personal details
+  });
+};
+
+// Pattern for anonymized onboarding progression
+const trackAnonymizedOnboarding = (step: string, progressData: any) => {
+  trackOnboarding(step, {
+    progress_type: progressData.type,     // e.g., 'vision_board_setup'
+    completion_status: progressData.completed,
+    time_spent_range: progressData.timeRange, // e.g., 'quick', 'medium', 'thorough'
+    // NO: actual content, amounts, or personal information
   });
 };
 ```
@@ -291,6 +340,91 @@ trackPartsJournalSession('The Spender', 2, false); // Step 2, in progress
 trackExpenseAction('add', 'lifestyle_category'); // No amounts
 ```
 
+### Continue Your Journey Analytics
+- Track feature navigation patterns
+- Monitor action preferences and sequencing
+- Record source context for recommendations
+- Measure onboarding progression effectiveness
+
+```typescript
+// Track Continue Your Journey button clicks
+trackOnboarding('CONTINUE_JOURNEY_CLICK', {
+  action_type: 'vision_board',
+  button_text: 'Add to Vision Board',
+  source_page: 'self_assessment',
+  has_existing_data: false
+});
+
+// Track feature adoption from Continue Your Journey
+trackFeatureUsage('continue_journey_navigation', {
+  destination_feature: 'daily_checkin',
+  source_context: 'post_assessment',
+  sequential_usage: true
+});
+```
+
+### Vision Board Analytics
+- Track goal creation patterns (content-agnostic)
+- Monitor goal type preferences
+- Record setup completion rates
+- Measure motivational feature effectiveness
+
+```typescript
+// Track vision board goal creation
+trackOnboarding('VISION_BOARD_GOAL_ADD', {
+  goal_type: 'text', // or 'image'
+  content_length: 'medium', // 'short', 'medium', 'long'
+  source_section: 'continue_your_journey',
+  is_first_goal: true
+});
+
+// Track vision board engagement
+trackFeatureUsage('vision_board_interaction', {
+  action: 'goal_created',
+  goal_count: 1,
+  session_goals_added: 1
+});
+```
+
+### Budget Setup Analytics
+- Track budget planning completion
+- Monitor budget range patterns (anonymized)
+- Record setup source and context
+- Measure financial planning feature adoption
+
+```typescript
+// Track budget setup initiation
+trackOnboarding('BUDGET_SETUP_CLICK', {
+  source_section: 'continue_your_journey',
+  has_existing_budget: false,
+  from_onboarding_flow: true
+});
+
+// Track budget completion (privacy-safe)
+trackOnboarding('BUDGET_COMPLETE', {
+  monthly_income_range: 'medium', // 'low', 'medium', 'high'
+  setup_method: 'guided', // vs 'manual'
+  completion_time_seconds: 180
+});
+```
+
+### Onboarding Flow Analytics
+- Track complete journey progression
+- Monitor feature adoption sequences
+- Record completion patterns and timing
+- Measure comprehensive setup effectiveness
+
+```typescript
+// Enhanced onboarding completion
+trackOnboarding('FLOW_COMPLETE', {
+  total_time_minutes: 45,
+  features_completed: ['assessment', 'daily_checkin', 'vision_board', 'budget'],
+  optional_features_used: ['parts_session'],
+  completion_sequence: 'standard', // vs 'custom'
+  compassion_score_final: 7
+});
+```
+
 ## Ethical Considerations
 
 ### 1. Transparency
@@ -323,6 +457,9 @@ trackExpenseAction('add', 'lifestyle_category'); // No amounts
 - [ ] Verify no sensitive data collection
 - [ ] Document tracked events
 - [ ] Review for trauma-informed compliance
+- [ ] Consider onboarding flow integration
+- [ ] Test Continue Your Journey integration
+- [ ] Validate cross-feature navigation tracking
 
 ### For Analytics Events
 - [ ] Use established naming conventions
@@ -331,6 +468,9 @@ trackExpenseAction('add', 'lifestyle_category'); // No amounts
 - [ ] Add development logging
 - [ ] Verify privacy compliance
 - [ ] Test in production-like environment
+- [ ] Consider onboarding session context
+- [ ] Test button text and action type parameters
+- [ ] Validate feature sequencing data
 
 ## Migration and Maintenance
 

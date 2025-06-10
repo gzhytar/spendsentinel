@@ -43,6 +43,39 @@ When implementing new features or modifying existing ones:
 ## Tone guidelines:
 Use "invite" not "warn", "notice" not "fail", "parts" language sparingly outside psycho-education screens. Example: "A part noticed extra coffee runs ( +€24 this week ). Breathe, then decide."	
 
+## Primary User Onboarding Journey
+
+### Complete New User Flow
+The primary onboarding experience consists of these sequential steps designed to introduce users to their financial parts and establish healthy tracking habits:
+
+1. **Landing Page Entry**: User visits the landing page and learns about the app's approach to financial wellness
+2. **Part Discovery Initiation**: User clicks any of the part discovery buttons:
+   - "Discover My Financial Parts" (hero primary CTA)
+   - "Start My Discovery" (self-assessment feature card)
+   - "Explore My Financial Parts" (alternative CTA variations)
+3. **Quick Parts Discovery**: User completes the guided quiz to identify their primary financial firefighter type (Spender, Hoarder, Avoider, Indulger, etc.) or optionally takes the Deep Assessment for personalized AI-generated part identification
+4. **Daily Check-in Introduction**: User clicks "Perform a Daily check-in" button in the "Continue Your Journey" section after assessment completion
+5. **Structured Daily Practice**: User progresses through all 5 daily check-in steps:
+   - Step 1: Grounding breath exercise
+   - Step 2: Mindful day reflection
+   - Step 3: Expense logging with part identification
+   - Step 4: Parts dialogue session (optional, triggered by expenses)
+   - Step 5: Self-compassion scoring
+6. **Expense & Parts Integration**: User optionally adds expenses with triggered financial parts during Step 3
+7. **Parts Dialogue Session**: User optionally completes a journal session with any part that was triggered during expense recording
+8. **Goal Setting**: User adds their first goal to the Vision Board using the "Add to Vision Board" button from Continue Your Journey
+9. **Budget Planning**: User sets their monthly budget using the "Set My Budget" button from Continue Your Journey
+
+### Journey Completion Criteria
+- Completed part discovery (quiz or deep assessment)
+- Finished first daily check-in (all 5 steps)
+- Added at least one expense (optional but common)
+- Engaged with at least one triggered part (optional)
+- Created first vision board goal
+- Established monthly budget plan
+
+This comprehensive onboarding ensures users understand their financial parts, establish daily reflection habits, and set up foundational planning tools for their financial wellness journey.
+
 ## Feature Specifications
 
 ### Feature: Quick Firefighter Assessment
@@ -406,4 +439,84 @@ Use "invite" not "warn", "notice" not "fail", "parts" language sparingly outside
   - **Responsive Behavior**: Side-by-side cards on desktop (≥1024px), stacked on mobile/tablet
   - **Category Descriptions**: Educational content explaining the purpose and examples for each category type
   - **Empty State**: "No transactions recorded yet. Start by adding your first spend or saving!"
+
+---
+
+### Feature: Continue Your Journey
+
+#### Purpose and Impact
+- **User Need**: Users need clear guidance on next steps after completing assessments or daily activities, with contextual recommendations that promote continued engagement
+- **Expected Outcome**: Users feel supported in their ongoing journey and are guided toward features that match their current progress level and needs
+- **Emotional Impact**: Should create a sense of accomplishment while providing encouraging momentum toward additional growth activities
+
+#### Functional Requirements
+- **Core Functionality**: 
+  - Contextual button recommendations based on user progress and data state
+  - Integration with Vision Board for goal setting
+  - Integration with Budget Management for financial planning
+  - Navigation to Daily Check-in and Expense Highlighter features
+  - Dynamic visibility logic that shows relevant next steps
+- **User Interactions**: 
+  - Click "Perform a Daily check-in" to start or continue daily practice
+  - Click "Add to Vision Board" to create financial goals (only shown if no goals exist)
+  - Click "Set My Budget" to establish budget planning (only shown if no budget exists)
+  - Click "My Vision & Decisions" to access comprehensive expense tracking
+  - Integration with dialogs for Vision Board goal creation and Budget setup
+- **Data Requirements**: 
+  - Check-in completion status to determine availability
+  - Vision Board items count to control button visibility
+  - Budget existence status to control button visibility
+  - User progress state for contextual recommendations
+
+#### UI/UX Specifications
+- **Component Placement**: 
+  - Appears after Self-Assessment completion
+  - Integrated into Daily Check-in celebration screens
+  - Available as reusable component across multiple features
+- **Visual Elements**:
+  - **Card Container**: Prominent card with primary/secondary border styling and arrow icon
+  - **Conditional Buttons**: 
+    - Daily Check-in button (always available unless specifically hidden)
+    - Vision Board button (only if no vision board items exist)
+    - Budget button (only if no budget is set)
+    - Expense Highlighter button (always available as outline variant)
+  - **Button Hierarchy**: Primary actions for onboarding steps, outline for established features
+  - **Icons**: Relevant icons for each action (Calendar, Eye, Calculator, DollarSign)
+- **Interactive Behavior**: 
+  - Dynamic button visibility based on user progress
+  - Integrated dialog management for Vision Board and Budget features
+  - Navigation coordination with analytics tracking
+  - State management for newly created data
+- **States**:
+  - New user state (all onboarding buttons visible)
+  - Partial completion state (some buttons hidden based on existing data)
+  - Established user state (primarily navigation buttons)
+
+#### Technical Implementation Guidelines
+- **Suggested Approach**: 
+  - React component with props for customization
+  - Integration with `useJourneyNavigation` hook for business logic
+  - Dialog components for Vision Board and Budget management
+  - localStorage integration for state persistence
+- **Integration Points**: 
+  - `useBudget()` hook for budget state management
+  - `useJourneyNavigation()` hook for conditional logic
+  - Shared VisionBoard storage system
+  - Analytics tracking for button interactions
+  - I18n translation system for all user-facing text
+- **Performance Considerations**: 
+  - Efficient localStorage queries for state checking
+  - Lazy loading of dialog components
+  - Optimistic UI updates for immediate feedback
+
+#### Examples
+- **Sample Content (from translation files)**:
+  - **Card Title**: "Continue Your Journey"
+  - **Card Description**: "Take the next step in your financial wellness journey"
+  - **Button Labels**: 
+    - "Perform a Daily check-in"
+    - "Add to Vision Board"
+    - "Set My Budget"
+    - "My Vision & Decisions"
+  - **Contextual Messages**: Dynamic visibility based on user progress and existing data
 

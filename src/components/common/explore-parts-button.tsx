@@ -38,6 +38,7 @@ export function ExplorePartsButton({
     const eventData = trackOnboardingStep('LANDING_EXPLORE_CLICK', {
       source_page: analyticsSource,
       button_location: analyticsLocation,
+      button_text: buttonText,
     });
     trackEvent(eventData.event_name, eventData);
   };

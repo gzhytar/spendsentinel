@@ -5,7 +5,8 @@ import {
   waitForPageLoad,
   expectLocalStorageContains,
   gotoLocalized,
-  takeScreenshot
+  takeScreenshot,
+  setCookieConsentState
 } from '../../utils/test-helpers';
 
 test.describe('Complete New User Onboarding Flow', () => {
@@ -19,6 +20,7 @@ test.describe('Complete New User Onboarding Flow', () => {
     await gotoLocalized(page, '/', locale);
     await waitForPageLoad(page);
     await clearStorage(page);
+    await setCookieConsentState(page);
     await page.waitForTimeout(1000);
   });
 
@@ -29,12 +31,6 @@ test.describe('Complete New User Onboarding Flow', () => {
     await test.step('1. Visit landing page', async () => {
       await gotoLocalized(page, '/', locale);
       await waitForPageLoad(page);
-      
-      // Handle cookie consent if it appears
-      const acceptButton = page.getByRole('button', { name: 'Accept all' });
-      if (await acceptButton.isVisible()) {
-        await acceptButton.click();
-      }
       
       // Verify landing page elements are present
       await expect(page.getByRole('heading', { name: /break free/i })).toBeVisible();
@@ -301,12 +297,6 @@ test.describe('Complete New User Onboarding Flow', () => {
     await test.step('Navigate to self-assessment and start quiz', async () => {
       await gotoLocalized(page, '/self-assessment', locale);
       await waitForPageLoad(page);
-      
-      // Handle cookie consent if it appears
-      const acceptButton = page.getByRole('button', { name: 'Accept all' });
-      if (await acceptButton.isVisible()) {
-        await acceptButton.click();
-      }
       
       const startQuizButton = page.getByRole('button', { name: 'Start My Discovery' });
       await startQuizButton.click();

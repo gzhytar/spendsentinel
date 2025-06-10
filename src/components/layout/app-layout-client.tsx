@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/sidebar";
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { NAV_ITEMS, APP_NAME } from '@/lib/constants';
+import { NAV_ITEMS } from '@/lib/constants';
 import { usePanicMode } from '@/contexts/panic-mode-context';
 import { PanicButton } from '@/components/common/panic-button';
 import { GroundingExercise } from '@/components/common/grounding-exercise';
@@ -56,13 +56,13 @@ export function AppLayoutClient({ children }: { children: ReactNode }) {
           <Link 
             href={`${localePrefix}/`} 
             className="flex items-center gap-2" 
-            onClick={() => handleNavClickWithTracking(t(APP_NAME))}
+            onClick={() => handleNavClickWithTracking(t('common.appName'))}
           >
             <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full bg-primary/20 hover:bg-primary/30">
                <Eye className="h-6 w-6 text-primary" />
             </Button>
-            {!open && <span className="sr-only">{t(APP_NAME)}</span>}
-            {open && <h1 className="text-xl font-semibold text-primary">{t(APP_NAME)}</h1>}
+            {!open && <span className="sr-only">{t('common.appName')}</span>}
+            {open && <h1 className="text-xl font-semibold text-primary">{t('common.appName')}</h1>}
           </Link>
         </SidebarHeader>
         <SidebarContent>

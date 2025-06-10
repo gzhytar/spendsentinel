@@ -90,7 +90,7 @@ export const ru = {
   },
 
   common: {
-    appName: 'СтражТрат',
+    appName: 'SpendSentinel',
     save: 'Сохранить',
     importantLimitation: 'Важное ограничение',
     legalQuestions: 'Юридические вопросы',

@@ -11,6 +11,80 @@ export async function clearStorage(page: Page) {
 }
 
 /**
+ * Set cookie consent state in localStorage to suppress the consent dialog
+ */
+export async function setCookieConsentState(page: Page) {
+  await page.evaluate(() => {
+    const cookie_consent_v1 = {
+      "hasUserInteracted": true,
+      "lastConsentDate": "2025-06-09T13:44:43.448Z",
+      "currentDecisions": {
+          "essential": true,
+          "analytics": true,
+          "preferences": true
+      },
+      "consentRecord": {
+          "id": "consent_1749476683448_trnv0htnf",
+          "timestamp": "2025-06-09T13:44:43.448Z",
+          "decisions": [
+              {
+                  "purposeId": "essential",
+                  "granted": true,
+                  "timestamp": "2025-06-09T13:44:43.448Z"
+              },
+              {
+                  "purposeId": "analytics",
+                  "granted": true,
+                  "timestamp": "2025-06-09T13:44:43.448Z"
+              },
+              {
+                  "purposeId": "preferences",
+                  "granted": true,
+                  "timestamp": "2025-06-09T13:44:43.448Z"
+              }
+          ],
+          "userAgent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Mobile Safari/537.36 Edg/137.0.0.0",
+          "version": "1.0.0",
+          "method": "banner"
+      },
+      "needsRefresh": false,
+      "bannerDismissed": true
+    };
+    // Set current consent state
+    localStorage.setItem('cookie_consent_v1', JSON.stringify(cookie_consent_v1));
+
+    const consent_history_v1 = [
+      {
+          "id": "consent_1749476683448_trnv0htnf",
+          "timestamp": "2025-06-09T13:44:43.448Z",
+          "decisions": [
+              {
+                  "purposeId": "essential",
+                  "granted": true,
+                  "timestamp": "2025-06-09T13:44:43.448Z"
+              },
+              {
+                  "purposeId": "analytics",
+                  "granted": true,
+                  "timestamp": "2025-06-09T13:44:43.448Z"
+              },
+              {
+                  "purposeId": "preferences",
+                  "granted": true,
+                  "timestamp": "2025-06-09T13:44:43.448Z"
+              }
+          ],
+          "userAgent": "Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Mobile Safari/537.36 Edg/137.0.0.0",
+          "version": "1.0.0",
+          "method": "banner"
+      }
+    ];
+    // Set consent history
+    localStorage.setItem('consent_history_v1', JSON.stringify(consent_history_v1));
+  });
+}
+
+/**
  * Mock Firebase Analytics to prevent network calls
  */
 export async function mockFirebaseAnalytics(page: Page) {

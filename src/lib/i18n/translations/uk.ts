@@ -90,7 +90,7 @@ export const uk = {
   },
 
   common: {
-    appName: 'ВартовийВитрат',
+    appName: 'SpendSentinel',
     save: 'Зберегти',
     importantLimitation: 'Важливе обмеження',
     legalQuestions: 'Юридичні питання',

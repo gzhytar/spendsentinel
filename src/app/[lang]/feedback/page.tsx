@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Script from 'next/script';
 import { MessageSquare, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -8,8 +8,66 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { useI18n } from '@/contexts/i18n-context';
 import Link from 'next/link';
 
+// Type declaration for Tally
+declare global {
+  interface Window {
+    Tally?: {
+      loadEmbeds: () => void;
+    };
+  }
+}
+
 export default function FeedbackPage() {
   const { t, locale } = useI18n();
+  const scriptLoadedRef = useRef(false);
+  const embedInitializedRef = useRef(false);
+
+  // Function to initialize Tally embed
+  const initializeTallyEmbed = () => {
+    if (typeof window !== 'undefined' && window.Tally && !embedInitializedRef.current) {
+      try {
+        window.Tally.loadEmbeds();
+        embedInitializedRef.current = true;
+        console.debug('Tally embed initialized successfully');
+      } catch (error) {
+        console.error('Error initializing Tally embed:', error);
+      }
+    }
+  };
+
+  // Function to check if Tally is available and initialize
+  const checkAndInitializeTally = (retryCount = 0) => {
+    if (typeof window !== 'undefined') {
+      if (window.Tally) {
+        initializeTallyEmbed();
+      } else if (retryCount < 30) { // Limit retries to 3 seconds (30 * 100ms)
+        // If Tally is not yet available, retry after a short delay
+        setTimeout(() => checkAndInitializeTally(retryCount + 1), 100);
+      } else {
+        console.warn('Tally script failed to load after 3 seconds');
+      }
+    }
+  };
+
+  // Effect to handle initialization on component mount
+  useEffect(() => {
+    // Reset the initialized flag when component mounts
+    embedInitializedRef.current = false;
+    
+    // Check if Tally is already available (e.g., from previous navigation)
+    checkAndInitializeTally();
+    
+    // Cleanup function
+    return () => {
+      embedInitializedRef.current = false;
+    };
+  }, []);
+
+  // Handle script load
+  const handleScriptLoad = () => {
+    scriptLoadedRef.current = true;
+    initializeTallyEmbed();
+  };
 
   return (
     <div className="container mx-auto py-8 space-y-8 px-4">
@@ -121,12 +179,10 @@ export default function FeedbackPage() {
       <Script
         id="tally-js"
         src="https://tally.so/widgets/embed.js"
-        onLoad={() => {
-          // @ts-ignore - Tally is loaded from external script
-          if (typeof window !== 'undefined' && window.Tally) {
-            // @ts-ignore
-            window.Tally.loadEmbeds();
-          }
+        strategy="lazyOnload"
+        onLoad={handleScriptLoad}
+        onError={(e) => {
+          console.error('Failed to load Tally script:', e);
         }}
       />
     </div>

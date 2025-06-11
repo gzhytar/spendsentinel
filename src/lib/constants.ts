@@ -1,4 +1,4 @@
-import { LayoutDashboard, BrainCircuit, PenLine, CalendarCheck } from 'lucide-react';
+import { LayoutDashboard, BrainCircuit, PenLine, CalendarCheck, MessageSquare } from 'lucide-react';
 import { NavItem } from '../types/nav';
 
 export const NAV_ITEMS: NavItem[] = [
@@ -6,6 +6,7 @@ export const NAV_ITEMS: NavItem[] = [
   { href: '/self-assessment', label: 'navigation.selfAssessment', icon: BrainCircuit, tooltip: 'navigation.selfAssessment' },
   { href: '/daily-checkin', label: 'navigation.myJourney', icon: CalendarCheck, tooltip: 'navigation.myJourney' },
   { href: '/expense-highlighter', label: 'navigation.myFinances', icon: PenLine, tooltip: 'navigation.myFinances' },
+  { href: '/feedback', label: 'navigation.feedback', icon: MessageSquare, tooltip: 'navigation.feedback' },
 ];
 
 export const APP_NAME = 'SpendSentinel';

@@ -94,6 +94,7 @@ export const cs = {
     save: 'Uložit',
     importantLimitation: 'Důležité omezení',
     legalQuestions: 'Právní otázky',
+    backToOverview: 'Zpět na přehled',
   },
   navigation: {
     overview: 'Přehled',
@@ -102,6 +103,7 @@ export const cs = {
     myFinancialDecisions: 'Moje finanční rozhodnutí',
     myFinances: 'Moje finance',
     myJourney: 'Moje cesta',
+    feedback: 'Zpětná vazba',
   },
   landing: {
     hero: {
@@ -1309,6 +1311,43 @@ export const cs = {
           awareness: 'Uvědomění si části',
           dialogue: 'Poznatky z dialogu'
         }
+      }
+    }
+  },
+  feedback: {
+    title: 'Sdílejte zpětnou vazbu',
+    subtitle: 'Pomozte nám vylepšit SpendSentinel',
+    card: {
+      title: 'Rádi bychom od vás slyšeli',
+      description: 'Vaše zpětná vazba nám pomáhá vytvořit lepší zážitek pro všechny na jejich cestě k finančnímu zdraví.'
+    },
+    form: {
+      title: 'Formulář zpětné vazby',
+      introTitle: 'Jak vám můžeme pomoci?',
+      introText: 'Ať už jste našli chybu, máte návrh na funkci nebo se chcete podělit o svou zkušenost, jsme tu, abychom naslouchali.',
+      helpPoint1: 'Nahlašte chyby nebo technické problémy',
+      helpPoint2: 'Navrhněte nové funkce nebo vylepšení',
+      helpPoint3: 'Sdílejte svou zkušenost se SpendSentinel',
+      privacyNote: 'Vaše zpětná vazba je důvěrná a pomáhá nám vylepšit platformu pro všechny.'
+    },
+    additionalInfo: {
+      title: 'Jaký typ zpětné vazby sdílíte?',
+      description: 'Vyberte kategorii, která nejlépe odpovídá vaší zpětné vazbě:',
+      bugs: {
+        title: 'Hlášení chyb',
+        description: 'Našli jste něco, co nefunguje podle očekávání? Dejte nám vědět!'
+      },
+      features: {
+        title: 'Návrhy funkcí',
+        description: 'Máte nápad na novou funkci nebo vylepšení? Rádi to uslyšíme!'
+      },
+      experience: {
+        title: 'Uživatelská zkušenost',
+        description: 'Sdílejte své myšlenky o používání SpendSentinel a vaší cestě.'
+      },
+      general: {
+        title: 'Obecná zpětná vazba',
+        description: 'Jakékoli další myšlenky, otázky nebo návrhy, které byste chtěli sdílet.'
       }
     }
   }

@@ -94,6 +94,7 @@ export const en = {
     save: 'Save',
     importantLimitation: 'Important Limitation',
     legalQuestions: 'Legal Questions',
+    backToOverview: 'Back to Overview',
   },
   navigation: {
     overview: 'Overview',
@@ -102,6 +103,7 @@ export const en = {
     myFinancialDecisions: 'My Financial Decisions',
     myFinances: 'My Finances',
     myJourney: 'My Journey',
+    feedback: 'Feedback',
   },
   landing: {
     hero: {
@@ -1352,6 +1354,43 @@ export const en = {
           awareness: 'Part Awareness',
           dialogue: 'Dialogue Insights'
         }
+      }
+    }
+  },
+  feedback: {
+    title: 'Share Your Feedback',
+    subtitle: 'Help us improve SpendSentinel',
+    card: {
+      title: 'We\'d Love to Hear From You',
+      description: 'Your feedback helps us create a better experience for everyone on their financial wellness journey.'
+    },
+    form: {
+      title: 'Feedback Form',
+      introTitle: 'How can we help?',
+      introText: 'Whether you found a bug, have a feature request, or want to share your experience, we\'re here to listen.',
+      helpPoint1: 'Report bugs or technical issues',
+      helpPoint2: 'Suggest new features or improvements',
+      helpPoint3: 'Share your experience with SpendSentinel',
+      privacyNote: 'Your feedback is confidential and helps us improve the platform for everyone.'
+    },
+    additionalInfo: {
+      title: 'What Kind of Feedback Are You Sharing?',
+      description: 'Choose the category that best fits your feedback:',
+      bugs: {
+        title: 'Bug Reports',
+        description: 'Found something that\'s not working as expected? Let us know!'
+      },
+      features: {
+        title: 'Feature Requests',
+        description: 'Have an idea for a new feature or improvement? We\'d love to hear it!'
+      },
+      experience: {
+        title: 'User Experience',
+        description: 'Share your thoughts on using SpendSentinel and your journey.'
+      },
+      general: {
+        title: 'General Feedback',
+        description: 'Any other thoughts, questions, or suggestions you\'d like to share.'
       }
     }
   }

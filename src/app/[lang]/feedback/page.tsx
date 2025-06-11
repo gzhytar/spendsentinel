@@ -14,16 +14,16 @@ export default function FeedbackPage() {
   return (
     <div className="container mx-auto py-8 space-y-8 px-4">
       {/* Header */}
-      <div className="space-y-2">
+      <div className="space-y-6">
         <div>
-          <h1 className="text-3xl font-bold">{t('feedback.title')}</h1>
-          <p className="text-muted-foreground mt-1">
+          <h1 className="text-3xl font-bold mb-2">{t('feedback.title')}</h1>
+          <p className="text-muted-foreground">
             {t('feedback.subtitle')}
           </p>
         </div>
         <div>
           <Link href={`/${locale}`}>
-            <Button variant="outline" size="sm" className="w-full">
+            <Button variant="outline" size="sm">
               <ArrowLeft className="mr-2 h-4 w-4" />
               {t('common.backToOverview')}
             </Button>
@@ -31,8 +31,8 @@ export default function FeedbackPage() {
         </div>
       </div>
 
-      {/* Feedback Form Card */}
-      <Card className="shadow-lg max-w-3xl">
+      {/* Feedback Form Section */}
+      <Card className="shadow-lg">
         <CardHeader>
           <div className="flex items-center space-x-3">
             <MessageSquare className="w-8 h-8 text-primary" />
@@ -60,17 +60,14 @@ export default function FeedbackPage() {
             </div>
 
             {/* Tally.so Embed Form */}
-            <div className="space-y-4">
-                          <iframe 
-              data-tally-src="https://tally.so/embed/wbE6WZ?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
-              width="100%" 
-              height="500" 
-              frameBorder="0" 
-              marginHeight={0} 
-              marginWidth={0} 
-              title={t('feedback.form.title')}
-              className="rounded-lg"
-            />
+            <div className="min-h-[600px]">
+                <iframe 
+                    data-tally-src="https://tally.so/embed/wbE6WZ?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1" 
+                    width="100%" 
+                    height="600" 
+                    title={t('feedback.form.title')}
+                    className="rounded-lg border-0"
+                />
             </div>
 
             {/* Footer note */}

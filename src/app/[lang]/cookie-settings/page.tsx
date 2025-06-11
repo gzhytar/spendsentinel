@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { useConsent } from '@/contexts/consent-context';
 import { useI18n } from '@/contexts/i18n-context';
 import { ConsentManager } from '@/lib/consent-manager';
-import { Cookie, Shield, Eye, Settings, History, Download, Trash2 } from 'lucide-react';
+import { Shield, Eye, Settings, History, Download, Trash2 } from 'lucide-react';
 
 export default function CookieSettingsPage() {
   const { openSettings, withdrawConsent, consentState, hasConsent } = useConsent();
@@ -43,16 +43,15 @@ export default function CookieSettingsPage() {
 
   return (
     <div className="container mx-auto p-6 max-w-4xl space-y-8">
-      <div className="text-center space-y-4">
-        <div className="flex items-center justify-center gap-3">
-          <Cookie className="h-8 w-8 text-[#B5B7E8]" />
-          <h1 className="text-3xl font-bold text-[#0F5850]">
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-3xl font-bold mb-2">
             {t('cookie.settings.title')}
           </h1>
+          <p className="text-muted-foreground max-w-2xl">
+            {t('cookie.settings.pageDescription')}
+          </p>
         </div>
-        <p className="text-slate-600 max-w-2xl mx-auto">
-          {t('cookie.settings.pageDescription')}
-        </p>
       </div>
 
       {/* Current Consent Status */}

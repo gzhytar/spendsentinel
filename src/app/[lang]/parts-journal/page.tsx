@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useI18n } from '@/contexts/i18n-context';
-import { Card } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
@@ -185,28 +185,26 @@ export default function PartsJournal({ params }: PartsJournalProps) {
 
   // Always show active session interface since we require a part parameter
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <div className="container mx-auto py-8 space-y-8 px-4">
       {/* Header with Progress */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h1 className="text-3xl font-bold mb-2">
-              {currentStep === 0 
-                ? t('partsJournal.title')
-                : t('partsJournal.sessionTitle', { partName: selectedPart })
-              }
-            </h1>
-            <p className="text-muted-foreground">
-              {currentStep === 0 
-                ? t('partsJournal.introduction.subtitle')
-                : t('partsJournal.sessionSubtitle')
-              }
-            </p>
-          </div>
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-3xl font-bold mb-2">
+            {currentStep === 0 
+              ? t('partsJournal.title')
+              : t('partsJournal.sessionTitle', { partName: selectedPart })
+            }
+          </h1>
+          <p className="text-muted-foreground">
+            {currentStep === 0 
+              ? t('partsJournal.introduction.subtitle')
+              : t('partsJournal.sessionSubtitle')
+            }
+          </p>
         </div>
         
         {currentStep > 0 && (
-          <div className="mb-4">
+          <div>
             <div className="flex justify-between items-center mb-2">
               <span className="text-sm text-muted-foreground">
                 {t('partsJournal.progress', { current: currentStep, total: 4 })}
@@ -223,7 +221,8 @@ export default function PartsJournal({ params }: PartsJournalProps) {
       <PanicButton />
 
       {/* Step Content */}
-      <Card ref={containerRef} className="p-6">
+      <Card ref={containerRef} className="shadow-lg">
+        <CardContent className="p-6">
         {/* Introduction Step */}
         {currentStep === 0 && (
           <div className="space-y-6">
@@ -333,6 +332,7 @@ export default function PartsJournal({ params }: PartsJournalProps) {
             </Button>
           )}
         </div>
+        </CardContent>
       </Card>
     </div>
   );

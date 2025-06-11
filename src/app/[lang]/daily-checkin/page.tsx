@@ -447,13 +447,15 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <div className="container mx-auto py-8 space-y-8 px-4">
       {/* Header with Progress */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">{t('dailyCheckIn.title')}</h1>
-        <p className="text-muted-foreground mb-6">{t('dailyCheckIn.subtitle')}</p>
+      <div className="space-y-6">
+        <div>
+          <h1 className="text-3xl font-bold mb-2">{t('dailyCheckIn.title')}</h1>
+          <p className="text-muted-foreground">{t('dailyCheckIn.subtitle')}</p>
+        </div>
         
-        <div className="mb-4">
+        <div>
           <div className="flex justify-between items-center mb-2">
             <span className="text-sm text-muted-foreground">
               {t('dailyCheckIn.progress', { current: currentStep, total: 5 })}
@@ -467,16 +469,20 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
       </div>
 
       {/* Check-in Timeline */}
-      <div className="mb-8">
-        <div className="flex items-center gap-2 mb-4">
-          <Calendar className="h-5 w-5 text-primary" />
-          <h2 className="text-xl font-semibold">{t('dailyCheckIn.steps.timeline.title')}</h2>
-        </div>
-        <CheckinTimeline lang={lang} />
-      </div>
+      <Card className="shadow-lg">
+        <CardHeader>
+          <div className="flex items-center gap-2">
+            <Calendar className="h-5 w-5 text-primary" />
+            <CardTitle className="text-xl">{t('dailyCheckIn.steps.timeline.title')}</CardTitle>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <CheckinTimeline lang={lang} />
+        </CardContent>
+      </Card>
 
       {/* Panic Button Reminder Alert */}
-      <Alert className="mb-6 bg-red-50 border-red-200 dark:bg-red-950/20 dark:border-red-900">
+      <Alert className="bg-red-50 border-red-200 dark:bg-red-950/20 dark:border-red-900">
         <AlertDescription className="text-red-800 dark:text-red-200 flex items-center gap-3">
           <span className="inline-flex items-center justify-center w-8 h-8 bg-red-600 dark:bg-red-500 rounded-full flex-shrink-0">
             <ShieldAlert className="h-4 w-4 text-white" />
@@ -490,8 +496,8 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
 
       {/* Celebration Section */}
       {showCelebration && (
-        <div className="space-y-6">
-          <Card ref={celebrationRef} className="p-8 bg-gradient-to-br from-green-50 to-primary/10 border-2 border-green-200">
+        <>
+          <Card ref={celebrationRef} className="p-8 bg-gradient-to-br from-green-50 to-primary/10 border-2 border-green-200 shadow-lg">
             <div className="text-center space-y-6">
               <div className="flex justify-center">
                 <Sparkles className="h-16 w-16 text-primary animate-pulse" />
@@ -532,12 +538,13 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
             onNewCheckIn={handleCelebrationClose}
             showCheckInButton={false}
           />
-        </div>
+        </>
       )}
 
       {/* Step Content */}
       {!showCelebration && (
-        <Card ref={containerRef} className="p-6">
+        <Card ref={containerRef} className="shadow-lg">
+        <CardContent className="p-6">
         {/* Step 1: Breathing Exercise */}
         {currentStep === 1 && (
           <div className="space-y-6">
@@ -711,6 +718,7 @@ export default function DailyCheckIn({ params }: DailyCheckInProps) {
             )}
           </div>
         )}
+        </CardContent>
       </Card>
       )}
 

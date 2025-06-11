@@ -1,7 +1,13 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import { Brain, CheckCircle, RefreshCw, RotateCcw, ArrowRight, Calendar, BookOpen, DollarSign, History } from 'lucide-react';
+import { 
+  BookOpen, 
+  CheckCircle, 
+  History, 
+  RefreshCw, 
+  RotateCcw 
+} from 'lucide-react';
 import { ContinueYourJourney } from '@/components/common/continue-your-journey';
 import { useI18n } from '@/contexts/i18n-context';
 import { useAssessmentState } from './hooks/useAssessmentState';
@@ -118,7 +124,7 @@ export default function SelfAssessmentPage() {
   };
 
   return (
-    <div className="container mx-auto p-6 max-w-4xl space-y-8">
+    <div className="container mx-auto py-8 space-y-8 px-4">
       <PageHeader />
       
       {/* Quiz Section */}
@@ -244,14 +250,11 @@ function PageHeader() {
   const { t } = useI18n();
   
   return (
-    <div className="text-center space-y-4">
-      <div className="flex items-center justify-center space-x-3">
-        <Brain className="w-8 h-8 text-primary" />
-        <h1 className="text-3xl md:text-4xl font-bold">{t('selfAssessment.title')}</h1>
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-3xl font-bold mb-2">{t('selfAssessment.title')}</h1>
+        <p className="text-muted-foreground">{t('selfAssessment.subtitle')}</p>
       </div>
-      <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-        {t('selfAssessment.subtitle')}
-      </p>
     </div>
   );
 }

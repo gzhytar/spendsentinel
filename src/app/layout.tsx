@@ -3,6 +3,9 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { PanicModeProvider } from '@/contexts/panic-mode-context';
+import { MetaViewport } from '@/components/seo/meta-viewport';
+import { StructuredData } from '@/components/seo/structured-data';
+import { generateMetadata as generateSEOMetadata } from '@/lib/seo/metadata';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -14,10 +17,8 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-export const metadata: Metadata = {
-  title: 'SpendSentinel',
-  description: 'Pause · Notice · Choose. Transform your relationship with money through compassionate self-discovery.',
-};
+// Generate metadata for the root layout
+export const metadata: Metadata = generateSEOMetadata('/', 'en');
 
 export default function RootLayout({
   children,
@@ -26,6 +27,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <MetaViewport />
+        <StructuredData pathname="/" locale="en" />
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}>
         <PanicModeProvider>
           {children}

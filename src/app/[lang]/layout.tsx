@@ -12,18 +12,22 @@ import { LanguageSwitcher } from '@/components/ui/language-switcher';
 import { useStorageCleanup } from '@/hooks/use-storage-cleanup';
 import { CookieConsentBanner } from '@/components/ui/cookie-consent-banner';
 import { CookieConsentSettings } from '@/components/ui/cookie-consent-settings';
+import { StructuredData } from '@/components/seo/structured-data';
 
 // Update this version number when releasing new versions
 const CURRENT_VERSION = '0.11.0';
 
+interface MainAppLayoutProps {
+  children: ReactNode;
+  params: Promise<{ lang: string }>;
+}
+
 export default function MainAppLayout({ 
   children,
   params,
-}: { 
-  children: ReactNode;
-  params: Promise<{ lang: string }>;
-}) {
-  use(params);
+}: MainAppLayoutProps) {
+  const resolvedParams = use(params);
+  const { lang } = resolvedParams;
 
   // Initialize version-based cleanup
   useStorageCleanup({
@@ -40,6 +44,9 @@ export default function MainAppLayout({
       <PreferencesProvider>
         <AnalyticsProvider>
           <ConsentProvider>
+            {/* SEO Structured Data for the current language */}
+            <StructuredData pathname="/" locale={lang} />
+            
             <div className="fixed top-4 right-4 z-50">
               <LanguageSwitcher />
             </div>

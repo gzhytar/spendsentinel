@@ -75,21 +75,24 @@ export default function LandingPage() {
   const showDebugInfo = useDebugMode();
   const { showMissionMention } = useMonetizationVisibility();
 
-  // Load custom parts from assessments
+  // Load ONLY truly custom parts from deep assessments (not quiz results)
   useEffect(() => {
     const loadCustomParts = () => {
       try {
         const storageService = new AssessmentStorageService();
         const assessmentResults = storageService.getAllAssessmentResults(locale);
         
-        if (assessmentResults.length > 0) {
-          // Get predefined types for quiz result conversion
+        // Filter only deep-assessment results - quiz results should not appear as custom parts on landing page
+        const deepAssessmentResults = assessmentResults.filter(result => result.type === 'deep-assessment');
+        
+        if (deepAssessmentResults.length > 0) {
+          // Get predefined types for conversion
           const predefinedTypes = createFirefighterTypeData(t);
           
-          // Convert assessment results to UniversalPart format
+          // Convert only deep assessment results to UniversalPart format
           const parts: UniversalPart[] = [];
           
-          assessmentResults.forEach(result => {
+          deepAssessmentResults.forEach(result => {
             const universalPart = unifiedResultToUniversalPart(result, predefinedTypes);
             if (universalPart) {
               parts.push(universalPart);
@@ -98,7 +101,7 @@ export default function LandingPage() {
           
           setCustomParts(parts);
         } else {
-          // No results found, clear custom parts
+          // No deep assessment results found, clear custom parts
           setCustomParts([]);
         }
       } catch (error) {

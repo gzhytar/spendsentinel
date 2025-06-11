@@ -232,28 +232,6 @@ export default function LandingPage() {
                   {t('landing.hero.description')}
                 </p>
               </div>
-              
-              {/* Feature Badges */}
-              <div className="flex flex-wrap justify-center gap-3 md:gap-4">
-                <div className="flex items-center px-4 py-2 bg-card border border-border rounded-full shadow-sm hover:shadow-md transition-shadow">
-                  <div className="w-2 h-2 bg-green-500 rounded-full mr-2" />
-                  <span className="text-sm font-medium text-card-foreground">
-                    {t('landing.hero.features.evidenceBased')}
-                  </span>
-                </div>
-                <div className="flex items-center px-4 py-2 bg-card border border-border rounded-full shadow-sm hover:shadow-md transition-shadow">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full mr-2" />
-                  <span className="text-sm font-medium text-card-foreground">
-                    {t('landing.hero.features.traumaInformed')}
-                  </span>
-                </div>
-                <div className="flex items-center px-4 py-2 bg-card border border-border rounded-full shadow-sm hover:shadow-md transition-shadow">
-                  <div className="w-2 h-2 bg-purple-500 rounded-full mr-2" />
-                  <span className="text-sm font-medium text-card-foreground">
-                    {t('landing.hero.features.selfCompassion')}
-                  </span>
-                </div>
-              </div>
             </div>
 
             {/* CTA Section */}
@@ -310,8 +288,20 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Theory Section */}
-      <section className="space-y-4 px-4">
+      {/* Firefighter Types Section - Now showing custom parts when available */}
+      <section className="space-y-6 px-4">
+        {!isLoadingCustomParts && (
+          <UniversalPartsDisplay 
+            customParts={customParts}
+            showOnlyPredefined={shouldShowOnlyPredefined}
+            title={partsDisplayTitle}
+            subtitle={partsDisplaySubtitle}
+          />
+        )}
+      </section>
+
+ {/* Theory Section */}
+ <section className="space-y-4 px-4">
         <Card className="shadow-lg">
           <CardHeader>
             <div className="flex items-center space-x-3">
@@ -370,17 +360,6 @@ export default function LandingPage() {
         </Card>
       </section>
 
-      {/* Firefighter Types Section - Now showing custom parts when available */}
-      <section className="space-y-6 px-4">
-        {!isLoadingCustomParts && (
-          <UniversalPartsDisplay 
-            customParts={customParts}
-            showOnlyPredefined={shouldShowOnlyPredefined}
-            title={partsDisplayTitle}
-            subtitle={partsDisplaySubtitle}
-          />
-        )}
-      </section>
 
       {/* Features Section */}
       <section className="space-y-6 px-4" aria-labelledby="features-heading">

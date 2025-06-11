@@ -44,6 +44,6 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Matcher ignoring `/_next/`, `/api/`, and `.html` files for static legal documents
-  matcher: ['/((?!api|_next/static|_next/image|favicon.*|manifest.json|sitemap.xml|robots.txt|images|.*\\.html$).*)'],
+  // Matcher ignoring `/_next/`, `/api/`, static assets, and image files
+  matcher: ['/((?!api|_next/static|_next/image|favicon.*|manifest.json|sitemap.xml|robots.txt|images|.*\\.(?:jpg|jpeg|png|html)$).*)'],
 } 

@@ -435,7 +435,7 @@ The SEO foundation is technically complete, but the following assets are needed 
 - [X] `public/icon-192.png` - PWA icon 192x192
 - [X] `public/icon-512.png` - PWA icon 512x512  
 - [x] `public/apple-touch-icon.png` - iOS icon 180x180
-- [ ] `public/og-image.jpg` - Main Open Graph image 1200x630
+- [x] `public/og-image.jpg` - Main Open Graph image 1200x630
 - [x] `public/logo.svg` - Logo for structured data
 
 **Important (Professional Polish):**

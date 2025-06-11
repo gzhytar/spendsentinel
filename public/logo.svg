@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 600 200"
+   width="600"
+   height="200"
+   version="1.1"
+   id="svg3"
+   sodipodi:docname="logo.svg"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs3" />
+  <sodipodi:namedview
+     id="namedview3"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="2.96"
+     inkscape:cx="228.88514"
+     inkscape:cy="99.831081"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3" />
+  <!-- Shield icon -->
+  <!-- SpendSentinel text -->
+  <text
+     x="180"
+     y="90"
+     font-family="system-ui, -apple-system, sans-serif"
+     font-size="48"
+     font-weight="600"
+     fill="#0F5850"
+     id="text2">SpendSentinel</text>
+  <!-- Tagline -->
+  <text
+     x="180"
+     y="130"
+     font-family="system-ui, -apple-system, sans-serif"
+     font-size="20"
+     font-weight="400"
+     fill="#0F5850"
+     opacity="0.8"
+     id="text3">Pause • Notice • Choose.</text>
+  <path
+     d="m 91.060811,19.986486 71.249999,26.576576 v 63.783778 q 0,31.8919 -71.249999,69.09911 -71.25,-37.20721 -71.25,-69.09911 V 46.563062 Z"
+     fill="#b5b7e8"
+     stroke="none"
+     id="path1"
+     style="stroke-width:0.520107" />
+  <path
+     style="baseline-shift:baseline;display:inline;overflow:visible;vector-effect:none;fill:#0f5850;stroke-width:0.525842;enable-background:accumulate;stop-color:#000000"
+     d="m 91.224135,61.960393 c -12.66965,0 -24.17719,2.960205 -32.762414,7.97816 -8.585219,5.017962 -21.477229,12.392026 -21.477229,21.042212 0,8.650193 12.89201,16.025295 21.477229,21.043265 8.585224,5.01795 20.092764,7.97815 32.762414,7.97815 12.669645,0 24.177195,-2.9602 32.762425,-7.97815 8.58521,-5.01797 21.99293,-12.393072 21.99293,-21.043265 0,-8.650186 -13.40772,-16.02425 -21.99293,-21.042212 -8.58523,-5.017955 -20.09278,-7.97816 -32.762425,-7.97816 z m 0,6.48427 c 11.688595,0 22.233185,2.810691 29.610645,7.12273 7.37745,4.312034 20.3456,9.826472 20.3456,15.413372 0,5.586907 -12.96815,11.101345 -20.3456,15.413385 -7.37746,4.31204 -17.92205,7.12272 -29.610645,7.12272 -11.68858,0 -22.233175,-2.81068 -29.610635,-7.12272 -7.37746,-4.31204 -19.314189,-9.826478 -19.314189,-15.413385 0,-5.5869 11.936729,-11.101338 19.314189,-15.413372 7.37746,-4.312039 17.922055,-7.12273 29.610635,-7.12273 z"
+     id="ellipse1"
+     sodipodi:nodetypes="ssssssssssssssssss" />
+  <ellipse
+     cx="91.736488"
+     cy="90.585678"
+     fill="none"
+     stroke="#0f5850"
+     stroke-width="4.16086"
+     id="circle1"
+     rx="23.019344"
+     ry="24.041698" />
+  <path
+     d="m 91.736487,87.355008 q -2.544642,-5.315315 -7.633929,-5.315315 -5.089286,0 -5.089286,5.315315 0,5.315316 12.723215,15.945952 12.723223,-10.630636 12.723223,-15.945952 0,-5.315315 -5.089294,-5.315315 -5.089286,0 -7.633929,5.315315 z"
+     fill="#0f5850"
+     id="path2"
+     style="stroke-width:0.520107" />
+</svg>

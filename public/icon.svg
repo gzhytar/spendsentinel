@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   viewBox="0 0 400 400"
+   width="400"
+   height="400"
+   version="1.1"
+   id="svg3"
+   sodipodi:docname="icon.svg"
+   inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs3">
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect3"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1 @ F,0,0,1,0,0,0,1"
+       radius="0"
+       unit="px"
+       method="auto"
+       mode="F"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+  </defs>
+  <sodipodi:namedview
+     id="namedview3"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="2.0175"
+     inkscape:cx="200"
+     inkscape:cy="200"
+     inkscape:window-width="1920"
+     inkscape:window-height="1009"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3" />
+  <!-- Shield background -->
+  <path
+     d="M200 50 L340 100 L340 220 Q340 280 200 350 Q60 280 60 220 L60 100 Z"
+     fill="#B5B7E8"
+     stroke="none"
+     id="path1" />
+  <!-- Eye outer shape -->
+  <path
+     style="baseline-shift:baseline;display:inline;overflow:visible;opacity:1;vector-effect:none;fill:#0f5850;enable-background:accumulate;stop-color:#000000;stop-opacity:1"
+     d="m 200,125.1543 c -24.35461,0 -46.47532,5.5692 -62.97852,15.00976 -16.50319,9.44057 -41.28524,23.31381 -41.28524,39.58789 0,16.27409 24.78205,30.14928 41.28524,39.58985 16.5032,9.44056 38.62391,15.00976 62.97852,15.00976 24.35461,0 46.47532,-5.5692 62.97852,-15.00976 16.50319,-9.44057 42.27656,-23.31576 42.27656,-39.58985 0,-16.27408 -25.77337,-30.14732 -42.27656,-39.58789 C 246.47532,130.7235 224.35461,125.1543 200,125.1543 Z m 0,12.19922 c 22.46872,0 42.73838,5.28791 56.91992,13.40039 14.18154,8.11247 39.10993,18.48709 39.10993,28.99804 0,10.51096 -24.92839,20.88557 -39.10993,28.99805 -14.18154,8.11248 -34.4512,13.40039 -56.91992,13.40039 -22.46872,0 -42.73838,-5.28791 -56.91992,-13.40039 -14.18154,-8.11248 -37.12727,-18.48709 -37.12727,-28.99805 0,-10.51095 22.94573,-20.88557 37.12727,-28.99804 14.18154,-8.11248 34.4512,-13.40039 56.91992,-13.40039 z"
+     id="ellipse1"
+     sodipodi:nodetypes="ssssssssssssssssss" />
+  <!-- Eye inner circle -->
+  <circle
+     cx="200"
+     cy="179.00867"
+     r="45.230991"
+     fill="none"
+     stroke="#0f5850"
+     stroke-width="8"
+     id="circle1" />
+  <!-- Heart in center -->
+  <path
+     d="m 200,172.93061 q -5,-10 -15,-10 -10,0 -10,10 0,10 25,30 25,-20 25,-30 0,-10 -10,-10 -10,0 -15,10 z"
+     fill="#0f5850"
+     id="path2" />
+  <!-- Eye pupils/highlights for depth -->
+</svg>

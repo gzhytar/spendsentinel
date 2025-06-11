@@ -21,7 +21,7 @@ import { usePanicMode } from '@/contexts/panic-mode-context';
 import { PanicButton } from '@/components/common/panic-button';
 import { GroundingExercise } from '@/components/common/grounding-exercise';
 import { AppFooter } from '@/components/layout/app-footer';
-import { Eye } from 'lucide-react';
+import Image from 'next/image';
 import { useI18n } from '@/contexts/i18n-context';
 import { useAnalyticsContext } from '@/contexts/analytics-context';
 
@@ -59,7 +59,13 @@ export function AppLayoutClient({ children }: { children: ReactNode }) {
             onClick={() => handleNavClickWithTracking(t('common.appName'))}
           >
             <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full bg-primary/20 hover:bg-primary/30">
-               <Eye className="h-6 w-6 text-primary" />
+            <Image 
+                src="/favicon.svg" 
+                alt={t('common.appName')} 
+                width={24} 
+                height={24}
+                className="h-full w-full object-contain"
+              />
             </Button>
             {!open && <span className="sr-only">{t('common.appName')}</span>}
             {open && <h1 className="text-xl font-semibold text-primary">{t('common.appName')}</h1>}

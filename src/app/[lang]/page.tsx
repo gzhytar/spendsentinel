@@ -205,11 +205,11 @@ export default function LandingPage() {
       )}
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden min-h-[400px] md:min-h-[500px]">
         {/* Background Elements */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5 -z-10" />
-        <div className="absolute top-0 left-1/4 w-72 h-72 bg-primary/10 rounded-full blur-3xl -z-10" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl -z-10" />
+        <div className="absolute inset-0 bg-background -z-10" />
+        <div className="absolute top-0 left-1/4 w-72 h-72 bg-primary/5 rounded-full -z-10" style={{ willChange: 'transform' }} />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/5 rounded-full -z-10" style={{ willChange: 'transform' }} />
         
         <div className="container mx-auto px-4 py-4 md:py-6">
           <div className="text-center space-y-12">
@@ -217,7 +217,7 @@ export default function LandingPage() {
             <div className="space-y-8">
               <div className="space-y-4">
                 <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-tight">
-                  <span className="bg-gradient-to-r from-foreground via-primary to-accent bg-clip-text text-transparent">
+                  <span className="text-foreground">
                     {t('landing.hero.title')}
                   </span>
                 </h1>

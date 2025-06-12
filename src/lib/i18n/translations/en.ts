@@ -107,14 +107,14 @@ export const en = {
   },
   landing: {
     hero: {
-      title: 'Break Free from Emotional Spending Patterns with Science-Based Self-Compassion',
-      subtitle: 'Stop fighting your financial habits. Our AI-powered platform uses proven Internal Family Systems therapy to help you understand and heal the emotional roots of money stress.',
-      description: 'Join thousands who have transformed their relationship with money by learning to work with their financial patterns instead of against them. Start your journey to financial wellness today.',
+      title: 'Transform Your Relationship With Money',
+      subtitle: 'Break free from emotional spending patterns. Our AI-powered platform uses proven Internal Family Systems informed approach to help you understand and heal the emotional roots of money stress.',
+      description: 'Learning to work with your financial patterns instead of fighting against them. Start your journey to financial wellness today.',
       features: {
         evidenceBased: 'Evidence-Based IFS Therapy',
-        traumaInformed: 'Trauma-Informed Approach',
-        selfCompassion: 'AI-powered discovery',
-      },
+        traumaInformed: 'Completely private',
+        selfCompassion: 'No account required',
+      },  
       cta: {
         primary: 'Discover My Financial Parts',
         secondary: 'Start Tracking My Financial Decisions',

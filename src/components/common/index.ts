@@ -7,6 +7,7 @@ export { ExplorePartsButton } from './explore-parts-button';
 export { FeatureNavigationButton } from './feature-navigation-button';
 export { AnalyticsTest } from './analytics-test';
 export { ContinueYourJourney } from './continue-your-journey';
+export { SocialShareButtons } from './social-share-buttons';
 
 // New unified components
 export { 

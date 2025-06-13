@@ -1350,5 +1350,55 @@ export const cs = {
         description: 'Jakékoli další myšlenky, otázky nebo návrhy, které byste chtěli sdílet.'
       }
     }
+  },
+  
+  blog: {
+    title: 'Blog o Finanční Pohodě',
+    subtitle: 'Poznatky, tipy a příběhy na vaší cestě k finančnímu zdraví',
+    readMore: 'Číst více',
+    backToBlog: 'Zpět na Blog',
+    readingTime: '{{minutes}} min čtení',
+    byAuthor: 'od {{author}}',
+    relatedPosts: 'Související články',
+    noPosts: {
+      title: 'Zatím žádné příspěvky',
+      description: 'Pracujeme na přinášení hodnotného obsahu. Vraťte se brzy pro poznatky o finanční pohodě a peněžním myšlení.'
+    },
+    publishedOn: 'Publikováno {{date}}',
+    categories: 'Kategorie',
+    tags: 'Štítky',
+    sharePost: 'Sdílet tento příspěvek',
+    tableOfContents: 'Obsah'
+  },
+
+  social: {
+    share: {
+      bluesky: {
+        label: 'Sdílet na Bluesky',
+        ariaLabel: 'Sdílet tento článek na Bluesky'
+      },
+      twitter: {
+        label: 'Sdílet na X',
+        ariaLabel: 'Sdílet tento článek na X (Twitter)'
+      },
+      threads: {
+        label: 'Sdílet na Threads',
+        ariaLabel: 'Sdílet tento článek na Threads'
+      },
+      linkedin: {
+        label: 'Sdílet na LinkedIn',
+        ariaLabel: 'Sdílet tento článek na LinkedIn'
+      }
+    },
+    follow: {
+      instagram: {
+        label: 'Sledovat na Instagram',
+        ariaLabel: 'Sledovat SpendSentinel na Instagram'
+      },
+      tiktok: {
+        label: 'Sledovat na TikTok',
+        ariaLabel: 'Sledovat SpendSentinel na TikTok'
+      }
+    }
   }
 } as const; 

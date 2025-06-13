@@ -106,12 +106,12 @@ Set up these custom dimensions in GA4:
 ### 3. Conversion Events
 
 Mark these events as conversions in GA4:
-- `onboarding_quiz_complete`
-- `onboarding_deep_assessment_complete`
-- `onboarding_parts_session_complete`
-- `onboarding_vision_board_goal_add`
-- `onboarding_budget_complete`
-- `onboarding_flow_complete`
+[x] `onboarding_quiz_complete`
+[x] `onboarding_deep_assessment_complete`
+[x] `onboarding_parts_session_complete`
+[x] `onboarding_vision_board_goal_add`
+[x] `onboarding_budget_complete`
+[x] `onboarding_flow_complete`
 
 ## Funnel Analysis in GA4
 
@@ -121,7 +121,7 @@ Mark these events as conversions in GA4:
 2. Set up the funnel with these steps:
 
 ```
-Step 1: onboarding_landing_discover_click OR onboarding_landing_start_click OR onboarding_landing_explore_click
+Step 1: onboarding_landing_explore_click
 Step 2: onboarding_assessment_start
 Step 3: onboarding_quiz_complete OR onboarding_deep_assessment_complete
 Step 4: onboarding_daily_checkin_start

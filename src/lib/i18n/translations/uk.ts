@@ -1385,5 +1385,55 @@ export const uk = {
         description: 'Будь-які інші думки, питання або пропозиції, якими ви хотіли б поділитися.'
       }
     }
+  },
+  
+  blog: {
+    title: 'Блог про Фінансове Благополуччя',
+    subtitle: 'Знання, поради та історії на шляху до фінансового здоров\'я',
+    readMore: 'Читати далі',
+    backToBlog: 'Назад до блогу',
+    readingTime: '{{minutes}} хв читання',
+    byAuthor: 'автор {{author}}',
+    relatedPosts: 'Схожі статті',
+    noPosts: {
+      title: 'Поки немає постів',
+      description: 'Ми працюємо над створенням цінного контенту. Повертайтеся незабаром за знаннями про фінансове благополуччя та грошове мислення.'
+    },
+    publishedOn: 'Опубліковано {{date}}',
+    categories: 'Категорії',
+    tags: 'Теги',
+    sharePost: 'Поділитися цим постом',
+    tableOfContents: 'Зміст'
+  },
+
+  social: {
+    share: {
+      bluesky: {
+        label: 'Поділитися в Bluesky',
+        ariaLabel: 'Поділитися цією статтею в Bluesky'
+      },
+      twitter: {
+        label: 'Поділитися в X',
+        ariaLabel: 'Поділитися цією статтею в X (Twitter)'
+      },
+      threads: {
+        label: 'Поділитися в Threads',
+        ariaLabel: 'Поділитися цією статтею в Threads'
+      },
+      linkedin: {
+        label: 'Поділитися в LinkedIn',
+        ariaLabel: 'Поділитися цією статтею в LinkedIn'
+      }
+    },
+    follow: {
+      instagram: {
+        label: 'Підписатися в Instagram',
+        ariaLabel: 'Підписатися на SpendSentinel в Instagram'
+      },
+      tiktok: {
+        label: 'Підписатися в TikTok',
+        ariaLabel: 'Підписатися на SpendSentinel в TikTok'
+      }
+    }
   }
 } as const; 

@@ -270,6 +270,34 @@ export const PAGE_SEO_CONFIG: Record<string, Record<string, PageSEOData>> = {
       type: 'website',
     },
   },
+
+  // Blog
+  '/blog': {
+    en: {
+      title: 'Financial Wellness Blog - Insights & Tips | SpendSentinel',
+      description: 'Discover valuable insights, tips, and stories on your journey to financial health and money mindset transformation.',
+      keywords: ['financial wellness blog', 'money mindset', 'financial tips', 'financial psychology', 'money management'],
+      type: 'website',
+    },
+    cs: {
+      title: 'Blog o Finanční Pohodě - Poznatky a Tipy | SpendSentinel',
+      description: 'Objevte cenné poznatky, tipy a příběhy na vaší cestě k finančnímu zdraví a transformaci peněžního myšlení.',
+      keywords: ['blog o finanční pohodě', 'peněžní myšlení', 'finanční tipy', 'finanční psychologie'],
+      type: 'website',
+    },
+    uk: {
+      title: 'Блог про Фінансове Благополуччя - Знання та Поради | SpendSentinel',
+      description: 'Відкрийте цінні знання, поради та історії на вашому шляху до фінансового здоров\'я та трансформації грошового мислення.',
+      keywords: ['блог про фінансове благополуччя', 'грошове мислення', 'фінансові поради', 'фінансова психологія'],
+      type: 'website',
+    },
+    ru: {
+      title: 'Блог о Финансовом Благополучии - Знания и Советы | SpendSentinel',
+      description: 'Откройте ценные знания, советы и истории на вашем пути к финансовому здоровью и трансформации денежного мышления.',
+      keywords: ['блог о финансовом благополучии', 'денежное мышление', 'финансовые советы', 'финансовая психология'],
+      type: 'website',
+    },
+  },
 };
 
 // Utility function to generate SEO config for a page

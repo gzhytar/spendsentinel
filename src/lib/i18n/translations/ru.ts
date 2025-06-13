@@ -1397,5 +1397,55 @@ export const ru = {
         description: 'Любые другие мысли, вопросы или предложения, которыми вы хотели бы поделиться.'
       }
     }
+  },
+  
+  blog: {
+    title: 'Блог о Финансовом Благополучии',
+    subtitle: 'Знания, советы и истории на пути к финансовому здоровью',
+    readMore: 'Читать далее',
+    backToBlog: 'Назад к блогу',
+    readingTime: '{{minutes}} мин чтения',
+    byAuthor: 'автор {{author}}',
+    relatedPosts: 'Похожие статьи',
+    noPosts: {
+      title: 'Пока нет постов',
+      description: 'Мы работаем над созданием ценного контента. Возвращайтесь скоро за знаниями о финансовом благополучии и денежном мышлении.'
+    },
+    publishedOn: 'Опубликовано {{date}}',
+    categories: 'Категории',
+    tags: 'Теги',
+    sharePost: 'Поделиться этим постом',
+    tableOfContents: 'Содержание'
+  },
+
+  social: {
+    share: {
+      bluesky: {
+        label: 'Поделиться в Bluesky',
+        ariaLabel: 'Поделиться этой статьей в Bluesky'
+      },
+      twitter: {
+        label: 'Поделиться в X',
+        ariaLabel: 'Поделиться этой статьей в X (Twitter)'
+      },
+      threads: {
+        label: 'Поделиться в Threads',
+        ariaLabel: 'Поделиться этой статьей в Threads'
+      },
+      linkedin: {
+        label: 'Поделиться в LinkedIn',
+        ariaLabel: 'Поделиться этой статьей в LinkedIn'
+      }
+    },
+    follow: {
+      instagram: {
+        label: 'Подписаться в Instagram',
+        ariaLabel: 'Подписаться на SpendSentinel в Instagram'
+      },
+      tiktok: {
+        label: 'Подписаться в TikTok',
+        ariaLabel: 'Подписаться на SpendSentinel в TikTok'
+      }
+    }
   }
 } as const; 

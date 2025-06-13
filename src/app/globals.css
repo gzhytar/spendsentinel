@@ -106,3 +106,70 @@
     font-feature-settings: "rlig" 1, "calt" 1; /* Enable ligatures and contextual alternates */
   }
 }
+
+/* Custom blog post styling */
+@layer components {
+  .prose-custom {
+    @apply text-foreground;
+  }
+  
+  .prose-custom h1 {
+    @apply text-3xl font-bold mb-6 mt-8 text-foreground;
+  }
+  
+  .prose-custom h2 {
+    @apply text-2xl font-bold mb-4 mt-8 text-foreground;
+  }
+  
+  .prose-custom h3 {
+    @apply text-xl font-semibold mb-3 mt-6 text-foreground;
+  }
+  
+  .prose-custom h4 {
+    @apply text-lg font-semibold mb-2 mt-4 text-foreground;
+  }
+  
+  .prose-custom p {
+    @apply mb-4 leading-relaxed text-foreground;
+  }
+  
+  .prose-custom ul {
+    @apply mb-4 space-y-2 pl-6;
+  }
+  
+  .prose-custom ol {
+    @apply mb-4 space-y-2 list-decimal list-inside pl-6;
+  }
+  
+  .prose-custom li {
+    @apply leading-relaxed text-foreground;
+  }
+  
+  .prose-custom blockquote {
+    @apply border-l-4 border-primary pl-4 italic text-muted-foreground my-6;
+  }
+  
+  .prose-custom strong {
+    @apply font-semibold text-foreground;
+  }
+  
+  .prose-custom a {
+    @apply text-primary hover:text-primary/80 underline transition-colors;
+  }
+  
+  /* Ensure custom div elements with Tailwind classes work properly */
+  .prose-custom div {
+    @apply mb-0; /* Reset any prose margins on divs */
+  }
+  
+  /* List markers */
+  .prose-custom ul > li {
+    @apply relative pl-0;
+  }
+  
+  .prose-custom ul > li::before {
+    content: "•";
+    @apply absolute left-0 text-foreground font-bold;
+    margin-left: -1.25rem;
+  }
+}

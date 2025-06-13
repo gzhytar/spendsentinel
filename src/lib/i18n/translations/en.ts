@@ -1393,5 +1393,55 @@ export const en = {
         description: 'Any other thoughts, questions, or suggestions you\'d like to share.'
       }
     }
+  },
+  
+  blog: {
+    title: 'Financial Wellness Blog',
+    subtitle: 'Insights, tips, and stories on your journey to financial health',
+    readMore: 'Read More',
+    backToBlog: 'Back to Blog',
+    readingTime: '{{minutes}} min read',
+    byAuthor: 'by {{author}}',
+    relatedPosts: 'Related Articles',
+    noPosts: {
+      title: 'No Blog Posts Yet',
+      description: 'We\'re working on bringing you valuable content. Check back soon for insights on financial wellness and money mindset.'
+    },
+    publishedOn: 'Published on {{date}}',
+    categories: 'Categories',
+    tags: 'Tags',
+    sharePost: 'Share this post',
+    tableOfContents: 'Table of Contents'
+  },
+
+  social: {
+    share: {
+      bluesky: {
+        label: 'Share on Bluesky',
+        ariaLabel: 'Share this article on Bluesky'
+      },
+      twitter: {
+        label: 'Share on X',
+        ariaLabel: 'Share this article on X (Twitter)'
+      },
+      threads: {
+        label: 'Share on Threads',
+        ariaLabel: 'Share this article on Threads'
+      },
+      linkedin: {
+        label: 'Share on LinkedIn',
+        ariaLabel: 'Share this article on LinkedIn'
+      }
+    },
+    follow: {
+      instagram: {
+        label: 'Follow on Instagram',
+        ariaLabel: 'Follow SpendSentinel on Instagram'
+      },
+      tiktok: {
+        label: 'Follow on TikTok',
+        ariaLabel: 'Follow SpendSentinel on TikTok'
+      }
+    }
   }
 } as const; 

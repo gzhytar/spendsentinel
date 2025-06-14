@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import NextImage from 'next/image';
+import type { Metadata } from 'next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -11,12 +12,40 @@ import { MDXRemote } from 'next-mdx-remote/rsc';
 import { SocialShareButtons } from '@/components/common/social-share-buttons';
 import { NewsletterBox } from '@/components/common/newsletter-box';
 import { CTABox } from '@/components/common/cta-box';
+import { BlogPostStructuredData, BreadcrumbStructuredData } from '@/components/seo/structured-data';
+import { generateBlogPostMetadata } from '@/lib/seo/metadata';
+import { SITE_CONFIG } from '@/lib/seo/meta-config';
 
 interface BlogPostPageProps {
   params: Promise<{
     lang: string;
     slug: string;
   }>;
+}
+
+// Generate metadata for blog posts
+export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
+  const { lang, slug } = await params;
+  const locale = lang as keyof typeof translations;
+  
+  const post = await getBlogPost(slug, locale);
+  
+  if (!post) {
+    return {
+      title: 'Post Not Found',
+      description: 'The requested blog post could not be found.',
+    };
+  }
+
+  return generateBlogPostMetadata({
+    title: post.title,
+    description: post.summary,
+    author: post.author,
+    datePublished: post.date,
+    slug: post.slug,
+    locale: lang,
+    tags: post.tags,
+  });
 }
 
 // Custom callout components to prevent nested p tags
@@ -69,8 +98,6 @@ const ImagePlaceholder = ({ children }: { children: React.ReactNode }) => (
     </div>
   </div>
 );
-
-
 
 // Custom components for MDX - simplified to prevent nesting issues
 const mdxComponents = {
@@ -151,112 +178,158 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     });
   };
 
-  return (
-    <div className="container mx-auto py-8 space-y-8 px-4">
-      {/* Back to Blog */}
-      <div>
-        <Button variant="ghost" asChild className="hover:bg-muted">
-          <Link href={`/${lang}/blog`} className="flex items-center gap-2">
-            <ArrowLeft className="h-4 w-4" />
-            {t('blog.backToBlog')}
-          </Link>
-        </Button>
-      </div>
+  // Generate URLs for structured data
+  const baseUrl = SITE_CONFIG.domain;
+  const blogUrl = `${baseUrl}${locale !== 'en' ? `/${locale}` : ''}/blog/${post.slug}`;
+  const blogListUrl = `${baseUrl}${locale !== 'en' ? `/${locale}` : ''}/blog`;
+  const homeUrl = `${baseUrl}${locale !== 'en' ? `/${locale}` : ''}`;
 
-      {/* Post Header */}
-      <div className="space-y-6">
+  // Breadcrumb items for structured data
+  const breadcrumbItems = [
+    { name: 'Home', url: homeUrl },
+    { name: t('blog.title'), url: blogListUrl },
+    { name: post.title, url: blogUrl },
+  ];
+
+  return (
+    <>
+      {/* Structured Data */}
+      <BlogPostStructuredData
+        title={post.title}
+        description={post.summary}
+        author={post.author}
+        datePublished={post.date}
+        url={blogUrl}
+        tags={post.tags}
+        locale={locale}
+      />
+      <BreadcrumbStructuredData items={breadcrumbItems} />
+
+      <div className="container mx-auto py-8 space-y-8 px-4">
+        {/* Breadcrumb Navigation */}
+        <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground">
+          <ol className="flex items-center space-x-2">
+            <li>
+              <Link href={`/${lang}`} className="hover:text-foreground transition-colors">
+                Home
+              </Link>
+            </li>
+            <li>/</li>
+            <li>
+              <Link href={`/${lang}/blog`} className="hover:text-foreground transition-colors">
+                {t('blog.title')}
+              </Link>
+            </li>
+            <li>/</li>
+            <li className="text-foreground font-medium">{post.title}</li>
+          </ol>
+        </nav>
+
+        {/* Back to Blog */}
         <div>
-          <h1 className="text-3xl font-bold mb-2">{post.title}</h1>
-          <p className="text-muted-foreground text-lg">{post.summary}</p>
+          <Button variant="ghost" asChild className="hover:bg-muted">
+            <Link href={`/${lang}/blog`} className="flex items-center gap-2">
+              <ArrowLeft className="h-4 w-4" />
+              {t('blog.backToBlog')}
+            </Link>
+          </Button>
         </div>
 
-        {/* Post Meta */}
-        <div className="flex items-center gap-4 text-sm text-muted-foreground flex-wrap">
-          <div className="flex items-center gap-1">
-            <Calendar className="h-4 w-4" />
-            <time dateTime={post.date}>{formatDate(post.date)}</time>
+        {/* Post Header */}
+        <div className="space-y-6">
+          <div>
+            <h1 className="text-3xl font-bold mb-2">{post.title}</h1>
+            <p className="text-muted-foreground text-lg">{post.summary}</p>
           </div>
-          <div className="flex items-center gap-1">
-            <Clock className="h-4 w-4" />
-            <span>{t('blog.readingTime').replace('{{minutes}}', post.readingTime.toString())}</span>
-          </div>
-          {post.author && (
+
+          {/* Post Meta */}
+          <div className="flex items-center gap-4 text-sm text-muted-foreground flex-wrap">
             <div className="flex items-center gap-1">
-              <User className="h-4 w-4" />
-              <span>{post.author}</span>
+              <Calendar className="h-4 w-4" />
+              <time dateTime={post.date}>{formatDate(post.date)}</time>
+            </div>
+            <div className="flex items-center gap-1">
+              <Clock className="h-4 w-4" />
+              <span>{t('blog.readingTime').replace('{{minutes}}', post.readingTime.toString())}</span>
+            </div>
+            {post.author && (
+              <div className="flex items-center gap-1">
+                <User className="h-4 w-4" />
+                <span>{post.author}</span>
+              </div>
+            )}
+          </div>
+
+          {/* Tags */}
+          {post.tags && post.tags.length > 0 && (
+            <div className="flex items-center gap-2">
+              <Tag className="h-4 w-4 text-muted-foreground" />
+              <div className="flex gap-2 flex-wrap">
+                {post.tags.map((tag) => (
+                  <Badge key={tag} variant="secondary">
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
             </div>
           )}
         </div>
 
-        {/* Tags */}
-        {post.tags && post.tags.length > 0 && (
-          <div className="flex items-center gap-2">
-            <Tag className="h-4 w-4 text-muted-foreground" />
-            <div className="flex gap-2 flex-wrap">
-              {post.tags.map((tag) => (
-                <Badge key={tag} variant="secondary">
-                  {tag}
-                </Badge>
+        {/* Post Content */}
+        <Card className="shadow-lg">
+          <CardContent className="p-8">
+            <article className="prose-custom max-w-none">
+              <MDXRemote 
+                source={post.content} 
+                components={mdxComponents}
+              />
+            </article>
+          </CardContent>
+        </Card>
+
+        {/* Related Posts */}
+        {relatedPosts.length > 0 && (
+          <div className="space-y-6">
+            <h2 className="text-2xl font-bold">{t('blog.relatedPosts')}</h2>
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {relatedPosts.map((relatedPost) => (
+                <Card key={relatedPost.slug} className="shadow-lg hover:shadow-xl transition-shadow">
+                  <CardHeader>
+                    <CardTitle className="text-lg">
+                      <Link 
+                        href={`/${lang}/blog/${relatedPost.slug}`}
+                        className="hover:text-primary transition-colors"
+                      >
+                        {relatedPost.title}
+                      </Link>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
+                      {relatedPost.summary}
+                    </p>
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                      <Calendar className="h-3 w-3" />
+                      <time dateTime={relatedPost.date}>{formatDate(relatedPost.date)}</time>
+                      <Clock className="h-3 w-3 ml-2" />
+                      <span>{relatedPost.readingTime} min</span>
+                    </div>
+                  </CardContent>
+                </Card>
               ))}
             </div>
           </div>
         )}
-      </div>
 
-      {/* Post Content */}
-      <Card className="shadow-lg">
-        <CardContent className="p-8">
-          <article className="prose-custom max-w-none">
-            <MDXRemote 
-              source={post.content} 
-              components={mdxComponents}
-            />
-          </article>
-        </CardContent>
-      </Card>
-
-      {/* Related Posts */}
-      {relatedPosts.length > 0 && (
-        <div className="space-y-6">
-          <h2 className="text-2xl font-bold">{t('blog.relatedPosts')}</h2>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {relatedPosts.map((relatedPost) => (
-              <Card key={relatedPost.slug} className="shadow-lg hover:shadow-xl transition-shadow">
-                <CardHeader>
-                  <CardTitle className="text-lg">
-                    <Link 
-                      href={`/${lang}/blog/${relatedPost.slug}`}
-                      className="hover:text-primary transition-colors"
-                    >
-                      {relatedPost.title}
-                    </Link>
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
-                    {relatedPost.summary}
-                  </p>
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <Calendar className="h-3 w-3" />
-                    <time dateTime={relatedPost.date}>{formatDate(relatedPost.date)}</time>
-                    <Clock className="h-3 w-3 ml-2" />
-                    <span>{relatedPost.readingTime} min</span>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+        {/* Back to Blog Footer */}
+        <div className="text-center">
+          <Button asChild>
+            <Link href={`/${lang}/blog`}>
+              {t('blog.backToBlog')}
+            </Link>
+          </Button>
         </div>
-      )}
-
-      {/* Back to Blog Footer */}
-      <div className="text-center">
-        <Button asChild>
-          <Link href={`/${lang}/blog`}>
-            {t('blog.backToBlog')}
-          </Link>
-        </Button>
       </div>
-    </div>
+    </>
   );
 } 

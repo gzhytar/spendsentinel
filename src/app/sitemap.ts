@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/daily-checkin',
     '/parts-journal',
     '/expense-highlighter',
+    '/blog',
     '/privacy-policy',
     '/terms-of-service',
     '/feedback',
@@ -38,7 +39,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       sitemap.push({
         url,
         lastModified: new Date(),
-        changeFrequency: page === '/' ? 'daily' : 'weekly',
+        changeFrequency: getChangeFrequency(page),
         priority: getPriority(page),
         alternates: {
           languages: alternates,
@@ -57,6 +58,8 @@ function getPriority(page: string): number {
     case '/self-assessment':
     case '/daily-checkin':
       return 0.9
+    case '/blog':
+      return 0.85
     case '/parts-journal':
     case '/expense-highlighter':
       return 0.8
@@ -67,5 +70,26 @@ function getPriority(page: string): number {
       return 0.5
     default:
       return 0.6
+  }
+}
+
+function getChangeFrequency(page: string): 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never' {
+  switch (page) {
+    case '/':
+      return 'daily'
+    case '/blog':
+      return 'weekly'
+    case '/self-assessment':
+    case '/daily-checkin':
+    case '/parts-journal':
+    case '/expense-highlighter':
+      return 'weekly'
+    case '/feedback':
+      return 'monthly'
+    case '/privacy-policy':
+    case '/terms-of-service':
+      return 'yearly'
+    default:
+      return 'monthly'
   }
 } 

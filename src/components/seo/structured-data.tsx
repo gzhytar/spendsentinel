@@ -1,5 +1,5 @@
 import Script from 'next/script';
-import { generateStructuredData } from '@/lib/seo/metadata';
+import { generateStructuredData, generateBlogPostStructuredData, generateBreadcrumbStructuredData } from '@/lib/seo/metadata';
 
 interface StructuredDataProps {
   pathname: string;
@@ -57,6 +57,77 @@ export function FAQStructuredData({
       type="application/ld+json"
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(faqSchema),
+      }}
+    />
+  );
+}
+
+/**
+ * Blog post structured data component with Article schema
+ */
+export function BlogPostStructuredData({ 
+  title,
+  description,
+  author,
+  datePublished,
+  dateModified,
+  url,
+  image,
+  tags = [],
+  locale = 'en' 
+}: { 
+  title: string;
+  description: string;
+  author?: string;
+  datePublished: string;
+  dateModified?: string;
+  url: string;
+  image?: string;
+  tags?: string[];
+  locale?: string;
+}) {
+  const articleSchema = generateBlogPostStructuredData({
+    title,
+    description,
+    author,
+    datePublished,
+    dateModified,
+    url,
+    image,
+    tags,
+    locale
+  });
+
+  return (
+    <Script
+      id="blog-post-structured-data"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(articleSchema),
+      }}
+    />
+  );
+}
+
+/**
+ * Breadcrumb structured data component
+ */
+export function BreadcrumbStructuredData({ 
+  items 
+}: { 
+  items: Array<{
+    name: string;
+    url: string;
+  }>;
+}) {
+  const breadcrumbSchema = generateBreadcrumbStructuredData({ items });
+
+  return (
+    <Script
+      id="breadcrumb-structured-data"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(breadcrumbSchema),
       }}
     />
   );

@@ -13,6 +13,11 @@ Allow: /self-assessment
 Allow: /daily-checkin
 Allow: /parts-journal
 Allow: /expense-highlighter
+Allow: /blog
+Allow: /en/blog/
+Allow: /cs/blog/
+Allow: /uk/blog/
+Allow: /ru/blog/
 Allow: /privacy-policy
 Allow: /terms-of-service
 Allow: /feedback

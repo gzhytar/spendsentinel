@@ -140,6 +140,27 @@ export function generateStructuredData(pathname: string, locale: string = 'en') 
         },
       },
     },
+    '/blog': {
+      '@context': 'https://schema.org',
+      '@type': 'Blog',
+      name: seoConfig.title,
+      description: seoConfig.description,
+      url: seoConfig.canonical,
+      author: {
+        '@type': 'Organization',
+        name: SITE_CONFIG.name,
+        url: SITE_CONFIG.domain,
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: SITE_CONFIG.name,
+        url: SITE_CONFIG.domain,
+        logo: {
+          '@type': 'ImageObject',
+          url: `${SITE_CONFIG.domain}${SITE_CONFIG.logo}`,
+        },
+      },
+    },
   };
 
   // Return combined structured data
@@ -150,4 +171,202 @@ export function generateStructuredData(pathname: string, locale: string = 'en') 
   }
 
   return schemas;
+}
+
+/**
+ * Generate Article structured data for blog posts
+ */
+export function generateBlogPostStructuredData(params: {
+  title: string;
+  description: string;
+  author?: string;
+  datePublished: string;
+  dateModified?: string;
+  url: string;
+  image?: string;
+  tags?: string[];
+  locale: string;
+}) {
+  const {
+    title,
+    description,
+    author = SITE_CONFIG.name,
+    datePublished,
+    dateModified,
+    url,
+    image,
+    tags = [],
+    locale
+  } = params;
+
+  const articleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: title,
+    description: description,
+    author: {
+      '@type': author === SITE_CONFIG.name ? 'Organization' : 'Person',
+      name: author,
+      url: author === SITE_CONFIG.name ? SITE_CONFIG.domain : undefined,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: SITE_CONFIG.name,
+      url: SITE_CONFIG.domain,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_CONFIG.domain}${SITE_CONFIG.logo}`,
+      },
+    },
+    datePublished: datePublished,
+    dateModified: dateModified || datePublished,
+    url: url,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': url,
+    },
+    image: image ? {
+      '@type': 'ImageObject',
+      url: image,
+      width: 1200,
+      height: 630,
+    } : undefined,
+    keywords: tags.join(', '),
+    inLanguage: locale,
+    about: [
+      {
+        '@type': 'Thing',
+        name: 'Financial Wellness',
+      },
+      {
+        '@type': 'Thing',
+        name: 'Financial Psychology',
+      },
+      {
+        '@type': 'Thing',
+        name: 'Money Mindset',
+      },
+    ],
+    articleSection: 'Financial Wellness',
+    isPartOf: {
+      '@type': 'Blog',
+      name: `${SITE_CONFIG.name} Blog`,
+      url: `${SITE_CONFIG.domain}/${locale === 'en' ? '' : `${locale}/`}blog`,
+    },
+  };
+
+  return articleSchema;
+}
+
+/**
+ * Generate Breadcrumb structured data
+ */
+export function generateBreadcrumbStructuredData(params: {
+  items: Array<{
+    name: string;
+    url: string;
+  }>;
+}) {
+  const { items } = params;
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  };
+
+  return breadcrumbSchema;
+}
+
+/**
+ * Generate metadata for blog posts
+ */
+export function generateBlogPostMetadata(params: {
+  title: string;
+  description: string;
+  author?: string;
+  datePublished: string;
+  dateModified?: string;
+  slug: string;
+  locale: string;
+  image?: string;
+  tags?: string[];
+}): Metadata {
+  const {
+    title,
+    description,
+    author,
+    datePublished,
+    dateModified,
+    slug,
+    locale,
+    image,
+    tags = []
+  } = params;
+
+  const baseUrl = SITE_CONFIG.domain;
+  const blogUrl = `${baseUrl}${locale !== 'en' ? `/${locale}` : ''}/blog/${slug}`;
+  const ogImage = image || `${baseUrl}/og-image.jpg`;
+
+  // Generate alternate language URLs
+  const alternateLanguages: Record<string, string> = {};
+  SITE_CONFIG.supportedLocales.forEach(lang => {
+    alternateLanguages[lang] = `${baseUrl}${lang !== 'en' ? `/${lang}` : ''}/blog/${slug}`;
+  });
+
+  return {
+    title: `${title} | ${SITE_CONFIG.name}`,
+    description: description,
+    keywords: tags,
+    authors: author ? [{ name: author }] : undefined,
+    
+    alternates: {
+      canonical: blogUrl,
+      languages: alternateLanguages,
+    },
+
+    openGraph: {
+      title: title,
+      description: description,
+      type: 'article',
+      url: blogUrl,
+      siteName: SITE_CONFIG.name,
+      locale: locale,
+      alternateLocale: SITE_CONFIG.supportedLocales.filter(lang => lang !== locale),
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+      publishedTime: datePublished,
+      modifiedTime: dateModified || datePublished,
+      authors: author ? [author] : undefined,
+      tags: tags,
+    },
+
+    twitter: {
+      card: 'summary_large_image',
+      title: title,
+      description: description,
+      images: [ogImage],
+      site: SITE_CONFIG.twitter,
+      creator: SITE_CONFIG.twitter,
+    },
+
+    other: {
+      'article:published_time': datePublished,
+      'article:modified_time': dateModified || datePublished,
+      'article:author': author || SITE_CONFIG.name,
+      'article:section': 'Financial Wellness',
+      'article:tag': tags.join(','),
+    },
+  };
 } 

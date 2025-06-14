@@ -251,7 +251,7 @@ export function generateBlogPostStructuredData(params: {
     isPartOf: {
       '@type': 'Blog',
       name: `${SITE_CONFIG.name} Blog`,
-      url: `${SITE_CONFIG.domain}/${locale === 'en' ? '' : `${locale}/`}blog`,
+      url: `${SITE_CONFIG.domain}/${locale}/blog`,
     },
   };
 
@@ -310,13 +310,13 @@ export function generateBlogPostMetadata(params: {
   } = params;
 
   const baseUrl = SITE_CONFIG.domain;
-  const blogUrl = `${baseUrl}${locale !== 'en' ? `/${locale}` : ''}/blog/${slug}`;
+  const blogUrl = `${baseUrl}/${locale}/blog/${slug}`;
   const ogImage = image || `${baseUrl}/og-image.jpg`;
 
   // Generate alternate language URLs
   const alternateLanguages: Record<string, string> = {};
   SITE_CONFIG.supportedLocales.forEach(lang => {
-    alternateLanguages[lang] = `${baseUrl}${lang !== 'en' ? `/${lang}` : ''}/blog/${slug}`;
+    alternateLanguages[lang] = `${baseUrl}/${lang}/blog/${slug}`;
   });
 
   return {

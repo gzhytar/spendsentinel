@@ -23,16 +23,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Generate entries for each page in each language
   pages.forEach(page => {
     supportedLocales.forEach(locale => {
-      const url = locale === 'en' 
-        ? `${baseUrl}${page}`
-        : `${baseUrl}/${locale}${page}`
+      const url = `${baseUrl}/${locale}${page}`
       
       // Generate alternate language URLs for this page
       const alternates: Record<string, string> = {}
       supportedLocales.forEach(altLocale => {
-        const altUrl = altLocale === 'en'
-          ? `${baseUrl}${page}`
-          : `${baseUrl}/${altLocale}${page}`
+        const altUrl = `${baseUrl}/${altLocale}${page}`
         alternates[altLocale] = altUrl
       })
 

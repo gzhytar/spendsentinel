@@ -33,7 +33,7 @@ test.describe('Complete New User Onboarding Flow', () => {
       await waitForPageLoad(page);
       
       // Verify landing page elements are present
-      await expect(page.getByRole('heading', { name: /break free/i })).toBeVisible();
+      await expect(page.getByRole('heading', { name: /transform your relationship with money/i })).toBeVisible();
     });
 
     // Step 2: Use 'Explore My Financial Parts' button

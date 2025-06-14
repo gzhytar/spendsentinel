@@ -312,13 +312,13 @@ export function generateSEOConfig(
   // Merge with custom data
   const finalData = { ...pageData, ...customData };
   
-  // Generate canonical URL
-  const canonicalUrl = `${SITE_CONFIG.domain}${locale !== 'en' ? `/${locale}` : ''}${pathname}`;
+  // Generate canonical URL - support /en/ path if specifically requested
+  const canonicalUrl = `${SITE_CONFIG.domain}/${locale}${pathname}`;
   
   // Generate alternate language URLs
   const alternateLanguages: Record<string, string> = {};
   SITE_CONFIG.supportedLocales.forEach(lang => {
-    alternateLanguages[lang] = `${SITE_CONFIG.domain}${lang !== 'en' ? `/${lang}` : ''}${pathname}`;
+    alternateLanguages[lang] = `${SITE_CONFIG.domain}/${lang}${pathname}`;
   });
   
   // Build Open Graph image URL

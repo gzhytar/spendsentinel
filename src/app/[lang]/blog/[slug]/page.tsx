@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import NextImage from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -8,6 +9,8 @@ import { getBlogPost, getRelatedPosts } from '@/lib/blog';
 import { translations } from '@/lib/i18n/translations';
 import { MDXRemote } from 'next-mdx-remote/rsc';
 import { SocialShareButtons } from '@/components/common/social-share-buttons';
+import { NewsletterBox } from '@/components/common/newsletter-box';
+import { CTABox } from '@/components/common/cta-box';
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -16,26 +19,106 @@ interface BlogPostPageProps {
   }>;
 }
 
-// Custom components for MDX
+// Custom callout components to prevent nested p tags
+const KeyInsightBox = ({ children }: { children: React.ReactNode }) => (
+  <div className="bg-blue-50 border-l-4 border-blue-400 p-6 my-8">
+    <div className="flex items-start">
+      <span className="text-3xl mr-4">🧠</span>
+      <div>
+        <h3 className="text-lg font-semibold text-blue-800 mb-2">Key Insight</h3>
+        <div className="text-blue-700">{children}</div>
+      </div>
+    </div>
+  </div>
+);
+
+const ImportantNoteBox = ({ children }: { children: React.ReactNode }) => (
+  <div className="bg-amber-50 border-l-4 border-amber-400 p-4 my-6">
+    <div className="flex">
+      <div className="ml-3">
+        <div className="text-sm text-amber-700">{children}</div>
+      </div>
+    </div>
+  </div>
+);
+
+const TryThisBox = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div className="bg-green-50 border-l-4 border-green-400 p-6 my-8">
+    <div className="flex items-center mb-4">
+      <span className="text-2xl mr-3">🔍</span>
+      <h3 className="text-xl font-semibold text-green-800">{title}</h3>
+    </div>
+    <div className="text-green-700">{children}</div>
+  </div>
+);
+
+const BuiltInSupportBox = ({ children }: { children: React.ReactNode }) => (
+  <div className="bg-green-50 border-l-4 border-green-400 p-6 my-8">
+    <div className="flex items-center mb-4">
+      <span className="text-2xl mr-3">📱</span>
+      <h3 className="text-xl font-semibold text-green-800">Built-in Support</h3>
+    </div>
+    <div className="text-green-700">{children}</div>
+  </div>
+);
+
+const ImagePlaceholder = ({ children }: { children: React.ReactNode }) => (
+  <div className="my-8 text-center">
+    <div className="bg-gray-100 border-2 border-dashed border-gray-300 rounded-lg p-8">
+      <div className="text-gray-500 italic">{children}</div>
+    </div>
+  </div>
+);
+
+
+
+// Custom components for MDX - simplified to prevent nesting issues
 const mdxComponents = {
   SocialShareButtons,
-  // Allow custom div elements with className to be rendered properly
+  KeyInsightBox,
+  ImportantNoteBox,
+  TryThisBox,
+  BuiltInSupportBox,
+  ImagePlaceholder,
+  CTABox,
+  NewsletterBox,
+  // Core HTML elements with proper styling
+  h1: (props: any) => <h1 className="text-3xl font-bold mb-6 mt-8 text-foreground" {...props} />,
+  h2: (props: any) => <h2 className="text-2xl font-bold mb-4 mt-8 text-foreground" {...props} />,
+  h3: (props: any) => <h3 className="text-xl font-semibold mb-3 mt-6 text-foreground" {...props} />,
+  h4: (props: any) => <h4 className="text-lg font-semibold mb-2 mt-4 text-foreground" {...props} />,
+  p: (props: any) => <p className="mb-4 leading-relaxed text-foreground" {...props} />,
   div: (props: any) => <div {...props} />,
   span: (props: any) => <span {...props} />,
-  h1: (props: any) => <h1 className="text-3xl font-bold mb-6 mt-8" {...props} />,
-  h2: (props: any) => <h2 className="text-2xl font-bold mb-4 mt-8" {...props} />,
-  h3: (props: any) => <h3 className="text-xl font-semibold mb-3 mt-6" {...props} />,
-  h4: (props: any) => <h4 className="text-lg font-semibold mb-2 mt-4" {...props} />,
-  p: (props: any) => <p className="mb-4 leading-relaxed" {...props} />,
-  ul: (props: any) => <ul className="mb-4 space-y-2" {...props} />,
-  ol: (props: any) => <ol className="mb-4 space-y-2 list-decimal list-inside" {...props} />,
-  li: (props: any) => <li className="leading-relaxed" {...props} />,
+  ul: (props: any) => <ul className="mb-4 space-y-2 pl-6" {...props} />,
+  ol: (props: any) => <ol className="mb-4 space-y-2 list-decimal list-inside pl-6" {...props} />,
+  li: (props: any) => <li className="leading-relaxed text-foreground" {...props} />,
   blockquote: (props: any) => (
     <blockquote className="border-l-4 border-primary pl-4 italic text-muted-foreground my-6" {...props} />
   ),
-  strong: (props: any) => <strong className="font-semibold" {...props} />,
+  strong: (props: any) => <strong className="font-semibold text-foreground" {...props} />,
   a: (props: any) => (
     <a className="text-primary hover:text-primary/80 underline transition-colors" {...props} />
+  ),
+  img: (props: any) => (
+    <NextImage 
+      {...props} 
+      width={props.width || 800} 
+      height={props.height || 400} 
+      className={`rounded-lg my-6 ${props.className || ''}`}
+      alt={props.alt || ''}
+      src={props.src?.startsWith('/') ? props.src : `/${props.src}`}
+    />
+  ),
+  Image: (props: any) => (
+    <NextImage 
+      {...props} 
+      width={props.width || 800} 
+      height={props.height || 400} 
+      className={`rounded-lg my-6 ${props.className || ''}`}
+      alt={props.alt || ''}
+      src={props.src?.startsWith('/') ? props.src : `/${props.src}`}
+    />
   ),
 };
 
@@ -123,12 +206,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       {/* Post Content */}
       <Card className="shadow-lg">
         <CardContent className="p-8">
-          <div className="prose-custom max-w-none">
+          <article className="prose-custom max-w-none">
             <MDXRemote 
               source={post.content} 
               components={mdxComponents}
             />
-          </div>
+          </article>
         </CardContent>
       </Card>
 

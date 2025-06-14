@@ -102,6 +102,7 @@ export const cs = {
     partsJournal: 'Deník částí',
     myFinancialDecisions: 'Moje finanční rozhodnutí',
     myFinances: 'Moje finance',
+    blog: 'Mé učení',
     myJourney: 'Moje cesta',
     feedback: 'Zpětná vazba',
   },

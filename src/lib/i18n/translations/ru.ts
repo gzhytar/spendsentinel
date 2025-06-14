@@ -102,6 +102,7 @@ export const ru = {
     partsJournal: 'Дневник частей',
     myFinancialDecisions: 'Мои финансовые решения',
     myFinances: 'Мои финансы',
+    blog: 'Моё обучение',
     myJourney: 'Мой путь',
     feedback: 'Обратная связь',
   },

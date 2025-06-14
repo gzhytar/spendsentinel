@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { generateMetadata as generateSEOMetadata } from '@/lib/seo/metadata';
 import { StructuredData } from '@/components/seo/structured-data';
+import { BlogLayoutClient } from './blog-layout-client';
 
 interface BlogLayoutProps {
   children: React.ReactNode;
@@ -20,9 +21,11 @@ export default async function BlogLayout({
   const { lang } = await params;
   
   return (
-    <>
+    <div className="fixed inset-0 z-50 bg-background overflow-auto">
       <StructuredData pathname="/blog" locale={lang} />
-      {children}
-    </>
+      <BlogLayoutClient lang={lang}>
+        {children}
+      </BlogLayoutClient>
+    </div>
   );
 } 

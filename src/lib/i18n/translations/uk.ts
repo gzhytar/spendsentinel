@@ -102,6 +102,7 @@ export const uk = {
     partsJournal: 'Щоденник частин',
     myFinancialDecisions: 'Мої фінансові рішення',
     myFinances: 'Мої фінанси',
+    blog: 'Моє навчання',
     myJourney: 'Моя подорож',
     feedback: 'Зворотний зв\'язок',
   },

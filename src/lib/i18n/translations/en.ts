@@ -102,6 +102,7 @@ export const en = {
     partsJournal: 'Parts Journal',
     myFinancialDecisions: 'My Financial Decisions',
     myFinances: 'My Finances',
+    blog: 'My Learning',
     myJourney: 'My Journey',
     feedback: 'Feedback',
   },
@@ -1431,6 +1432,14 @@ export const en = {
       linkedin: {
         label: 'Share on LinkedIn',
         ariaLabel: 'Share this article on LinkedIn'
+      },
+      facebook: {
+        label: 'Share on Facebook',
+        ariaLabel: 'Share this article on Facebook'
+      },
+      reddit: {
+        label: 'Share on Reddit',
+        ariaLabel: 'Share this article on Reddit'
       }
     },
     follow: {

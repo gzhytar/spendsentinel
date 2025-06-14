@@ -47,7 +47,7 @@ title: "Clear, Descriptive Title (Max 60 characters)"
 date: "YYYY-MM-DD"
 summary: "One-sentence description that explains the value proposition (Max 160 characters)"
 author: "SpendSentinel Team"
-readingTime: [3-5] # Manual estimate, 3 minutes maximum
+readingTime: [1-3] # Manual estimate, 3 minutes maximum
 tags: ["tag1", "tag2", "tag3"] # 3-5 relevant tags
 ---
 ```
@@ -86,8 +86,8 @@ tags: ["tag1", "tag2", "tag3"] # 3-5 relevant tags
 - End with hope and empowerment
 
 ### Word Count Guidelines
-- **Total**: 800-1200 words maximum
-- **Reading Time**: 3-5 minutes (aim for 3 minutes)
+- **Total**: 200-600 words maximum
+- **Reading Time**: 1-3 minutes (aim for 3 minutes)
 - **Paragraphs**: Keep to 2-3 sentences maximum
 - **Sections**: Use clear headings and subheadings
 
@@ -315,6 +315,33 @@ Transform dense paragraphs into scannable lists:
 </div>
 ```
 
+#### 5. **Call-to-Action Boxes**
+Use the standardized `CTABox` component for all call-to-action sections:
+
+```jsx
+<CTABox>
+  <h3 className="text-xl font-semibold text-purple-800">Ready to put this into practice?</h3>
+  <p className="text-purple-700">
+    Start your personalized financial wellness journey with SpendSentinel's compassionate tools.
+  </p>
+  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+    <a href="/self-assessment" className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors">
+      Discover Your Financial Parts
+    </a>
+    <a href="/daily-checkin" className="bg-white text-purple-600 border border-purple-600 px-6 py-3 rounded-lg hover:bg-purple-50 transition-colors">
+      Start Daily Check-ins
+    </a>
+  </div>
+</CTABox>
+```
+
+**CTABox Features:**
+- **Consistent styling** with purple gradient background and border
+- **Centered content** with proper spacing
+- **Flexible content** - accepts any React children
+- **Optional className** prop for customization when needed
+- **Automatic availability** in all MDX blog posts
+
 ### Empowering Call-to-Action Framework
 
 #### Structure for Ending Sections
@@ -446,6 +473,17 @@ content/
 Use consistent styling for different content types:
 
 ```jsx
+// Call-to-Action Boxes (Use CTABox component)
+<CTABox>
+  <h3 className="text-xl font-semibold text-purple-800">Ready to put this into practice?</h3>
+  <p className="text-purple-700">Start your personalized financial wellness journey.</p>
+  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+    <a href="/self-assessment" className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors">
+      Discover Your Financial Parts
+    </a>
+  </div>
+</CTABox>
+
 // Insight/Tip Boxes
 <div className="bg-blue-50 border-l-4 border-blue-400 p-6 my-8">
   <div className="flex items-start">
@@ -639,22 +677,20 @@ Every blog post must end with this standardized footer:
 
 ## 🌟 Continue Your Financial Wellness Journey
 
-<div className="bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-lg border border-purple-200 my-8">
-  <div className="text-center space-y-4">
-    <h3 className="text-xl font-semibold text-purple-800">Ready to put this into practice?</h3>
-    <p className="text-purple-700">
-      Start your personalized financial wellness journey with SpendSentinel's compassionate tools.
-    </p>
-    <div className="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="/self-assessment" className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors">
-        Discover Your Financial Parts
-      </a>
-      <a href="/daily-checkin" className="bg-white text-purple-600 border border-purple-600 px-6 py-3 rounded-lg hover:bg-purple-50 transition-colors">
-        Start Daily Check-ins
-      </a>
-    </div>
+<CTABox>
+  <h3 className="text-xl font-semibold text-purple-800">Ready to put this into practice?</h3>
+  <p className="text-purple-700">
+    Start your personalized financial wellness journey with SpendSentinel's compassionate tools.
+  </p>
+  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+    <a href="/self-assessment" className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors">
+      Discover Your Financial Parts
+    </a>
+    <a href="/daily-checkin" className="bg-white text-purple-600 border border-purple-600 px-6 py-3 rounded-lg hover:bg-purple-50 transition-colors">
+      Start Daily Check-ins
+    </a>
   </div>
-</div>
+</CTABox>
 
 ### 📢 Share This Article
 
@@ -806,9 +842,10 @@ The component uses these translation keys (already implemented in all languages)
 ```
 
 ### Footer Customization
+- **CTABox Component**: Always use the standardized `CTABox` component for call-to-action sections
 - **Social Share Buttons**: Follow the comprehensive usage instructions above - use exact article titles and canonical URLs
 - **Primary CTA**: Adjust the main call-to-action based on the article's focus (self-assessment, daily check-in, etc.)
-- **Component Usage**: Always use the shared `SocialShareButtons` component - never create custom social sharing links
+- **Component Usage**: Always use the shared `SocialShareButtons` and `CTABox` components - never create custom versions
 - **Testing**: Verify all social sharing links work correctly before publishing
 
 ---

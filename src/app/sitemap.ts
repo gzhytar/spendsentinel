@@ -74,7 +74,7 @@ function getChangeFrequency(page: string): 'always' | 'hourly' | 'daily' | 'week
     case '/':
       return 'daily'
     case '/blog':
-      return 'weekly'
+      return 'daily'
     case '/self-assessment':
     case '/daily-checkin':
     case '/parts-journal':

@@ -15,7 +15,7 @@ import { CookieConsentSettings } from '@/components/ui/cookie-consent-settings';
 import { StructuredData } from '@/components/seo/structured-data';
 
 // Update this version number when releasing new versions
-const CURRENT_VERSION = '0.11.0';
+const CURRENT_VERSION = '0.12.0';
 
 interface MainAppLayoutProps {
   children: ReactNode;

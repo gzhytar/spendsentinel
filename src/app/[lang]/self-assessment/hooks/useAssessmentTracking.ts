@@ -11,9 +11,9 @@ export function useAssessmentTracking() {
     });
   }, [trackOnboarding]);
 
-  const trackQuizComplete = useCallback((result: string) => {
+  const trackQuizComplete = useCallback((partName: string) => {
     trackOnboarding('ASSESSMENT_QUIZ_COMPLETE', {
-      quiz_result: result,
+      identified_part: partName,
       assessment_type: 'quick_discovery',
     });
   }, [trackOnboarding]);

@@ -2,7 +2,7 @@
   "name": "SpendSentinel - Financial Wellness Through Self-Discovery",
   "short_name": "SpendSentinel",
   "description": "Transform your relationship with money through compassionate self-discovery using IFS therapy principles.",
-  "start_url": "/",
+  "start_url": "/en/",
   "display": "standalone",
   "background_color": "#1a1b23",
   "theme_color": "#1a1b23",

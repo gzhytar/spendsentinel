@@ -68,7 +68,7 @@ export function AppLayoutClient({ children }: { children: ReactNode }) {
               />
             </Button>
             {!open && <span className="sr-only">{t('common.appName')}</span>}
-            {open && <h1 className="text-xl font-semibold text-primary">{t('common.appName')}</h1>}
+            {open && <span className="text-xl font-semibold text-primary">{t('common.appName')}</span>}
           </Link>
         </SidebarHeader>
         <SidebarContent>

@@ -1,32 +1,76 @@
+# SpendSentinel - Financial Wellness Platform
 User-agent: *
-Allow: /
 
-# Sitemap location
-Sitemap: https://spendsentinel.com/sitemap.xml
-
-# Allow crawling of important pages
+# Block root path to force locale-specific URLs
+Disallow: /
+# Allow specific locale paths
 Allow: /en/
 Allow: /cs/
 Allow: /uk/
 Allow: /ru/
-Allow: /self-assessment
-Allow: /daily-checkin
-Allow: /parts-journal
-Allow: /expense-highlighter
-Allow: /blog
+
+# Allow important pages with proper locale structure
+Allow: /en/self-assessment
+Allow: /en/daily-checkin
+Allow: /en/parts-journal
+Allow: /en/expense-highlighter
 Allow: /en/blog/
+Allow: /en/privacy-policy
+Allow: /en/terms-of-service
+Allow: /en/feedback
+
+Allow: /cs/self-assessment
+Allow: /cs/daily-checkin
+Allow: /cs/parts-journal
+Allow: /cs/expense-highlighter
 Allow: /cs/blog/
+Allow: /cs/privacy-policy
+Allow: /cs/terms-of-service
+Allow: /cs/feedback
+
+Allow: /uk/self-assessment
+Allow: /uk/daily-checkin
+Allow: /uk/parts-journal
+Allow: /uk/expense-highlighter
 Allow: /uk/blog/
+Allow: /uk/privacy-policy
+Allow: /uk/terms-of-service
+Allow: /uk/feedback
+
+Allow: /ru/self-assessment
+Allow: /ru/daily-checkin
+Allow: /ru/parts-journal
+Allow: /ru/expense-highlighter
 Allow: /ru/blog/
-Allow: /privacy-policy
-Allow: /terms-of-service
-Allow: /feedback
+Allow: /ru/privacy-policy
+Allow: /ru/terms-of-service
+Allow: /ru/feedback
 
 # Block access to API routes and internal paths
 Disallow: /api/
 Disallow: /_next/
 Disallow: /admin/
-Disallow: /*.json$
+
+# Allow essential SEO and PWA files
+Allow: /favicon.ico
+Allow: /manifest.json
+Allow: /robots.txt
+Allow: /sitemap.xml
+
+# Allow all image files
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.png$
+Allow: /*.svg$
+Allow: /*.webp$
+Allow: /*.gif$
+
+# Allow static assets
+Allow: /images/
+Allow: /blog/
+
+# Sitemap location
+Sitemap: https://spendsentinel.com/sitemap.xml
 
 # Crawl delay (be respectful)
 Crawl-delay: 1 

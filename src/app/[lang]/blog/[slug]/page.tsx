@@ -109,11 +109,11 @@ const mdxComponents = {
   ImagePlaceholder,
   CTABox,
   NewsletterBox,
-  // Core HTML elements with proper styling
-  h1: (props: any) => <h1 className="text-3xl font-bold mb-6 mt-8 text-foreground" {...props} />,
-  h2: (props: any) => <h2 className="text-2xl font-bold mb-4 mt-8 text-foreground" {...props} />,
-  h3: (props: any) => <h3 className="text-xl font-semibold mb-3 mt-6 text-foreground" {...props} />,
-  h4: (props: any) => <h4 className="text-lg font-semibold mb-2 mt-4 text-foreground" {...props} />,
+  // Core HTML elements with proper styling - H1 in MDX content should be H2 since page already has H1
+  h1: (props: any) => <h2 className="text-2xl font-bold mb-6 mt-8 text-foreground" {...props} />,
+  h2: (props: any) => <h3 className="text-xl font-semibold mb-4 mt-6 text-foreground" {...props} />,
+  h3: (props: any) => <h4 className="text-lg font-semibold mb-3 mt-4 text-foreground" {...props} />,
+  h4: (props: any) => <h5 className="text-base font-semibold mb-2 mt-3 text-foreground" {...props} />,
   p: (props: any) => <p className="mb-4 leading-relaxed text-foreground" {...props} />,
   div: (props: any) => <div {...props} />,
   span: (props: any) => <span {...props} />,

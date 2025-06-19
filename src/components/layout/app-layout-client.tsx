@@ -12,6 +12,7 @@ import {
   SidebarMenuButton,
   SidebarTrigger,
   SidebarInset,
+  SidebarRail,
   useSidebar,
 } from "@/components/ui/sidebar";
 import { Button } from '@/components/ui/button';
@@ -53,23 +54,33 @@ export function AppLayoutClient({ children }: { children: ReactNode }) {
     <>
       <Sidebar collapsible="icon" className="border-r">
         <SidebarHeader className="p-4">
-          <Link 
-            href={`${localePrefix}/`} 
-            className="flex items-center gap-2" 
-            onClick={() => handleNavClickWithTracking(t('common.appName'))}
-          >
-            <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full bg-primary/20 hover:bg-primary/30">
-            <Image 
-                src="/favicon.svg" 
-                alt={t('common.appName')} 
-                width={24} 
-                height={24}
-                className="h-full w-full object-contain"
-              />
-            </Button>
-            {!open && <span className="sr-only">{t('common.appName')}</span>}
-            {open && <span className="text-xl font-semibold text-primary">{t('common.appName')}</span>}
-          </Link>
+          {/* Expanded state: show app name/logo on left, trigger on right */}
+          <div className="flex items-center justify-between group-data-[collapsible=icon]:hidden">
+            <Link 
+              href={`${localePrefix}/`} 
+              className="flex items-center gap-2" 
+              onClick={() => handleNavClickWithTracking(t('common.appName'))}
+            >
+              <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full bg-primary/20 hover:bg-primary/30 shrink-0">
+                <Image 
+                  src="/favicon.svg" 
+                  alt={t('common.appName')} 
+                  width={24} 
+                  height={24}
+                  className="h-full w-full object-contain"
+                />
+              </Button>
+              <span className="text-xl font-semibold text-primary">
+                {t('common.appName')}
+              </span>
+            </Link>
+            <SidebarTrigger />
+          </div>
+          
+          {/* Collapsed state: show only centered trigger button */}
+          <div className="hidden group-data-[collapsible=icon]:flex items-center justify-center">
+            <SidebarTrigger />
+          </div>
         </SidebarHeader>
         <SidebarContent>
           <ScrollArea className="h-full">
@@ -108,11 +119,11 @@ export function AppLayoutClient({ children }: { children: ReactNode }) {
             </SidebarMenu>
           </ScrollArea>
         </SidebarContent>
+        <SidebarRail />
       </Sidebar>
 
       <SidebarInset className="flex flex-col min-h-screen">
         <header className="sticky top-0 z-10 flex h-14 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sm:h-16 sm:px-6">
-          <SidebarTrigger className="md:hidden" />
           {/* TODO: Add page title or breadcrumbs here if needed */}
           <div className="flex-1">
             {/* Page specific header content could go here, e.g. using a portal or context */}

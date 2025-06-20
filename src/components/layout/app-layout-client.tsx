@@ -29,7 +29,7 @@ import { useAnalyticsContext } from '@/contexts/analytics-context';
 export function AppLayoutClient({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const { isPanicActive } = usePanicMode();
-  const { open, isMobile, setOpenMobile } = useSidebar();
+  const { open, isMobile, openMobile, setOpenMobile } = useSidebar();
   const { t, locale } = useI18n();
   const { trackUserInteraction } = useAnalyticsContext();
   
@@ -124,6 +124,11 @@ export function AppLayoutClient({ children }: { children: ReactNode }) {
 
       <SidebarInset className="flex flex-col min-h-screen">
         <header className="sticky top-0 z-10 flex h-14 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm sm:h-16 sm:px-6">
+          {/* Mobile sidebar trigger - only visible on mobile when sidebar is not open */}
+          {isMobile && !openMobile && (
+            <SidebarTrigger className="md:hidden flex-shrink-0" />
+          )}
+          
           {/* TODO: Add page title or breadcrumbs here if needed */}
           <div className="flex-1">
             {/* Page specific header content could go here, e.g. using a portal or context */}

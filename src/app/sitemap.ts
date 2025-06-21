@@ -4,6 +4,7 @@ import { SITE_CONFIG } from '@/lib/seo/meta-config'
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = SITE_CONFIG.domain
   const supportedLocales = SITE_CONFIG.supportedLocales
+  const defaultLocale = 'en'
   
   // Define all pages that should be included in sitemap
   const pages = [
@@ -31,6 +32,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
         const altUrl = `${baseUrl}/${altLocale}${page}`
         alternates[altLocale] = altUrl
       })
+      
+      // Add x-default pointing to the default locale (English)
+      alternates['x-default'] = `${baseUrl}/${defaultLocale}${page}`
 
       sitemap.push({
         url,
@@ -53,9 +57,9 @@ function getPriority(page: string): number {
       return 1.0
     case '/self-assessment':
     case '/daily-checkin':
-      return 0.9
+      return 0.5
     case '/blog':
-      return 0.85
+      return 0.9
     case '/parts-journal':
     case '/expense-highlighter':
       return 0.8

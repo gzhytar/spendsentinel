@@ -1,55 +1,19 @@
 # SpendSentinel - Financial Wellness Platform
 User-agent: *
 
-# Block root path to force locale-specific URLs
-Disallow: /
-# Allow specific locale paths
-Allow: /en/
-Allow: /cs/
-Allow: /uk/
-Allow: /ru/
-
-# Allow important pages with proper locale structure
-Allow: /en/self-assessment
-Allow: /en/daily-checkin
-Allow: /en/parts-journal
-Allow: /en/expense-highlighter
-Allow: /en/blog/
-Allow: /en/privacy-policy
-Allow: /en/terms-of-service
-Allow: /en/feedback
-
-Allow: /cs/self-assessment
-Allow: /cs/daily-checkin
-Allow: /cs/parts-journal
-Allow: /cs/expense-highlighter
-Allow: /cs/blog/
-Allow: /cs/privacy-policy
-Allow: /cs/terms-of-service
-Allow: /cs/feedback
-
-Allow: /uk/self-assessment
-Allow: /uk/daily-checkin
-Allow: /uk/parts-journal
-Allow: /uk/expense-highlighter
-Allow: /uk/blog/
-Allow: /uk/privacy-policy
-Allow: /uk/terms-of-service
-Allow: /uk/feedback
-
-Allow: /ru/self-assessment
-Allow: /ru/daily-checkin
-Allow: /ru/parts-journal
-Allow: /ru/expense-highlighter
-Allow: /ru/blog/
-Allow: /ru/privacy-policy
-Allow: /ru/terms-of-service
-Allow: /ru/feedback
+# Allow all content by default - locale routing handled by middleware
+Allow: /
 
 # Block access to API routes and internal paths
 Disallow: /api/
 Disallow: /_next/
 Disallow: /admin/
+
+# Block search and filtering parameters to prevent duplicate content
+Disallow: /*?*sort=*
+Disallow: /*?*filter=*
+Disallow: /*?*search=*
+Disallow: /*?*utm_*
 
 # Allow essential SEO and PWA files
 Allow: /favicon.ico
@@ -57,20 +21,26 @@ Allow: /manifest.json
 Allow: /robots.txt
 Allow: /sitemap.xml
 
-# Allow all image files
+# Allow all image files and static assets
 Allow: /*.jpg$
 Allow: /*.jpeg$
 Allow: /*.png$
 Allow: /*.svg$
 Allow: /*.webp$
 Allow: /*.gif$
-
-# Allow static assets
 Allow: /images/
-Allow: /blog/
+
+# Allow all locale-specific content (handled by middleware)
+Allow: /en/
+Allow: /cs/
+Allow: /uk/
+Allow: /ru/
+
+# Allow blog content
+Allow: /*/blog/
 
 # Sitemap location
 Sitemap: https://spendsentinel.com/sitemap.xml
 
-# Crawl delay (be respectful)
+# Crawl delay (be respectful) - Note: Google doesn't support this
 Crawl-delay: 1 

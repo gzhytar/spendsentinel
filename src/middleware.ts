@@ -31,15 +31,16 @@ export function middleware(request: NextRequest) {
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
     const locale = getLocale(request)
+    const newUrl = `/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`
 
-    // e.g. incoming request is /products
-    // The new URL is now /en/products
-    return NextResponse.redirect(
-      new URL(
-        `/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`,
-        request.url
-      )
-    )
+    // Use 301 (permanent) redirect for root path, 302 (temporary) for others
+    // This signals to search engines that the root should always redirect to locale
+    if (pathname === '/') {
+      return NextResponse.redirect(new URL(newUrl, request.url), 301)
+    }
+
+    // For other paths, use 302 (temporary) redirect since the redirect depends on user's language preference
+    return NextResponse.redirect(new URL(newUrl, request.url))
   }
 }
 

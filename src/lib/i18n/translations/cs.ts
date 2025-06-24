@@ -629,7 +629,17 @@ export const cs = {
     disclaimerLabel: 'Upozornění',
     disclaimer: 'SpendSentinel je nástroj pro digitální wellness a nenahrazuje profesionální finanční poradenství nebo léčbu duševního zdraví. Pokud prožíváte krizi duševního zdraví, kontaktujte prosím místní záchranné služby nebo odborníka na duševní zdraví.',
     supportMessage: 'Pomozte nám pokračovat v poskytování soucitných nástrojů pro finanční wellness pro všechny.',
-    supportButton: 'Podpořte naši misi'
+    supportButton: 'Podpořte naši misi',
+    social: {
+      title: 'Sdílejte SpendSentinel',
+      shareMessage: 'Transformujte svůj vztah k penězům pomocí AI finanční terapie. Podívejte se na SpendSentinel - trauma-informovaný přístup k finanční pohodě!',
+      shareDescription: 'Pomozte ostatním objevit zdravější vztahy s penězi sdílením SpendSentinel na vašich sociálních sítích.',
+      twitter: 'Sdílet na Twitter/X',
+      bluesky: 'Sdílet na Bluesky',
+      facebook: 'Sdílet na Facebook',
+      linkedin: 'Sdílet na LinkedIn',
+      instagram: 'Sdílet na Instagram'
+    }
   },
 
   support: {

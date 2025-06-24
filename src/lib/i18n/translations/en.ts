@@ -779,7 +779,17 @@ export const en = {
     disclaimerLabel: 'Disclaimer',
     disclaimer: 'SpendSentinel is a digital wellness tool and does not replace professional financial advice or mental health treatment. If you\'re experiencing a mental health crisis, please contact your local emergency services or a mental health professional.',
     supportMessage: 'Help us continue providing compassionate financial wellness tools for everyone.',
-    supportButton: 'Support Our Mission'
+    supportButton: 'Support Our Mission',
+    social: {
+      title: 'Share SpendSentinel',
+      shareMessage: 'Transform your relationship with money using AI-powered financial therapy. Check out SpendSentinel - a trauma-informed approach to financial wellness!',
+      shareDescription: 'Help others discover healthier relationships with money by sharing SpendSentinel on your social networks.',
+      twitter: 'Share on Twitter/X',
+      bluesky: 'Share on Bluesky',
+      facebook: 'Share on Facebook',
+      linkedin: 'Share on LinkedIn',
+      instagram: 'Share on Instagram'
+    }
   },
 
   support: {

@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useI18n } from '@/contexts/i18n-context';
 import { Card } from '@/components/ui/card';
-import { Calendar, Heart } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 import { StreakMessage } from './StreakMessage';
 
 interface CheckinTimelineProps {

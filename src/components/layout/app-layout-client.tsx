@@ -29,7 +29,7 @@ import { useAnalyticsContext } from '@/contexts/analytics-context';
 export function AppLayoutClient({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const { isPanicActive } = usePanicMode();
-  const { open, isMobile, openMobile, setOpenMobile } = useSidebar();
+  const { isMobile, openMobile, setOpenMobile } = useSidebar();
   const { t, locale } = useI18n();
   const { trackUserInteraction } = useAnalyticsContext();
   

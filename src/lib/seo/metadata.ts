@@ -7,7 +7,7 @@ import { generateSEOConfig, SITE_CONFIG } from './meta-config';
 export function generateMetadata(
   pathname: string,
   locale: string = 'en',
-  customData?: any
+  customData?: Record<string, unknown>
 ): Metadata {
   const seoConfig = generateSEOConfig(pathname, locale, customData);
 
@@ -104,13 +104,13 @@ export function generateStructuredData(pathname: string, locale: string = 'en') 
   };
 
   // Page-specific schemas
-  const pageSchemas: Record<string, any> = {
+  const pageSchemas: Record<string, Record<string, unknown>> = {
     '/': {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
       name: seoConfig.title,
       description: seoConfig.description,
-      url: seoConfig.canonical,
+      url: seoConfig.canonical || SITE_CONFIG.domain,
       mainEntity: {
         '@type': 'WebApplication',
         name: SITE_CONFIG.name,
@@ -129,7 +129,7 @@ export function generateStructuredData(pathname: string, locale: string = 'en') 
       '@type': 'WebPage',
       name: seoConfig.title,
       description: seoConfig.description,
-      url: seoConfig.canonical,
+      url: seoConfig.canonical || SITE_CONFIG.domain,
       mainEntity: {
         '@type': 'Quiz',
         name: 'Financial Self-Assessment',
@@ -145,7 +145,7 @@ export function generateStructuredData(pathname: string, locale: string = 'en') 
       '@type': 'Blog',
       name: seoConfig.title,
       description: seoConfig.description,
-      url: seoConfig.canonical,
+      url: seoConfig.canonical || SITE_CONFIG.domain,
       author: {
         '@type': 'Organization',
         name: SITE_CONFIG.name,
@@ -164,7 +164,7 @@ export function generateStructuredData(pathname: string, locale: string = 'en') 
   };
 
   // Return combined structured data
-  const schemas = [organizationSchema, websiteSchema];
+  const schemas: Record<string, unknown>[] = [organizationSchema, websiteSchema];
   
   if (pageSchemas[pathname]) {
     schemas.push(pageSchemas[pathname]);

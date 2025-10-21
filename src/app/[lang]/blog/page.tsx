@@ -15,13 +15,13 @@ interface BlogPageProps {
 export default async function BlogPage({ params }: BlogPageProps) {
   const { lang } = await params;
   const locale = lang as keyof typeof translations;
-  const t = (key: string) => {
+  const t = (key: string): string => {
     const keys = key.split('.');
-    let current: any = translations[locale];
+    let current: unknown = translations[locale];
     for (const k of keys) {
-      current = current?.[k];
+      current = (current as Record<string, unknown>)?.[k];
     }
-    return current || key;
+    return (current as string) || key;
   };
 
   // Load blog posts on the server

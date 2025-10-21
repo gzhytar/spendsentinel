@@ -11,7 +11,7 @@ import { useI18n } from '@/contexts/i18n-context';
 import { useCurrency } from '@/hooks/use-currency';
 import { useBudget, type Budget } from '@/hooks/use-budget';
 import { useAnalyticsContext } from '@/contexts/analytics-context';
-import { trackOnboardingStepIfActive, ONBOARDING_FUNNEL_STEPS } from '@/lib/analytics-utils';
+import { trackOnboardingStepIfActive } from '@/lib/analytics-utils';
 
 interface BudgetManagementProps {
   budget: Budget;

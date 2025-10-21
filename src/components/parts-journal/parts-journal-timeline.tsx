@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useI18n } from '@/contexts/i18n-context';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -39,30 +39,48 @@ export function PartsJournalTimeline({ lang, selectedPartName }: PartsJournalTim
   const [sessions, setSessions] = useState<CompletedJournalSession[]>([]);
   const [expandedSummaryId, setExpandedSummaryId] = useState<string | null>(null);
 
-  // Helper function to check if a session matches the selected part
-  const isSessionForPart = (sessionPartName: string, selectedPartName: string): boolean => {
-    // Direct match
-    if (sessionPartName === selectedPartName) {
-      return true;
-    }
+  const loadSessions = useCallback(() => {
+    // Helper function to check if a session matches the selected part
+    const isSessionForPart = (sessionPartName: string, selectedPartName: string): boolean => {
+      // Direct match
+      if (sessionPartName === selectedPartName) {
+        return true;
+      }
 
-    // Create mapping of predefined types to handle ID vs display name mismatches
-    const firefighterTypes = createFirefighterTypeData(t);
+      // Create mapping of predefined types to handle ID vs display name mismatches
+      const firefighterTypes = createFirefighterTypeData(t);
+      
+      // Check if selectedPartName is a display name that maps to sessionPartName (internal ID)
+      const matchingType = firefighterTypes.find(type => type.title === selectedPartName && type.id === sessionPartName);
+      if (matchingType) {
+        return true;
+      }
+
+      // Check if sessionPartName is a display name that maps to selectedPartName (internal ID)
+      const reverseMatchingType = firefighterTypes.find(type => type.title === sessionPartName && type.id === selectedPartName);
+      if (reverseMatchingType) {
+        return true;
+      }
+
+      return false;
+    };
+
+    const completedSessions = JSON.parse(localStorage.getItem('completedPartsJournalSessions') || '[]');
     
-    // Check if selectedPartName is a display name that maps to sessionPartName (internal ID)
-    const matchingType = firefighterTypes.find(type => type.title === selectedPartName && type.id === sessionPartName);
-    if (matchingType) {
-      return true;
+    // Filter by selected part if provided, using flexible matching
+    let filteredSessions = completedSessions;
+    if (selectedPartName) {
+      filteredSessions = completedSessions.filter(
+        (session: CompletedJournalSession) => isSessionForPart(session.partName, selectedPartName)
+      );
     }
-
-    // Check if sessionPartName is a display name that maps to selectedPartName (internal ID)
-    const reverseMatchingType = firefighterTypes.find(type => type.title === sessionPartName && type.id === selectedPartName);
-    if (reverseMatchingType) {
-      return true;
-    }
-
-    return false;
-  };
+    
+    // Sort by completion time, newest first
+    const sortedSessions = filteredSessions.sort((a: CompletedJournalSession, b: CompletedJournalSession) => 
+      new Date(b.completionTime).getTime() - new Date(a.completionTime).getTime()
+    );
+    setSessions(sortedSessions);
+  }, [selectedPartName, t]);
 
   // Helper function to get the proper display name for a part
   const getDisplayName = (partName: string): string => {
@@ -88,25 +106,7 @@ export function PartsJournalTimeline({ lang, selectedPartName }: PartsJournalTim
     
     window.addEventListener('storage', handleStorageChange);
     return () => window.removeEventListener('storage', handleStorageChange);
-  }, [selectedPartName, t]);
-
-  const loadSessions = () => {
-    const completedSessions = JSON.parse(localStorage.getItem('completedPartsJournalSessions') || '[]');
-    
-    // Filter by selected part if provided, using flexible matching
-    let filteredSessions = completedSessions;
-    if (selectedPartName) {
-      filteredSessions = completedSessions.filter(
-        (session: CompletedJournalSession) => isSessionForPart(session.partName, selectedPartName)
-      );
-    }
-    
-    // Sort by completion time, newest first
-    const sortedSessions = filteredSessions.sort((a: CompletedJournalSession, b: CompletedJournalSession) => 
-      new Date(b.completionTime).getTime() - new Date(a.completionTime).getTime()
-    );
-    setSessions(sortedSessions);
-  };
+  }, [selectedPartName, t, loadSessions]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);

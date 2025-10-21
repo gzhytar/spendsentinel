@@ -1,5 +1,3 @@
-import { FirefighterTypeId } from '@/lib/assessment-utils';
-
 /**
  * Universal interface for both predefined and custom financial parts
  */

@@ -32,7 +32,7 @@ export function useOnboardingTracking() {
   
   // Return a function that takes a step name and optional additional data
   return useMemo(() => {
-    return (step: keyof typeof ONBOARDING_FUNNEL_STEPS, additionalData?: Record<string, any>) => {
+    return (step: keyof typeof ONBOARDING_FUNNEL_STEPS, additionalData?: Record<string, string | number | boolean>) => {
       return trackOnboardingStepIfActive(step, additionalData, trackEvent);
     };
   }, [trackEvent]);

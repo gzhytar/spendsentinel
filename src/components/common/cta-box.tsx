@@ -7,7 +7,7 @@ interface CTABoxProps {
   className?: string;
 }
 
-export function CTABox({ children, className = '' }: CTABoxProps) {
+export function CTABox({ className = '' }: CTABoxProps) {
   const pathname = usePathname();
   // Extract language from pathname (e.g., /en/blog/post -> en)
   const lang = pathname.split('/')[1];
@@ -18,7 +18,7 @@ export function CTABox({ children, className = '' }: CTABoxProps) {
     <div className={`bg-gradient-to-r from-purple-50 to-pink-50 p-6 rounded-lg border border-purple-200 my-8 ${className}`}>
       <div className="text-center space-y-4">
         <h2 className="text-2xl font-bold">Ready to put this into practice?</h2>
-        <p className="text-lg">Start your personalized financial wellness journey with SpendSentinel's compassionate tools.</p>
+        <p className="text-lg">Start your personalized financial wellness journey with SpendSentinel&apos;s compassionate tools.</p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a 
             href={`${basePath}/self-assessment`}

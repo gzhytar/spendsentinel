@@ -158,7 +158,7 @@ function shouldTrackPageView(
 function trackPageView(pathname: string, previousPath: string): void {
   if (!environmentConfig.shouldTrack) return;
   
-  const pageViewParameters: Record<string, any> = {
+  const pageViewParameters: Record<string, string | number | boolean> = {
     ...getDefaultEventParameters(),
     page_location: typeof window !== 'undefined' ? window.location.href : '',
     page_path: pathname,

@@ -10,7 +10,7 @@ interface FirefighterTypeContentProps {
 }
 
 export function FirefighterTypeContent({ currentPart, t }: FirefighterTypeContentProps) {
-  const { availableSections } = useSectionConfiguration(currentPart, t);
+  const { availableSections } = useSectionConfiguration(currentPart);
 
   if (availableSections.length === 0) {
     return null;

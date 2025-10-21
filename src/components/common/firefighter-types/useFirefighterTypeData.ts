@@ -19,7 +19,7 @@ interface UseFirefighterTypeDataReturn {
 
 export function useFirefighterTypeData(
   selectedType: string, 
-  t: (key: string) => any
+  t: (key: string) => string
 ): UseFirefighterTypeDataReturn {
   const firefighterTypes = useMemo(
     () => createFirefighterTypeData(t) as FirefighterType[], 

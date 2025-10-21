@@ -110,41 +110,41 @@ const mdxComponents = {
   CTABox,
   NewsletterBox,
   // Core HTML elements with proper styling - H1 in MDX content should be H2 since page already has H1
-  h1: (props: any) => <h2 className="text-2xl font-bold mb-6 mt-8 text-foreground" {...props} />,
-  h2: (props: any) => <h3 className="text-xl font-semibold mb-4 mt-6 text-foreground" {...props} />,
-  h3: (props: any) => <h4 className="text-lg font-semibold mb-3 mt-4 text-foreground" {...props} />,
-  h4: (props: any) => <h5 className="text-base font-semibold mb-2 mt-3 text-foreground" {...props} />,
-  p: (props: any) => <p className="mb-4 leading-relaxed text-foreground" {...props} />,
-  div: (props: any) => <div {...props} />,
-  span: (props: any) => <span {...props} />,
-  ul: (props: any) => <ul className="mb-4 space-y-2 pl-6" {...props} />,
-  ol: (props: any) => <ol className="mb-4 space-y-2 list-decimal list-inside pl-6" {...props} />,
-  li: (props: any) => <li className="leading-relaxed text-foreground" {...props} />,
-  blockquote: (props: any) => (
+  h1: (props: React.HTMLAttributes<HTMLHeadingElement>) => <h2 className="text-2xl font-bold mb-6 mt-8 text-foreground" {...props} />,
+  h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => <h3 className="text-xl font-semibold mb-4 mt-6 text-foreground" {...props} />,
+  h3: (props: React.HTMLAttributes<HTMLHeadingElement>) => <h4 className="text-lg font-semibold mb-3 mt-4 text-foreground" {...props} />,
+  h4: (props: React.HTMLAttributes<HTMLHeadingElement>) => <h5 className="text-base font-semibold mb-2 mt-3 text-foreground" {...props} />,
+  p: (props: React.HTMLAttributes<HTMLParagraphElement>) => <p className="mb-4 leading-relaxed text-foreground" {...props} />,
+  div: (props: React.HTMLAttributes<HTMLDivElement>) => <div {...props} />,
+  span: (props: React.HTMLAttributes<HTMLSpanElement>) => <span {...props} />,
+  ul: (props: React.HTMLAttributes<HTMLUListElement>) => <ul className="mb-4 space-y-2 pl-6" {...props} />,
+  ol: (props: React.HTMLAttributes<HTMLOListElement>) => <ol className="mb-4 space-y-2 list-decimal list-inside pl-6" {...props} />,
+  li: (props: React.HTMLAttributes<HTMLLIElement>) => <li className="leading-relaxed text-foreground" {...props} />,
+  blockquote: (props: React.HTMLAttributes<HTMLQuoteElement>) => (
     <blockquote className="border-l-4 border-primary pl-4 italic text-muted-foreground my-6" {...props} />
   ),
-  strong: (props: any) => <strong className="font-semibold text-foreground" {...props} />,
-  a: (props: any) => (
+  strong: (props: React.HTMLAttributes<HTMLElement>) => <strong className="font-semibold text-foreground" {...props} />,
+  a: (props: React.HTMLAttributes<HTMLAnchorElement>) => (
     <a className="text-primary hover:text-primary/80 underline transition-colors" {...props} />
   ),
-  img: (props: any) => (
+  img: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
     <NextImage 
       {...props} 
-      width={props.width || 800} 
-      height={props.height || 400} 
+      width={typeof props.width === 'number' ? props.width : 800} 
+      height={typeof props.height === 'number' ? props.height : 400} 
       className={`rounded-lg my-6 ${props.className || ''}`}
       alt={props.alt || ''}
-      src={props.src?.startsWith('/') ? props.src : `/${props.src}`}
+      src={typeof props.src === 'string' && props.src.startsWith('/') ? props.src : `/${props.src}`}
     />
   ),
-  Image: (props: any) => (
+  Image: (props: React.ImgHTMLAttributes<HTMLImageElement>) => (
     <NextImage 
       {...props} 
-      width={props.width || 800} 
-      height={props.height || 400} 
+      width={typeof props.width === 'number' ? props.width : 800} 
+      height={typeof props.height === 'number' ? props.height : 400} 
       className={`rounded-lg my-6 ${props.className || ''}`}
       alt={props.alt || ''}
-      src={props.src?.startsWith('/') ? props.src : `/${props.src}`}
+      src={typeof props.src === 'string' && props.src.startsWith('/') ? props.src : `/${props.src}`}
     />
   ),
 };
@@ -152,13 +152,13 @@ const mdxComponents = {
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { lang, slug } = await params;
   const locale = lang as keyof typeof translations;
-  const t = (key: string) => {
+  const t = (key: string): string => {
     const keys = key.split('.');
-    let current: any = translations[locale];
+    let current: unknown = translations[locale];
     for (const k of keys) {
-      current = current?.[k];
+      current = (current as Record<string, unknown>)?.[k];
     }
-    return current || key;
+    return (current as string) || key;
   };
 
   // Load blog post and related posts on the server
@@ -185,7 +185,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const homeUrl = `${baseUrl}${locale !== 'en' ? `/${locale}` : ''}`;
 
   // Breadcrumb items for structured data
-  const breadcrumbItems = [
+  const breadcrumbItems: Array<{ name: string; url: string }> = [
     { name: 'Home', url: homeUrl },
     { name: t('blog.title'), url: blogListUrl },
     { name: post.title, url: blogUrl },

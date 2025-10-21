@@ -3,13 +3,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { Loader2, RotateCcw, Search, ArrowRight } from 'lucide-react';
+import { Loader2, Search } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useI18n } from '@/contexts/i18n-context';
-import { identificationResultToUniversalPart, enhancePartWithResolution } from '@/components/common/firefighter-types/adapters';
 import type { AssessmentState } from '../hooks/useAssessmentState';
-import type { IdentifyIFSPartOutput } from '@/ai/flows/ifs-part-identification';
-import type { IFSPartResolutionOutput } from '@/ai/flows/ifs-part-resolution';
 
 interface DeepAssessmentSectionProps {
   assessmentState: AssessmentState;
@@ -26,17 +23,14 @@ interface FormErrors {
 }
 
 export function DeepAssessmentSection({ assessmentState }: DeepAssessmentSectionProps) {
-  const { t, locale } = useI18n();
+  const { t } = useI18n();
   
   const {
     showIdentifyForm,
     identificationResult,
     resolutionResult,
     isLoadingIdentify,
-    isLoadingResolve,
     submitIdentification,
-    resetIdentification,
-    resolvePart,
     error,
   } = assessmentState;
 
@@ -75,15 +69,6 @@ export function DeepAssessmentSection({ assessmentState }: DeepAssessmentSection
     if (!validateForm()) return;
     
     await submitIdentification(formData);
-  };
-
-  const handleReset = () => {
-    setFormData({
-      financialSituation: '',
-      recentFinancialBehavior: '',
-    });
-    setFormErrors({});
-    resetIdentification();
   };
 
   const determineCurrentView = () => {

@@ -9,7 +9,7 @@ import {
 
 interface UseUniversalPartDataProps {
   selectedPartId: string;
-  t: (key: string) => any;
+  t: (key: string) => string;
   customParts?: UniversalPart[];
   config?: PartDisplayConfig;
 }

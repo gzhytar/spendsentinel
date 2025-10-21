@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import Script from 'next/script';
 import { MessageSquare, ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -36,7 +36,7 @@ export default function FeedbackPage() {
   };
 
   // Function to check if Tally is available and initialize
-  const checkAndInitializeTally = (retryCount = 0) => {
+  const checkAndInitializeTally = useCallback((retryCount = 0) => {
     if (typeof window !== 'undefined') {
       if (window.Tally) {
         initializeTallyEmbed();
@@ -47,7 +47,7 @@ export default function FeedbackPage() {
         console.warn('Tally script failed to load after 3 seconds');
       }
     }
-  };
+  }, []);
 
   // Effect to handle initialization on component mount
   useEffect(() => {
@@ -61,7 +61,7 @@ export default function FeedbackPage() {
     return () => {
       embedInitializedRef.current = false;
     };
-  }, []);
+  }, [checkAndInitializeTally]);
 
   // Handle script load
   const handleScriptLoad = () => {

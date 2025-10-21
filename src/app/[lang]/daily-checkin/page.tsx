@@ -2,12 +2,12 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useI18n } from '@/contexts/i18n-context';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Label } from '@/components/ui/label';
 import { PanicButton } from '@/components/common/panic-button';
-import { Calendar, ShieldAlert, Heart, Sparkles, Coffee, X, ArrowRight, DollarSign, Eye, Calculator, PlusCircle } from 'lucide-react';
+import { Calendar, ShieldAlert, Heart, Sparkles, Coffee } from 'lucide-react';
 import Image from 'next/image';
 import { CheckinTimeline } from '@/components/daily-checkin';
 import { AddExpenseForm, type Expense } from '@/components/ui/add-expense-form';

@@ -51,7 +51,6 @@ export function SocialShareButtons({ articleTitle, articleUrl, className = '' }:
   const { t } = useI18n();
   const [copied, setCopied] = useState(false);
   
-  const encodedTitle = encodeURIComponent(articleTitle);
   const encodedUrl = encodeURIComponent(articleUrl);
   const shareText = encodeURIComponent(`${articleTitle} - Check out this insightful article on financial wellness!`);
 

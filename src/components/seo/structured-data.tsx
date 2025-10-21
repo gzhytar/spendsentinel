@@ -32,11 +32,9 @@ export function StructuredData({ pathname, locale = 'en' }: StructuredDataProps)
  * Enhanced structured data component for FAQ pages
  */
 export function FAQStructuredData({ 
-  faqs, 
-  locale = 'en' 
+  faqs
 }: { 
   faqs: Array<{ question: string; answer: string }>; 
-  locale?: string; 
 }) {
   const faqSchema = {
     '@context': 'https://schema.org',

@@ -29,7 +29,11 @@ export default function SelfAssessmentPage() {
   const { t, locale } = useI18n();
   const assessmentState = useAssessmentState();
   const { trackAssessmentStart, trackDailyCheckinStart, trackPartsSessionStart } = useAssessmentTracking();
-  const [partsDisplayData, setPartsDisplayData] = useState<any>(null);
+  const [partsDisplayData, setPartsDisplayData] = useState<{
+    part: UniversalPart;
+    type: 'quiz' | 'deep-assessment';
+    partName: string;
+  } | null>(null);
   const [selectedPart, setSelectedPart] = useState<UniversalPart | null>(null);
   const [isClient, setIsClient] = useState(false);
 
@@ -55,6 +59,8 @@ export default function SelfAssessmentPage() {
 
       const predefinedTypes = createFirefighterTypeData(t);
       const universalPart = unifiedResultToUniversalPart(latestResult, predefinedTypes);
+      
+      if (!universalPart) return null;
       
       return {
         part: universalPart,
@@ -117,10 +123,6 @@ export default function SelfAssessmentPage() {
     
     trackPartsSessionStart();
     window.location.href = `/${locale}/parts-journal${partName ? `?part=${encodeURIComponent(partName)}` : ''}`;
-  };
-
-  const handleExpenseTracking = () => {
-    window.location.href = `/${locale}/expense-highlighter`;
   };
 
   return (

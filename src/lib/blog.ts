@@ -45,7 +45,7 @@ export async function getBlogPosts(locale: Locale = 'en'): Promise<BlogPostMetad
     const slug = filename.replace(/\.mdx$/, '');
     const filePath = path.join(localeDirectory, filename);
     const fileContents = fs.readFileSync(filePath, 'utf8');
-    const { data, content } = matter(fileContents);
+    const { data } = matter(fileContents);
     
     return {
       slug,

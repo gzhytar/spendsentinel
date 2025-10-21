@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, use } from 'react';
 import { useI18n } from '@/contexts/i18n-context';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -12,8 +12,6 @@ import { SafeEnvironmentStep } from '@/components/parts-journal/safe-environment
 import { FindFocusStep } from '@/components/parts-journal/find-focus-step';
 import { CuriousDialogueStep } from '@/components/parts-journal/curious-dialogue-step';
 import { AppreciateLogStep } from '@/components/parts-journal/appreciate-log-step';
-import { useIdentifiedParts } from '@/lib/assessment-utils';
-import { use } from 'react';
 import { useOnboardingTracking } from '@/hooks/use-onboarding-tracking';
 
 interface PartsJournalProps {
@@ -44,7 +42,6 @@ export default function PartsJournal({ params }: PartsJournalProps) {
   const [selectedPart, setSelectedPart] = useState<string>('');
   const containerRef = useRef<HTMLDivElement>(null);
   
-  const userParts = useIdentifiedParts();
   
   const [journalContent, setJournalContent] = useState<JournalContent>({
     step1: '',

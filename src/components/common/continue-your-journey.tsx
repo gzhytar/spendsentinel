@@ -8,12 +8,12 @@ import { Label } from '@/components/ui/label';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ArrowRight, Calendar, Eye, Calculator, DollarSign } from 'lucide-react';
 import { useI18n } from '@/contexts/i18n-context';
-import { useBudget, Budget } from '@/hooks/use-budget';
+import { useBudget } from '@/hooks/use-budget';
 import { useJourneyNavigation } from '@/hooks/use-journey-navigation';
 import { BudgetManagement } from '@/components/ui/budget-management';
 import { VisionBoardItem } from '@/types';
 import { useAnalyticsContext } from '@/contexts/analytics-context';
-import { trackOnboardingStepIfActive, ONBOARDING_FUNNEL_STEPS } from '@/lib/analytics-utils';
+import { trackOnboardingStepIfActive } from '@/lib/analytics-utils';
 
 interface ContinueYourJourneyProps {
   lang: string;

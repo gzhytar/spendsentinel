@@ -18,8 +18,7 @@ interface UseSectionConfigurationReturn {
 }
 
 export function useSectionConfiguration(
-  currentPart: UniversalPart,
-  t: (key: string) => string
+  currentPart: UniversalPart
 ): UseSectionConfigurationReturn {
   const sections = useMemo(() => {
     const baseSections: SectionConfig[] = [

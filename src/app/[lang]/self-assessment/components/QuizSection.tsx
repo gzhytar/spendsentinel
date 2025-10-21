@@ -20,8 +20,6 @@ export function QuizSection({ assessmentState }: QuizSectionProps) {
     cancelQuiz,
     completeQuiz,
     suggestDeepAssessment,
-    showQuizResult,
-    quizResult,
   } = assessmentState;
 
   const handleQuizComplete = (result: string) => {

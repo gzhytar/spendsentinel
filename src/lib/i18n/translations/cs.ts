@@ -41,7 +41,7 @@ export const cs = {
       analyticsFeature1: 'Sledování používání funkcí pro zlepšení funkcionality',
       analyticsFeature2: 'Sledování výkonu a chybovosti',
       analyticsFeature3: 'Porozumění uživatelským cestám pro lepší UX',
-      analyticsProvider: 'Poháněno Firebase Analytics (Google)',
+      analyticsProvider: 'Poháněno Vercel Analytics',
       preferencesDetails: 'Preferenční a nastavovací cookies',
       preferencesFeature1: 'Pamatovat si volbu jazyka',
       preferencesFeature2: 'Uložit měnu a preference zobrazení',

@@ -19,7 +19,8 @@ export function LanguageSwitcher() {
   const { currency, setCurrency, getCurrencySymbol } = usePreferences();
 
   return (
-    <DropdownMenu>
+    <div suppressHydrationWarning>
+      <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="sm" aria-label="Change language and currency" className="gap-2">
           <Globe className="h-4 w-4" />
@@ -62,5 +63,6 @@ export function LanguageSwitcher() {
         })}
       </DropdownMenuContent>
     </DropdownMenu>
+    </div>
   );
 } 

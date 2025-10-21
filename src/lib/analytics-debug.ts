@@ -1,20 +1,55 @@
-import { environmentConfig } from '@/app/firebase';
-
-/**
- * Analytics Debug Utility
- * Use this to test and validate your analytics configuration
- */
-
+// Simple environment debug utility for Vercel Analytics
 export const analyticsDebug = {
   /**
    * Get current environment configuration
    */
   getEnvironmentInfo: () => {
+    if (typeof window === 'undefined') {
+      return {
+        environment: 'server',
+        traffic_type: 'server',
+        shouldTrack: false,
+        currentUrl: 'server-side',
+        hostname: 'server-side',
+        port: 'server-side',
+      };
+    }
+
+    const hostname = window.location.hostname;
+    const port = window.location.port;
+    
+    // Check for specific testing environment
+    if (hostname === 'localhost' && port === '9002') {
+      return {
+        environment: 'testing',
+        traffic_type: 'testing',
+        shouldTrack: false,
+        currentUrl: window.location.href,
+        hostname,
+        port,
+      };
+    }
+    
+    // Check for other local development
+    if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname.includes('local')) {
+      return {
+        environment: 'staging',
+        traffic_type: 'staging',
+        shouldTrack: true,
+        currentUrl: window.location.href,
+        hostname,
+        port,
+      };
+    }
+    
+    // Production environment
     return {
-      ...environmentConfig,
-      currentUrl: typeof window !== 'undefined' ? window.location.href : 'server-side',
-      hostname: typeof window !== 'undefined' ? window.location.hostname : 'server-side',
-      port: typeof window !== 'undefined' ? window.location.port : 'server-side',
+      environment: 'production',
+      traffic_type: 'production',
+      shouldTrack: true,
+      currentUrl: window.location.href,
+      hostname,
+      port,
     };
   },
 
@@ -38,14 +73,14 @@ export const analyticsDebug = {
    * Test if current environment should track analytics
    */
   shouldTrackInCurrentEnvironment: () => {
-    return environmentConfig.shouldTrack;
+    return analyticsDebug.getEnvironmentInfo().shouldTrack;
   },
 
   /**
    * Get the traffic type for current environment
    */
   getCurrentTrafficType: () => {
-    return environmentConfig.traffic_type;
+    return analyticsDebug.getEnvironmentInfo().traffic_type;
   },
 
   /**
@@ -53,9 +88,10 @@ export const analyticsDebug = {
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   simulateEventParameters: (customParams: Record<string, any> = {}) => {
+    const info = analyticsDebug.getEnvironmentInfo();
     const defaultParams = {
-      traffic_type: environmentConfig.traffic_type,
-      environment: environmentConfig.environment,
+      traffic_type: info.traffic_type,
+      environment: info.environment,
       event_timestamp: new Date().toISOString(),
     };
 
@@ -75,4 +111,4 @@ export const analyticsDebug = {
 };
 
 // Export for use in components
-export default analyticsDebug; 
+export default analyticsDebug;

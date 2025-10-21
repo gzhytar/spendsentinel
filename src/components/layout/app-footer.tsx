@@ -50,7 +50,8 @@ function SocialMediaSection() {
   const { t, locale } = useI18n();
   
   // Create a shareable message and URL for the app
-  const appUrl = typeof window !== 'undefined' ? window.location.origin + `/${locale}` : 'https://spendsentinel.com';
+  // Use a consistent URL to avoid hydration mismatch
+  const appUrl = `https://spendsentinel.com/${locale}`;
   const shareMessage = encodeURIComponent(t('footer.social.shareMessage'));
   const encodedUrl = encodeURIComponent(appUrl);
   

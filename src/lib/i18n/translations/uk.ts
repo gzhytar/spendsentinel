@@ -41,7 +41,7 @@ export const uk = {
       analyticsFeature1: 'Відстеження використання функцій для покращення функціональності',
       analyticsFeature2: 'Моніторинг продуктивності та частоти помилок',
       analyticsFeature3: 'Розуміння користувацьких шляхів для кращого UX',
-      analyticsProvider: 'Працює на Firebase Analytics (Google)',
+      analyticsProvider: 'Працює на Vercel Analytics',
       preferencesDetails: 'Файли cookie уподобань та налаштувань',
       preferencesFeature1: 'Запам\'ятовування вибору мови',
       preferencesFeature2: 'Збереження валюти та уподобань відображення',

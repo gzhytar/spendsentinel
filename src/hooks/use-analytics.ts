@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
-import { getAnalyticsInstance, environmentConfig } from '@/app/firebase';
-import { logEvent, Analytics } from 'firebase/analytics';
+import { track } from '@vercel/analytics';
 
 // Types for better type safety
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -11,6 +10,48 @@ interface TrackingResult {
   success: boolean;
   queued: boolean;
 }
+
+// Environment configuration
+const getEnvironmentConfig = () => {
+  if (typeof window === 'undefined') {
+    return {
+      environment: 'server',
+      traffic_type: 'server',
+      shouldTrack: false
+    };
+  }
+
+  const hostname = window.location.hostname;
+  const port = window.location.port;
+  
+  // Check for specific testing environment
+  if (hostname === 'localhost' && port === '9002') {
+    return {
+      environment: 'testing',
+      traffic_type: 'testing',
+      shouldTrack: false // Don't track localhost:9002
+    };
+  }
+  
+  // Check for other local development
+  if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname.includes('local')) {
+    return {
+      environment: 'staging',
+      traffic_type: 'staging',
+      shouldTrack: true // Track other local environments for testing
+    };
+  }
+  
+  // Production environment
+  return {
+    environment: 'production',
+    traffic_type: 'production',
+    shouldTrack: true
+  };
+};
+
+// Export environment config for use in analytics
+export const environmentConfig = getEnvironmentConfig();
 
 // Default parameters that should be included with every event
 const getDefaultEventParameters = (): AnalyticsParameters => {
@@ -25,26 +66,25 @@ const getDefaultEventParameters = (): AnalyticsParameters => {
 export function useAnalytics() {
   const pathname = usePathname();
   const previousPath = useRef<string>('');
-  const [analytics, setAnalytics] = useState<Analytics | undefined>();
+  const [isReady, setIsReady] = useState<boolean>(false);
 
   // Initialize analytics
   useEffect(() => {
-    getAnalyticsInstance().then((analyticsInstance) => {
-      setAnalytics(analyticsInstance);
-      logAnalyticsStatus(analyticsInstance);
-    });
+    // Vercel Analytics is ready immediately
+    setIsReady(true);
+    logAnalyticsStatus();
   }, []);
 
   // Track page views
   useEffect(() => {
-    if (shouldTrackPageView(pathname, previousPath.current, analytics)) {
+    if (shouldTrackPageView(pathname, previousPath.current)) {
       setTimeout(() => {
-        trackPageView(analytics!, pathname, previousPath.current);
+        trackPageView(pathname, previousPath.current);
       }, 100);
       
       previousPath.current = pathname;
     }
-  }, [pathname, analytics]);
+  }, [pathname]);
 
   // Core tracking function - handles all analytics events (memoized)
   const trackAnalyticsEvent = useCallback((
@@ -58,21 +98,22 @@ export function useAnalytics() {
       return { success: false, queued: false };
     }
 
-    if (analytics) {
+    try {
       // Merge default parameters with custom parameters
       const eventParameters = {
         ...getDefaultEventParameters(),
         ...parameters,
       };
       
-      logEvent(analytics, eventName, eventParameters);
+      // Use Vercel Analytics track function
+      track(eventName, eventParameters);
       console.log(`✅ Analytics ${eventType} Sent:`, eventName, eventParameters);
       return { success: true, queued: false };
-    } else {
-      console.warn(`⚠️ Analytics not ready, queuing ${eventType}:`, eventName, parameters);
+    } catch (error) {
+      console.warn(`⚠️ Analytics tracking failed for ${eventType}:`, eventName, parameters, error);
       return { success: false, queued: true };
     }
-  }, [analytics]);
+  }, []);
 
   // Public API functions (memoized)
   const trackEvent = useCallback((eventName: string, parameters?: AnalyticsParameters) => {
@@ -94,43 +135,42 @@ export function useAnalytics() {
     trackEvent,
     trackUserInteraction,
     trackFeatureUsage,
-    isReady: !!analytics,
+    isReady,
     environment: environmentConfig.environment,
     shouldTrack: environmentConfig.shouldTrack,
-  }), [trackEvent, trackUserInteraction, trackFeatureUsage, analytics]);
+  }), [trackEvent, trackUserInteraction, trackFeatureUsage, isReady]);
 }
 
 // Helper functions
-function logAnalyticsStatus(analyticsInstance: Analytics | undefined): void {
-  if (analyticsInstance) {
-    console.log('Analytics ready for tracking');
-    console.log('Environment:', environmentConfig.environment);
-    console.log('Traffic type:', environmentConfig.traffic_type);
-  } else {
-    console.warn('Analytics not available');
-  }
+function logAnalyticsStatus(): void {
+  console.log('Vercel Analytics ready for tracking');
+  console.log('Environment:', environmentConfig.environment);
+  console.log('Traffic type:', environmentConfig.traffic_type);
 }
 
 function shouldTrackPageView(
   currentPath: string, 
-  previousPath: string, 
-  analytics: Analytics | undefined
+  previousPath: string
 ): boolean {
-  return !!(analytics && currentPath !== previousPath && environmentConfig.shouldTrack);
+  return !!(currentPath !== previousPath && environmentConfig.shouldTrack);
 }
 
-function trackPageView(analytics: Analytics, pathname: string, previousPath: string): void {
-  if (!analytics || !environmentConfig.shouldTrack) return;
+function trackPageView(pathname: string, previousPath: string): void {
+  if (!environmentConfig.shouldTrack) return;
   
-  const pageViewParameters = {
+  const pageViewParameters: Record<string, any> = {
     ...getDefaultEventParameters(),
-    page_location: window.location.href,
+    page_location: typeof window !== 'undefined' ? window.location.href : '',
     page_path: pathname,
-    page_title: document.title,
-    previous_page: previousPath || undefined,
+    page_title: typeof document !== 'undefined' ? document.title : '',
   };
   
-  logEvent(analytics, 'page_view', pageViewParameters);
+  // Only add previous_page if it exists
+  if (previousPath) {
+    pageViewParameters.previous_page = previousPath;
+  }
+  
+  track('page_view', pageViewParameters);
   console.log('Page view tracked:', pathname, pageViewParameters);
 }
 
@@ -156,4 +196,4 @@ function createFeatureEventData(
     feature_name: featureName,
     ...details,
   };
-} 
+}

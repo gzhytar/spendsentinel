@@ -30,13 +30,11 @@ This document outlines the analytics approach, design decisions, and implementat
 ```
 src/
 ├── hooks/
-│   └── use-analytics.ts           # Core analytics hook
+│   └── use-analytics.ts           # Core analytics hook with Vercel Analytics
 ├── contexts/
 │   └── analytics-context.tsx      # React context provider
-├── lib/
-│   └── analytics-utils.ts         # Utility functions and constants
-└── app/
-    └── firebase.ts               # Firebase Analytics configuration
+└── lib/
+    └── analytics-utils.ts         # Utility functions and constants
 ```
 
 ### Data Flow

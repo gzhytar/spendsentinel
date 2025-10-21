@@ -21,11 +21,15 @@ const nextConfig: NextConfig = {
   experimental: {
     parallelServerBuildTraces: true,
     parallelServerCompiles: true,
+    // Forward browser logs to the terminal for easier debugging
+    browserDebugInfoInTerminal: true
   },
   // Optimize middleware handling for our locale-based routing
   skipTrailingSlashRedirect: true,
   skipMiddlewareUrlNormalize: true,
   devIndicators: false,
+
+  
   
   // Redirect root path to ensure consistent URL structure
   async redirects() {

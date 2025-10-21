@@ -96,7 +96,7 @@ export function AnalyticsTest() {
           </Badge>
         </CardTitle>
         <CardDescription>
-          Test your GA4 analytics configuration and environment detection
+          Test your Vercel Analytics configuration and environment detection
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">

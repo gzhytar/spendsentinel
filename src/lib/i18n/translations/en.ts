@@ -41,7 +41,7 @@ export const en = {
       analyticsFeature1: 'Track feature usage to improve functionality',
       analyticsFeature2: 'Monitor performance and error rates',
       analyticsFeature3: 'Understand user journeys for better UX',
-      analyticsProvider: 'Powered by Firebase Analytics (Google)',
+      analyticsProvider: 'Powered by Vercel Analytics',
       preferencesDetails: 'Preference & Settings Cookies',
       preferencesFeature1: 'Remember your language choice',
       preferencesFeature2: 'Save currency and display preferences',

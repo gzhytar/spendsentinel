@@ -85,18 +85,20 @@ export async function setCookieConsentState(page: Page) {
 }
 
 /**
- * Mock Firebase Analytics to prevent network calls
+ * Mock Vercel Analytics to prevent network calls
  */
-export async function mockFirebaseAnalytics(page: Page) {
+export async function mockVercelAnalytics(page: Page) {
+  // Mock Vercel Analytics endpoints
+  await page.route('**/v1/events**', route => {
+    route.fulfill({ status: 200, body: '{}' });
+  });
+  
   await page.route('**/analytics/**', route => {
     route.fulfill({ status: 200, body: '{}' });
   });
   
-  await page.route('**/www.google-analytics.com/**', route => {
-    route.fulfill({ status: 200, body: '{}' });
-  });
-  
-  await page.route('**/firebase/**', route => {
+  // Mock any analytics-related requests
+  await page.route('**/vercel-insights/**', route => {
     route.fulfill({ status: 200, body: '{}' });
   });
 }
@@ -183,7 +185,7 @@ export async function setupTestMocks(page: Page, options?: {
   customAIResponses?: any;
 }) {
   if (!options?.skipAnalytics) {
-    await mockFirebaseAnalytics(page);
+    await mockVercelAnalytics(page);
   }
   
   if (!options?.skipAI) {

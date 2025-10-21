@@ -1,6 +1,6 @@
-# GA4 Analytics Configuration with Environment Detection
+# Vercel Analytics Configuration with Environment Detection
 
-This document explains how GA4 analytics is configured in this Next.js application with Firebase, including environment detection and custom parameters.
+This document explains how Vercel Analytics is configured in this Next.js application, including environment detection and custom parameters.
 
 ## 🎯 Features
 
@@ -23,19 +23,20 @@ The system automatically detects and categorizes environments:
 
 ## 📦 Configuration Files
 
-### 1. Firebase Configuration (`src/app/firebase.ts`)
+### 1. Analytics Hook (`src/hooks/use-analytics.ts`)
 - Environment detection logic
-- Conditional analytics initialization
-- Exports `environmentConfig` for use throughout the app
-
-### 2. Analytics Hook (`src/hooks/use-analytics.ts`)
-- Enhanced with environment-aware tracking
+- Vercel Analytics integration using `track()` function
 - Automatically includes default parameters with every event
 - Provides tracking functions: `trackEvent`, `trackUserInteraction`, `trackFeatureUsage`
 
-### 3. Analytics Context (`src/contexts/analytics-context.tsx`)
+### 2. Analytics Context (`src/contexts/analytics-context.tsx`)
 - React context for easy access to analytics functions
 - Includes environment information
+- Consent-aware analytics wrapper
+
+### 3. Root Layout (`src/app/layout.tsx`)
+- Vercel Analytics component integration
+- `<Analytics />` component for automatic page view tracking
 
 ## 🔧 Default Parameters
 
@@ -97,19 +98,18 @@ function MyComponent() {
 }
 ```
 
-## 📊 GA4 Setup
+## 📊 Vercel Analytics Setup
 
-### In your GA4 Property:
+### In your Vercel Dashboard:
 
-1. **Custom Dimensions**: Create custom dimensions for better reporting
-   - `traffic_type` → Custom Dimension
-   - `environment` → Custom Dimension
+1. **Analytics**: Enable Vercel Analytics in your project settings
+2. **Custom Events**: All custom events are automatically tracked via the `track()` function
+3. **Environment Detection**: Events include `traffic_type` and `environment` parameters for filtering
 
-2. **Filters**: In GA4, you can filter data by traffic_type:
-   - Go to Data Settings > Data Filters
-   - Create filters to include/exclude specific traffic types
-
-3. **Audiences**: Create audiences based on traffic_type for targeted analysis
+### Custom Dimensions
+Set up these custom dimensions in Vercel Analytics:
+- `traffic_type` → Custom Dimension
+- `environment` → Custom Dimension
 
 ## 🚀 Deployment Checklist
 
@@ -130,11 +130,11 @@ function MyComponent() {
 
 ## 🛠️ Troubleshooting
 
-### No Events in GA4
+### No Events in Vercel Analytics
 1. Check browser console for analytics logs
-2. Verify Firebase configuration environment variables
+2. Verify Vercel Analytics is enabled in project settings
 3. Test with the analytics test page (`/analytics-test`)
-4. Check GA4 real-time reports (data can take 24-48 hours to appear in standard reports)
+4. Check Vercel Analytics dashboard for incoming events
 
 ### Wrong Environment Detection
 1. Check `analyticsDebug.logEnvironmentInfo()` output
@@ -144,13 +144,13 @@ function MyComponent() {
 ### Events from Testing Environment
 1. Confirm localhost:9002 shows "Analytics tracking disabled"
 2. Check that `shouldTrack` is `false` for testing environment
-3. Verify no events are being sent to GA4 from localhost:9002
+3. Verify no events are being sent to Vercel Analytics from localhost:9002
 
 ## 🔒 Privacy Considerations
 
 - No personal data is included in default parameters
 - All tracking respects user consent (implement consent management as needed)
-- Testing environment data is never sent to GA4
+- Testing environment data is never sent to Vercel Analytics
 - Server-side events are not tracked to prevent bot traffic
 
 ## 📈 Custom Event Examples

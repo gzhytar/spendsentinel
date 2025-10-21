@@ -41,7 +41,7 @@ export const ru = {
       analyticsFeature1: 'Отслеживание использования функций для улучшения функциональности',
       analyticsFeature2: 'Мониторинг производительности и частоты ошибок',
       analyticsFeature3: 'Понимание пользовательских путей для лучшего UX',
-      analyticsProvider: 'Работает на Firebase Analytics (Google)',
+      analyticsProvider: 'Работает на Vercel Analytics',
       preferencesDetails: 'Файлы cookie предпочтений и настроек',
       preferencesFeature1: 'Запоминание выбора языка',
       preferencesFeature2: 'Сохранение валюты и предпочтений отображения',

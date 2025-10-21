@@ -6,6 +6,7 @@ import { PanicModeProvider } from '@/contexts/panic-mode-context';
 import { MetaViewport } from '@/components/seo/meta-viewport';
 import { StructuredData } from '@/components/seo/structured-data';
 import { generateMetadata as generateSEOMetadata } from '@/lib/seo/metadata';
+import { Analytics } from '@vercel/analytics/next';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -36,6 +37,7 @@ export default function RootLayout({
           {children}
           <Toaster />
         </PanicModeProvider>
+        <Analytics />
       </body>
     </html>
   );

@@ -1,81 +1,30 @@
 import type { Metadata } from 'next';
-import { generateSEOConfig, SITE_CONFIG } from './meta-config';
+import { generatePageMetadata } from './metadata-generator';
+import { SITE_CONFIG } from './meta-config';
 
 /**
- * Generate Next.js Metadata object from our SEO configuration
+ * Legacy function - use generatePageMetadata from metadata-generator.ts instead
+ * @deprecated Use generatePageMetadata from metadata-generator.ts
  */
 export function generateMetadata(
   pathname: string,
   locale: string = 'en',
   customData?: Record<string, unknown>
 ): Metadata {
-  const seoConfig = generateSEOConfig(pathname, locale, customData);
-
-  const metadata: Metadata = {
-    title: seoConfig.title,
-    description: seoConfig.description,
-    keywords: seoConfig.keywords,
-    robots: seoConfig.robots,
-    
-    // Canonical URL
-    alternates: {
-      canonical: seoConfig.alternates?.canonical,
-      languages: seoConfig.alternates?.languages,
-    },
-
-    // Open Graph
-    openGraph: {
-      title: seoConfig.openGraph?.title,
-      description: seoConfig.openGraph?.description,
-      images: seoConfig.openGraph?.image ? [seoConfig.openGraph.image] : undefined,
-      type: seoConfig.openGraph?.type || 'website',
-      siteName: seoConfig.openGraph?.siteName,
-      locale: locale,
-      alternateLocale: SITE_CONFIG.supportedLocales.filter(lang => lang !== locale),
-    },
-
-    // Twitter
-    twitter: {
-      card: seoConfig.twitter?.card || 'summary_large_image',
-      title: seoConfig.twitter?.title,
-      description: seoConfig.twitter?.description,
-      images: seoConfig.twitter?.image ? [seoConfig.twitter.image] : undefined,
-      site: seoConfig.twitter?.site,
-      creator: seoConfig.twitter?.creator,
-    },
-
-    // Additional meta tags for better SEO
-    other: {
-      'theme-color': '#1a1b23',
-      'color-scheme': 'light dark',
-      'format-detection': 'telephone=no',
-    },
-  };
-
-  return metadata;
+  return generatePageMetadata({
+    pathname,
+    locale,
+    customData: customData as Partial<import('./meta-config').PageSEOData>,
+  });
 }
 
-/**
- * Generate page-specific metadata for dynamic routes
- */
-export function generatePageMetadata(params: {
-  pathname: string;
-  locale?: string;
-  title?: string;
-  description?: string;
-  image?: string;
-  type?: 'website' | 'article';
-}): Metadata {
-  const { pathname, locale = 'en', ...customData } = params;
-  return generateMetadata(pathname, locale, customData);
-}
+// Re-export the new functions for backward compatibility
+export { generatePageMetadata as generatePageMetadataNew, generateBlogPostMetadata } from './metadata-generator';
 
 /**
- * Generate JSON-LD structured data
+ * Generate JSON-LD structured data with proper language support
  */
 export function generateStructuredData(pathname: string, locale: string = 'en') {
-  const seoConfig = generateSEOConfig(pathname, locale);
-  
   // Base organization schema
   const organizationSchema = {
     '@context': 'https://schema.org',
@@ -87,6 +36,7 @@ export function generateStructuredData(pathname: string, locale: string = 'en') 
     sameAs: [
       `https://twitter.com/${SITE_CONFIG.twitter.replace('@', '')}`,
     ],
+    inLanguage: locale,
   };
 
   // Website schema
@@ -96,6 +46,7 @@ export function generateStructuredData(pathname: string, locale: string = 'en') 
     name: SITE_CONFIG.name,
     description: SITE_CONFIG.tagline,
     url: SITE_CONFIG.domain,
+    inLanguage: locale,
     potentialAction: {
       '@type': 'SearchAction',
       target: `${SITE_CONFIG.domain}/search?q={search_term_string}`,
@@ -108,13 +59,14 @@ export function generateStructuredData(pathname: string, locale: string = 'en') 
     '/': {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
-      name: seoConfig.title,
-      description: seoConfig.description,
-      url: seoConfig.canonical || SITE_CONFIG.domain,
+      name: SITE_CONFIG.name,
+      description: SITE_CONFIG.tagline,
+      url: `${SITE_CONFIG.domain}/${locale}`,
+      inLanguage: locale,
       mainEntity: {
         '@type': 'WebApplication',
         name: SITE_CONFIG.name,
-        description: seoConfig.description,
+        description: SITE_CONFIG.tagline,
         applicationCategory: 'FinanceApplication',
         operatingSystem: 'Web',
         offers: {
@@ -127,13 +79,14 @@ export function generateStructuredData(pathname: string, locale: string = 'en') 
     '/self-assessment': {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
-      name: seoConfig.title,
-      description: seoConfig.description,
-      url: seoConfig.canonical || SITE_CONFIG.domain,
+      name: 'Financial Self-Assessment',
+      description: 'Take our evidence-based financial self-assessment to identify your internal money parts',
+      url: `${SITE_CONFIG.domain}/${locale}/self-assessment`,
+      inLanguage: locale,
       mainEntity: {
         '@type': 'Quiz',
         name: 'Financial Self-Assessment',
-        description: seoConfig.description,
+        description: 'Evidence-based financial self-assessment using IFS therapy principles',
         about: {
           '@type': 'Thing',
           name: 'Financial Psychology',
@@ -143,9 +96,10 @@ export function generateStructuredData(pathname: string, locale: string = 'en') 
     '/blog': {
       '@context': 'https://schema.org',
       '@type': 'Blog',
-      name: seoConfig.title,
-      description: seoConfig.description,
-      url: seoConfig.canonical || SITE_CONFIG.domain,
+      name: `${SITE_CONFIG.name} Blog`,
+      description: 'Financial wellness insights and tips',
+      url: `${SITE_CONFIG.domain}/${locale}/blog`,
+      inLanguage: locale,
       author: {
         '@type': 'Organization',
         name: SITE_CONFIG.name,
@@ -174,7 +128,7 @@ export function generateStructuredData(pathname: string, locale: string = 'en') 
 }
 
 /**
- * Generate Article structured data for blog posts
+ * Generate Article structured data for blog posts with proper language support
  */
 export function generateBlogPostStructuredData(params: {
   title: string;
@@ -283,90 +237,6 @@ export function generateBreadcrumbStructuredData(params: {
   return breadcrumbSchema;
 }
 
-/**
- * Generate metadata for blog posts
- */
-export function generateBlogPostMetadata(params: {
-  title: string;
-  description: string;
-  author?: string;
-  datePublished: string;
-  dateModified?: string;
-  slug: string;
-  locale: string;
-  image?: string;
-  tags?: string[];
-}): Metadata {
-  const {
-    title,
-    description,
-    author,
-    datePublished,
-    dateModified,
-    slug,
-    locale,
-    image,
-    tags = []
-  } = params;
-
-  const baseUrl = SITE_CONFIG.domain;
-  const blogUrl = `${baseUrl}/${locale}/blog/${slug}`;
-  const ogImage = image || `${baseUrl}/og-image.jpg`;
-
-  // Generate alternate language URLs
-  const alternateLanguages: Record<string, string> = {};
-  SITE_CONFIG.supportedLocales.forEach(lang => {
-    alternateLanguages[lang] = `${baseUrl}/${lang}/blog/${slug}`;
-  });
-
-  return {
-    title: `${title} | ${SITE_CONFIG.name}`,
-    description: description,
-    keywords: tags,
-    authors: author ? [{ name: author }] : undefined,
-    
-    alternates: {
-      canonical: blogUrl,
-      languages: alternateLanguages,
-    },
-
-    openGraph: {
-      title: title,
-      description: description,
-      type: 'article',
-      url: blogUrl,
-      siteName: SITE_CONFIG.name,
-      locale: locale,
-      alternateLocale: SITE_CONFIG.supportedLocales.filter(lang => lang !== locale),
-      images: [
-        {
-          url: ogImage,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
-      publishedTime: datePublished,
-      modifiedTime: dateModified || datePublished,
-      authors: author ? [author] : undefined,
-      tags: tags,
-    },
-
-    twitter: {
-      card: 'summary_large_image',
-      title: title,
-      description: description,
-      images: [ogImage],
-      site: SITE_CONFIG.twitter,
-      creator: SITE_CONFIG.twitter,
-    },
-
-    other: {
-      'article:published_time': datePublished,
-      'article:modified_time': dateModified || datePublished,
-      'article:author': author || SITE_CONFIG.name,
-      'article:section': 'Financial Wellness',
-      'article:tag': tags.join(','),
-    },
-  };
-} 
+// Legacy function - use generateBlogPostMetadata from metadata-generator.ts instead
+// This is kept for backward compatibility
+export { generateBlogPostMetadata as generateBlogPostMetadataLegacy } from './metadata-generator'; 

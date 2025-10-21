@@ -25,6 +25,13 @@ export interface SEOConfig {
   };
 }
 
+export interface LocaleInfo {
+  code: string;
+  region: string;
+  name: string;
+  flag: string;
+}
+
 export interface PageSEOData {
   title: string;
   description: string;
@@ -44,6 +51,34 @@ export const SITE_CONFIG = {
   defaultLocale: 'en',
   supportedLocales: ['en', 'cs', 'uk', 'ru'] as const,
 } as const;
+
+// Language configuration with region codes for proper locale handling
+export const LOCALE_CONFIG: Record<string, LocaleInfo> = {
+  en: {
+    code: 'en',
+    region: 'US',
+    name: 'English',
+    flag: '🇺🇸',
+  },
+  cs: {
+    code: 'cs',
+    region: 'CZ',
+    name: 'Čeština',
+    flag: '🇨🇿',
+  },
+  uk: {
+    code: 'uk',
+    region: 'UA',
+    name: 'Українська',
+    flag: '🇺🇦',
+  },
+  ru: {
+    code: 'ru',
+    region: 'RU',
+    name: 'Русский',
+    flag: '🇷🇺',
+  },
+};
 
 // Page-specific SEO configurations
 export const PAGE_SEO_CONFIG: Record<string, Record<string, PageSEOData>> = {

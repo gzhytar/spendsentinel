@@ -13,7 +13,7 @@ import { SocialShareButtons } from '@/components/common/social-share-buttons';
 import { NewsletterBox } from '@/components/common/newsletter-box';
 import { CTABox } from '@/components/common/cta-box';
 import { BlogPostStructuredData, BreadcrumbStructuredData } from '@/components/seo/structured-data';
-import { generateBlogPostMetadata } from '@/lib/seo/metadata';
+import { generateBlogPostMetadata } from '@/lib/seo/metadata-generator';
 import { SITE_CONFIG } from '@/lib/seo/meta-config';
 
 interface BlogPostPageProps {

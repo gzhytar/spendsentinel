@@ -1,9 +1,6 @@
 # SpendSentinel - Financial Wellness Platform
 User-agent: *
 
-# Allow all content by default - locale routing handled by middleware
-Allow: /
-
 # Block access to API routes and internal paths
 Disallow: /api/
 Disallow: /_next/
@@ -15,32 +12,5 @@ Disallow: /*?*filter=*
 Disallow: /*?*search=*
 Disallow: /*?*utm_*
 
-# Allow essential SEO and PWA files
-Allow: /favicon.ico
-Allow: /manifest.json
-Allow: /robots.txt
-Allow: /sitemap.xml
-
-# Allow all image files and static assets
-Allow: /*.jpg$
-Allow: /*.jpeg$
-Allow: /*.png$
-Allow: /*.svg$
-Allow: /*.webp$
-Allow: /*.gif$
-Allow: /images/
-
-# Allow all locale-specific content (handled by middleware)
-Allow: /en/
-Allow: /cs/
-Allow: /uk/
-Allow: /ru/
-
-# Allow blog content
-Allow: /*/blog/
-
 # Sitemap location
-Sitemap: https://spendsentinel.com/sitemap.xml
-
-# Crawl delay (be respectful) - Note: Google doesn't support this
-Crawl-delay: 1 
+Sitemap: https://spendsentinel.com/sitemap.xml 

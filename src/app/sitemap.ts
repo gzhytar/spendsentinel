@@ -1,7 +1,8 @@
 import { MetadataRoute } from 'next'
 import { SITE_CONFIG } from '@/lib/seo/meta-config'
+import { getBlogPosts } from '@/lib/blog'
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = SITE_CONFIG.domain
   const supportedLocales = SITE_CONFIG.supportedLocales
   const defaultLocale = 'en'
@@ -22,16 +23,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const sitemap: MetadataRoute.Sitemap = []
 
   // Generate entries for each page in each language
-  pages.forEach(page => {
-    supportedLocales.forEach(locale => {
+  for (const page of pages) {
+    for (const locale of supportedLocales) {
       const url = `${baseUrl}/${locale}${page}`
       
       // Generate alternate language URLs for this page
       const alternates: Record<string, string> = {}
-      supportedLocales.forEach(altLocale => {
+      for (const altLocale of supportedLocales) {
         const altUrl = `${baseUrl}/${altLocale}${page}`
         alternates[altLocale] = altUrl
-      })
+      }
       
       // Add x-default pointing to the default locale (English)
       alternates['x-default'] = `${baseUrl}/${defaultLocale}${page}`
@@ -45,8 +46,42 @@ export default function sitemap(): MetadataRoute.Sitemap {
           languages: alternates,
         },
       })
-    })
-  })
+    }
+  }
+
+  // Add blog posts dynamically (only for languages where they exist)
+  for (const locale of supportedLocales) {
+    try {
+      const posts = await getBlogPosts(locale as 'en' | 'cs' | 'uk' | 'ru')
+      
+      for (const post of posts) {
+        const url = `${baseUrl}/${locale}/blog/${post.slug}`
+        
+        // Generate alternate language URLs for blog post
+        const alternates: Record<string, string> = {}
+        for (const altLocale of supportedLocales) {
+          const altUrl = `${baseUrl}/${altLocale}/blog/${post.slug}`
+          alternates[altLocale] = altUrl
+        }
+        
+        // Add x-default pointing to English
+        alternates['x-default'] = `${baseUrl}/${defaultLocale}/blog/${post.slug}`
+
+        sitemap.push({
+          url,
+          lastModified: new Date(post.date),
+          changeFrequency: 'monthly',
+          priority: 0.7,
+          alternates: {
+            languages: alternates,
+          },
+        })
+      }
+    } catch (error) {
+      // If blog posts can't be loaded for a locale, skip them
+      console.warn(`Could not load blog posts for locale ${locale}:`, error)
+    }
+  }
 
   return sitemap
 }

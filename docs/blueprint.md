@@ -32,13 +32,15 @@ When implementing new features or modifying existing ones:
 1. **Always consult** [`docs/design-guidelines.md`](./design-guidelines.md) for visual and interaction patterns
 2. **Always consult** [`docs/trauma-informed-guidelines.md`](./trauma-informed-guidelines.md) for psychological safety and messaging guidelines
 3. **Always consult** [`docs/analytics-guidelines.md`](./analytics-guidelines.md) for privacy-conscious and trauma-informed data collection patterns
-4. **Prioritize consistency** with established component structures and color usage
-5. **Apply state-driven design** principles for dynamic user experiences
-6. **Follow trauma-informed principles** for language, colors, and interaction patterns that support emotional safety
-7. **Follow accessibility guidelines** as outlined in both design guides
-8. **Maintain responsive design** patterns for all screen sizes
-9. **Consider emotional impact** of every design decision, especially for financial stress and sensitive topics
-10. **Implement analytics thoughtfully** using established patterns that respect user privacy and emotional well-being
+4. **Always consult** [`docs/multilingual-seo-implementation.md`](./multilingual-seo-implementation.md) for SEO best practices and multilingual implementation patterns
+5. **Prioritize consistency** with established component structures and color usage
+6. **Apply state-driven design** principles for dynamic user experiences
+7. **Follow trauma-informed principles** for language, colors, and interaction patterns that support emotional safety
+8. **Follow accessibility guidelines** as outlined in both design guides
+9. **Maintain responsive design** patterns for all screen sizes
+10. **Consider emotional impact** of every design decision, especially for financial stress and sensitive topics
+11. **Implement analytics thoughtfully** using established patterns that respect user privacy and emotional well-being
+12. **Ensure SEO compliance** for all new pages and content using the established multilingual SEO system
 
 ## Tone guidelines:
 Use "invite" not "warn", "notice" not "fail", "parts" language sparingly outside psycho-education screens. Example: "A part noticed extra coffee runs ( +€24 this week ). Breathe, then decide."	

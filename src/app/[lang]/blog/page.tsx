@@ -5,11 +5,21 @@ import { Button } from '@/components/ui/button';
 import { Calendar, Clock, FileText, Tag } from 'lucide-react';
 import { getBlogPosts } from '@/lib/blog';
 import { translations } from '@/lib/i18n/translations';
+import { generatePageMetadata } from '@/lib/seo/metadata-generator';
+import type { Metadata } from 'next';
 
 interface BlogPageProps {
   params: Promise<{
     lang: string;
   }>;
+}
+
+export async function generateMetadata({ params }: BlogPageProps): Promise<Metadata> {
+  const { lang } = await params;
+  return generatePageMetadata({
+    pathname: '/blog',
+    locale: lang,
+  });
 }
 
 export default async function BlogPage({ params }: BlogPageProps) {

@@ -7,6 +7,7 @@ interface SEOHeadProps {
 
 /**
  * Additional SEO enhancements for specific pages
+ * Note: Most SEO is now handled by Next.js metadata API
  */
 export function SEOHead({ locale = 'en', additionalSchemas = [] }: SEOHeadProps) {
   return (
@@ -23,26 +24,13 @@ export function SEOHead({ locale = 'en', additionalSchemas = [] }: SEOHeadProps)
         />
       ))}
       
-      {/* Performance optimization hints */}
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      
-      {/* Additional SEO meta tags */}
+      {/* Additional SEO meta tags not handled by Next.js metadata */}
       <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
       <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
       
       {/* Language and regional targeting */}
       <meta name="language" content={locale} />
       <meta httpEquiv="content-language" content={locale} />
-      
-      {/* Mobile optimization */}
-      <meta name="HandheldFriendly" content="True" />
-      <meta name="MobileOptimized" content="320" />
-      
-      {/* Security headers */}
-      <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
-      <meta httpEquiv="X-Frame-Options" content="DENY" />
-      <meta httpEquiv="X-XSS-Protection" content="1; mode=block" />
     </>
   );
 } 

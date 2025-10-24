@@ -13,4 +13,4 @@ Disallow: /*?*search=*
 Disallow: /*?*utm_*
 
 # Sitemap location
-Sitemap: https://spendsentinel.com/sitemap.xml 
+Sitemap: https://www.spendsentinel.com/sitemap.xml 

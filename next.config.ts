@@ -34,6 +34,18 @@ const nextConfig: NextConfig = {
   // Redirect root path to ensure consistent URL structure
   async redirects() {
     return [
+       // Redirect www to non-www
+       {
+        source: '/:path*',
+        has: [
+          {
+            type: 'host',
+            value: 'spendsentinel.com',
+          },
+        ],
+        destination: 'https://www.spendsentinel.com/:path*',
+        permanent: true, // 301 redirect
+      },
       // Redirect root path specifically
       {
         source: '/',

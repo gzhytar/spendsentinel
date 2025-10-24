@@ -44,7 +44,7 @@ export interface PageSEOData {
 export const SITE_CONFIG = {
   name: 'SpendSentinel',
   tagline: 'Financial Wellness Through Self-Discovery',
-  domain: process.env.NEXT_PUBLIC_SITE_URL || 'https://spendsentinel.com',
+  domain: 'https://www.spendsentinel.com',
   twitter: '@spendsentinel',
   defaultImage: '/og-image.jpg', // 1200x630 Open Graph image
   logo: '/logo.svg', // SVG logo for structured data

@@ -22,6 +22,14 @@ function getLocale(request: NextRequest): string {
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname
+  const hostname = request.headers.get('host') || ''
+  
+  // First, handle non-www to www redirect (301 permanent)
+  if (hostname === 'spendsentinel.com') {
+    const newUrl = new URL(pathname, `https://www.spendsentinel.com`)
+    newUrl.search = request.nextUrl.search // Preserve query parameters
+    return NextResponse.redirect(newUrl, 301)
+  }
 
   // Check if there is any supported locale in the pathname
   const pathnameIsMissingLocale = locales.every(

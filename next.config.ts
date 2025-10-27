@@ -34,7 +34,7 @@ const nextConfig: NextConfig = {
   // Redirect root path to ensure consistent URL structure
   async redirects() {
     return [
-       // Redirect www to non-www
+       // Redirect non-www to www (MUST be first to catch all non-www URLs)
        {
         source: '/:path*',
         has: [
@@ -46,15 +46,27 @@ const nextConfig: NextConfig = {
         destination: 'https://www.spendsentinel.com/:path*',
         permanent: true, // 301 redirect
       },
-      // Redirect root path specifically
+      // Redirect root path on www to /en/
       {
         source: '/',
+        has: [
+          {
+            type: 'host',
+            value: 'www.spendsentinel.com',
+          },
+        ],
         destination: '/en/',
         permanent: true,
       },
       // Redirect other non-locale paths to English, excluding SEO-critical files and images
       {
         source: '/:path((?!en|cs|uk|ru|api|_next|favicon\\.ico|favicon\\.svg|manifest\\.json|robots\\.txt|sitemap\\.xml|apple-touch-icon\\.png|icon-192\\.png|icon-512\\.png|logo\\.svg|.*\\.jpg|images|blog).*)',
+        has: [
+          {
+            type: 'host',
+            value: 'www.spendsentinel.com',
+          },
+        ],
         destination: '/en/:path',
         permanent: true,
       },

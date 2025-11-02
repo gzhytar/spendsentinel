@@ -11,6 +11,35 @@ export interface MetadataOptions {
 }
 
 /**
+ * Format URL with correct trailing slash based on locale and pathname
+ * According to requirements:
+ * - English: /en/ (with trailing slash)
+ * - Ukrainian: /uk/ (with trailing slash)
+ * - Russian: /ru (without trailing slash)
+ * - Czech: /cs (without trailing slash)
+ */
+function formatCanonicalUrl(locale: string, pathname: string): string {
+  // Locales that should have trailing slash for homepage
+  const localesWithTrailingSlash = ['en', 'uk'];
+  
+  // Normalize pathname
+  const normalizedPath = pathname === '/' ? '' : pathname;
+  
+  // For homepage (pathname === '/'), add trailing slash for specific locales
+  if (pathname === '/' && localesWithTrailingSlash.includes(locale)) {
+    return `${SITE_CONFIG.domain}/${locale}/${normalizedPath}`;
+  }
+  
+  // For homepage, don't add trailing slash for ru and cs
+  if (pathname === '/') {
+    return `${SITE_CONFIG.domain}/${locale}${normalizedPath}`;
+  }
+  
+  // For non-homepage paths, preserve the original pathname format
+  return `${SITE_CONFIG.domain}/${locale}${normalizedPath}`;
+}
+
+/**
  * Generate comprehensive metadata for multilingual pages
  * Following Google's international SEO best practices
  */
@@ -23,8 +52,8 @@ export function generatePageMetadata(options: MetadataOptions): Metadata {
   // Merge with custom data
   const finalData = { ...pageData, ...customData };
   
-  // Generate canonical URL
-  const canonicalUrl = `${SITE_CONFIG.domain}/${locale}${pathname}`;
+  // Generate canonical URL with proper trailing slash handling
+  const canonicalUrl = formatCanonicalUrl(locale, pathname);
   
   // Generate hreflang links
   const hreflangLinks = isBlogPost && blogSlug

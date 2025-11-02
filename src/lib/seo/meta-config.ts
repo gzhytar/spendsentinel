@@ -335,7 +335,33 @@ export const PAGE_SEO_CONFIG: Record<string, Record<string, PageSEOData>> = {
   },
 };
 
+/**
+ * Format URL with correct trailing slash based on locale and pathname
+ * This matches the format used in metadata-generator.ts
+ */
+function formatCanonicalUrlForSEO(locale: string, pathname: string): string {
+  // Locales that should have trailing slash for homepage
+  const localesWithTrailingSlash = ['en', 'uk'];
+  
+  // Normalize pathname
+  const normalizedPath = pathname === '/' ? '' : pathname;
+  
+  // For homepage (pathname === '/'), add trailing slash for specific locales
+  if (pathname === '/' && localesWithTrailingSlash.includes(locale)) {
+    return `${SITE_CONFIG.domain}/${locale}/${normalizedPath}`;
+  }
+  
+  // For homepage, don't add trailing slash for ru and cs
+  if (pathname === '/') {
+    return `${SITE_CONFIG.domain}/${locale}${normalizedPath}`;
+  }
+  
+  // For non-homepage paths, preserve the original pathname format
+  return `${SITE_CONFIG.domain}/${locale}${normalizedPath}`;
+}
+
 // Utility function to generate SEO config for a page
+// Note: Use generatePageMetadata from metadata-generator.ts for new code
 export function generateSEOConfig(
   pathname: string,
   locale: string = 'en',
@@ -347,13 +373,13 @@ export function generateSEOConfig(
   // Merge with custom data
   const finalData = { ...pageData, ...customData };
   
-  // Generate canonical URL - support /en/ path if specifically requested
-  const canonicalUrl = `${SITE_CONFIG.domain}/${locale}${pathname}`;
+  // Generate canonical URL with proper trailing slash handling
+  const canonicalUrl = formatCanonicalUrlForSEO(locale, pathname);
   
-  // Generate alternate language URLs
+  // Generate alternate language URLs with proper formatting
   const alternateLanguages: Record<string, string> = {};
   SITE_CONFIG.supportedLocales.forEach(lang => {
-    alternateLanguages[lang] = `${SITE_CONFIG.domain}/${lang}${pathname}`;
+    alternateLanguages[lang] = formatCanonicalUrlForSEO(lang, pathname);
   });
   
   // Build Open Graph image URL

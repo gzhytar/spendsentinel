@@ -1,67 +1,29 @@
-"use client"
-
+import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { use } from 'react';
-import { SidebarProvider } from "@/components/ui/sidebar";
-import { AppLayoutClient } from '@/components/layout/app-layout-client';
-import { I18nProvider } from '@/contexts/i18n-context';
-import { PreferencesProvider } from '@/contexts/preferences-context';
-import { AnalyticsProvider } from '@/contexts/analytics-context';
-import { ConsentProvider } from '@/contexts/consent-context';
-import { LanguageSwitcher } from '@/components/ui/language-switcher';
-import { useStorageCleanup } from '@/hooks/use-storage-cleanup';
-import { CookieConsentBanner } from '@/components/ui/cookie-consent-banner';
-import { CookieConsentSettings } from '@/components/ui/cookie-consent-settings';
-import { StructuredData } from '@/components/seo/structured-data';
-
-// Update this version number when releasing new versions
-const CURRENT_VERSION = '0.12.0';
+import { generatePageMetadata } from '@/lib/seo/metadata-generator';
+import { LayoutClient } from './layout-client';
 
 interface MainAppLayoutProps {
   children: ReactNode;
   params: Promise<{ lang: string }>;
 }
 
-export default function MainAppLayout({ 
+// Generate metadata for all pages under [lang] route
+// This will be used for the homepage and can be overridden by child layouts
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
+  // Generate metadata for homepage by default
+  return generatePageMetadata({
+    pathname: '/',
+    locale: lang,
+  });
+}
+
+export default async function MainAppLayout({ 
   children,
   params,
 }: MainAppLayoutProps) {
-  const resolvedParams = use(params);
-  const { lang } = resolvedParams;
-
-  // Initialize version-based cleanup
-  useStorageCleanup({
-    strategy: 'version',
-    currentVersion: CURRENT_VERSION,
-    autoRepair: true,
-    onCleanup: (info) => {
-      console.log(`✨ Storage cleanup completed: ${info.clearedItems} items removed using ${info.strategy} strategy`);
-    }
-  });
-
-  return (
-    <I18nProvider>
-      <PreferencesProvider>
-        <AnalyticsProvider>
-          <ConsentProvider>
-            {/* SEO Structured Data for the current language */}
-            <StructuredData pathname="/" locale={lang} />
-            
-            <div className="fixed top-4 right-4 z-50">
-              <LanguageSwitcher />
-            </div>
-            <SidebarProvider defaultOpen={false}>
-              <AppLayoutClient>
-                {children}
-              </AppLayoutClient>
-            </SidebarProvider>
-            
-            {/* Cookie Consent Components */}
-            <CookieConsentBanner />
-            <CookieConsentSettings />
-          </ConsentProvider>
-        </AnalyticsProvider>
-      </PreferencesProvider>
-    </I18nProvider>
-  );
+  const { lang } = await params;
+  
+  return <LayoutClient lang={lang}>{children}</LayoutClient>;
 }

@@ -16,6 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 // Basic metadata for root layout - language-specific metadata handled in [lang]/layout.tsx
+// Note: We do NOT set canonical URLs here - they are set in [lang]/layout.tsx to ensure
+// proper locale-specific canonical URLs (e.g., /en/, /uk/, /ru, /cs)
 export const metadata: Metadata = {
   title: {
     default: 'SpendSentinel',
@@ -23,6 +25,7 @@ export const metadata: Metadata = {
   },
   description: 'Financial Wellness Through Self-Discovery',
   robots: 'index, follow',
+  // Note: Canonical URLs are set in [lang]/layout.tsx for proper locale handling
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon.ico',

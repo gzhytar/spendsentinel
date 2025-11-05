@@ -108,13 +108,13 @@ export const cs = {
   },
   landing: {
     hero: {
-      title: 'Osvoboďte se od emočních vzorů utrácení pomocí vědecky podložené sebelásky',
-      subtitle: 'Přestaňte bojovat se svými finančními návyky. Naše AI platforma využívá ověřenou terapii Internal Family Systems k pochopení a léčení emočních kořenů finančního stresu.',
-      description: 'Připojte se k tisícům lidí, kteří transformovali svůj vztah k penězům tím, že se naučili pracovat se svými finančními vzorci místo boje proti nim. Začněte svou cestu k finančnímu zdraví ještě dnes.',
+      title: 'Transformujte svůj vztah k penězům',
+      subtitle: 'Osvoboďte se od emočních vzorů utrácení. Naše AI platforma využívá ověřený přístup založený na Internal Family Systems, který vám pomůže pochopit a léčit emoční kořeny finančního stresu.',
+      description: 'Naučte se pracovat se svými finančními vzorci místo boje proti nim. Začněte svou cestu k finančnímu zdraví ještě dnes.',
       features: {
         evidenceBased: 'Vědecky podložená IFS terapie',
-        traumaInformed: 'Traumy-informovaný přístup',
-        selfCompassion: 'AI-powered objevování',
+        traumaInformed: 'Naprosto soukromé',
+        selfCompassion: 'Bez nutnosti účtu',
       },
       cta: {
         primary: 'Objevte své finanční části',

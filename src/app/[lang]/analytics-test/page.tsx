@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { AnalyticsTest } from '@/components/common/analytics-test';
 
 export default function AnalyticsTestPage() {
@@ -11,7 +12,9 @@ export default function AnalyticsTestPage() {
           </p>
         </div>
         
-        <AnalyticsTest />
+        <Suspense fallback={<div className="text-center py-8">Loading analytics test...</div>}>
+          <AnalyticsTest />
+        </Suspense>
         
         <div className="max-w-2xl text-sm text-muted-foreground">
           <h2 className="font-semibold mb-2">How to test:</h2>

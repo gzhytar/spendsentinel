@@ -2,11 +2,9 @@ import type {NextConfig} from 'next';
 
 const nextConfig: NextConfig = {
   /* config options here */
+  cacheComponents: true,
   typescript: {
     ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
   },
   images: {
     remotePatterns: [
@@ -24,9 +22,9 @@ const nextConfig: NextConfig = {
     // Forward browser logs to the terminal for easier debugging
     browserDebugInfoInTerminal: true
   },
-  // Optimize middleware handling for our locale-based routing
+  // Optimize proxy handling for our locale-based routing
   skipTrailingSlashRedirect: true,
-  skipMiddlewareUrlNormalize: true,
+  skipProxyUrlNormalize: true,
   devIndicators: false,
 
   

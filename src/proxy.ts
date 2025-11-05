@@ -20,7 +20,7 @@ function getLocale(request: NextRequest): string {
   }
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname
   const hostname = request.headers.get('host') || ''
   
@@ -55,4 +55,5 @@ export function middleware(request: NextRequest) {
 export const config = {
   // Matcher ignoring `/_next/`, `/api/`, static assets, and image files
   matcher: ['/((?!api|_next/static|_next/image|favicon.*|manifest.json|sitemap.xml|robots.txt|images|.*\\.(?:jpg|jpeg|png|html)$).*)'],
-} 
+}
+

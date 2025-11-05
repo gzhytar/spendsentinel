@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+import { Suspense } from 'react';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { PanicModeProvider } from '@/contexts/panic-mode-context';
@@ -58,10 +59,12 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}>
-        <PanicModeProvider>
-          {children}
-          <Toaster />
-        </PanicModeProvider>
+        <Suspense fallback={null}>
+          <PanicModeProvider>
+            {children}
+            <Toaster />
+          </PanicModeProvider>
+        </Suspense>
         <Analytics />
       </body>
     </html>

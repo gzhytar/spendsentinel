@@ -130,7 +130,7 @@ export const cs = {
       },
     },
     theory: {
-      title: 'Transformujte svůj peněžní způsob myšlení pomocí vědecky podložené sebelásky',
+      title: 'Dosáhněte emoční pohody a finančního zdraví pomocí naší finanční terapie a koučinku.',
       subtitle: 'Vědecky podložená finanční terapie využívající psychologii Vnitřních Rodinných Systémů',
       description: 'Tradiční rozpočtování a finanční plánování často selhává, protože ignoruje emocionální příčiny vzorců utrácení. Výzkumy ukazují, že 90% finančních rozhodnutí je řízeno emocemi, ne logikou. Náš přístup se zabývá psychologickými částmi vás, které ovlivňují peněžní volby.',
       benefitsDescription: 'Když porozumíte svým finančním vzorcům a pracujete s nimi místo boje proti nim, vytvoříte trvalou změnu, která přesahuje dočasnou vůli. To vede ke snížení finančního stresu, lepším rozhodnutím o utrácení a zdravějšímu vztahu k penězům.',

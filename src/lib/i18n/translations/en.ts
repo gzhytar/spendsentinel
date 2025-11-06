@@ -130,7 +130,7 @@ export const en = {
       },
     },
     theory: {
-      title: 'Transform Your Money Mindset with Science-Based Self-Compassion',
+      title: 'Achieve emotional well-being and financial health using our financial therapy and coaching.',
       subtitle: 'Evidence-based financial therapy using Internal Family Systems psychology',
       description: 'Traditional budgeting and financial planning often fail because they ignore the emotional root causes of spending patterns. Research shows that 90% of financial decisions are driven by emotions, not logic. Our approach addresses the psychological parts of yourself that influence money choices.',
       benefitsDescription: 'When you understand and work with your financial patterns instead of fighting them, you create lasting change that goes beyond temporary willpower. This leads to reduced financial stress, better spending decisions, and a healthier relationship with money.',

@@ -6,6 +6,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = SITE_CONFIG.domain
   const supportedLocales = SITE_CONFIG.supportedLocales
   const defaultLocale = 'en'
+
+  // Ensure sitemap URLs exactly match our canonical URL format
+  // - English and Ukrainian homepages use trailing slash (/en/, /uk/)
+  // - Russian and Czech homepages do NOT use trailing slash (/ru, /cs)
+  // - Non-homepage paths preserve their original format
+  const localesWithTrailingSlashOnHome = ['en', 'uk'] as const
+  function formatLocalizedUrl(locale: string, page: string): string {
+    const isHome = page === '/'
+    if (isHome) {
+      return localesWithTrailingSlashOnHome.includes(locale as (typeof localesWithTrailingSlashOnHome)[number])
+        ? `${baseUrl}/${locale}/`
+        : `${baseUrl}/${locale}`
+    }
+    return `${baseUrl}/${locale}${page}`
+  }
   
   // Define all pages that should be included in sitemap
   const pages = [
@@ -25,17 +40,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Generate entries for each page in each language
   for (const page of pages) {
     for (const locale of supportedLocales) {
-      const url = `${baseUrl}/${locale}${page}`
+      const url = formatLocalizedUrl(locale, page)
       
       // Generate alternate language URLs for this page
       const alternates: Record<string, string> = {}
       for (const altLocale of supportedLocales) {
-        const altUrl = `${baseUrl}/${altLocale}${page}`
+        const altUrl = formatLocalizedUrl(altLocale, page)
         alternates[altLocale] = altUrl
       }
       
       // Add x-default pointing to the default locale (English)
-      alternates['x-default'] = `${baseUrl}/${defaultLocale}${page}`
+      alternates['x-default'] = formatLocalizedUrl(defaultLocale, page)
 
       sitemap.push({
         url,
